@@ -9,15 +9,15 @@ This repository is the public reproducibility package for the manuscript
 
 It contains:
 
-- The diagex Python package (`code/diagex/`) that performs the extraction.
-- The evaluation harness (`code/eval/`) used to produce every number in the
+- The diagex Python package (`src/diagex/`) that performs the extraction.
+- The evaluation harness (`eval/`) used to produce every number in the
   paper.
-- Ground-truth corpora (`data/ground_truth/`) for the 10 public P&IDs the paper
+- Ground-truth corpora (`eval/datasets/`) for the 10 public P&IDs the paper
   evaluates against.
-- The 10 source PDFs (`data/pdfs/`).
+- The 10 source PDFs (`tests/p-ids-public/`).
 - Final results CSVs, tables, and figures (`results/`) for Phase 1, Phase 2,
   the no-tile ablation, and the GPT-4.1 baseline.
-- Replay cassettes (`cassettes/`) so reviewers can re-derive results without
+- Replay cassettes (`eval/cassettes/`) so reviewers can re-derive results without
   an Anthropic API key.
 - The unreviewed manuscript PDF (`paper/manuscript.pdf`) and the design-time
   evaluation plan (`paper/evaluation-plan.md`).
@@ -30,7 +30,7 @@ they are large (~150–250 MB) and not needed to verify any number.
 ## Quick start (no API key required)
 
 ```bash
-git clone https://github.com/hkoziolek/DiagEx-Repro diagex-repro && cd diagex-repro
+git clone <REPLACE_WITH_REPO_URL> diagex-repro && cd diagex-repro
 python3.11 -m venv .venv && source .venv/bin/activate
 pip install -e .
 
@@ -38,8 +38,8 @@ pip install -e .
 pytest tests/unit/
 
 # Re-derive Phase 1 results from cassettes.
-python code/eval/run_paper_eval.py \
-    --fixtures data/ground_truth/manifest.yaml \
+python eval/run_paper_eval.py \
+    --fixtures eval/datasets/manifest.yaml \
     --phase 1 --conditions baseline --use-cassettes \
     --out /tmp/repro
 diff /tmp/repro/results.csv results/phase1/results.csv
@@ -55,7 +55,7 @@ To re-run the agent against the real PDFs (Anthropic API key required):
 
 ```bash
 export ANTHROPIC_API_KEY=...
-python code/eval/run_paper_eval.py --conditions baseline --phase 1 --out /tmp/live
+python eval/run_paper_eval.py --conditions baseline --phase 1 --out /tmp/live
 ```
 
 Live results are non-deterministic; expect ±0.02 macro-F1 around the
@@ -64,13 +64,20 @@ published numbers per the evaluation plan §8.1.
 ## Layout
 
 ```
-code/        diagex source, eval harness, scripts
-data/        PDFs + ground-truth corpora
-results/     Final CSVs, tables, figures, reports
-cassettes/   Replay artefacts for offline re-derivation
-tests/unit/  Unit tests (eval harness + DEXPI 2.0 layer)
-docs/        Reproduction runbook, data card, architecture sketch
-paper/       The manuscript PDF
+src/diagex/         diagex Python package (the extractor)
+eval/               evaluation harness, ground-truth corpora, replay cassettes
+  ├─ *.py           harness modules
+  ├─ datasets/      ground-truth corpora (manifest + per-fixture truth)
+  └─ cassettes/     offline replay artefacts (no API key needed)
+scripts/            operational scripts (rendering, rescoring, build)
+tests/
+  ├─ unit/          eval-harness + DEXPI 2.0 layer unit tests
+  ├─ fixtures/      shared test fixtures (DEXPI 2.0 reference XML)
+  └─ p-ids-public/  the 10 public source PDFs
+results/            final CSVs, tables, figures, reports
+docs/               reproduction runbook, data card, architecture sketch
+paper/              the manuscript PDF + evaluation plan
+data/               supporting illustration assets (e.g. two_tanks_hires.png)
 ```
 
 A full file-by-file map lives in `docs/REPRODUCE.md` (which paper number
@@ -80,8 +87,8 @@ maps to which CSV row to which command).
 
 - diagex source: Apache-2.0 (see `LICENSE`).
 - DEXPI 2.0 specification sources, vendored under
-  `code/diagex/dexpi/codegen/vendored/`: CC-BY 4.0 (DEXPI Initiative; see
-  `NOTICE` and `code/diagex/dexpi/codegen/vendored/PROVENANCE.md`).
+  `src/diagex/dexpi/codegen/vendored/`: CC-BY 4.0 (DEXPI Initiative; see
+  `NOTICE` and `src/diagex/dexpi/codegen/vendored/PROVENANCE.md`).
 - All other third-party code: their original licenses, listed in `NOTICE`.
 
 ## Citing
@@ -93,7 +100,7 @@ See `CITATION.cff` (GitHub renders it as a "Cite this repository" widget).
 - Reproduction needs Python 3.11+ on Linux/macOS. The `[codegen]` extra
   (which requires Python 3.12+ and `dexpi.specificator==1.0.0`) is **not**
   required to reproduce results — the DEXPI 2.0 model is checked in under
-  `code/diagex/dexpi/_generated/`.
+  `src/diagex/dexpi/_generated/`.
 - The 10-fixture corpus is the public subset; private customer P&IDs that
   appear in some paper figures are not redistributable and are not in this
   archive.

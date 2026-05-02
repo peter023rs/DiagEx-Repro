@@ -737,7 +737,7 @@ def test_extract_pid_writes_pid_drawio_alongside_pid_svg(tmp_path: Path):
     ET.fromstring(text)
 
 
-_FIXTURE = Path(__file__).resolve().parents[2] / "data/ground_truth/dexpi-reference/graph.truth.json"
+_FIXTURE = Path(__file__).resolve().parents[2] / "eval/datasets/dexpi-reference/graph.truth.json"
 
 
 @pytest.mark.skipif(not _FIXTURE.exists(), reason="dexpi-reference truth graph not present")

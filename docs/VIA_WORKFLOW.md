@@ -1,11 +1,11 @@
 # VIA — ground-truth authoring workflow (informational)
 
 This document is **informational only**. The annotations shipped under
-`data/ground_truth/` are post-correction final truth — reviewers do not need
+`eval/datasets/` are post-correction final truth — reviewers do not need
 to run VIA, render bootstraps, or re-author anything to reproduce results.
 
 It exists to document how the partial-truth `annotations.truth.jsonl` files
-in `data/ground_truth/<stem>/` were produced, in case a re-grader wants to
+in `eval/datasets/<stem>/` were produced, in case a re-grader wants to
 audit the rater↔model agreement evidence (`graph.truth.history.json`) or
 extend the corpus with a new fixture.
 
@@ -29,8 +29,8 @@ not part of the reproducibility surface for the paper.
 4. **Round-trip** the corrected VIA project back to JSONL. This emits both
    `annotations.truth.jsonl` (authoritative) and a regenerated
    `graph.truth.json` for fixtures with full-graph annotation level.
-5. **Measure retention** with `code/scripts/measure_retention.py`, which
-   produces `data/ground_truth/_retention.v0.2.json`. The paper's
+5. **Measure retention** with `scripts/measure_retention.py`, which
+   produces `eval/datasets/_retention.v0.2.json`. The paper's
    retention numbers come from this file.
 
 ## Two DPIs
@@ -45,7 +45,7 @@ between the agent's frame and the rater's frame.
 - `data/two_tanks_hires.png` — the only authoring-DPI PNG kept here, used in
   the manuscript (§10 step 12 of `paper/evaluation-plan.md` describes the
   authoring-DPI illustration in detail).
-- `data/ground_truth/<stem>/graph.truth.history.json` — append-only audit
+- `eval/datasets/<stem>/graph.truth.history.json` — append-only audit
   log per fixture.
 
 If you need any other VIA artefact, it is in the source repository.

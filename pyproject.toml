@@ -21,6 +21,12 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "pyyaml>=6.0",
     "openai>=1.40.0",
+    # Eval-harness runtime deps (eval/aggregate, eval/qa_analysis,
+    # eval/figures/*, scripts/rerender_eval_artifacts.py). Needed to
+    # re-derive paper tables/figures and to run the unit suite.
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+    "openpyxl>=3.1",
 ]
 
 [project.optional-dependencies]

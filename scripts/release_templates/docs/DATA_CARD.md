@@ -1,7 +1,7 @@
 # Data card — diagex evaluation corpus
 
 This card documents the 10 public P&IDs the manuscript evaluates against.
-The authoritative manifest lives at `data/ground_truth/manifest.yaml`
+The authoritative manifest lives at `eval/datasets/manifest.yaml`
 (filename retained from the source repo for compatibility with code that
 reads it; the corpus is not venue-specific)
 and pins per-fixture metadata (page size, source pipeline, annotation level,
@@ -11,13 +11,13 @@ domain tag, notable flags). This document is the human-readable companion.
 
 `dataset_version: diagex.v0.2` — same string emitted in every results CSV
 row in `results/phase{1,2}/results.csv`. If you regenerate the corpus from
-`code/scripts/measure_retention.py` you should see retention numbers
-matching `data/ground_truth/_retention.v0.2.json`.
+`scripts/measure_retention.py` you should see retention numbers
+matching `eval/datasets/_retention.v0.2.json`.
 
 ## Provenance
 
 All 10 PDFs are sourced from publicly redistributable material. Per-PDF
-provenance lives next to each fixture in `data/ground_truth/<stem>/meta.yaml`
+provenance lives next to each fixture in `eval/datasets/<stem>/meta.yaml`
 under the `provenance` key (URL, license, author, year). The manifest's
 `source_type` field distinguishes vector PDFs (clean text) from raster PDFs
 (scanned or rasterised exports).
@@ -34,7 +34,7 @@ under the `provenance` key (URL, license, author, year). The manifest's
 
 ## Ground-truth artefacts (per fixture)
 
-Every fixture under `data/ground_truth/<stem>/` ships:
+Every fixture under `eval/datasets/<stem>/` ships:
 
 - `graph.truth.json` — DEXPI-2.0-aligned ground graph (equipment, valves,
   instruments, segments, OPCs, piping network systems). Authoritative for

@@ -43,7 +43,7 @@ Two design rules are load-bearing:
 
 ## Where the DEXPI 2.0 layer lives
 
-`code/diagex/dexpi/` is the diagex-native DEXPI 2.0 model. It replaces the
+`src/diagex/dexpi/` is the diagex-native DEXPI 2.0 model. It replaces the
 formerly-used pyDEXPI package (AGPL-3.0) and is responsible for the project
 shipping under Apache-2.0. Subpackages:
 
@@ -61,7 +61,7 @@ shipping under Apache-2.0. Subpackages:
 
 ## Where the eval harness lives
 
-`code/eval/` orchestrates the paper:
+`eval/` orchestrates the paper:
 
 - `run_paper_eval.py` — driver. Reads the manifest, dispatches per-fixture
   jobs to the extractor, scores them, and writes `results.csv`.

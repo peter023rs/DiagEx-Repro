@@ -13,7 +13,7 @@ discussed in §8.1 of `paper/evaluation-plan.md`).
 ## 0. Prerequisites
 
 - Python 3.11+ (the runtime). The optional `[codegen]` extra (used only to
-  regenerate `code/diagex/dexpi/_generated/`) requires Python 3.12+ and is
+  regenerate `src/diagex/dexpi/_generated/`) requires Python 3.12+ and is
   **not** needed for reproduction — the generated DEXPI 2.0 model ships
   checked in.
 - ~1 GB free disk for cassette-mode reproduction. Live mode requires
@@ -32,8 +32,8 @@ pytest tests/unit/        # validates eval harness + DEXPI 2.0 layer
 Cassette mode (no API key):
 
 ```bash
-python code/eval/run_paper_eval.py \
-    --fixtures data/ground_truth/manifest.yaml \
+python eval/run_paper_eval.py \
+    --fixtures eval/datasets/manifest.yaml \
     --phase 1 --conditions baseline \
     --use-cassettes \
     --out /tmp/repro/phase1
@@ -45,8 +45,8 @@ Live mode:
 
 ```bash
 export ANTHROPIC_API_KEY=...
-python code/eval/run_paper_eval.py \
-    --fixtures data/ground_truth/manifest.yaml \
+python eval/run_paper_eval.py \
+    --fixtures eval/datasets/manifest.yaml \
     --phase 1 --conditions baseline --out /tmp/live/phase1
 ```
 
@@ -55,8 +55,8 @@ python code/eval/run_paper_eval.py \
 Cassette mode:
 
 ```bash
-python code/eval/run_paper_eval.py \
-    --fixtures data/ground_truth/manifest.yaml \
+python eval/run_paper_eval.py \
+    --fixtures eval/datasets/manifest.yaml \
     --phase 2 --conditions baseline \
     --use-cassettes \
     --out /tmp/repro/phase2
@@ -67,15 +67,15 @@ Live mode is significantly more expensive (~$5–7 per fixture); we recommend
 running it only on a subset first:
 
 ```bash
-python code/eval/run_paper_eval.py --phase 2 --conditions baseline \
+python eval/run_paper_eval.py --phase 2 --conditions baseline \
     --only two-tanks,dexpi-reference --out /tmp/live/phase2-smoke
 ```
 
 ## 3. Ablation — `--no-tile` (Table 4, §VI.B of the paper)
 
 ```bash
-python code/eval/run_paper_eval.py \
-    --fixtures data/ground_truth/manifest.yaml \
+python eval/run_paper_eval.py \
+    --fixtures eval/datasets/manifest.yaml \
     --phase 2 --conditions ablation-no-tile \
     --use-cassettes \
     --out /tmp/repro/ablation
@@ -86,8 +86,8 @@ diff /tmp/repro/ablation/results.csv results/ablation/results.csv
 
 ```bash
 export OPENAI_API_KEY=...
-python code/eval/run_paper_eval.py \
-    --fixtures data/ground_truth/manifest.yaml \
+python eval/run_paper_eval.py \
+    --fixtures eval/datasets/manifest.yaml \
     --phase 1 --conditions gpt41-singleshot \
     --out /tmp/live/gpt41
 ```
@@ -101,9 +101,9 @@ If you only want to regenerate the LaTeX tables and matplotlib figures from
 an existing `results.csv`:
 
 ```bash
-python code/scripts/rerender_eval_artifacts.py \
+python scripts/rerender_eval_artifacts.py \
     --out results/phase1
-python code/scripts/rerender_eval_artifacts.py \
+python scripts/rerender_eval_artifacts.py \
     --out results/phase2
 ```
 
@@ -118,7 +118,7 @@ The first command exercises the JSON IO, XML IO, builder fallbacks, refs,
 extensions, namespace shims, validation, and the SVG / drawio renderers.
 The second confirms no AGPL-licensed packages reached your environment —
 diagex shipped under Apache-2.0 once `pydexpi` was replaced by the native
-DEXPI 2.0 model under `code/diagex/dexpi/`.
+DEXPI 2.0 model under `src/diagex/dexpi/`.
 
 ## 7. Optional: regenerating `_generated/` (Python 3.12+)
 
@@ -129,7 +129,7 @@ to verify the derivation chain end-to-end:
 python3.12 -m venv .venv-codegen && source .venv-codegen/bin/activate
 pip install -e '.[codegen]'
 python -m diagex.dexpi.codegen.regenerate
-git diff --stat code/diagex/dexpi/_generated/      # expect zero diff
+git diff --stat src/diagex/dexpi/_generated/      # expect zero diff
 ```
 
 ## Mapping numbers to commands

@@ -359,18 +359,20 @@ def build_tier_a(release_root: Path) -> Path:
     if eval_plan.exists():
         copy_file(eval_plan, paper_dir / "evaluation-plan.md")
 
-    # 5. code/diagex — entire src/diagex tree, including dexpi/_generated and
-    #    dexpi/codegen/vendored (CC-BY 4.0). Strip src/diagex/ui (out of paper
-    #    scope per plan).
+    # 5. src/diagex/ — entire tree (mirrors source repo layout so
+    #    ``pip install -e .`` and ``pyproject.toml`` work as-is).
+    #    Includes diagex/dexpi/_generated and diagex/dexpi/codegen/vendored
+    #    (CC-BY 4.0). Strip src/diagex/ui (out of paper scope per plan).
     copy_tree(
         REPO_ROOT / "src" / "diagex",
-        tier_a / "code" / "diagex",
+        tier_a / "src" / "diagex",
         ignore={"ui"},
     )
 
-    # 6. code/eval — only the modules listed; figures dir as-is.
+    # 6. eval/ — only the modules listed; figures + cassettes dirs as-is;
+    #    datasets handled in step 8 below.
     eval_src = REPO_ROOT / "eval"
-    eval_dst = tier_a / "code" / "eval"
+    eval_dst = tier_a / "eval"
     eval_dst.mkdir(parents=True, exist_ok=True)
     for mod in TIER_A_EVAL_MODULES:
         src = eval_src / mod
@@ -382,8 +384,8 @@ def build_tier_a(release_root: Path) -> Path:
     if figures_src.exists():
         copy_tree(figures_src, eval_dst / "figures")
 
-    # 7. code/scripts — keep-list only.
-    scripts_dst = tier_a / "code" / "scripts"
+    # 7. scripts/ — keep-list only.
+    scripts_dst = tier_a / "scripts"
     scripts_dst.mkdir(parents=True, exist_ok=True)
     for s in TIER_A_SCRIPTS:
         src = REPO_ROOT / "scripts" / s
@@ -394,10 +396,11 @@ def build_tier_a(release_root: Path) -> Path:
     # Also ship the release_templates so the build is auditable end-to-end.
     copy_tree(TEMPLATES_DIR, scripts_dst / "release_templates")
 
-    # 8. data/ground_truth — manifest + per-fixture truth files (strip
-    #    bootstrap intermediates).
+    # 8. eval/datasets/ — manifest + per-fixture truth files (strip
+    #    bootstrap intermediates). Same path as the source repo so the
+    #    eval harness's default --fixtures resolution works without a flag.
     gt_src_root = REPO_ROOT / "eval" / "datasets"
-    gt_dst_root = tier_a / "data" / "ground_truth"
+    gt_dst_root = tier_a / "eval" / "datasets"
     gt_dst_root.mkdir(parents=True, exist_ok=True)
     for top in ("manifest.yaml", "_retention.v0.2.json"):
         s = gt_src_root / top
@@ -412,10 +415,10 @@ def build_tier_a(release_root: Path) -> Path:
             if f.is_file() and f.name in GROUND_TRUTH_KEEP:
                 copy_file(f, gt_dst_root / fixture_dir.name / f.name)
 
-    # 9. data/pdfs — public PDFs from tests/p-ids-public, plus the
-    #    SOURCES.md attribution card next to them.
+    # 9. tests/p-ids-public/ — the 10 public PDFs plus SOURCES.md (same
+    #    path as in the source repo so cassette/eval defaults resolve).
     pdf_src_root = REPO_ROOT / "tests" / "p-ids-public"
-    pdf_dst_root = tier_a / "data" / "pdfs"
+    pdf_dst_root = tier_a / "tests" / "p-ids-public"
     if pdf_src_root.exists():
         for pdf in sorted(pdf_src_root.glob("*.pdf")):
             copy_file(pdf, pdf_dst_root / pdf.name)
@@ -423,15 +426,17 @@ def build_tier_a(release_root: Path) -> Path:
         if sources_md.exists():
             copy_file(sources_md, pdf_dst_root / "SOURCES.md")
 
-    # 10. data/two_tanks_hires.png — load-bearing for plan §10 step 12.
+    # 10. data/two_tanks_hires.png — illustration asset referenced by
+    #     paper/evaluation-plan.md §10 step 12 (kept under data/ rather
+    #     than tools/via/images/ to avoid pulling the whole VIA toolchain).
     src_png = REPO_ROOT / "tools" / "via" / "images" / "two-tanks.png"
     if src_png.exists():
         copy_file(src_png, tier_a / "data" / "two_tanks_hires.png")
 
-    # 11. cassettes/ — verbatim.
+    # 11. eval/cassettes/ — verbatim, same path as source repo.
     cassette_src = REPO_ROOT / "eval" / "cassettes"
     if cassette_src.exists():
-        copy_tree(cassette_src, tier_a / "cassettes")
+        copy_tree(cassette_src, tier_a / "eval" / "cassettes")
 
     # 12. results/<bucket>/ — selectively from out/diagex-*.
     bucket_map = {
@@ -452,10 +457,9 @@ def build_tier_a(release_root: Path) -> Path:
             elif entry.is_dir() and entry.name in TIER_A_RESULTS_KEEP_DIRS:
                 copy_tree(entry, dst_dir / entry.name)
 
-    # 13. tests/unit — keep-list only. A handful of tests reference
-    #     source-repo paths (eval/datasets/, src/diagex/_generated/) that
-    #     move in the Tier A layout; we either patch those paths or drop the
-    #     test if patching is not worthwhile.
+    # 13. tests/unit — keep-list only. The Tier A tree mirrors the source
+    #     repo layout (src/diagex/, eval/datasets/, etc.) so tests need no
+    #     path patching.
     test_src_root = REPO_ROOT / "tests" / "unit"
     test_dst_root = tier_a / "tests" / "unit"
     test_dst_root.mkdir(parents=True, exist_ok=True)
@@ -475,19 +479,7 @@ def build_tier_a(release_root: Path) -> Path:
         if not s.exists():
             log(f"WARNING: test missing: {tname}")
             continue
-        # test_dexpi_codegen verifies the source repo's _generated/ tree
-        # exists at src/diagex/dexpi/_generated/. In Tier A the tree is at
-        # code/diagex/dexpi/_generated/; the import-side coverage in the
-        # other test_dexpi_*.py files is sufficient, so drop this one.
-        if tname == "test_dexpi_codegen.py":
-            continue
-        text = s.read_text(encoding="utf-8")
-        if tname == "test_dexpi_drawio.py":
-            text = text.replace(
-                'parents[2] / "eval/datasets/dexpi-reference/graph.truth.json"',
-                'parents[2] / "data/ground_truth/dexpi-reference/graph.truth.json"',
-            )
-        (test_dst_root / tname).write_text(text, encoding="utf-8")
+        copy_file(s, test_dst_root / tname)
 
     log(f"Tier A size: {dir_size_mb(tier_a):.1f} MB")
     return tier_a
