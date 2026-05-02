@@ -1,0 +1,74 @@
+{
+  "answers": [
+    {
+      "query_id": "butane1-q1",
+      "answer": "TT-2909\nTT-2911\nTT-2913\nTT-2916\nTT-2917",
+      "cost_usd": 0.292281,
+      "wall_clock_s": 70.435,
+      "input_tokens": 39403,
+      "output_tokens": 1960,
+      "cache_read_tokens": 31145,
+      "cache_write_tokens": 4911,
+      "image_tokens": 0,
+      "n_steps": 6,
+      "n_tool_calls": 7,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 6
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "butane1-q2",
+      "answer": "3",
+      "cost_usd": 0.037594,
+      "wall_clock_s": 16.143,
+      "input_tokens": 5383,
+      "output_tokens": 325,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 0,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "butane1-q3",
+      "answer": "yes",
+      "cost_usd": 0.033728,
+      "wall_clock_s": 13.289,
+      "input_tokens": 5241,
+      "output_tokens": 158,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 163,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "butane1-q4",
+      "answer": "shell and tube heat exchanger",
+      "cost_usd": 0.099436,
+      "wall_clock_s": 33.025,
+      "input_tokens": 11641,
+      "output_tokens": 1316,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 720,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 1
+      },
+      "retries": 0
+    }
+  ]
+}

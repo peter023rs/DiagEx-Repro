@@ -1,0 +1,34 @@
+# Fixture metadata — butane1
+# Generated from eval/datasets/manifest.yaml; edit by hand as ground-truth
+# authoring progresses. Used by eval/run_paper_eval.py for stratified reporting
+# (per spec §9.1, plan §4.4).
+
+stem: butane1
+dataset_version: diagex.v0.2
+source_type: raster
+symbol_standard: iso-10628
+domain: c4-cracking
+page_size_pts:
+- 8270
+- 5847
+draughting_tool: Adobe Acrobat 26.1 Image Conversion Plug-in
+annotation_level: full
+notes: 'C4-cracking process — representative of the dominant raster source type; full DEXPI truth fixture.
+
+  Flags: outlier_page_size.'
+authoring_provenance:
+  rater_1: claude-opus-4-7[1m]
+  rater_1_date: '2026-04-24'
+  rater_2: pending
+  queries_method: bootstrap_from_run_graph_plus_pdf_visual_plus_acrobat_verification
+  graph_method: bootstrap_then_correct_against_source_pdf
+artefacts_expected:
+  queries.truth.yaml: true
+  graph.truth.json: true
+  annotations.truth.jsonl: true
+  meta.yaml: true
+artefacts_present:
+  queries.truth.yaml: true
+  graph.bootstrap.json: false
+  graph.truth.json: false
+  annotations.truth.jsonl: false

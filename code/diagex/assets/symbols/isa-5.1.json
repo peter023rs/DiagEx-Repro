@@ -1,0 +1,549 @@
+{
+  "schema_version": "0.1.0",
+  "source_hash": "",
+  "source_ref": "built-in:isa-5.1",
+  "standard": "isa-5.1",
+  "entries": [
+    {
+      "label": "FI",
+      "description": "Flow Indicator — instrument bubble (circle) with letters F + I stacked inside; local visual flow reading with no transmission or control.",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "FT",
+      "description": "Flow Transmitter — instrument bubble with F + T inside; converts a flow measurement into a remote signal.",
+      "symbol_class": "transmitter",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "transmitter", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "FIC",
+      "description": "Flow Indicating Controller — instrument bubble with F + I + C stacked; indicates flow and drives a control output.",
+      "symbol_class": "indicator_controller",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "controller", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "FR",
+      "description": "Flow Recorder — instrument bubble with F + R inside; records flow history (trend or chart).",
+      "symbol_class": "recorder",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "recorder", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "FRC",
+      "description": "Flow Recording Controller — instrument bubble with F + R + C inside; records flow and drives a control output.",
+      "symbol_class": "recorder_controller",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "controller", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "FE",
+      "description": "Flow Element — primary sensing element (orifice plate, venturi, coriolis body) drawn as a tag circle or inline block on the pipe.",
+      "symbol_class": "element",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "element", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "FV",
+      "description": "Flow Valve — final control element driven by a flow loop; drawn as a control valve body with an FV tag bubble.",
+      "symbol_class": "control_valve",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "valve_actuator", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "FQ",
+      "description": "Flow Totalizer/Quantity — instrument bubble with F + Q inside; integrates flow into cumulative volume or mass.",
+      "symbol_class": "totalizer",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "PI",
+      "description": "Pressure Indicator — instrument bubble with P + I; local pressure gauge, no transmission.",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "PT",
+      "description": "Pressure Transmitter — instrument bubble with P + T; converts pressure into a remote signal.",
+      "symbol_class": "transmitter",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "transmitter", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "PIC",
+      "description": "Pressure Indicating Controller — instrument bubble with P + I + C; indicates pressure and drives a control output.",
+      "symbol_class": "indicator_controller",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "controller", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "PR",
+      "description": "Pressure Recorder — instrument bubble with P + R; records pressure history.",
+      "symbol_class": "recorder",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "recorder", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "PDI",
+      "description": "Pressure Differential Indicator — instrument bubble with P + D + I; displays differential pressure across a restriction (e.g. filter).",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "PDT",
+      "description": "Pressure Differential Transmitter — instrument bubble with P + D + T; transmits differential pressure (common on orifice-plate flow loops).",
+      "symbol_class": "transmitter",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "transmitter", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "PSV",
+      "description": "Pressure Safety Valve — spring-loaded relief valve glyph (body with angled bonnet and spring) tagged PSV; opens on over-pressure.",
+      "symbol_class": "safety_valve",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "valve_actuator", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "PCV",
+      "description": "Pressure Control Valve — self-acting (usually) control valve body tagged PCV; maintains upstream or downstream pressure.",
+      "symbol_class": "control_valve",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "valve_actuator", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "LI",
+      "description": "Level Indicator — instrument bubble with L + I; local level reading.",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "level"},
+      "source": "built_in"
+    },
+    {
+      "label": "LT",
+      "description": "Level Transmitter — instrument bubble with L + T; converts a level measurement into a remote signal.",
+      "symbol_class": "transmitter",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "transmitter", "measured_variable": "level"},
+      "source": "built_in"
+    },
+    {
+      "label": "LIC",
+      "description": "Level Indicating Controller — instrument bubble with L + I + C; indicates level and drives a control output.",
+      "symbol_class": "indicator_controller",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "controller", "measured_variable": "level"},
+      "source": "built_in"
+    },
+    {
+      "label": "LSH",
+      "description": "Level Switch High — instrument bubble with L + S + H; contact switch asserting on high level.",
+      "symbol_class": "switch_high",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "switch", "measured_variable": "level"},
+      "source": "built_in"
+    },
+    {
+      "label": "LSL",
+      "description": "Level Switch Low — instrument bubble with L + S + L; contact switch asserting on low level.",
+      "symbol_class": "switch_low",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "switch", "measured_variable": "level"},
+      "source": "built_in"
+    },
+    {
+      "label": "LG",
+      "description": "Level Gauge (sight glass) — external tube or magnetic gauge beside a vessel tagged LG; visual-only level display.",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "level"},
+      "source": "built_in"
+    },
+    {
+      "label": "TI",
+      "description": "Temperature Indicator — instrument bubble with T + I; local temperature reading (dial thermometer or similar).",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "temperature"},
+      "source": "built_in"
+    },
+    {
+      "label": "TT",
+      "description": "Temperature Transmitter — instrument bubble with T + T; converts temperature into a remote signal.",
+      "symbol_class": "transmitter",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "transmitter", "measured_variable": "temperature"},
+      "source": "built_in"
+    },
+    {
+      "label": "TIC",
+      "description": "Temperature Indicating Controller — instrument bubble with T + I + C; indicates temperature and drives a control output.",
+      "symbol_class": "indicator_controller",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "controller", "measured_variable": "temperature"},
+      "source": "built_in"
+    },
+    {
+      "label": "TE",
+      "description": "Temperature Element — primary sensing element (thermocouple or RTD) drawn as a small circle tagged TE, inline on the pipe or inserted into a well.",
+      "symbol_class": "element",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "element", "measured_variable": "temperature"},
+      "source": "built_in"
+    },
+    {
+      "label": "TW",
+      "description": "Thermowell — protective sheath for a temperature element, drawn as a small stub penetrating the pipe wall tagged TW.",
+      "symbol_class": "element",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "element", "measured_variable": "temperature"},
+      "source": "built_in"
+    },
+    {
+      "label": "TR",
+      "description": "Temperature Recorder — instrument bubble with T + R; records temperature history.",
+      "symbol_class": "recorder",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "recorder", "measured_variable": "temperature"},
+      "source": "built_in"
+    },
+    {
+      "label": "AI",
+      "description": "Analysis Indicator — instrument bubble with A + I; local analyzer display (pH, conductivity, O2, etc.).",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "analysis"},
+      "source": "built_in"
+    },
+    {
+      "label": "AT",
+      "description": "Analysis Transmitter — instrument bubble with A + T; transmits an analytical measurement to the DCS.",
+      "symbol_class": "transmitter",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "transmitter", "measured_variable": "analysis"},
+      "source": "built_in"
+    },
+    {
+      "label": "HS",
+      "description": "Hand Switch — instrument bubble with H + S; operator-initiated manual switch (local or DCS).",
+      "symbol_class": "switch",
+      "kind": "instrument",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "switch", "measured_variable": "hand"},
+      "source": "built_in"
+    },
+    {
+      "label": "XV",
+      "description": "Shutdown/On-Off Valve — control valve body tagged XV; typically solenoid- or actuator-driven for ESD or block duty.",
+      "symbol_class": "control_valve",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"instrument_function": "valve_actuator", "measured_variable": "hand"},
+      "source": "built_in"
+    },
+    {
+      "label": "centrifugal_pump",
+      "description": "Centrifugal pump — circle with a trapezoidal discharge pointing up or out; the standard rotodynamic pump glyph.",
+      "symbol_class": "pump",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"pump_type": "centrifugal"},
+      "source": "built_in"
+    },
+    {
+      "label": "positive_displacement_pump",
+      "description": "Positive displacement pump — rectangle or chambered body with piston/gear internals indicated; used for metering and high-viscosity service.",
+      "symbol_class": "pump",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"pump_type": "positive_displacement"},
+      "source": "built_in"
+    },
+    {
+      "label": "compressor",
+      "description": "Centrifugal compressor — trapezoidal body (often with 'C' or vane marks inside) with inlet and discharge nozzles; gas service.",
+      "symbol_class": "compressor",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"compressor_type": "centrifugal"},
+      "source": "built_in"
+    },
+    {
+      "label": "tank_vertical",
+      "description": "Vertical storage tank — tall cylinder with flat or dished top and bottom, typically atmospheric service.",
+      "symbol_class": "tank",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"orientation": "vertical"},
+      "source": "built_in"
+    },
+    {
+      "label": "vessel_horizontal",
+      "description": "Horizontal pressure vessel — cylinder on its side with dished (2:1 elliptical or hemispherical) heads; separator or drum duty.",
+      "symbol_class": "vessel",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"orientation": "horizontal"},
+      "source": "built_in"
+    },
+    {
+      "label": "column",
+      "description": "Distillation/absorber column — tall vertical cylinder with internal tray lines or packed-bed hatching; multiple side nozzles for feed, reflux, reboiler.",
+      "symbol_class": "column",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"orientation": "vertical"},
+      "source": "built_in"
+    },
+    {
+      "label": "shell_tube_heat_exchanger",
+      "description": "Shell-and-tube heat exchanger — horizontal cylinder (shell) with internal tube bundle indicated; four nozzles (two shell-side, two tube-side).",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "shell_and_tube"},
+      "source": "built_in"
+    },
+    {
+      "label": "plate_heat_exchanger",
+      "description": "Plate heat exchanger — stacked-plate rectangle with diagonal hatching; compact liquid-liquid service.",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "plate"},
+      "source": "built_in"
+    },
+    {
+      "label": "fired_heater",
+      "description": "Fired heater/furnace — rectangular or cylindrical body with burner glyphs at the base and a stack on top; combusts fuel to heat process fluid.",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "fired"},
+      "source": "built_in"
+    },
+    {
+      "label": "air_cooler",
+      "description": "Air-cooled heat exchanger (fin-fan) — horizontal tube bundle over a circular fan glyph; cools process fluid with ambient air.",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "air_cooled"},
+      "source": "built_in"
+    },
+    {
+      "label": "gate_valve",
+      "description": "Gate valve — two opposed filled triangles meeting at a point (bowtie) with a vertical stem and handle; full-bore block valve.",
+      "symbol_class": "gate",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"valve_type": "gate"},
+      "source": "built_in"
+    },
+    {
+      "label": "globe_valve",
+      "description": "Globe valve — bowtie body with a filled disk/sphere at the junction indicating the plug; throttling service.",
+      "symbol_class": "globe",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"valve_type": "globe"},
+      "source": "built_in"
+    },
+    {
+      "label": "check_valve",
+      "description": "Check valve — bowtie or circle-with-arrow showing a swing or ball element; permits flow in one direction only.",
+      "symbol_class": "check",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"valve_type": "check"},
+      "source": "built_in"
+    },
+    {
+      "label": "ball_valve",
+      "description": "Ball valve — bowtie body with a central circle (the ball); quarter-turn block or on/off service.",
+      "symbol_class": "ball",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"valve_type": "ball"},
+      "source": "built_in"
+    },
+    {
+      "label": "butterfly_valve",
+      "description": "Butterfly valve — bowtie body with a diagonal line through the junction representing the disc; quarter-turn throttling or isolation.",
+      "symbol_class": "butterfly",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"valve_type": "butterfly"},
+      "source": "built_in"
+    },
+    {
+      "label": "control_valve",
+      "description": "Control valve — bowtie body with a diaphragm or piston actuator drawn on top (domed cap with stem); modulated by a control loop.",
+      "symbol_class": "control",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"valve_type": "control"},
+      "source": "built_in"
+    },
+    {
+      "label": "three_way_valve",
+      "description": "Three-way valve — bowtie/globe body with a third port branching off (T-shape); diverts or mixes flow.",
+      "symbol_class": "other",
+      "kind": "valve",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"valve_type": "three_way"},
+      "source": "built_in"
+    },
+    {
+      "label": "process_pipe",
+      "description": "Process pipe — solid continuous line connecting equipment and valves; the default process fluid line.",
+      "symbol_class": "process_line",
+      "kind": "line",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"line_type": "process"},
+      "source": "built_in"
+    },
+    {
+      "label": "electric_signal",
+      "description": "Electric signal — line with short perpendicular dashes or slashes at regular intervals; connects instruments to DCS/PLC.",
+      "symbol_class": "signal_line",
+      "kind": "line",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"line_type": "electric_signal"},
+      "source": "built_in"
+    },
+    {
+      "label": "pneumatic_signal",
+      "description": "Pneumatic signal — line with repeated double cross-hatches (//) along its length; instrument air to valve actuators.",
+      "symbol_class": "signal_line",
+      "kind": "line",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"line_type": "pneumatic_signal"},
+      "source": "built_in"
+    },
+    {
+      "label": "capillary",
+      "description": "Capillary tube — line of small uniform dots or short dashes; filled-system temperature or remote-seal pressure connection.",
+      "symbol_class": "signal_line",
+      "kind": "line",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"line_type": "capillary"},
+      "source": "built_in"
+    },
+    {
+      "label": "off_page_connector",
+      "description": "Off-page connector — pentagonal/home-plate or circular tag at a line terminus indicating the line continues on another drawing; labeled with destination sheet/tag.",
+      "symbol_class": "off_page_connector",
+      "kind": "connector",
+      "standard": "isa-5.1",
+      "image_b64": null,
+      "attributes": {"connector_type": "off_page"},
+      "source": "built_in"
+    }
+  ],
+  "notes": "Curated minimal starter set for ISA-5.1 — v0. Covers the most common instrument letter combinations (flow/pressure/level/temperature/analysis), core equipment glyphs, the seven ValveType literals plus three-way, and the five line/connector styles. Extend as Phase 1 eval identifies misses."
+}

@@ -1,0 +1,33 @@
+{
+  "_doc": "Crop windows for Figure 3 (corpus heterogeneity). Coordinates are authoring-frame pixels in the corresponding tools/via/images/<fixture>.png. Tweak x/y/w/h until each panel hits a representative region of its source PNG; re-render with `.venv/bin/python -m eval.figures.fig3_heterogeneity`.",
+  "panels": [
+    {
+      "fixture": "dexpi-reference",
+      "image_png": "tools/via/images/dexpi-reference.png",
+      "title": "dexpi-reference — vector, ISO synthetic",
+      "x": 2200,
+      "y": 1900,
+      "w": 2400,
+      "h": 1600
+    },
+    {
+      "fixture": "butane1",
+      "image_png": "tools/via/images/butane1.png",
+      "title": "butane1 — raster, C4-cracking",
+      "x": 2400,
+      "y": 2200,
+      "w": 3000,
+      "h": 2000
+    },
+    {
+      "fixture": "grit-washer1",
+      "image_png": "tools/via/images/grit-washer1.png",
+      "title": "grit-washer1 — raster, wastewater",
+      "x": 700,
+      "y": 600,
+      "w": 1800,
+      "h": 1200
+    }
+  ],
+  "_notes": "Panel 1 (dexpi-reference, 7017x4959) hits the central process zone. Panel 2 (butane1, 12000x8485) hits a control-valve cluster region. Panel 3 (grit-washer1, 3800x2458) hits the central tank/symbol area."
+}

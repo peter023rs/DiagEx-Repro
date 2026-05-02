@@ -1,0 +1,64 @@
+{
+  "answers": [
+    {
+      "query_id": "tennessee1-q1",
+      "answer": "V-1001\nV-1002\nV-1003\nV-1004",
+      "cost_usd": 0.046113,
+      "wall_clock_s": 0.0,
+      "input_tokens": 4766,
+      "output_tokens": 152,
+      "cache_read_tokens": 2554,
+      "cache_write_tokens": 2753,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "tennessee1-q2",
+      "answer": "12",
+      "cost_usd": 0.094906,
+      "wall_clock_s": 0.0,
+      "input_tokens": 13005,
+      "output_tokens": 961,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 324,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "tennessee1-q3",
+      "answer": "no",
+      "cost_usd": 0.033031,
+      "wall_clock_s": 0.0,
+      "input_tokens": 4643,
+      "output_tokens": 251,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 158,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "tennessee1-q4",
+      "answer": "The location (85,180) pt \u2192 pixel (354, 750) is inside the Reactor vessel.\n\nreactor",
+      "cost_usd": 0.102877,
+      "wall_clock_s": 0.0,
+      "input_tokens": 14168,
+      "output_tokens": 881,
+      "cache_read_tokens": 11237,
+      "cache_write_tokens": 703,
+      "image_tokens": 0,
+      "n_steps": 4,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    }
+  ]
+}

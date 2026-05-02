@@ -1,0 +1,35 @@
+# Fixture metadata — tennessee1
+# Generated from eval/datasets/manifest.yaml; edit by hand as ground-truth
+# authoring progresses. Used by eval/run_paper_eval.py for stratified reporting
+# (per spec §9.1, plan §4.4).
+
+stem: tennessee1
+dataset_version: diagex.v0.2
+source_type: vector
+symbol_standard: iso-10628
+domain: tennessee-eastman
+page_size_pts:
+- 505
+- 298
+draughting_tool: PDFlib+PDI (conference manuscript render)
+annotation_level: full
+notes: 'Tennessee-Eastman flowsheet redraw — full DEXPI truth fixture; vector, well-scoped topology; residual
+  memorisation risk noted.
+
+  Flags: small_page, well_known_process.'
+authoring_provenance:
+  rater_1: claude-opus-4-7[1m]
+  rater_1_date: '2026-04-24'
+  rater_2: pending
+  queries_method: bootstrap_from_run_graph_plus_pdf_visual_plus_acrobat_verification
+  graph_method: bootstrap_then_correct_against_source_pdf
+artefacts_expected:
+  queries.truth.yaml: true
+  graph.truth.json: true
+  annotations.truth.jsonl: true
+  meta.yaml: true
+artefacts_present:
+  queries.truth.yaml: true
+  graph.bootstrap.json: false
+  graph.truth.json: false
+  annotations.truth.jsonl: false

@@ -1,0 +1,20 @@
+{
+  "fixture": "dexpi-reference",
+  "iou_threshold": 0.3,
+  "bootstrap_reviewable_nodes": 20,
+  "annotations": 21,
+  "matched": 19,
+  "matched_iou": 3,
+  "matched_label_fallback": 16,
+  "added": 2,
+  "dropped": 1,
+  "bbox_retained": 0,
+  "bbox_edited": 19,
+  "label_retained": 19,
+  "label_edited": 0,
+  "bbox_retention_pct": 0.0,
+  "label_retention_pct": 95.0,
+  "edges_kept": 22,
+  "edges_auto_dropped": 2,
+  "v2_total_nodes": 28
+}

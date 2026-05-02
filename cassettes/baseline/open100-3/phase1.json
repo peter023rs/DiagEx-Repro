@@ -1,0 +1,75 @@
+{
+  "answers": [
+    {
+      "query_id": "open100-3-q1",
+      "answer": "```\nRCS-XR-100\nRCS-SG-101\nRCS-PU-102A\nRCS-PU-102B\n```",
+      "cost_usd": 0.123148,
+      "wall_clock_s": 36.339,
+      "input_tokens": 16740,
+      "output_tokens": 977,
+      "cache_read_tokens": 18609,
+      "cache_write_tokens": 915,
+      "image_tokens": 0,
+      "n_steps": 5,
+      "n_tool_calls": 4,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 3
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "open100-3-q2",
+      "answer": "18",
+      "cost_usd": 0.236422,
+      "wall_clock_s": 55.259,
+      "input_tokens": 27905,
+      "output_tokens": 2215,
+      "cache_read_tokens": 38419,
+      "cache_write_tokens": 3570,
+      "image_tokens": 0,
+      "n_steps": 7,
+      "n_tool_calls": 9,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 8
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "open100-3-q3",
+      "answer": "yes",
+      "cost_usd": 0.038299,
+      "wall_clock_s": 18.273,
+      "input_tokens": 5064,
+      "output_tokens": 373,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 176,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "open100-3-q4",
+      "answer": "reactor vessel",
+      "cost_usd": 0.072886,
+      "wall_clock_s": 21.135,
+      "input_tokens": 10706,
+      "output_tokens": 442,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 716,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 1
+      },
+      "retries": 0
+    }
+  ]
+}

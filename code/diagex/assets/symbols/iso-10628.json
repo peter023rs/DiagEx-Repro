@@ -1,0 +1,279 @@
+{
+  "schema_version": "0.1.0",
+  "source_hash": "",
+  "source_ref": "built-in:iso-10628",
+  "standard": "iso-10628",
+  "entries": [
+    {
+      "label": "centrifugal_pump",
+      "description": "Centrifugal pump (ISO 10628) — circle with a trapezoidal discharge spout; the standard rotodynamic pump glyph for flow-sheet drawings.",
+      "symbol_class": "pump",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"pump_type": "centrifugal"},
+      "source": "built_in"
+    },
+    {
+      "label": "positive_displacement_pump",
+      "description": "Positive displacement pump (ISO 10628) — rectangular body with chamber markings; covers reciprocating, gear and diaphragm pumps.",
+      "symbol_class": "pump",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"pump_type": "positive_displacement"},
+      "source": "built_in"
+    },
+    {
+      "label": "compressor",
+      "description": "Compressor (ISO 10628) — trapezoid tapering toward the discharge; gas service, centrifugal or axial.",
+      "symbol_class": "compressor",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"compressor_type": "centrifugal"},
+      "source": "built_in"
+    },
+    {
+      "label": "reciprocating_compressor",
+      "description": "Reciprocating compressor (ISO 10628) — rectangle with piston/cylinder markings; positive-displacement gas compression.",
+      "symbol_class": "compressor",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"compressor_type": "reciprocating"},
+      "source": "built_in"
+    },
+    {
+      "label": "tank_vertical",
+      "description": "Vertical storage tank (ISO 10628) — tall cylinder with flat or dished roof; atmospheric or low-pressure bulk storage.",
+      "symbol_class": "tank",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"orientation": "vertical"},
+      "source": "built_in"
+    },
+    {
+      "label": "tank_horizontal",
+      "description": "Horizontal storage tank (ISO 10628) — cylinder on its side with flat or dished ends; typical for LPG or liquid storage.",
+      "symbol_class": "tank",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"orientation": "horizontal"},
+      "source": "built_in"
+    },
+    {
+      "label": "vessel_vertical",
+      "description": "Vertical pressure vessel (ISO 10628) — cylinder with elliptical or hemispherical heads; knockout drum or reactor body.",
+      "symbol_class": "vessel",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"orientation": "vertical"},
+      "source": "built_in"
+    },
+    {
+      "label": "vessel_horizontal",
+      "description": "Horizontal pressure vessel (ISO 10628) — cylinder laid on its side with dished heads; two- or three-phase separator duty.",
+      "symbol_class": "vessel",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"orientation": "horizontal"},
+      "source": "built_in"
+    },
+    {
+      "label": "distillation_column",
+      "description": "Distillation/fractionation column (ISO 10628) — tall vertical cylinder with horizontal lines indicating trays, or hatching indicating packing; multiple side nozzles.",
+      "symbol_class": "column",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"column_type": "tray_or_packed"},
+      "source": "built_in"
+    },
+    {
+      "label": "packed_column",
+      "description": "Packed column (ISO 10628) — vertical cylinder with diagonal hatching or a wavy fill denoting the packed bed region between support grids.",
+      "symbol_class": "column",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"column_type": "packed"},
+      "source": "built_in"
+    },
+    {
+      "label": "shell_tube_heat_exchanger",
+      "description": "Shell-and-tube heat exchanger (ISO 10628) — horizontal cylinder with internal tube bundle; two shell-side and two tube-side nozzles.",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "shell_and_tube"},
+      "source": "built_in"
+    },
+    {
+      "label": "plate_heat_exchanger",
+      "description": "Plate heat exchanger (ISO 10628) — rectangular block with stacked parallel plate lines; compact liquid-liquid service.",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "plate"},
+      "source": "built_in"
+    },
+    {
+      "label": "air_cooler",
+      "description": "Air-cooled heat exchanger (ISO 10628) — horizontal tube bank drawn as a rectangle with a circular fan glyph beneath; forced-draft or induced-draft.",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "air_cooled"},
+      "source": "built_in"
+    },
+    {
+      "label": "fired_heater",
+      "description": "Fired heater/furnace (ISO 10628) — rectangular firebox with burner triangles at the base and a stack on top; direct-fired process heating.",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "fired"},
+      "source": "built_in"
+    },
+    {
+      "label": "cooling_tower",
+      "description": "Cooling tower (ISO 10628) — trapezoidal body widening upward with internal louver hatching and a fan glyph at the top; evaporative water cooling.",
+      "symbol_class": "heat_exchanger",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"exchanger_type": "cooling_tower"},
+      "source": "built_in"
+    },
+    {
+      "label": "cyclone_separator",
+      "description": "Cyclone separator (ISO 10628) — tall cylinder with a conical lower section, tangential inlet at the top and solids outlet at the cone apex.",
+      "symbol_class": "vessel",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"vessel_type": "cyclone"},
+      "source": "built_in"
+    },
+    {
+      "label": "flare",
+      "description": "Flare (ISO 10628) — tall vertical stack with a flame triangle/icon at the tip; disposal of relief gases.",
+      "symbol_class": "unclassified_equipment",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"equipment_role": "flare"},
+      "source": "built_in"
+    },
+    {
+      "label": "filter",
+      "description": "Filter (ISO 10628) — rectangular or cylindrical body with an internal hatched strainer element; removes particulates from process fluid.",
+      "symbol_class": "unclassified_equipment",
+      "kind": "equipment",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"equipment_role": "filter"},
+      "source": "built_in"
+    },
+    {
+      "label": "gate_valve",
+      "description": "Gate valve (ISO 10628) — two opposed triangles meeting at a point (bowtie) with vertical stem; full-bore isolation.",
+      "symbol_class": "gate",
+      "kind": "valve",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"valve_type": "gate"},
+      "source": "built_in"
+    },
+    {
+      "label": "globe_valve",
+      "description": "Globe valve (ISO 10628) — bowtie with a solid disk at the junction; throttling duty.",
+      "symbol_class": "globe",
+      "kind": "valve",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"valve_type": "globe"},
+      "source": "built_in"
+    },
+    {
+      "label": "check_valve",
+      "description": "Check valve (ISO 10628) — bowtie with a swing or ball element drawn inside; one-way flow.",
+      "symbol_class": "check",
+      "kind": "valve",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"valve_type": "check"},
+      "source": "built_in"
+    },
+    {
+      "label": "control_valve",
+      "description": "Control valve (ISO 10628) — bowtie body with a diaphragm actuator dome on top; modulated by a flow/pressure/level loop.",
+      "symbol_class": "control",
+      "kind": "valve",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"valve_type": "control"},
+      "source": "built_in"
+    },
+    {
+      "label": "PI",
+      "description": "Pressure Indicator (ISO 10628) — local pressure gauge, circle with P + I; no transmission.",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "pressure"},
+      "source": "built_in"
+    },
+    {
+      "label": "TI",
+      "description": "Temperature Indicator (ISO 10628) — local temperature gauge, circle with T + I; no transmission.",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "temperature"},
+      "source": "built_in"
+    },
+    {
+      "label": "FI",
+      "description": "Flow Indicator (ISO 10628) — local flow gauge, circle with F + I.",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "flow"},
+      "source": "built_in"
+    },
+    {
+      "label": "LI",
+      "description": "Level Indicator (ISO 10628) — local level gauge, circle with L + I; typically adjacent to a tank or vessel.",
+      "symbol_class": "indicator",
+      "kind": "instrument",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"instrument_function": "indicator", "measured_variable": "level"},
+      "source": "built_in"
+    },
+    {
+      "label": "transmitter_generic",
+      "description": "Generic transmitter (ISO 10628) — circle with two-letter tag ending in T (e.g. PT/TT/FT/LT); converts measurement to a remote signal.",
+      "symbol_class": "transmitter",
+      "kind": "instrument",
+      "standard": "iso-10628",
+      "image_b64": null,
+      "attributes": {"instrument_function": "transmitter"},
+      "source": "built_in"
+    }
+  ],
+  "notes": "ISO 10628 starter set — v0. ISO 10628 is piping/equipment-focused, so coverage here skews heavily toward equipment glyphs (cooling tower, cyclone, flare, filter, packed column) and only carries the minimal local-indicator / transmitter instrument set. Instrumentation detail is expected to come from an extracted legend or the ISA-5.1 pack merged on top."
+}

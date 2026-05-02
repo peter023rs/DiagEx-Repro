@@ -1,0 +1,81 @@
+# Phase 1 ground-truth queries — rater_1_locked
+#
+# Schema: spec §9.1 + plan §4.1
+# Authoring: rater_1 = claude-opus-4-7[1m] (bootstrap from graph.json + Acrobat
+#            verification for all -q4 coordinates; Heiko Koziolek manual review
+#            of inventory/counting/connectivity). rater_2 = pending.
+#
+# Connectivity role (this fixture): NO
+# Coordinate frame: PDF points, top-left origin, y-down (Acrobat rulers).
+#   For fixtures with /Rotate ≠ 0, coords are against the oriented rect
+#   (what Acrobat displays).
+
+schema_version: 1
+dataset_version: diagex.v0.2
+fixture: grit-washer1
+authoring:
+  rater_1: claude-opus-4-7[1m]
+  rater_1_date: '2026-04-24'
+  rater_2: pending
+  overall_status: rater_1_locked
+queries:
+- id: grit-washer1-q1
+  family: inventory
+  question: List every hydrocyclone (HDC) in this drawing with its tag number.
+  expected_answer:
+  - HDC-51-371
+  - HDC-51-372
+  expected_kind: list
+  scoring: set_match
+  scoring_params:
+    case_sensitive: false
+  rater_1:
+    confidence: high
+    source: graph.json
+    notes: 2 hydrocyclones fed from Grit Pumps 3 and 4 respectively.
+  status: rater_1_locked
+- id: grit-washer1-q2
+  family: counting
+  question: How many pressure indicators (PI) are shown?
+  expected_answer: 3
+  expected_kind: integer
+  scoring: numeric_tolerance
+  scoring_params:
+    tolerance_frac: 0.05
+  rater_1:
+    confidence: high
+    source: graph.json
+    notes: PI-51-371, PI-51-372, PI-51-391.
+  status: rater_1_locked
+- id: grit-washer1-q3
+  family: connectivity
+  question: Is there a process flow path from HDC-51-371 to HDC-51-372?
+  expected_answer: false
+  expected_kind: boolean
+  scoring: graph_reachability
+  scoring_params:
+    line_types:
+    - process
+  rater_1:
+    confidence: high
+    source: pdf_visual
+    notes: 'Two hydrocyclones operate in parallel: HDC-371 fed by Grit Pumps 3 (GRT-C), HDC-372 fed by Grit Pumps 4 (GRT-D).
+      Both underflows discharge to the common grit washer, but the two cyclones are not directly process-connected.'
+  status: rater_1_locked
+- id: grit-washer1-q4
+  family: identification
+  question: What kind of equipment sits at approximate page coordinates (160, 180)?
+  expected_answer: none
+  expected_kind: string
+  scoring: contains
+  scoring_params:
+    case_sensitive: false
+    normalize: true
+  rater_1:
+    confidence: high
+    source: pdf_acrobat
+    notes: blank area at (160, 180) — negative-case q4. Model is expected to
+      respond that no equipment is at this location ('none', 'no equipment',
+      'blank', etc. — all contain 'none'/no-equipment phrasing? scoring uses
+      contains 'none').
+  status: rater_1_locked

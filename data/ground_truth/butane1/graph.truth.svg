@@ -1,0 +1,424 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4080" height="2547" viewBox="0 0 4080 2547">
+<defs><marker id="arrow-process" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937" /></marker><marker id="arrow-signal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb" /></marker><marker id="arrow-other" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280" /></marker></defs>
+<style>text { font-family: ui-monospace, SFMono-Regular, monospace; }.title { font-size: 14px; font-weight: 600; fill: #111827; }.footer { font-size: 10px; fill: #6b7280; }.lbl { font-size: 10px; fill: #111827; }.sub { font-size: 9px; fill: #6b7280; }.inst-tag { font-size: 10px; font-weight: 600; fill: #111827; }.txt { font-size: 10px; fill: #4b5563; }.actuator-mark { font-size: 9px; font-weight: 600; fill: #111827; }.fail-code { font-size: 8px; font-weight: 700; fill: #111827; }.srv-set { font-size: 9px; fill: #b91c1c; }.tb-title { font-size: 10px; font-weight: 700; fill: #111827; }.tb-row { font-size: 9px; fill: #374151; }.tb-bg { fill: #ffffff; stroke: #111827; stroke-width: 1; }.tb-grid { stroke: #d1d5db; stroke-width: 0.6; }.key-label { font-size: 10px; fill: #374151; }.key-bg { fill: rgba(255,255,255,0.92); stroke: #d1d5db; stroke-width: 1; }.eq, .inst, .valve, .opc, .misc { stroke: #111827; stroke-width: 1; }.node-wrap:hover { filter: brightness(0.96); }.line-id { font-size: 8px; font-weight: 600; fill: #111827; }.line-id-bg { fill: #ffffff; stroke: #6b7280; stroke-width: 0.6; }.nozzle { stroke: #111827; stroke-width: 1.5; }</style>
+<text class="title" x="40" y="28">butane1.pdf</text>
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.5" d="M 395.7 491.1 L 391.3 491.1 L 495.4 491.1 L 564.8 491.1 L 577.8 491.1 L 686.3 491.1 L 755.7 491.1 L 946.5 491.1 L 1024.6 465.1 L 1024.6 469.4 L 1195.5 465.1 L 1195.5 465.1 L 1252.8 465.1 L 668.9 446.9" marker-end="url(#arrow-process)" /><rect class="line-id-bg" x="895.9" y="450.0" width="129.8" height="12.0" rx="3" /><text class="line-id" x="960.8" y="459.0" text-anchor="middle">P-234-03016-F3D-8"-Is</text>
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.5" d="M 668.9 436.4 L 930.9 408.7 L 1179.9 408.7 L 1179.9 408.7" marker-end="url(#arrow-process)" />
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.0" d="M 1650.9 485.0 L 2255.6 508.4 L 2498.5 508.4 L 2498.5 430.4 L 2498.5 61.7 L 3315.6 61.7 L 3315.6 61.7 L 4034.8 71.2 L 3914.2 83.4" marker-end="url(#arrow-process)" opacity="0.6" /><rect class="line-id-bg" x="2842.2" y="55.7" width="129.8" height="12.0" rx="3" /><text class="line-id" x="2907.1" y="64.7" text-anchor="middle">P-234-03301-CD3D-8"-N</text>
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.5" d="M 2738.8 1200.7 L 3220.2 621.2 L 3302.6 586.5 L 3458.8 586.5 L 3458.8 768.7 L 3722.5 911.0" marker-end="url(#arrow-process)" /><rect class="line-id-bg" x="2900.1" y="905.0" width="158.8" height="12.0" rx="3" /><text class="line-id" x="2979.5" y="914.0" text-anchor="middle">SWR-234-03302-115201D-1"-N</text>
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.5" d="M 1650.9 476.3 L 2036.1 476.3 L 2036.1 494.7 A 6.0 6.0 0 0 1 2036.1 505.1 L 2036.1 1268.4 L 2421.3 1268.4" marker-end="url(#arrow-process)" />
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.5" d="M 2682.4 1480.0 L 2682.4 1336.9" marker-end="url(#arrow-process)" />
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.5" d="M 2944.4 1546.0 L 3339.9 1546.0 L 3339.9 2450.8 L 3736.4 2450.8" marker-end="url(#arrow-process)" />
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.5" d="M 3654.0 1834.0 L 3345.1 1834.0 A 6.0 6.0 0 0 1 3334.7 1834.0 L 3299.2 1834.0 L 3299.2 1546.0 L 2944.4 1546.0" marker-end="url(#arrow-process)" />
+<path class="edge" fill="none" stroke="#2563eb" stroke-width="1.5" d="M 1364.7 1158.2 L 1364.7 1053.2 L 1319.5 1053.2 L 1319.5 948.3" stroke-dasharray="4,3" marker-end="url(#arrow-signal)" />
+<path class="edge" fill="none" stroke="#2563eb" stroke-width="1.5" d="M 1364.7 1158.2 L 1364.7 1055.0 L 1446.2 1055.0 L 1446.2 951.7" stroke-dasharray="4,3" marker-end="url(#arrow-signal)" />
+<path class="edge" fill="none" stroke="#2563eb" stroke-width="1.5" d="M 1938.9 277.7 L 1587.6 277.7 L 1587.6 158.8 L 1237.1 158.8" stroke-dasharray="4,3" marker-end="url(#arrow-signal)" />
+<path class="edge" fill="none" stroke="#1f2937" stroke-width="1.5" d="M 3671.3 248.2 L 3307.0 248.2 L 3307.0 1268.4 L 2943.5 1268.4" marker-end="url(#arrow-process)" />
+<line class="nozzle" x1="391.7" y1="491.1" x2="399.7" y2="491.1" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="664.9" y1="446.9" x2="672.9" y2="446.9" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="664.9" y1="436.4" x2="672.9" y2="436.4" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1175.9" y1="408.7" x2="1183.9" y2="408.7" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1646.9" y1="485.0" x2="1654.9" y2="485.0" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="3910.2" y1="83.4" x2="3918.2" y2="83.4" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="2738.8" y1="1196.7" x2="2738.8" y2="1204.7" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="3722.5" y1="907.0" x2="3722.5" y2="915.0" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1646.9" y1="476.3" x2="1654.9" y2="476.3" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="2417.3" y1="1268.4" x2="2425.3" y2="1268.4" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="2682.4" y1="1476.0" x2="2682.4" y2="1484.0" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="2682.4" y1="1332.9" x2="2682.4" y2="1340.9" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="2940.4" y1="1546.0" x2="2948.4" y2="1546.0" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="3732.4" y1="2450.8" x2="3740.4" y2="2450.8" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="3650.0" y1="1834.0" x2="3658.0" y2="1834.0" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="2940.4" y1="1546.0" x2="2948.4" y2="1546.0" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1364.7" y1="1154.2" x2="1364.7" y2="1162.2" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1319.5" y1="944.3" x2="1319.5" y2="952.3" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1364.7" y1="1154.2" x2="1364.7" y2="1162.2" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1446.2" y1="947.7" x2="1446.2" y2="955.7" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1934.9" y1="277.7" x2="1942.9" y2="277.7" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="1233.1" y1="158.8" x2="1241.1" y2="158.8" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="3667.3" y1="248.2" x2="3675.3" y2="248.2" stroke="#111827" stroke-width="1.5" />
+<line class="nozzle" x1="2939.5" y1="1268.4" x2="2947.5" y2="1268.4" stroke="#111827" stroke-width="1.5" />
+<g class="node-wrap"><title>E-234-009 Fan2
+kind: equipment  confidence: high
+equipment_class: other
+note: Fan
+via_added: True</title><rect class="eq unclassified" x="1394.2" y="758.3" width="105.0" height="193.5" fill="#e5e7eb" stroke="#111827" stroke-width="1" stroke-dasharray="4,2" /><text class="lbl" x="1446.6" y="963.7" text-anchor="middle">E-234-009 Fan2</text></g>
+<g class="node-wrap"><title>E-234-010A
+kind: equipment  confidence: high
+equipment_class: heat_exchanger
+heat_exchanger_type: shell_and_tube
+note: Butane Regeneration Water Cooler shell A
+via_corrected: True</title><rect class="eq heat-exchanger" x="2421.3" y="1200.7" width="522.2" height="136.2" fill="#fde68a" stroke="#111827" stroke-width="1" /><line x1="2463.0" y1="1200.7" x2="2463.0" y2="1336.9" stroke="#111827" stroke-width="0.8" /><line x1="2901.7" y1="1200.7" x2="2901.7" y2="1336.9" stroke="#111827" stroke-width="0.8" /><line x1="2463.0" y1="1227.9" x2="2901.7" y2="1227.9" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.0" y1="1244.3" x2="2901.7" y2="1244.3" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.0" y1="1260.6" x2="2901.7" y2="1260.6" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.0" y1="1277.0" x2="2901.7" y2="1277.0" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.0" y1="1293.3" x2="2901.7" y2="1293.3" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.0" y1="1309.7" x2="2901.7" y2="1309.7" stroke="#4b5563" stroke-width="0.6" /><line x1="2551.8" y1="1200.7" x2="2551.8" y2="1192.7" stroke="#111827" stroke-width="1.2" /><line x1="2812.9" y1="1336.9" x2="2812.9" y2="1344.9" stroke="#111827" stroke-width="1.2" /><line x1="2413.3" y1="1268.8" x2="2421.3" y2="1268.8" stroke="#111827" stroke-width="1.5" /><line x1="2943.5" y1="1268.8" x2="2951.5" y2="1268.8" stroke="#111827" stroke-width="1.5" /><text class="lbl" x="2682.4" y="1188.7" text-anchor="middle">E-234-010A</text></g>
+<g class="node-wrap"><title>E-234-010B
+kind: equipment  confidence: high
+equipment_class: heat_exchanger
+heat_exchanger_type: shell_and_tube
+note: Butane Regeneration Water Cooler shell B
+via_corrected: True</title><rect class="eq heat-exchanger" x="2421.3" y="1480.0" width="523.1" height="131.9" fill="#fde68a" stroke="#111827" stroke-width="1" /><line x1="2463.1" y1="1480.0" x2="2463.1" y2="1611.9" stroke="#111827" stroke-width="0.8" /><line x1="2902.5" y1="1480.0" x2="2902.5" y2="1611.9" stroke="#111827" stroke-width="0.8" /><line x1="2463.1" y1="1506.4" x2="2902.5" y2="1506.4" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.1" y1="1522.2" x2="2902.5" y2="1522.2" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.1" y1="1538.1" x2="2902.5" y2="1538.1" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.1" y1="1553.9" x2="2902.5" y2="1553.9" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.1" y1="1569.7" x2="2902.5" y2="1569.7" stroke="#4b5563" stroke-width="0.6" /><line x1="2463.1" y1="1585.5" x2="2902.5" y2="1585.5" stroke="#4b5563" stroke-width="0.6" /><line x1="2552.0" y1="1480.0" x2="2552.0" y2="1472.0" stroke="#111827" stroke-width="1.2" /><line x1="2813.6" y1="1611.9" x2="2813.6" y2="1619.9" stroke="#111827" stroke-width="1.2" /><line x1="2413.3" y1="1546.0" x2="2421.3" y2="1546.0" stroke="#111827" stroke-width="1.5" /><line x1="2944.4" y1="1546.0" x2="2952.4" y2="1546.0" stroke="#111827" stroke-width="1.5" /><text class="lbl" x="2682.8" y="1468.0" text-anchor="middle">E-234-010B</text></g>
+<g class="node-wrap"><title>HY-2903A
+kind: equipment  confidence: medium
+arbitration: revised
+equipment_class: instrument
+equipment_class_before_arbitration: fan_blower
+fan_blower_type: axial_fan
+note: fan A actuator
+via_corrected: True</title><rect class="eq unclassified" x="1165.1" y="688.9" width="68.5" height="78.1" fill="#e5e7eb" stroke="#111827" stroke-width="1" stroke-dasharray="4,2" /><text class="lbl" x="1199.4" y="779.0" text-anchor="middle">HY-2903A</text></g>
+<g class="node-wrap"><title>HY-2903B
+kind: equipment  confidence: medium
+arbitration: revised
+equipment_class: instrument
+equipment_class_before_arbitration: fan_blower
+fan_blower_type: axial_fan
+note: fan B actuator
+via_corrected: True</title><rect class="eq unclassified" x="1529.5" y="690.6" width="95.4" height="95.4" fill="#e5e7eb" stroke="#111827" stroke-width="1" stroke-dasharray="4,2" /><text class="lbl" x="1577.2" y="798.0" text-anchor="middle">HY-2903B</text></g>
+<g class="node-wrap"><title>KV-2904
+kind: equipment  confidence: high
+arbitration: confirmed
+equipment_class: valve
+valve_type: three_way
+via_corrected: True
+via_match: label_fallback</title><path class="valve" d="M 521.5,401.6 L 592.6,444.3 L 521.5,486.9 L 521.5,401.6 M 663.7,401.6 L 592.6,444.3 L 663.7,486.9 L 663.7,401.6" fill="#fda4af" stroke="#111827" stroke-width="1" fill-rule="nonzero" /><text class="lbl" x="592.6" y="527.4" text-anchor="middle">KV-2904</text></g>
+<g class="node-wrap"><title>ESD-3200
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 3200
+measured_variable: other
+note: Emergency Shutdown - fan A
+via_corrected: True</title><circle class="inst" cx="1708.2" cy="1121.8" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="1708.2" y="1124.8" text-anchor="middle">ESD-3200</text></g>
+<g class="node-wrap"><title>HIC-2903A
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2903
+measured_variable: hand
+via_corrected: True</title><circle class="inst" cx="1046.3" cy="721.0" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="1046.3" y="724.0" text-anchor="middle">HIC-2903A</text></g>
+<g class="node-wrap"><title>HIC-2903B
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2903
+measured_variable: hand
+via_corrected: True</title><circle class="inst" cx="1694.3" cy="721.0" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="1694.3" y="724.0" text-anchor="middle">HIC-2903B</text></g>
+<g class="node-wrap"><title>HS-2901A
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 2901
+measured_variable: hand
+via_corrected: True</title><circle class="inst" cx="1036.7" cy="833.8" r="39.9" fill="#f3e8ff" /><text class="inst-tag" x="1036.7" y="836.8" text-anchor="middle">HS-2901A</text></g>
+<g class="node-wrap"><title>HS-2901A1 LOCAL/REMOTE
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 2901
+measured_variable: hand
+via_corrected: True</title><circle class="inst" cx="1282.2" cy="1101.8" r="47.7" fill="#f3e8ff" /><text class="lbl" x="1282.2" y="1170.2" text-anchor="middle">HS-2901A1 LOCAL/REMOTE</text></g>
+<g class="node-wrap"><title>HS-2901A2 STOP/START
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 2901
+measured_variable: hand
+via_corrected: True</title><circle class="inst" cx="996.0" cy="1228.5" r="52.9" fill="#f3e8ff" /><text class="lbl" x="996.0" y="1293.4" text-anchor="middle">HS-2901A2 STOP/START</text></g>
+<g class="node-wrap"><title>HS-2901B
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 2901
+measured_variable: hand
+via_corrected: True</title><circle class="inst" cx="1690.0" cy="833.8" r="30.4" fill="#f3e8ff" /><text class="inst-tag" x="1690.0" y="836.8" text-anchor="middle">HS-2901B</text></g>
+<g class="node-wrap"><title>HS-2901B1 LOCAL/REMOTE
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 2901
+measured_variable: hand
+via_corrected: True</title><circle class="inst" cx="1421.0" cy="1101.8" r="47.7" fill="#f3e8ff" /><text class="lbl" x="1421.0" y="1170.2" text-anchor="middle">HS-2901B1 LOCAL/REMOTE</text></g>
+<g class="node-wrap"><title>HS-2901B2 STOP/START
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 2901
+measured_variable: hand
+via_corrected: True</title><circle class="inst" cx="1716.0" cy="1214.6" r="39.0" fill="#f3e8ff" /><text class="lbl" x="1716.0" y="1293.6" text-anchor="middle">HS-2901B2 STOP/START</text></g>
+<g class="node-wrap"><title>PG-2913
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2913
+measured_variable: pressure
+via_corrected: True</title><circle class="inst" cx="3103.5" cy="849.8" r="41.2" fill="#f3e8ff" /><text class="inst-tag" x="3103.5" y="852.8" text-anchor="middle">PG-2913</text></g>
+<g class="node-wrap"><title>PG-2914
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2914
+measured_variable: pressure
+via_corrected: True
+via_match: label_fallback</title><circle class="inst" cx="3006.8" cy="1718.6" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="3006.8" y="1721.6" text-anchor="middle">PG-2914</text></g>
+<g class="node-wrap"><title>PSD-2917
+kind: instrument  confidence: high
+arbitration: confirmed
+instrument_function: switch
+loop_number: 2917
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="2168.0" cy="277.7" r="34.7" fill="#f3e8ff" /><text class="inst-tag" x="2168.0" y="280.7" text-anchor="middle">PSD-2917</text></g>
+<g class="node-wrap"><title>PSV-2907
+kind: instrument  confidence: high
+instrument_function: valve_actuator
+measured_variable: pressure
+note: Thermal expansion relief, 440 psig
+via_added: True</title><circle class="inst" cx="3235.8" cy="675.0" r="57.3" fill="#f3e8ff" /><text class="inst-tag" x="3235.8" y="678.0" text-anchor="middle">PSV-2907</text></g>
+<g class="node-wrap"><title>TG-2910
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2910
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="863.2" cy="399.1" r="34.7" fill="#f3e8ff" /><text class="inst-tag" x="863.2" y="402.1" text-anchor="middle">TG-2910</text></g>
+<g class="node-wrap"><title>TG-2912
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2912
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="2072.5" cy="400.0" r="34.7" fill="#f3e8ff" /><text class="inst-tag" x="2072.5" y="403.0" text-anchor="middle">TG-2912</text></g>
+<g class="node-wrap"><title>TG-2917
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2917
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="3414.5" cy="909.2" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="3414.5" y="912.2" text-anchor="middle">TG-2917</text></g>
+<g class="node-wrap"><title>TI-2909
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2909
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="777.4" cy="261.2" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="777.4" y="264.2" text-anchor="middle">TI-2909</text></g>
+<g class="node-wrap"><title>TI-2913 H
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2913
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="1976.2" cy="2149.3" r="41.2" fill="#f3e8ff" /><text class="inst-tag" x="1976.2" y="2152.3" text-anchor="middle">TI-2913 H</text></g>
+<g class="node-wrap"><title>TI-2916
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2916
+measured_variable: temperature
+via_corrected: True
+via_match: label_fallback</title><circle class="inst" cx="3192.0" cy="773.0" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="3192.0" y="776.0" text-anchor="middle">TI-2916</text></g>
+<g class="node-wrap"><title>TI-2917 HH
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2917
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="2171.4" cy="157.1" r="34.7" fill="#f3e8ff" /><text class="inst-tag" x="2171.4" y="160.1" text-anchor="middle">TI-2917 HH</text></g>
+<g class="node-wrap"><title>TIC-2911
+kind: instrument  confidence: high
+instrument_class: control_loop
+instrument_function: indicator
+loop_number: 2911
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="1984.5" cy="277.7" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="1984.5" y="280.7" text-anchor="middle">TIC-2911</text></g>
+<g class="node-wrap"><title>TT-2909
+kind: instrument  confidence: high
+instrument_function: transmitter
+loop_number: 2909
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="776.5" cy="399.1" r="34.7" fill="#f3e8ff" /><text class="inst-tag" x="776.5" y="402.1" text-anchor="middle">TT-2909</text></g>
+<g class="node-wrap"><title>TT-2911
+kind: instrument  confidence: high
+instrument_function: transmitter
+loop_number: 2911
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="1973.6" cy="399.1" r="34.7" fill="#f3e8ff" /><text class="inst-tag" x="1973.6" y="402.1" text-anchor="middle">TT-2911</text></g>
+<g class="node-wrap"><title>TT-2913
+kind: instrument  confidence: high
+instrument_function: transmitter
+loop_number: 2913
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="2110.3" cy="2152.3" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="2110.3" y="2155.3" text-anchor="middle">TT-2913</text></g>
+<g class="node-wrap"><title>TT-2916
+kind: instrument  confidence: high
+instrument_function: transmitter
+loop_number: 2916
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="3182.1" cy="900.6" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="3182.1" y="903.6" text-anchor="middle">TT-2916</text></g>
+<g class="node-wrap"><title>TT-2917
+kind: instrument  confidence: high
+instrument_function: transmitter
+loop_number: 2917
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="2167.1" cy="400.9" r="34.7" fill="#f3e8ff" /><text class="inst-tag" x="2167.1" y="403.9" text-anchor="middle">TT-2917</text></g>
+<g class="node-wrap"><title>TW-2921
+kind: instrument  confidence: high
+instrument_function: element
+loop_number: 2921
+measured_variable: temperature
+note: thermowell
+via_corrected: True</title><circle class="inst" cx="2833.3" cy="1449.7" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="2833.3" y="1452.7" text-anchor="middle">TW-2921</text></g>
+<g class="node-wrap"><title>TW-2922
+kind: instrument  confidence: high
+instrument_function: element
+loop_number: 2922
+measured_variable: temperature
+note: thermowell
+via_corrected: True</title><circle class="inst" cx="2966.9" cy="1446.2" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="2966.9" y="1449.2" text-anchor="middle">TW-2922</text></g>
+<g class="node-wrap"><title>TY-2911
+kind: instrument  confidence: high
+instrument_function: valve_actuator
+loop_number: 2911
+measured_variable: temperature
+via_corrected: True</title><circle class="inst" cx="1198.1" cy="158.8" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="1198.1" y="161.8" text-anchor="middle">TY-2911</text></g>
+<g class="node-wrap"><title>VA-2901A
+kind: instrument  confidence: high
+instrument_function: alarm
+loop_number: 2901
+measured_variable: other
+note: vibration alarm HH, fan A
+via_corrected: True</title><circle class="inst" cx="1010.7" cy="1037.6" r="39.0" fill="#f3e8ff" /><line x1="971.7" y1="1037.6" x2="1049.8" y2="1037.6" stroke="#111827" stroke-width="1" /><text class="inst-tag" x="1010.7" y="1040.6" text-anchor="middle">VA-2901A</text></g>
+<g class="node-wrap"><title>VA-2901B
+kind: instrument  confidence: high
+instrument_function: alarm
+loop_number: 2901
+measured_variable: other
+note: vibration alarm HH, fan B
+via_corrected: True</title><circle class="inst" cx="1723.4" cy="1029.8" r="39.0" fill="#f3e8ff" /><line x1="1684.3" y1="1029.8" x2="1762.4" y2="1029.8" stroke="#111827" stroke-width="1" /><text class="inst-tag" x="1723.4" y="1032.8" text-anchor="middle">VA-2901B</text></g>
+<g class="node-wrap"><title>VB-2911
+kind: instrument  confidence: high
+arbitration: confirmed
+instrument_function: unclassified_instrument
+loop_number: 2911
+note: Vibration?
+structural_description: VB-2911 bubble with rectangular vent block below, marked HIGH POINT VENT
+via_corrected: True</title><circle class="inst" cx="2928.7" cy="769.6" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="2928.7" y="772.6" text-anchor="middle">VB-2911</text></g>
+<g class="node-wrap"><title>VSHH-2901A
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 2901
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="1194.6" cy="832.9" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="1194.6" y="835.9" text-anchor="middle">VSHH-2901A</text></g>
+<g class="node-wrap"><title>VSHH-2901B
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 2901
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="1568.5" cy="833.8" r="30.4" fill="#f3e8ff" /><text class="lbl" x="1568.5" y="876.1" text-anchor="middle">VSHH-2901B</text></g>
+<g class="node-wrap"><title>XA-2901A FAULT
+kind: instrument  confidence: high
+instrument_function: alarm
+loop_number: 2901
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="1293.5" cy="1386.3" r="47.7" fill="#f3e8ff" /><line x1="1245.8" y1="1386.3" x2="1341.2" y2="1386.3" stroke="#111827" stroke-width="1" /><text class="inst-tag" x="1293.5" y="1389.3" text-anchor="middle">XA-2901A FAULT</text></g>
+<g class="node-wrap"><title>XA-2901B FAULT
+kind: instrument  confidence: high
+instrument_function: alarm
+loop_number: 2901
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="1419.3" cy="1385.5" r="47.7" fill="#f3e8ff" /><line x1="1371.6" y1="1385.5" x2="1467.0" y2="1385.5" stroke="#111827" stroke-width="1" /><text class="inst-tag" x="1419.3" y="1388.5" text-anchor="middle">XA-2901B FAULT</text></g>
+<g class="node-wrap"><title>XI-2901A AVAILABLE
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2901
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="1293.5" cy="1232.8" r="47.7" fill="#f3e8ff" /><text class="lbl" x="1293.5" y="1301.2" text-anchor="middle">XI-2901A AVAILABLE</text></g>
+<g class="node-wrap"><title>XI-2901B AVAILABLE
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2901
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="1421.0" cy="1236.3" r="47.7" fill="#f3e8ff" /><text class="lbl" x="1421.0" y="1304.7" text-anchor="middle">XI-2901B AVAILABLE</text></g>
+<g class="node-wrap"><title>XL-2901A RUNNING/STOP
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2901
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="1150.4" cy="1399.8" r="47.7" fill="#f3e8ff" /><text class="lbl" x="1150.4" y="1479.9" text-anchor="middle">XL-2901A RUNNING/STOP</text></g>
+<g class="node-wrap"><title>XL-2901B RUNNING/STOP
+kind: instrument  confidence: high
+instrument_function: indicator
+loop_number: 2901
+measured_variable: other
+via_corrected: True</title><circle class="inst" cx="1559.8" cy="1357.7" r="47.7" fill="#f3e8ff" /><text class="lbl" x="1559.8" y="1426.1" text-anchor="middle">XL-2901B RUNNING/STOP</text></g>
+<g class="node-wrap"><title>ESD-3200
+kind: instrument  confidence: high
+instrument_function: switch
+loop_number: 3200
+measured_variable: other
+note: Emergency Shutdown - fan A
+via_corrected: True</title><circle class="inst" cx="1000.3" cy="1114.8" r="39.0" fill="#f3e8ff" /><text class="inst-tag" x="1000.3" y="1117.8" text-anchor="middle">ESD-3200</text></g>
+<g class="node-wrap"><title>E-234-009
+kind: equipment  confidence: high
+equipment_class: heat_exchanger
+heat_exchanger_type: air_cooler
+note: Butane Regeneration Air Cooler
+via_corrected: True</title><rect class="eq heat-exchanger" x="1179.9" y="216.1" width="471.0" height="520.5" fill="#fde68a" stroke="#111827" stroke-width="1" /><line x1="1217.6" y1="216.1" x2="1217.6" y2="736.6" stroke="#111827" stroke-width="0.8" /><line x1="1613.2" y1="216.1" x2="1613.2" y2="736.6" stroke="#111827" stroke-width="0.8" /><line x1="1217.6" y1="320.2" x2="1613.2" y2="320.2" stroke="#4b5563" stroke-width="0.6" /><line x1="1217.6" y1="382.7" x2="1613.2" y2="382.7" stroke="#4b5563" stroke-width="0.6" /><line x1="1217.6" y1="445.1" x2="1613.2" y2="445.1" stroke="#4b5563" stroke-width="0.6" /><line x1="1217.6" y1="507.6" x2="1613.2" y2="507.6" stroke="#4b5563" stroke-width="0.6" /><line x1="1217.6" y1="570.0" x2="1613.2" y2="570.0" stroke="#4b5563" stroke-width="0.6" /><line x1="1217.6" y1="632.5" x2="1613.2" y2="632.5" stroke="#4b5563" stroke-width="0.6" /><line x1="1297.6" y1="216.1" x2="1297.6" y2="208.1" stroke="#111827" stroke-width="1.2" /><line x1="1533.2" y1="736.6" x2="1533.2" y2="744.6" stroke="#111827" stroke-width="1.2" /><line x1="1171.9" y1="476.3" x2="1179.9" y2="476.3" stroke="#111827" stroke-width="1.5" /><line x1="1650.9" y1="476.3" x2="1658.9" y2="476.3" stroke="#111827" stroke-width="1.5" /><text class="lbl" x="1415.4" y="204.1" text-anchor="middle">E-234-009</text></g>
+<g class="node-wrap"><title>E-234-009 Fan1
+kind: equipment  confidence: high
+equipment_class: other
+note: Fan
+via_added: True</title><rect class="eq unclassified" x="1267.5" y="754.8" width="105.0" height="193.5" fill="#e5e7eb" stroke="#111827" stroke-width="1" stroke-dasharray="4,2" /><text class="lbl" x="1320.0" y="960.3" text-anchor="middle">E-234-009 Fan1</text></g>
+<g class="node-wrap"><title>OPC IN: Spent Butane from V-234-002A~D (P-234-03016-F3D-8"-Is)
+kind: opc  confidence: high
+direction: in
+service_code: F3D
+target_sheet: 234-3.00-031</title><polygon class="opc" points="265.5476035567122,443.3832140533507 193.97961396660162,443.3832140533507 170.12361743656476,491.0952071134244 193.97961396660162,538.8072001734981 265.5476035567122,538.8072001734981" fill="#fef2f2" /><text class="lbl" x="217.8" y="550.8" text-anchor="middle">OPC IN: Spent Butane fr…</text></g>
+<g class="node-wrap"><title>OPC OUT: Spent Butane to V-234-004 (P-234-03303-CD3D-2"-N)
+kind: opc  confidence: high
+direction: out
+service_code: CD3D
+target_sheet: 234-3.00-035</title><polygon class="opc" points="3732.0407720667968,40.0 3816.6211234005636,40.0 3844.8145738451526,96.38690088917805 3816.6211234005636,152.7738017783561 3732.0407720667968,152.7738017783561" fill="#fef2f2" /><text class="lbl" x="3788.4" y="164.8" text-anchor="middle">OPC OUT: Spent Butane t…</text></g>
+<g class="node-wrap"><title>OPC IN: Min Flow from P-234-002A/B (P-234-03505-CD3D-3"-N)
+kind: opc  confidence: high
+direction: in
+service_code: CD3D
+target_sheet: 234-3.00-035</title><polygon class="opc" points="3853.489481674257,191.81088700932554 3768.9091303404903,191.81088700932554 3740.7156798959013,248.19778789850358 3768.9091303404903,304.5846887876816 3853.489481674257,304.5846887876816" fill="#fef2f2" /><text class="lbl" x="3797.1" y="316.6" text-anchor="middle">OPC IN: Min Flow from P…</text></g>
+<g class="node-wrap"><title>OPC OUT: Sea Water Return to 237-3.00-050 (SWR-234-03301-115201D-10"-N)
+kind: opc  confidence: high
+direction: out
+service_code: SWR
+target_sheet: 237-3.00-050</title><polygon class="opc" points="3771.0778572977665,910.9607460420733 3855.6582086315334,910.9607460420733 3883.8516590761224,967.3476469312513 3855.6582086315334,1023.7345478204294 3771.0778572977665,1023.7345478204294" fill="#fef2f2" /><text class="lbl" x="3827.5" y="1035.7" text-anchor="middle">OPC OUT: Sea Water Retu…</text></g>
+<g class="node-wrap"><title>OPC IN: Sea Water Supply from 234-3.00-027 (SWS-234-03301-115201D-10"-N)
+kind: opc  confidence: high
+direction: in
+service_code: SWS
+target_sheet: 234-3.00-027</title><polygon class="opc" points="3866.5018434179137,1777.5840381695944 3781.921492084147,1777.5840381695944 3753.728041639558,1833.9709390587725 3781.921492084147,1890.3578399479507 3866.5018434179137,1890.3578399479507" fill="#fef2f2" /><text class="lbl" x="3810.1" y="1902.4" text-anchor="middle">OPC IN: Sea Water Suppl…</text></g>
+<g class="node-wrap"><title>OPC OUT: Spent Butane (Cooling/Filling) to F-234-004A/B (P-234-03302-CD3D-6"-N)
+kind: opc  confidence: high
+direction: out
+service_code: CD3D
+target_sheet: 234-3.00-034</title><polygon class="opc" points="3831.8022121014965,2394.3699848189112 3916.3825634352634,2394.3699848189112 3944.5760138798523,2450.756885708089 3916.3825634352634,2507.143786597267 3831.8022121014965,2507.143786597267" fill="#fef2f2" /><text class="lbl" x="3888.2" y="2519.1" text-anchor="middle">OPC OUT: Spent Butane (…</text></g>
+<g class="node-wrap"><title>SEQ sequencer (auto-start sequencer for fans)
+kind: note  confidence: medium</title><rect class="misc" x="1789.7" y="1166.9" width="86.7" height="95.4" fill="#f9fafb" /><text class="lbl" x="1833.1" y="1274.3" text-anchor="middle">SEQ sequencer (auto-sta…</text></g>
+<g class="node-wrap"><title>MCC motor control center (fan A &amp;amp; B)
+kind: note  confidence: medium</title><rect class="misc" x="1104.4" y="1158.2" width="520.5" height="112.8" fill="#f9fafb" /><text class="lbl" x="1364.7" y="1283.0" text-anchor="middle">MCC motor control cente…</text></g>
+<g class="node-wrap"><title>SEQ sequencer - fan A
+kind: note  confidence: medium</title><rect class="misc" x="803.4" y="1175.5" width="95.4" height="95.4" fill="#f9fafb" /><text class="lbl" x="851.1" y="1283.0" text-anchor="middle">SEQ sequencer - fan A</text></g>
+<rect class="key-bg" x="3860" y="40" width="180" height="136" />
+<rect x="3870" y="52" width="14" height="10" fill="#dbeafe" stroke="#111827" stroke-width="1" />
+<text class="key-label" x="3892" y="63.0">equipment</text>
+<circle cx="3877" cy="77.0" r="6" fill="#f3e8ff" stroke="#111827" stroke-width="1" />
+<text class="key-label" x="3892" y="81.0">instrument</text>
+<polygon points="3877,88 3884,95.0 3877,100 3870,95.0" fill="#fbbf24" stroke="#111827" stroke-width="1" />
+<text class="key-label" x="3892" y="99.0">valve</text>
+<polygon points="3870,106 3880,106 3884,113.0 3880,118 3870,118" fill="#fef2f2" stroke="#111827" stroke-width="1" />
+<text class="key-label" x="3892" y="117.0">off-page connector</text>
+<line x1="3870" y1="131.0" x2="3884" y2="131.0" stroke="#1f2937" stroke-width="2" />
+<text class="key-label" x="3892" y="135.0">process pipe</text>
+<line x1="3870" y1="149.0" x2="3884" y2="149.0" stroke="#2563eb" stroke-width="2" stroke-dasharray="3,2" />
+<text class="key-label" x="3892" y="153.0">signal</text>
+<rect class="tb-bg" x="3740" y="2367" width="300" height="120" />
+<rect class="tb-bg" x="3740" y="2367" width="300" height="16" fill="#f3f4f6" />
+<text class="tb-title" x="3748" y="2379">diagex · DEXPI extraction</text>
+<line class="tb-grid" x1="3740" y1="2383.0" x2="4040" y2="2383.0" />
+<text class="tb-row" x="3748" y="2394.0">diagex run</text>
+<text class="tb-row" x="3860" y="2394.0">—</text>
+<line class="tb-grid" x1="3740" y1="2397.0" x2="4040" y2="2397.0" />
+<text class="tb-row" x="3748" y="2408.0">drawing</text>
+<text class="tb-row" x="3860" y="2408.0">butane1.pdf</text>
+<line class="tb-grid" x1="3740" y1="2411.0" x2="4040" y2="2411.0" />
+<text class="tb-row" x="3748" y="2422.0">model</text>
+<text class="tb-row" x="3860" y="2422.0">—</text>
+<line class="tb-grid" x1="3740" y1="2425.0" x2="4040" y2="2425.0" />
+<text class="tb-row" x="3748" y="2436.0">effort</text>
+<text class="tb-row" x="3860" y="2436.0">—</text>
+<line class="tb-grid" x1="3740" y1="2439.0" x2="4040" y2="2439.0" />
+<text class="tb-row" x="3748" y="2450.0">cost</text>
+<text class="tb-row" x="3860" y="2450.0">—</text>
+<line class="tb-grid" x1="3740" y1="2453.0" x2="4040" y2="2453.0" />
+<text class="tb-row" x="3748" y="2464.0">timestamp</text>
+<text class="tb-row" x="3860" y="2464.0">—</text>
+<line class="tb-grid" x1="3740" y1="2467.0" x2="4040" y2="2467.0" />
+<text class="tb-row" x="3748" y="2478.0">nodes / edges</text>
+<text class="tb-row" x="3860" y="2478.0">58 / 12</text>
+<text class="footer" x="40" y="2537">equipment 8 · instruments 41 · opcs 6 · edges 12</text>
+</svg>

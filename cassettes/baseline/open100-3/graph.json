@@ -1,0 +1,2365 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "open100-3.pdf",
+  "nodes": [
+    {
+      "id": "n-fcbe19f5",
+      "kind": "opc",
+      "label": "RHRS inlet",
+      "bbox_global": {
+        "x": 80,
+        "y": 365,
+        "w": 220,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 120-1 (D-1)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "abf9618990dd4e02912f6242a12c7c82"
+      ]
+    },
+    {
+      "id": "n-75f3139d",
+      "kind": "equipment",
+      "label": "RCS-XR-100",
+      "bbox_global": {
+        "x": 770,
+        "y": 620,
+        "w": 460,
+        "h": 410
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "reactor",
+        "reactor_type": "reactor_vessel"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "51bb0c20990e40f0ab223e6c30d93d1e"
+      ]
+    },
+    {
+      "id": "n-0e2a46c4",
+      "kind": "instrument",
+      "label": "TE-1001A",
+      "bbox_global": {
+        "x": 880,
+        "y": 552,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e9a880d25fe3424e94c857b481ee0f3f"
+      ]
+    },
+    {
+      "id": "n-6db0f996",
+      "kind": "instrument",
+      "label": "TE-1001B",
+      "bbox_global": {
+        "x": 855,
+        "y": 525,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ff65a7a030e44c84b6bede158b383656"
+      ]
+    },
+    {
+      "id": "n-ac8c6c07",
+      "kind": "instrument",
+      "label": "TE-1002A",
+      "bbox_global": {
+        "x": 1075,
+        "y": 580,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8e542013d9da483ebf5e081292a549d0"
+      ]
+    },
+    {
+      "id": "n-2d8bb3a0",
+      "kind": "instrument",
+      "label": "TE-1002B",
+      "bbox_global": {
+        "x": 1100,
+        "y": 555,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "566d5eb41f174ef49a3a1518a45b7f7f"
+      ]
+    },
+    {
+      "id": "n-2438b8a9",
+      "kind": "instrument",
+      "label": "LE-1003A",
+      "bbox_global": {
+        "x": 1245,
+        "y": 470,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "level",
+        "loop_number": "1003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8e89d29813cf4bc6b6cb97b1cf145fbe"
+      ]
+    },
+    {
+      "id": "n-27d5353d",
+      "kind": "instrument",
+      "label": "LE-1003B",
+      "bbox_global": {
+        "x": 1245,
+        "y": 515,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "level",
+        "loop_number": "1003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "891719ca85194de7802552379a29094c"
+      ]
+    },
+    {
+      "id": "n-5fcee14d",
+      "kind": "instrument",
+      "label": "TE-1004A",
+      "bbox_global": {
+        "x": 580,
+        "y": 705,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1004"
+      },
+      "confidence": "high",
+      "alternate_readings": [
+        "TE-1004B"
+      ],
+      "source_annotation_ids": [
+        "b02208a6be9a4ad8987329fa211138b0",
+        "effe8cc2640b4a93b092460b773dc772"
+      ]
+    },
+    {
+      "id": "n-e6278a15",
+      "kind": "instrument",
+      "label": "LE-1006A",
+      "bbox_global": {
+        "x": 460,
+        "y": 725,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "level",
+        "loop_number": "1006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8f3d85d5119a4bfaa25ea36209f9b061"
+      ]
+    },
+    {
+      "id": "n-27912791",
+      "kind": "instrument",
+      "label": "LE-1006B",
+      "bbox_global": {
+        "x": 460,
+        "y": 825,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "level",
+        "loop_number": "1006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3a415d6f1bf345c3af4bcbcaa018a227"
+      ]
+    },
+    {
+      "id": "n-ba13b1a4",
+      "kind": "instrument",
+      "label": "TE-1005A",
+      "bbox_global": {
+        "x": 615,
+        "y": 855,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1005"
+      },
+      "confidence": "high",
+      "alternate_readings": [
+        "TE-1005B"
+      ],
+      "source_annotation_ids": [
+        "998b16424dc84edaaaee9e163df88790",
+        "58fc134846884538a97190f0b82bbca7"
+      ]
+    },
+    {
+      "id": "n-f8861db6",
+      "kind": "opc",
+      "label": "RHRS outlet",
+      "bbox_global": {
+        "x": 2498,
+        "y": 75,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "RHRS PID-120-01"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1eea609ad3f54cffa6260f007bf9499c"
+      ]
+    },
+    {
+      "id": "n-345f9bd2",
+      "kind": "opc",
+      "label": "WSS outlet",
+      "bbox_global": {
+        "x": 2498,
+        "y": 180,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "WSS PID 290-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6dcc8071fc7d4708871669825436af37"
+      ]
+    },
+    {
+      "id": "n-a29bd222",
+      "kind": "opc",
+      "label": "Reactor coolant outlet",
+      "bbox_global": {
+        "x": 2498,
+        "y": 405,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "RCS-PID-100-2"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8265853d502342c8930e343cc9daafda"
+      ]
+    },
+    {
+      "id": "n-7273e776",
+      "kind": "equipment",
+      "label": "RCS-SG-101",
+      "bbox_global": {
+        "x": 2198,
+        "y": 580,
+        "w": 200,
+        "h": 470
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "steam_generator"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ca2e7f8cd0e54009b746ebbefe49c4e8"
+      ]
+    },
+    {
+      "id": "n-d536e9a9",
+      "kind": "instrument",
+      "label": "PT-1007A",
+      "bbox_global": {
+        "x": 1618,
+        "y": 260,
+        "w": 50,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "1007",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "309b0a00e0454afeb6e746d8c3376889"
+      ]
+    },
+    {
+      "id": "n-5d6296ee",
+      "kind": "instrument",
+      "label": "PT-1007B",
+      "bbox_global": {
+        "x": 1653,
+        "y": 270,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "1007",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d8e370a42a0045438bbac7f8ce3481b5"
+      ]
+    },
+    {
+      "id": "n-6414e629",
+      "kind": "instrument",
+      "label": "TE-1008A",
+      "bbox_global": {
+        "x": 1763,
+        "y": 280,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1008"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5e6020ccff334748a0caececf95cf88d"
+      ]
+    },
+    {
+      "id": "n-c16cf155",
+      "kind": "instrument",
+      "label": "TE-1008B",
+      "bbox_global": {
+        "x": 1798,
+        "y": 280,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1008"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fff172a8123c4ea79fe4119eeb3f684f"
+      ]
+    },
+    {
+      "id": "n-e92ecbc7",
+      "kind": "opc",
+      "label": "CVCS inlet",
+      "bbox_global": {
+        "x": 95,
+        "y": 1071,
+        "w": 220,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 110-1 (H-12)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ad9d63d897244ced85c7dbe9381bb57d"
+      ]
+    },
+    {
+      "id": "n-8a2739ee",
+      "kind": "opc",
+      "label": "RHRS inlet 2",
+      "bbox_global": {
+        "x": 95,
+        "y": 1134,
+        "w": 220,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 120-1 (E-1)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "28077c2bdd4048d28751e1592085919a"
+      ]
+    },
+    {
+      "id": "n-9b2c0fa1",
+      "kind": "opc",
+      "label": "CVCS inlet 2",
+      "bbox_global": {
+        "x": 95,
+        "y": 1244,
+        "w": 220,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 110-1 (G-12)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3a17ca0cfb8f4ffa91e7f06c473e001e"
+      ]
+    },
+    {
+      "id": "n-bae72e19",
+      "kind": "opc",
+      "label": "RHRS inlet 3",
+      "bbox_global": {
+        "x": 95,
+        "y": 1309,
+        "w": 220,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 120-1 (C-1)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "93b4a6ef46824ea48623ab662b0c0a48"
+      ]
+    },
+    {
+      "id": "n-cc85d196",
+      "kind": "instrument",
+      "label": "TE-10211A",
+      "bbox_global": {
+        "x": 1080,
+        "y": 1134,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "10211",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0759aa440f984f229431a77986f0e4f3"
+      ]
+    },
+    {
+      "id": "n-e51e96dc",
+      "kind": "instrument",
+      "label": "TE-10211B",
+      "bbox_global": {
+        "x": 1115,
+        "y": 1134,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "10211",
+        "label_before_arbitration": "TE-10211B",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f5f50429b4a74e77950a52145f07d7e4"
+      ]
+    },
+    {
+      "id": "n-18092598",
+      "kind": "instrument",
+      "label": "PT-10210B",
+      "bbox_global": {
+        "x": 1265,
+        "y": 1134,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "10210",
+        "label_before_arbitration": "PT-10210B",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a6cc37036cb44b33bcaf74df6f653611"
+      ]
+    },
+    {
+      "id": "n-4e640fe4",
+      "kind": "instrument",
+      "label": "TE-10212A",
+      "bbox_global": {
+        "x": 1015,
+        "y": 1299,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "10212",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8fe0abc66f1b46a4885100029eebab69"
+      ]
+    },
+    {
+      "id": "n-faaffc15",
+      "kind": "instrument",
+      "label": "TE-10212B",
+      "bbox_global": {
+        "x": 1055,
+        "y": 1299,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "10212",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8c6a7555738b4bbfaffff085561d339d"
+      ]
+    },
+    {
+      "id": "n-3f8c5cf4",
+      "kind": "instrument",
+      "label": "PT-10214A",
+      "bbox_global": {
+        "x": 970,
+        "y": 1531,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "10214",
+        "label_before_arbitration": "PT-10214A",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2e0580d9d31841a388d4f066cbfc0b69"
+      ]
+    },
+    {
+      "id": "n-5b1566aa",
+      "kind": "instrument",
+      "label": "PT-10214B",
+      "bbox_global": {
+        "x": 1005,
+        "y": 1531,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "10214",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6168469e099a49218cdd8aa70e81fbda"
+      ]
+    },
+    {
+      "id": "n-02080699",
+      "kind": "instrument",
+      "label": "TE-10215A",
+      "bbox_global": {
+        "x": 760,
+        "y": 1531,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "10215",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "caf6f80d6af44bd3bb370a047aa62da4"
+      ]
+    },
+    {
+      "id": "n-de34a9fb",
+      "kind": "instrument",
+      "label": "TE-10216B",
+      "bbox_global": {
+        "x": 800,
+        "y": 1531,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "10215",
+        "label_before_arbitration": "TE-10215B",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "821563d5ff2f4f5d89a8ff2405ea0f57"
+      ]
+    },
+    {
+      "id": "n-10a97cdd",
+      "kind": "instrument",
+      "label": "TE-10216B",
+      "bbox_global": {
+        "x": 655,
+        "y": 1531,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "10216",
+        "arbitration": "uncertain"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "52b37be0391e45f7b0c71773ba2a646d"
+      ]
+    },
+    {
+      "id": "n-2be29be9",
+      "kind": "opc",
+      "label": "Reactor coolant outlet 2",
+      "bbox_global": {
+        "x": 2553,
+        "y": 1135,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "RC-PID-100-2"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e8d9ceebaead49729e6793d3b9024ecd"
+      ]
+    },
+    {
+      "id": "n-021629c3",
+      "kind": "opc",
+      "label": "CVCS outlet",
+      "bbox_global": {
+        "x": 2553,
+        "y": 1264,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "CVCS-PID-110-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d28c62cd89144fd4983fa45b138a5fff"
+      ]
+    },
+    {
+      "id": "n-dcc0e091",
+      "kind": "opc",
+      "label": "WSS outlet 2",
+      "bbox_global": {
+        "x": 2553,
+        "y": 1384,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "WSS PID 290-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "82a29b4d5c394501b43cb3bcd4c6c701"
+      ]
+    },
+    {
+      "id": "n-37ace3ab",
+      "kind": "opc",
+      "label": "Reactor coolant outlet 3",
+      "bbox_global": {
+        "x": 2553,
+        "y": 1477,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "RCS-PID-100-2"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a079ec097609411f819d2382a318cab2"
+      ]
+    },
+    {
+      "id": "n-de894dbd",
+      "kind": "instrument",
+      "label": "FE-1011",
+      "bbox_global": {
+        "x": 1618,
+        "y": 1034,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1011"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f2022d38e95843e48a01b4afe6974411"
+      ]
+    },
+    {
+      "id": "n-05a46bce",
+      "kind": "instrument",
+      "label": "FT-1011",
+      "bbox_global": {
+        "x": 1653,
+        "y": 1039,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1011"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5b8a1a4db2664900901d4a613d2a6a90"
+      ]
+    },
+    {
+      "id": "n-02e11a8b",
+      "kind": "instrument",
+      "label": "FE-1012",
+      "bbox_global": {
+        "x": 1713,
+        "y": 1034,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1012"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4a4f3ba4e3dc49c6b051be34011b4c1e"
+      ]
+    },
+    {
+      "id": "n-bbe37c3c",
+      "kind": "instrument",
+      "label": "FT-1012",
+      "bbox_global": {
+        "x": 1748,
+        "y": 1039,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1012"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b191b36f82f64401904695986b801845"
+      ]
+    },
+    {
+      "id": "n-b19b737f",
+      "kind": "instrument",
+      "label": "FE-1013",
+      "bbox_global": {
+        "x": 1813,
+        "y": 1034,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1013"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4b04786adf9e457290f1968fff1d5767"
+      ]
+    },
+    {
+      "id": "n-138fee33",
+      "kind": "instrument",
+      "label": "FT-1013",
+      "bbox_global": {
+        "x": 1848,
+        "y": 1039,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1013"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0d3ceeac703145cb816d16cfb35787ed"
+      ]
+    },
+    {
+      "id": "n-91042fee",
+      "kind": "equipment",
+      "label": "RCS-PU-102A",
+      "bbox_global": {
+        "x": 1451,
+        "y": 1161,
+        "w": 100,
+        "h": 200
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "reactor_coolant_pump"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "47ecee34748149bfbbfa5a0ef0518220"
+      ]
+    },
+    {
+      "id": "n-f467bf8f",
+      "kind": "instrument",
+      "label": "FE-1014",
+      "bbox_global": {
+        "x": 1451,
+        "y": 1461,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1014"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c77218d3d4ec4c57818a74021f640071"
+      ]
+    },
+    {
+      "id": "n-d431c3a4",
+      "kind": "instrument",
+      "label": "FT-1014",
+      "bbox_global": {
+        "x": 1486,
+        "y": 1466,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1014"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0317829ebf6141bba0ef5d441a9906bf"
+      ]
+    },
+    {
+      "id": "n-bbf2beaf",
+      "kind": "instrument",
+      "label": "FE-1015",
+      "bbox_global": {
+        "x": 1526,
+        "y": 1461,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1015"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1736db77b0854e57ad4784d2fd83381b"
+      ]
+    },
+    {
+      "id": "n-7b9d2ad3",
+      "kind": "instrument",
+      "label": "FT-1015",
+      "bbox_global": {
+        "x": 1561,
+        "y": 1466,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1015"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bd7f08da9d6c4491a1871a5bd1d91576"
+      ]
+    },
+    {
+      "id": "n-377c8f33",
+      "kind": "instrument",
+      "label": "FE-1016",
+      "bbox_global": {
+        "x": 1596,
+        "y": 1461,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1016"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6b71212347054c42863939d34a4405fc"
+      ]
+    },
+    {
+      "id": "n-37e6ce7c",
+      "kind": "instrument",
+      "label": "FT-1016",
+      "bbox_global": {
+        "x": 1631,
+        "y": 1466,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1016"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "28f944c71eb44c439069243c1fbd02ee"
+      ]
+    },
+    {
+      "id": "n-dafad1f3",
+      "kind": "instrument",
+      "label": "PT-10013A",
+      "bbox_global": {
+        "x": 1256,
+        "y": 1486,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "10013",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "90ddb24e9b764ea6b034b46dd3a49a59"
+      ]
+    },
+    {
+      "id": "n-4ed7c04a",
+      "kind": "instrument",
+      "label": "PT-10013B",
+      "bbox_global": {
+        "x": 1316,
+        "y": 1486,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "10013",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c94f13a42f064b188b7ddd0b161bd2fc"
+      ]
+    },
+    {
+      "id": "n-ee186c3c",
+      "kind": "equipment",
+      "label": "RCS-PU-102B",
+      "bbox_global": {
+        "x": 1180,
+        "y": 1636,
+        "w": 100,
+        "h": 200
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "reactor_coolant_pump"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6b7c9e029a7041c78ab6dd4a25e97b81"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-8e0584de",
+      "from_node": "n-fcbe19f5",
+      "to_node": "n-75f3139d",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          295,
+          390
+        ],
+        [
+          750,
+          390
+        ],
+        [
+          750,
+          620
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "ec2255ac82944f22939251ba7d69795b"
+      ],
+      "attributes": {
+        "line_id": "SPEC-RHRS-121A065-SPEC-HC-X",
+        "label": "SPEC-RHRS-121A065-SPEC-HC-X",
+        "service_code": "RHRS"
+      }
+    },
+    {
+      "id": "e-483ee6a3",
+      "from_node": "n-75f3139d",
+      "to_node": "n-d536e9a9",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          890,
+          625
+        ],
+        [
+          890,
+          325
+        ],
+        [
+          1570,
+          325
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "bea7efbc4c0f48438f232729576443b3"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100001-SPEC-HC-X",
+        "label": "SIZE-RCS-100001 (top header)",
+        "service_code": "RCS"
+      }
+    },
+    {
+      "id": "e-75d88a50",
+      "from_node": "n-d536e9a9",
+      "to_node": "n-345f9bd2",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1618,
+          198
+        ],
+        [
+          2498,
+          198
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "a7df0879f65d4fe9be9b34f37cb2ed27"
+      ],
+      "attributes": {
+        "line_id": "SIZE-WSS-100023-SPEC-HC-X",
+        "label": "SIZE-WSS-100023 (WSS out)",
+        "service_code": "WSS"
+      }
+    },
+    {
+      "id": "e-6d3da4a4",
+      "from_node": "n-d536e9a9",
+      "to_node": "n-a29bd222",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1618,
+          417
+        ],
+        [
+          2498,
+          417
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "66d192a335b94001bec52aa75f1d90d9"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100007-SPEC-HC-X",
+        "label": "SIZE-RCS-100007 (to RCS sheet 2)",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-1507450b",
+      "from_node": "n-75f3139d",
+      "to_node": "n-91042fee",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          945,
+          984
+        ],
+        [
+          945,
+          1084
+        ],
+        [
+          1570,
+          1084
+        ],
+        [
+          1570,
+          1084
+        ],
+        [
+          1570,
+          1131
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "a9727089db9943e98cb9d69fbd1c0d60",
+        "3739015da89c41bb90ce8859da283720"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100007-SPEC-HC-X",
+        "label": "SIZE-RCS-100007 (N3 outlet)",
+        "service_code": "RCS"
+      }
+    },
+    {
+      "id": "e-631d65d5",
+      "from_node": "n-75f3139d",
+      "to_node": "n-91042fee",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          825,
+          969
+        ],
+        [
+          670,
+          1219
+        ],
+        [
+          1440,
+          1219
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "15f8c662409c4917af0b616a8f97cf32"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-102A005-SPEC-HC-X",
+        "label": "SIZE-RCS-102A005 (to PU-102A suction)",
+        "service_code": "RCS"
+      }
+    },
+    {
+      "id": "e-5058d293",
+      "from_node": "n-7273e776",
+      "to_node": "n-2be29be9",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2208,
+          1059
+        ],
+        [
+          2208,
+          1150
+        ],
+        [
+          2553,
+          1150
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "bcfac51d748645f9ad7af61d57858333"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-101006-SPEC-HC-X",
+        "label": "SIZE-RCS-101006 (out to RC-PID-100-2)",
+        "service_code": "RCS"
+      }
+    },
+    {
+      "id": "e-e704a349",
+      "from_node": "n-de894dbd",
+      "to_node": "n-7273e776",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1618,
+          1150
+        ],
+        [
+          2183,
+          1150
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "31fed3906586475f9632a90fe541ef00"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-101004-SPEC-HC-X",
+        "label": "SIZE-RCS-101004 (PU-102A discharge header)",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-74131c61",
+      "from_node": "n-ee186c3c",
+      "to_node": "n-7273e776",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1256,
+          1594
+        ],
+        [
+          2181,
+          1594
+        ],
+        [
+          2181,
+          1151
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "b2d95124137b4fd48b09c7e448720023"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-101002-SPEC-HC-X",
+        "label": "SIZE-RCS-101002 (PU-102B discharge to header)",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_to"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "RHRS inlet",
+      "normalised": "RHRSINLET",
+      "node_id": "n-fcbe19f5",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RHRS outlet",
+      "normalised": "RHRSOUTLET",
+      "node_id": "n-f8861db6",
+      "page_index": 0
+    },
+    {
+      "opc_label": "WSS outlet",
+      "normalised": "WSSOUTLET",
+      "node_id": "n-345f9bd2",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Reactor coolant outlet",
+      "normalised": "REACTORCOOLANTOUTLET",
+      "node_id": "n-a29bd222",
+      "page_index": 0
+    },
+    {
+      "opc_label": "CVCS inlet",
+      "normalised": "CVCSINLET",
+      "node_id": "n-e92ecbc7",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RHRS inlet 2",
+      "normalised": "RHRSINLET2",
+      "node_id": "n-8a2739ee",
+      "page_index": 0
+    },
+    {
+      "opc_label": "CVCS inlet 2",
+      "normalised": "CVCSINLET2",
+      "node_id": "n-9b2c0fa1",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RHRS inlet 3",
+      "normalised": "RHRSINLET3",
+      "node_id": "n-bae72e19",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Reactor coolant outlet 2",
+      "normalised": "REACTORCOOLANTOUTLET2",
+      "node_id": "n-2be29be9",
+      "page_index": 0
+    },
+    {
+      "opc_label": "CVCS outlet",
+      "normalised": "CVCSOUTLET",
+      "node_id": "n-021629c3",
+      "page_index": 0
+    },
+    {
+      "opc_label": "WSS outlet 2",
+      "normalised": "WSSOUTLET2",
+      "node_id": "n-dcc0e091",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Reactor coolant outlet 3",
+      "normalised": "REACTORCOOLANTOUTLET3",
+      "node_id": "n-37ace3ab",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.158,
+      "kind": "instrument",
+      "labels": [
+        "PT-1007A",
+        "PT-1007B"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "309b0a00e0454afeb6e746d8c3376889",
+        "d8e370a42a0045438bbac7f8ce3481b5"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.176,
+      "kind": "instrument",
+      "labels": [
+        "TE-1008A",
+        "TE-1008B"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "5e6020ccff334748a0caececf95cf88d",
+        "fff172a8123c4ea79fe4119eeb3f684f"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.176,
+      "kind": "instrument",
+      "labels": [
+        "TE-10211A",
+        "TE-10211B"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "0759aa440f984f229431a77986f0e4f3",
+        "f5f50429b4a74e77950a52145f07d7e4"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.176,
+      "kind": "instrument",
+      "labels": [
+        "PT-10210A",
+        "PT-10210B"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "db9181c8fd594ae1bc94d11b0b19e311",
+        "a6cc37036cb44b33bcaf74df6f653611"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.176,
+      "kind": "instrument",
+      "labels": [
+        "PT-10214A",
+        "PT-10214B"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "2e0580d9d31841a388d4f066cbfc0b69",
+        "6168469e099a49218cdd8aa70e81fbda"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.156,
+      "kind": "instrument",
+      "labels": [
+        "FE-1011",
+        "FT-1011"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "f2022d38e95843e48a01b4afe6974411",
+        "5b8a1a4db2664900901d4a613d2a6a90"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.156,
+      "kind": "instrument",
+      "labels": [
+        "FE-1012",
+        "FT-1012"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "4a4f3ba4e3dc49c6b051be34011b4c1e",
+        "b191b36f82f64401904695986b801845"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.156,
+      "kind": "instrument",
+      "labels": [
+        "FE-1013",
+        "FT-1013"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "4b04786adf9e457290f1968fff1d5767",
+        "0d3ceeac703145cb816d16cfb35787ed"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.156,
+      "kind": "instrument",
+      "labels": [
+        "FE-1014",
+        "FT-1014"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "c77218d3d4ec4c57818a74021f640071",
+        "0317829ebf6141bba0ef5d441a9906bf"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.156,
+      "kind": "instrument",
+      "labels": [
+        "FE-1015",
+        "FT-1015"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "1736db77b0854e57ad4784d2fd83381b",
+        "bd7f08da9d6c4491a1871a5bd1d91576"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.156,
+      "kind": "instrument",
+      "labels": [
+        "FT-1015",
+        "FE-1016"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "bd7f08da9d6c4491a1871a5bd1d91576",
+        "6b71212347054c42863939d34a4405fc"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.156,
+      "kind": "instrument",
+      "labels": [
+        "FE-1016",
+        "FT-1016"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "6b71212347054c42863939d34a4405fc",
+        "28f944c71eb44c439069243c1fbd02ee"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1570,
+      "y": 325,
+      "annotation_id": "bea7efbc4c0f48438f232729576443b3",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1570,
+      "y": 180,
+      "annotation_id": "819e2153183a48d0b9d880877d39b3b3",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1618,
+      "y": 198,
+      "annotation_id": "a7df0879f65d4fe9be9b34f37cb2ed27",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1618,
+      "y": 417,
+      "annotation_id": "66d192a335b94001bec52aa75f1d90d9",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1888,
+      "y": 1045,
+      "annotation_id": "00c980f0bab843c1aa65ea8ba09454be",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1888,
+      "y": 839,
+      "annotation_id": "6754aeaafd1141f9afd3bf0d8b296f48",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1618,
+      "y": 1150,
+      "annotation_id": "31fed3906586475f9632a90fe541ef00",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1256,
+      "y": 1594,
+      "annotation_id": "b2d95124137b4fd48b09c7e448720023",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2740,
+      "y": 325,
+      "annotation_id": "c46b09f0e66945e78f4e3987efa49189",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2740,
+      "y": 370,
+      "annotation_id": "c46b09f0e66945e78f4e3987efa49189",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3738,
+      "y": 1839,
+      "annotation_id": "cd4401ce8de24e1fbcf626aca3727907",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3738,
+      "y": 2062,
+      "annotation_id": "cd4401ce8de24e1fbcf626aca3727907",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4010,
+      "y": 2038,
+      "annotation_id": "cd4401ce8de24e1fbcf626aca3727907",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          740,
+          325
+        ],
+        [
+          740,
+          180
+        ],
+        [
+          1570,
+          180
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "819e2153183a48d0b9d880877d39b3b3"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1888,
+          95
+        ],
+        [
+          2498,
+          95
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "f0e50c93b763474780fc7e4533d3bbe5"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1888,
+          95
+        ],
+        [
+          1888,
+          1045
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "00c980f0bab843c1aa65ea8ba09454be"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          305,
+          1086
+        ],
+        [
+          670,
+          1086
+        ],
+        [
+          670,
+          1219
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "288711ab6d5d432fa2a2dbb5d37b0c11"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          305,
+          1149
+        ],
+        [
+          670,
+          1149
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "feefec9a5f3248558251c5a9c9c44686"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          305,
+          1257
+        ],
+        [
+          670,
+          1257
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "eb22a5d1ba72408cb48e74aadfbf338d"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          305,
+          1324
+        ],
+        [
+          670,
+          1324
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "cfb5d5a4cc2a491c80a8e0f932bd5c7b"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          670,
+          1219
+        ],
+        [
+          670,
+          1694
+        ],
+        [
+          1130,
+          1694
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "e48e689302fe401bab34cd3ea96baa5c"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          670,
+          1397
+        ],
+        [
+          670,
+          1694
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "2012d31287624639bedc49bc9b3824eb"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1888,
+          839
+        ],
+        [
+          1888,
+          1059
+        ],
+        [
+          2198,
+          1059
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "6754aeaafd1141f9afd3bf0d8b296f48"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2183,
+          1271
+        ],
+        [
+          2553,
+          1271
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "a5d3b52564bf4f3da08a823da7a7d96b"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2183,
+          1394
+        ],
+        [
+          2553,
+          1394
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "efc651483e9b4b5c9c69e6243f51bfc9"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2183,
+          1493
+        ],
+        [
+          2553,
+          1493
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "4b3a1d9d6e414e3a8860d5bd7cd9cfe4"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1618,
+          1150
+        ],
+        [
+          2016,
+          1150
+        ],
+        [
+          2016,
+          1246
+        ],
+        [
+          2191,
+          1246
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "319f9579d5fc4f109759c2de61421659"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2740,
+          325
+        ],
+        [
+          2740,
+          370
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "c46b09f0e66945e78f4e3987efa49189"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          3738,
+          1839
+        ],
+        [
+          3738,
+          2062
+        ],
+        [
+          4010,
+          2038
+        ]
+      ],
+      "snap_radius_px": 75,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "cd4401ce8de24e1fbcf626aca3727907"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    }
+  ],
+  "per_page_status": {
+    "0": "ok"
+  }
+}

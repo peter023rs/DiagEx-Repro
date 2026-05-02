@@ -1,0 +1,15 @@
+{
+  "cost_usd": 4.085771,
+  "wall_clock_s": 851.891,
+  "dexpi_validates": true,
+  "input_tokens": 260376,
+  "output_tokens": 53618,
+  "cache_read_tokens": 1025619,
+  "cache_write_tokens": 148901,
+  "image_tokens": 0,
+  "n_steps": 63,
+  "n_tool_calls": 98,
+  "retries": 1,
+  "source_run_dir": "out/diagex-ablation/ablation-no-tile/runs/dexpi-reference/2026-04-28T08-46-10_r-b6bf",
+  "source_run_id": "20260428T084608-e35c"
+}

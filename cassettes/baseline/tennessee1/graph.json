@@ -1,0 +1,2177 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "tennessee1.pdf",
+  "nodes": [
+    {
+      "id": "n-9d39948f",
+      "kind": "equipment",
+      "label": "Reactor",
+      "bbox_global": {
+        "x": 305,
+        "y": 460,
+        "w": 175,
+        "h": 410
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "reactor"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a4e5276e8d744ecd9d274c1317a3f8d1"
+      ]
+    },
+    {
+      "id": "n-9d766b50",
+      "kind": "equipment",
+      "label": "Agitator",
+      "bbox_global": {
+        "x": 340,
+        "y": 365,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "agitator"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "debc5a99590243b6a6e8c21c9ef31a71"
+      ]
+    },
+    {
+      "id": "n-a178f39f",
+      "kind": "equipment",
+      "label": "Condenser",
+      "bbox_global": {
+        "x": 680,
+        "y": 350,
+        "w": 250,
+        "h": 130
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7b351d481b4d4734b022dceb64d412bc"
+      ]
+    },
+    {
+      "id": "n-0565ec69",
+      "kind": "opc",
+      "label": "Feed A inlet",
+      "bbox_global": {
+        "x": 0,
+        "y": 185,
+        "w": 60,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "81fbdfbc2beb410db5b69ee6a03fde04"
+      ]
+    },
+    {
+      "id": "n-e180f456",
+      "kind": "opc",
+      "label": "Feed D inlet",
+      "bbox_global": {
+        "x": 0,
+        "y": 430,
+        "w": 60,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d71337ba8069473d978284ddd7c4868e"
+      ]
+    },
+    {
+      "id": "n-d2835394",
+      "kind": "opc",
+      "label": "Feed E inlet",
+      "bbox_global": {
+        "x": 0,
+        "y": 670,
+        "w": 60,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "dbf6f2749d064b98ac3283a9b958942f"
+      ]
+    },
+    {
+      "id": "n-52eb88a1",
+      "kind": "opc",
+      "label": "CWS inlet",
+      "bbox_global": {
+        "x": 870,
+        "y": 220,
+        "w": 90,
+        "h": 40
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "condenser"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f9169442c4b540c785b31435aa4016c4",
+        "223dee090e9f4372879b040bf71e2980"
+      ]
+    },
+    {
+      "id": "n-b3320ebb",
+      "kind": "opc",
+      "label": "CWR outlet",
+      "bbox_global": {
+        "x": 905,
+        "y": 470,
+        "w": 90,
+        "h": 40
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "condenser"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0159920ff2234b2d8673282f40beb224",
+        "ec18fba4a97344929e2a239ca721ebf1"
+      ]
+    },
+    {
+      "id": "n-b5857fb6",
+      "kind": "equipment",
+      "label": "V-1001",
+      "bbox_global": {
+        "x": 105,
+        "y": 175,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f839a095634347438971a88f66fcffc4"
+      ]
+    },
+    {
+      "id": "n-d5bcae8c",
+      "kind": "equipment",
+      "label": "V-1002",
+      "bbox_global": {
+        "x": 105,
+        "y": 420,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "63ac99af277a48e49f193d241e8244b1"
+      ]
+    },
+    {
+      "id": "n-0305e744",
+      "kind": "equipment",
+      "label": "V-1003",
+      "bbox_global": {
+        "x": 105,
+        "y": 660,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6ef1b576092e437eaa16bb2d71410fe7"
+      ]
+    },
+    {
+      "id": "n-89b1f5ef",
+      "kind": "equipment",
+      "label": "V-1101",
+      "bbox_global": {
+        "x": 545,
+        "y": 720,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "043415f0d304489dbef027b3e8badd5f"
+      ]
+    },
+    {
+      "id": "n-d70dd9b3",
+      "kind": "equipment",
+      "label": "V-1201",
+      "bbox_global": {
+        "x": 800,
+        "y": 470,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f86a78817d6c4e53a2231daf521b4723"
+      ]
+    },
+    {
+      "id": "n-579e22fe",
+      "kind": "instrument",
+      "label": "XI-1001",
+      "bbox_global": {
+        "x": 30,
+        "y": 5,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "analysis",
+        "loop_number": "1001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "775ca04ca6c64c238281cc757f7ae58c"
+      ]
+    },
+    {
+      "id": "n-8bd8a716",
+      "kind": "instrument",
+      "label": "TI-1001",
+      "bbox_global": {
+        "x": 30,
+        "y": 55,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "32ab97b08a5d43d69584028800a18f16"
+      ]
+    },
+    {
+      "id": "n-dd874339",
+      "kind": "instrument",
+      "label": "FI-1001",
+      "bbox_global": {
+        "x": 30,
+        "y": 105,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7e78efc798f047518f6680a750cf6495"
+      ]
+    },
+    {
+      "id": "n-84a12c37",
+      "kind": "instrument",
+      "label": "XI-1002",
+      "bbox_global": {
+        "x": 30,
+        "y": 250,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "analysis",
+        "loop_number": "1002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "be3f7abc92d64217a31e7b52357d95aa"
+      ]
+    },
+    {
+      "id": "n-97e122ec",
+      "kind": "instrument",
+      "label": "TI-1002",
+      "bbox_global": {
+        "x": 30,
+        "y": 300,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "72b50129c39f4f02ae7fd1caf4458e0f"
+      ]
+    },
+    {
+      "id": "n-c2af88e3",
+      "kind": "instrument",
+      "label": "FI-1002",
+      "bbox_global": {
+        "x": 30,
+        "y": 350,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5a170fe17d504769a1668837d0498233"
+      ]
+    },
+    {
+      "id": "n-277432eb",
+      "kind": "instrument",
+      "label": "XI-1003",
+      "bbox_global": {
+        "x": 30,
+        "y": 490,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "analysis",
+        "loop_number": "1003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "38cffa79bfde4b7b84e486245f2a0fcc"
+      ]
+    },
+    {
+      "id": "n-c3394512",
+      "kind": "instrument",
+      "label": "TI-1003",
+      "bbox_global": {
+        "x": 30,
+        "y": 540,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a68ce29d590e4fa9a19ae3e94e8ce149"
+      ]
+    },
+    {
+      "id": "n-1b8bb7b1",
+      "kind": "instrument",
+      "label": "FI-1003",
+      "bbox_global": {
+        "x": 30,
+        "y": 590,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "17c81b11ffbd4373ba583626f87803a6"
+      ]
+    },
+    {
+      "id": "n-caaba181",
+      "kind": "instrument",
+      "label": "FI-1101",
+      "bbox_global": {
+        "x": 30,
+        "y": 720,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1101"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fc5ccbcacf4446e8a6834628e9b6464d"
+      ]
+    },
+    {
+      "id": "n-6a2f615a",
+      "kind": "instrument",
+      "label": "XI-1101",
+      "bbox_global": {
+        "x": 30,
+        "y": 770,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "analysis",
+        "loop_number": "1101"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8db072384871404bbda7bc511e748693"
+      ]
+    },
+    {
+      "id": "n-609f962a",
+      "kind": "instrument",
+      "label": "SC-1101",
+      "bbox_global": {
+        "x": 295,
+        "y": 290,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "other",
+        "loop_number": "1101"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b73709fe9cfb4880aba6c91c43e00dd4"
+      ]
+    },
+    {
+      "id": "n-21a1c2b5",
+      "kind": "instrument",
+      "label": "TIAZ+1101",
+      "bbox_global": {
+        "x": 503,
+        "y": 350,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "temperature",
+        "loop_number": "1101"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b5fda8102d4c46548a62a4eed287fb37"
+      ]
+    },
+    {
+      "id": "n-49be03ec",
+      "kind": "instrument",
+      "label": "PIAZ+1101",
+      "bbox_global": {
+        "x": 503,
+        "y": 400,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "pressure",
+        "loop_number": "1101"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4ce9bd62751d47539399c343990ee70f"
+      ]
+    },
+    {
+      "id": "n-44a784e3",
+      "kind": "instrument",
+      "label": "LIAZ-1101",
+      "bbox_global": {
+        "x": 503,
+        "y": 450,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "level",
+        "loop_number": "1101"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "433e790c9738485f88c1c7df46106209"
+      ]
+    },
+    {
+      "id": "n-2239419a",
+      "kind": "instrument",
+      "label": "TI-1102",
+      "bbox_global": {
+        "x": 503,
+        "y": 600,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1102"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "86b24ac1a7e3444c859fdc93f9350796"
+      ]
+    },
+    {
+      "id": "n-1c5a0619",
+      "kind": "instrument",
+      "label": "FI-1102",
+      "bbox_global": {
+        "x": 503,
+        "y": 650,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1102"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5b227835bb9349178c613ed66cf25f2d"
+      ]
+    },
+    {
+      "id": "n-27b9b480",
+      "kind": "instrument",
+      "label": "TI-1103",
+      "bbox_global": {
+        "x": 503,
+        "y": 770,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1103"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c208a5010b0e4191bd1b0d354fec20eb"
+      ]
+    },
+    {
+      "id": "n-79d8d4d4",
+      "kind": "instrument",
+      "label": "FI-1201",
+      "bbox_global": {
+        "x": 970,
+        "y": 320,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1201"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0a52cb35db1a44e7851bec217c2f4457"
+      ]
+    },
+    {
+      "id": "n-15bc207f",
+      "kind": "instrument",
+      "label": "TI-1201",
+      "bbox_global": {
+        "x": 970,
+        "y": 370,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1201"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "edfca9001723416b90157150c56631dd"
+      ]
+    },
+    {
+      "id": "n-8cb3e35f",
+      "kind": "instrument",
+      "label": "TI-1202",
+      "bbox_global": {
+        "x": 800,
+        "y": 555,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1202"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d1f68468ea0f4f2ea922f2fcc04054c3"
+      ]
+    },
+    {
+      "id": "n-31c25a4d",
+      "kind": "equipment",
+      "label": "Compressor",
+      "bbox_global": {
+        "x": 1450,
+        "y": 195,
+        "w": 80,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "compressor"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "768f27a6221d4e4cb675753bf59058a5"
+      ]
+    },
+    {
+      "id": "n-2e64ecfe",
+      "kind": "equipment",
+      "label": "Vapor-Liquid-Separator",
+      "bbox_global": {
+        "x": 1845,
+        "y": 320,
+        "w": 130,
+        "h": 350
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "separator",
+        "separator_type": "vapor_liquid"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "100b0d4faf74462ab91d3ea6279064a0"
+      ]
+    },
+    {
+      "id": "n-0dd13bcc",
+      "kind": "equipment",
+      "label": "Stripper",
+      "bbox_global": {
+        "x": 1140,
+        "y": 575,
+        "w": 130,
+        "h": 410
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "column",
+        "column_type": "stripper"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2b93b8f39ff8473dbe1aaf83e4465e60"
+      ]
+    },
+    {
+      "id": "n-06e850ba",
+      "kind": "equipment",
+      "label": "Separator pump",
+      "bbox_global": {
+        "x": 1730,
+        "y": 640,
+        "w": 70,
+        "h": 130
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "50b9d38d3e574f2eb902c51cbbb3be22"
+      ]
+    },
+    {
+      "id": "n-43fbc91e",
+      "kind": "opc",
+      "label": "Purge outlet",
+      "bbox_global": {
+        "x": 2032,
+        "y": 217,
+        "w": 70,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a3ffe3e215b54e80bf8a64412a7dc6ba"
+      ]
+    },
+    {
+      "id": "n-cf6b9d36",
+      "kind": "opc",
+      "label": "Steam inlet",
+      "bbox_global": {
+        "x": 1735,
+        "y": 940,
+        "w": 70,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0b950e34cc7242f6a219099326bdb31e"
+      ]
+    },
+    {
+      "id": "n-47ef7334",
+      "kind": "equipment",
+      "label": "V-1401",
+      "bbox_global": {
+        "x": 1415,
+        "y": 130,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d6c359d59b62400e855f1c97e5f0727e"
+      ]
+    },
+    {
+      "id": "n-1ec422b8",
+      "kind": "equipment",
+      "label": "V-1005",
+      "bbox_global": {
+        "x": 1960,
+        "y": 215,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "402aa6088ba241c6a184cd30370f2b2a"
+      ]
+    },
+    {
+      "id": "n-5d1cee2b",
+      "kind": "equipment",
+      "label": "V-1301",
+      "bbox_global": {
+        "x": 1610,
+        "y": 645,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "41842db4dede4571b72e9a223873bc80"
+      ]
+    },
+    {
+      "id": "n-58ddabb9",
+      "kind": "equipment",
+      "label": "V-1502",
+      "bbox_global": {
+        "x": 1610,
+        "y": 935,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "cc3eccd48cee405b99e953c8432906f4"
+      ]
+    },
+    {
+      "id": "n-4a7b07c2",
+      "kind": "instrument",
+      "label": "FI-1006",
+      "bbox_global": {
+        "x": 1315,
+        "y": 218,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "738a563ae7fa487ebe8edfa9984f1a30"
+      ]
+    },
+    {
+      "id": "n-c60eb22a",
+      "kind": "instrument",
+      "label": "JI-1401",
+      "bbox_global": {
+        "x": 1425,
+        "y": 320,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "1401"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b733d3291329447aa6bdc1f8be9b60f0"
+      ]
+    },
+    {
+      "id": "n-9dad6d20",
+      "kind": "instrument",
+      "label": "PI-1301",
+      "bbox_global": {
+        "x": 1620,
+        "y": 218,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "1301"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "05515af29edb4259b710ed1b94d407ec"
+      ]
+    },
+    {
+      "id": "n-06bd25c0",
+      "kind": "instrument",
+      "label": "TI-1301",
+      "bbox_global": {
+        "x": 1620,
+        "y": 270,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1301"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "57c3e2df98e14a6082f26e07c6267b61"
+      ]
+    },
+    {
+      "id": "n-c68d55e1",
+      "kind": "instrument",
+      "label": "LIAZ-1301",
+      "bbox_global": {
+        "x": 1620,
+        "y": 320,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "level",
+        "loop_number": "1301"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f678a11f31ec458dadc3288dcf6e76ad"
+      ]
+    },
+    {
+      "id": "n-f500cdb9",
+      "kind": "instrument",
+      "label": "FI-1301",
+      "bbox_global": {
+        "x": 1765,
+        "y": 580,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1301"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2026e9c008e44a67952d82506df821a8"
+      ]
+    },
+    {
+      "id": "n-a13dff4a",
+      "kind": "instrument",
+      "label": "PI-1501",
+      "bbox_global": {
+        "x": 1510,
+        "y": 600,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "1501"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ce7628a6c95a4b68b741e1c525b12f2c"
+      ]
+    },
+    {
+      "id": "n-6f234a82",
+      "kind": "instrument",
+      "label": "TI-1501",
+      "bbox_global": {
+        "x": 1510,
+        "y": 695,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1501"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "24ed787f6c98497795475dd3c2bf0655"
+      ]
+    },
+    {
+      "id": "n-2c1cdce6",
+      "kind": "instrument",
+      "label": "LIAZ-1501",
+      "bbox_global": {
+        "x": 1000,
+        "y": 825,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "level",
+        "loop_number": "1501"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6e8e30a98e264b9f99e15b3f9c4efb31"
+      ]
+    },
+    {
+      "id": "n-6964b359",
+      "kind": "instrument",
+      "label": "FI-1501",
+      "bbox_global": {
+        "x": 1620,
+        "y": 935,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1501"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "28d7523c4f4f462fbddc630f4d0b82bd"
+      ]
+    },
+    {
+      "id": "n-49cfc230",
+      "kind": "instrument",
+      "label": "XI-1005",
+      "bbox_global": {
+        "x": 1935,
+        "y": 80,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "analysis",
+        "loop_number": "1005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "667604aa6efb455fb44e9ecb832e3d48"
+      ]
+    },
+    {
+      "id": "n-7aa4607e",
+      "kind": "instrument",
+      "label": "FI-1005",
+      "bbox_global": {
+        "x": 1815,
+        "y": 145,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b8f781c923244973ba95faafe0ab5310"
+      ]
+    },
+    {
+      "id": "n-aef172ba",
+      "kind": "opc",
+      "label": "Feed C inlet",
+      "bbox_global": {
+        "x": 0,
+        "y": 1106,
+        "w": 60,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1e014e6ce5dc49fa907ced67346365b8"
+      ]
+    },
+    {
+      "id": "n-e7b0c953",
+      "kind": "equipment",
+      "label": "V-1004",
+      "bbox_global": {
+        "x": 105,
+        "y": 1111,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a24efb0d993d4f808f612643fac0053e"
+      ]
+    },
+    {
+      "id": "n-541a6a21",
+      "kind": "instrument",
+      "label": "XI-1004",
+      "bbox_global": {
+        "x": 30,
+        "y": 901,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "analysis",
+        "loop_number": "1004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9e90a44126fa485aacbb6e805778f98c"
+      ]
+    },
+    {
+      "id": "n-3c8a76ca",
+      "kind": "instrument",
+      "label": "TI-1004",
+      "bbox_global": {
+        "x": 30,
+        "y": 951,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "1004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5e44e01f088e42b2b4a333b30ccd8714"
+      ]
+    },
+    {
+      "id": "n-6d604cd3",
+      "kind": "instrument",
+      "label": "FI-1004",
+      "bbox_global": {
+        "x": 30,
+        "y": 1001,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "309a3c5a13144dc095d6763b37fa2dbf"
+      ]
+    },
+    {
+      "id": "n-5c95f93a",
+      "kind": "equipment",
+      "label": "Reboiler",
+      "bbox_global": {
+        "x": 1315,
+        "y": 861,
+        "w": 70,
+        "h": 220
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "reboiler",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "58c6b7d42c054b378d37143d68a83a1a"
+      ]
+    },
+    {
+      "id": "n-0f2f35ae",
+      "kind": "equipment",
+      "label": "Stripper bottoms pump",
+      "bbox_global": {
+        "x": 1485,
+        "y": 1061,
+        "w": 80,
+        "h": 130
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5dde2e8a979640e1954c75f8d5b682f0"
+      ]
+    },
+    {
+      "id": "n-d00aa4d8",
+      "kind": "equipment",
+      "label": "V-1501",
+      "bbox_global": {
+        "x": 1805,
+        "y": 1176,
+        "w": 50,
+        "h": 45
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "globe"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bc2a4e0cf0b94aafb2e7f8370b9ccbd0"
+      ]
+    },
+    {
+      "id": "n-62d67830",
+      "kind": "opc",
+      "label": "Cond outlet",
+      "bbox_global": {
+        "x": 1690,
+        "y": 986,
+        "w": 80,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "95335bee3b5d4cfc91d775cdf35ab44d"
+      ]
+    },
+    {
+      "id": "n-32603865",
+      "kind": "opc",
+      "label": "Product outlet",
+      "bbox_global": {
+        "x": 1885,
+        "y": 1176,
+        "w": 90,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "57aac92523b8475cb54284f602cbc649"
+      ]
+    },
+    {
+      "id": "n-5d4c4638",
+      "kind": "instrument",
+      "label": "FI-1502",
+      "bbox_global": {
+        "x": 1675,
+        "y": 1111,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "1502"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "dd78a1f42be4439793d29f15694e580a"
+      ]
+    },
+    {
+      "id": "n-23fd3ff3",
+      "kind": "instrument",
+      "label": "XI-1006",
+      "bbox_global": {
+        "x": 1675,
+        "y": 1061,
+        "w": 100,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "analysis",
+        "loop_number": "1006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8ca8736da9424e87af59d5996f0d2c4e"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-bf52b1f5",
+      "from_node": "n-0565ec69",
+      "to_node": "n-9d39948f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          55,
+          200
+        ],
+        [
+          105,
+          200
+        ],
+        [
+          155,
+          200
+        ],
+        [
+          225,
+          200
+        ],
+        [
+          225,
+          555
+        ],
+        [
+          305,
+          555
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "298ff4068c3a427099cfea2ccaae846d"
+      ],
+      "attributes": {
+        "label": "Feed A → reactor"
+      }
+    },
+    {
+      "id": "e-2e0e4bd8",
+      "from_node": "n-e180f456",
+      "to_node": "n-9d39948f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          55,
+          445
+        ],
+        [
+          225,
+          445
+        ],
+        [
+          225,
+          555
+        ],
+        [
+          305,
+          555
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "68148dd5f69e445e85c1849bf9d8b797"
+      ],
+      "attributes": {
+        "label": "Feed D → reactor"
+      }
+    },
+    {
+      "id": "e-3ac4f48e",
+      "from_node": "n-d2835394",
+      "to_node": "n-9d39948f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          55,
+          685
+        ],
+        [
+          225,
+          685
+        ],
+        [
+          225,
+          815
+        ],
+        [
+          305,
+          815
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "e9ea642138144442992da9893f38fd0e"
+      ],
+      "attributes": {
+        "label": "Feed E → reactor"
+      }
+    },
+    {
+      "id": "e-e4307c43",
+      "from_node": "n-9d39948f",
+      "to_node": "n-a178f39f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          390,
+          460
+        ],
+        [
+          390,
+          260
+        ],
+        [
+          695,
+          260
+        ],
+        [
+          695,
+          380
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "e05eb3471df242b8a79f11ed91caec07"
+      ],
+      "attributes": {
+        "label": "reactor top → condenser"
+      }
+    },
+    {
+      "id": "e-c1cce718",
+      "from_node": "n-52eb88a1",
+      "to_node": "n-a178f39f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          870,
+          240
+        ],
+        [
+          820,
+          240
+        ],
+        [
+          820,
+          370
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "f122a8acab7342dfa1bdaa1f967da2e8"
+      ],
+      "attributes": {
+        "label": "CWS → condenser shell"
+      }
+    },
+    {
+      "id": "e-adfeb366",
+      "from_node": "n-a178f39f",
+      "to_node": "n-d70dd9b3",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          775,
+          380
+        ],
+        [
+          775,
+          490
+        ],
+        [
+          800,
+          490
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "897455ada6d04be7ac3cc1306b8428c1"
+      ],
+      "attributes": {
+        "label": "condenser → V-1201 → CWR"
+      }
+    },
+    {
+      "id": "e-145d61f7",
+      "from_node": "n-d70dd9b3",
+      "to_node": "n-b3320ebb",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          850,
+          490
+        ],
+        [
+          910,
+          490
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "c49e0c315632412693a139374d573494"
+      ],
+      "attributes": {
+        "label": "V-1201 → CWR"
+      }
+    },
+    {
+      "id": "e-0e2e88bc",
+      "from_node": "n-2239419a",
+      "to_node": "n-9d39948f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          660,
+          555
+        ],
+        [
+          420,
+          555
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "f55847c891f341d4bca41e4fa821ed73"
+      ],
+      "attributes": {
+        "label": "CWS → reactor jacket"
+      }
+    },
+    {
+      "id": "e-58e85afb",
+      "from_node": "n-9d39948f",
+      "to_node": "n-89b1f5ef",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          420,
+          745
+        ],
+        [
+          545,
+          745
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "870cee21b8ec45afae24b1e027bf1f93"
+      ],
+      "attributes": {
+        "label": "reactor → V-1101 → CWR"
+      }
+    },
+    {
+      "id": "e-ec9c226f",
+      "from_node": "n-89b1f5ef",
+      "to_node": "n-27b9b480",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          595,
+          745
+        ],
+        [
+          645,
+          745
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "a35b96f55e9e4e95b6af99586f7f2963"
+      ],
+      "attributes": {
+        "label": "V-1101 → CWR"
+      }
+    },
+    {
+      "id": "e-407d3e9c",
+      "from_node": "n-a178f39f",
+      "to_node": "n-f500cdb9",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          880,
+          380
+        ],
+        [
+          1080,
+          380
+        ],
+        [
+          1080,
+          490
+        ],
+        [
+          1670,
+          490
+        ],
+        [
+          1670,
+          490
+        ],
+        [
+          1722,
+          490
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "ce7af44e4db240278261cbf933a41cce",
+        "13f6b933078845b2968c0afff6cf4dc0"
+      ],
+      "attributes": {
+        "label": "condenser liquid → separator"
+      }
+    },
+    {
+      "id": "e-fa14e4ac",
+      "from_node": "n-c68d55e1",
+      "to_node": "n-2e64ecfe",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1670,
+          490
+        ],
+        [
+          1845,
+          490
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "29bc9a21a37f4896a5406305c5da7b23"
+      ],
+      "attributes": {
+        "label": "condenser liquid → separator (cont.)"
+      }
+    },
+    {
+      "id": "e-f1c07035",
+      "from_node": "n-2e64ecfe",
+      "to_node": "n-31c25a4d",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1900,
+          320
+        ],
+        [
+          1900,
+          220
+        ],
+        [
+          1530,
+          220
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "3dc538ddb3f646e78b28172008d48579"
+      ],
+      "attributes": {
+        "label": "separator vapor → compressor"
+      }
+    },
+    {
+      "id": "e-e6c60609",
+      "from_node": "n-31c25a4d",
+      "to_node": "n-52eb88a1",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1450,
+          215
+        ],
+        [
+          1315,
+          215
+        ],
+        [
+          870,
+          215
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "8fbe24373ba54019b50a4bded9d89537"
+      ],
+      "attributes": {
+        "label": "compressor → recycle to reactor (8)"
+      }
+    },
+    {
+      "id": "e-15dcc6f6",
+      "from_node": "n-4a7b07c2",
+      "to_node": "n-31c25a4d",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1385,
+          220
+        ],
+        [
+          1385,
+          145
+        ],
+        [
+          1520,
+          145
+        ],
+        [
+          1520,
+          220
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "a91fb75bbd78463eb67b23e2c3096089"
+      ],
+      "attributes": {
+        "label": "compressor recycle bypass via V-1401"
+      }
+    },
+    {
+      "id": "e-8f1747c6",
+      "from_node": "n-7aa4607e",
+      "to_node": "n-43fbc91e",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1900,
+          235
+        ],
+        [
+          1960,
+          235
+        ],
+        [
+          2032,
+          235
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "325bba92f95b4249b820eeb4c66b984d"
+      ],
+      "attributes": {
+        "label": "separator → V-1005 → Purge"
+      }
+    },
+    {
+      "id": "e-e3e65217",
+      "from_node": "n-06e850ba",
+      "to_node": "n-0dd13bcc",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1765,
+          660
+        ],
+        [
+          1660,
+          660
+        ],
+        [
+          1610,
+          660
+        ],
+        [
+          1270,
+          660
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "bdea687468384614b72e15bc7c22e34d"
+      ],
+      "attributes": {
+        "label": "separator liquid → pump → V-1301 → stripper"
+      }
+    },
+    {
+      "id": "e-5496d680",
+      "from_node": "n-cf6b9d36",
+      "to_node": "n-5c95f93a",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1735,
+          960
+        ],
+        [
+          1660,
+          960
+        ],
+        [
+          1610,
+          960
+        ],
+        [
+          1385,
+          960
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "f3cb8362e1fb4d41be42a0ee38ec6bd4"
+      ],
+      "attributes": {
+        "label": "Steam → V-1502 → stripper reboiler"
+      }
+    },
+    {
+      "id": "e-e44ca35a",
+      "from_node": "n-aef172ba",
+      "to_node": "n-5c95f93a",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          55,
+          1126
+        ],
+        [
+          105,
+          1126
+        ],
+        [
+          155,
+          1126
+        ],
+        [
+          230,
+          1126
+        ],
+        [
+          230,
+          936
+        ],
+        [
+          1390,
+          936
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "58d9c904d30a4559b4a9d4e15a7b6e3b"
+      ],
+      "attributes": {
+        "label": "Feed C → stripper"
+      }
+    },
+    {
+      "id": "e-681ee4ea",
+      "from_node": "n-0dd13bcc",
+      "to_node": "n-32603865",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1205,
+          1026
+        ],
+        [
+          1205,
+          1186
+        ],
+        [
+          1485,
+          1186
+        ],
+        [
+          1805,
+          1186
+        ],
+        [
+          1885,
+          1186
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "78d8725c71bb48f38b0fadd23da7494b"
+      ],
+      "attributes": {
+        "label": "stripper bottoms → pump → V-1501 → Product"
+      }
+    },
+    {
+      "id": "e-17dfd9a5",
+      "from_node": "n-5c95f93a",
+      "to_node": "n-62d67830",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1350,
+          861
+        ],
+        [
+          1350,
+          856
+        ],
+        [
+          1535,
+          856
+        ],
+        [
+          1535,
+          1001
+        ],
+        [
+          1690,
+          1001
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "low",
+      "source_annotation_ids": [
+        "5dac99d7e29c463698317fb9bfb4e100"
+      ],
+      "attributes": {
+        "label": "stripper overhead → Cond"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "Feed A inlet",
+      "normalised": "FEEDAINLET",
+      "node_id": "n-0565ec69",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Feed D inlet",
+      "normalised": "FEEDDINLET",
+      "node_id": "n-e180f456",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Feed E inlet",
+      "normalised": "FEEDEINLET",
+      "node_id": "n-d2835394",
+      "page_index": 0
+    },
+    {
+      "opc_label": "CWS inlet",
+      "normalised": "CWSINLET",
+      "node_id": "n-52eb88a1",
+      "page_index": 0
+    },
+    {
+      "opc_label": "CWR outlet",
+      "normalised": "CWROUTLET",
+      "node_id": "n-b3320ebb",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Purge outlet",
+      "normalised": "PURGEOUTLET",
+      "node_id": "n-43fbc91e",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Steam inlet",
+      "normalised": "STEAMINLET",
+      "node_id": "n-cf6b9d36",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Feed C inlet",
+      "normalised": "FEEDCINLET",
+      "node_id": "n-aef172ba",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Cond outlet",
+      "normalised": "CONDOUTLET",
+      "node_id": "n-62d67830",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Product outlet",
+      "normalised": "PRODUCTOUTLET",
+      "node_id": "n-32603865",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [],
+  "per_page_status": {
+    "0": "ok"
+  }
+}

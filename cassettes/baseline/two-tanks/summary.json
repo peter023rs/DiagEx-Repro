@@ -1,0 +1,15 @@
+{
+  "cost_usd": 10.352897,
+  "wall_clock_s": 681.645,
+  "dexpi_validates": true,
+  "input_tokens": 780172,
+  "output_tokens": 42991,
+  "cache_read_tokens": 1094349,
+  "cache_write_tokens": 772814,
+  "image_tokens": 0,
+  "n_steps": 96,
+  "n_tool_calls": 199,
+  "retries": 0,
+  "source_run_dir": "out/diagex-phase2/baseline/runs/two-tanks/2026-04-28T08-34-14_r-3862",
+  "source_run_id": "20260428T083413-45a0"
+}

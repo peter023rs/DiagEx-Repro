@@ -1,0 +1,17 @@
+<svg
+  xmlns = "http://www.w3.org/2000/svg"
+  width = "82mm"
+  height = "102mm"
+  viewBox = "-31 -61 82 102">
+  <polygon
+    transform = "translate(10.0,-10.0)"
+    points = "-40.0,50.0 40.0,50.0 -20.0,-50.0 -20.0,10.0"
+    stroke = "#ff00ff"
+    stroke-dasharray = "0mm 4mm"
+    stroke-dashoffset = "0mm"
+    stroke-width = "2mm"
+    stroke-linecap = "round"
+    stroke-linejoin = "round"
+    vector-effect = "non-scaling-stroke"
+    fill = "none"/>
+</svg>

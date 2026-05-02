@@ -1,0 +1,36 @@
+diagex
+Copyright 2026 The diagex Authors
+
+This product includes software developed by the diagex project and contributors.
+
+================================================================================
+Third-party attributions
+================================================================================
+
+DEXPI 2.0 specification sources
+-------------------------------
+diagex vendors a copy of the DEXPI Specification 2.0.0 sources (Python DSL
+files defining the Plant model, the DEXPI XML meta-schema, and a reference P&ID
+instance) under:
+
+    src/diagex/dexpi/codegen/vendored/
+    tests/fixtures/dexpi_2_0/reference_pid.xml
+
+Copyright © 2025 DEXPI Initiative.
+Licensed under Creative Commons Attribution 4.0 International (CC-BY 4.0):
+    https://creativecommons.org/licenses/by/4.0/
+
+Source: https://gitlab.com/dexpi/Specification (commit 260c81c5, V2.0.0).
+
+The vendored files are unmodified. The pydantic classes under
+``src/diagex/dexpi/_generated/`` are derivative material adapted from these
+sources by ``src/diagex/dexpi/codegen/`` and remain subject to CC-BY 4.0
+attribution; the generator and runtime glue authored by diagex are licensed
+under Apache-2.0 (see LICENSE).
+
+This product is not endorsed by the DEXPI Initiative.
+
+dexpi.specificator
+------------------
+Used at code-generation time only (not a runtime dependency). MIT-licensed,
+copyright DEXPI e.V. See https://pypi.org/project/dexpi.specificator/.

@@ -1,0 +1,76 @@
+{
+  "answers": [
+    {
+      "query_id": "butane2-q1",
+      "answer": "PSV-2152\nPSV-2153",
+      "cost_usd": 0.193317,
+      "wall_clock_s": 44.813,
+      "input_tokens": 27794,
+      "output_tokens": 1184,
+      "cache_read_tokens": 18757,
+      "cache_write_tokens": 2459,
+      "image_tokens": 0,
+      "n_steps": 5,
+      "n_tool_calls": 6,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 5
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "butane2-q2",
+      "answer": "Based on my inspection, I found the following pressure gauges (PG):\n- PG 2151 (top of left exchanger)\n- PG 2158 (middle of left exchanger, near PSV)\n- PG 2153 (bottom of left exchanger)\n- PG 2157 (top of right exchanger)\n- PG 2152 (middle of right exchanger)\n- PG 2155 (bottom of right exchanger)\n\n(PDG 2154 and PDG 2159 are pressure differential gauges, not PG.)\n\n6",
+      "cost_usd": 0.26901,
+      "wall_clock_s": 54.85,
+      "input_tokens": 43131,
+      "output_tokens": 1815,
+      "cache_read_tokens": 10984,
+      "cache_write_tokens": 398,
+      "image_tokens": 0,
+      "n_steps": 4,
+      "n_tool_calls": 5,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 4
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "butane2-q3",
+      "answer": "no",
+      "cost_usd": 0.399599,
+      "wall_clock_s": 116.961,
+      "input_tokens": 42831,
+      "output_tokens": 5154,
+      "cache_read_tokens": 77263,
+      "cache_write_tokens": 2874,
+      "image_tokens": 0,
+      "n_steps": 10,
+      "n_tool_calls": 9,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 8
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "butane2-q4",
+      "answer": "shell-and-tube heat exchanger",
+      "cost_usd": 0.142202,
+      "wall_clock_s": 42.582,
+      "input_tokens": 19914,
+      "output_tokens": 1263,
+      "cache_read_tokens": 11388,
+      "cache_write_tokens": 858,
+      "image_tokens": 0,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 2
+      },
+      "retries": 0
+    }
+  ]
+}

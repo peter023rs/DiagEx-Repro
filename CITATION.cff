@@ -1,0 +1,52 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite the manuscript and this archive."
+type: software
+title: "DiagEx — reproducibility package for zero-shot P&ID-to-DEXPI digitization with a vision-language agent"
+abstract: >-
+  Reproducibility package for an evaluation of DiagEx, a pure LLM-vision agent
+  (Claude Opus 4.7) that extracts structured graphs from industrial
+  schematics — Phase 1 (NL queries), Phase 2 (P&ID → DEXPI 2.0), an ablation
+  that disables tile zoom, and a GPT-4.1 single-shot baseline. The package
+  contains the diagex source, the evaluation harness, ground-truth corpora
+  for 10 public P&IDs, final results CSVs, replay cassettes for offline
+  re-derivation, and the manuscript PDF.
+authors:
+  - family-names: Koziolek
+    given-names: Heiko
+    affiliation: "ABB Corporate Research Center, Mannheim, Germany"
+    email: heiko.koziolek@de.abb.com
+  - family-names: Braun
+    given-names: Thilo
+    affiliation: "ABB Corporate Research Center, Mannheim, Germany"
+    email: thilo.braun@de.abb.com
+  - family-names: Bordis
+    given-names: Tabea
+    affiliation: "ABB Corporate Research Center, Mannheim, Germany"
+    email: tabea.bordis@de.abb.com
+license: Apache-2.0
+keywords:
+  - process engineering
+  - DEXPI
+  - P&ID
+  - large language models
+  - vision-language agent
+  - structured extraction
+  - reproducibility
+repository-code: "https://github.com/hkoziolek/DiagEx-Repro"
+preferred-citation:
+  type: article
+  title: "DiagEx: Zero-Shot P&ID-to-DEXPI Digitization with a Vision-Language Agent"
+  authors:
+    - family-names: Koziolek
+      given-names: Heiko
+      affiliation: "ABB Corporate Research Center, Mannheim, Germany"
+    - family-names: Braun
+      given-names: Thilo
+      affiliation: "ABB Corporate Research Center, Mannheim, Germany"
+    - family-names: Bordis
+      given-names: Tabea
+      affiliation: "ABB Corporate Research Center, Mannheim, Germany"
+  status: in-preparation
+  notes: >-
+    Manuscript under review. Replace this block with the published reference
+    (venue, year, volume/pages, DOI) once the paper is accepted.

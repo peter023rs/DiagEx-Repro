@@ -1,0 +1,20 @@
+{
+  "fixture": "butane1",
+  "iou_threshold": 0.3,
+  "bootstrap_reviewable_nodes": 78,
+  "annotations": 50,
+  "matched": 47,
+  "matched_iou": 44,
+  "matched_label_fallback": 3,
+  "added": 3,
+  "dropped": 31,
+  "bbox_retained": 13,
+  "bbox_edited": 34,
+  "label_retained": 34,
+  "label_edited": 13,
+  "bbox_retention_pct": 16.7,
+  "label_retention_pct": 43.6,
+  "edges_kept": 5,
+  "edges_auto_dropped": 11,
+  "v2_total_nodes": 59
+}

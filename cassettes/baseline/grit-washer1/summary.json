@@ -1,0 +1,15 @@
+{
+  "cost_usd": 6.344787,
+  "wall_clock_s": 810.929,
+  "dexpi_validates": true,
+  "input_tokens": 376408,
+  "output_tokens": 46530,
+  "cache_read_tokens": 1379606,
+  "cache_write_tokens": 417551,
+  "image_tokens": 0,
+  "n_steps": 43,
+  "n_tool_calls": 121,
+  "retries": 20,
+  "source_run_dir": "out/diagex-phase2/baseline/runs/grit-washer1/2026-04-27T14-49-56_r-25bf",
+  "source_run_id": "20260427T144955-1dbc"
+}

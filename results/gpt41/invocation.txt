@@ -1,0 +1,16 @@
+{
+  "run_id": "20260428T090501-da59",
+  "ts": "2026-04-28T09:05:01",
+  "argv": [
+    "eval/run_paper_eval.py",
+    "--phase",
+    "1",
+    "--conditions",
+    "gpt41-singleshot",
+    "--parallel",
+    "4",
+    "--out",
+    "out/diagex-gpt41/"
+  ],
+  "model_env": "claude-opus-4-7"
+}

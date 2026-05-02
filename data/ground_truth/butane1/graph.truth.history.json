@@ -1,0 +1,582 @@
+{
+  "stem": "butane1",
+  "bootstrap_path": "/home/abb/repos/Image-Processing/eval/datasets/butane1/graph.bootstrap_v2.json",
+  "rater": "Heiko Koziolek",
+  "started_at": "2026-04-25T14:50:38",
+  "completed_at": "2026-04-25T15:16:13",
+  "actions": [
+    {
+      "ts": "2026-04-25T14:52:45",
+      "op": "drop",
+      "node_id": "n-cac16142",
+      "label": "Drain valve",
+      "reason": "no label"
+    },
+    {
+      "ts": "2026-04-25T14:53:03",
+      "op": "keep",
+      "node_id": "n-0c43adef",
+      "label": "E-234-009 Fan2"
+    },
+    {
+      "ts": "2026-04-25T14:53:14",
+      "op": "keep",
+      "node_id": "n-dc59a24e",
+      "label": "E-234-010A"
+    },
+    {
+      "ts": "2026-04-25T14:53:17",
+      "op": "keep",
+      "node_id": "n-6e54c1b3",
+      "label": "E-234-010B"
+    },
+    {
+      "ts": "2026-04-25T14:53:24",
+      "op": "keep",
+      "node_id": "n-38d9b72e",
+      "label": "HY-2903A"
+    },
+    {
+      "ts": "2026-04-25T14:53:26",
+      "op": "keep",
+      "node_id": "n-db9bfbd3",
+      "label": "HY-2903B"
+    },
+    {
+      "ts": "2026-04-25T14:53:29",
+      "op": "keep",
+      "node_id": "n-a2b0cfb5",
+      "label": "KV-2904"
+    },
+    {
+      "ts": "2026-04-25T14:53:32",
+      "op": "keep",
+      "node_id": "n-ae8a108a",
+      "label": "ESD-3200"
+    },
+    {
+      "ts": "2026-04-25T14:53:34",
+      "op": "keep",
+      "node_id": "n-f9ed6f16",
+      "label": "HIC-2903A"
+    },
+    {
+      "ts": "2026-04-25T14:53:39",
+      "op": "keep",
+      "node_id": "n-5a368960",
+      "label": "HIC-2903B"
+    },
+    {
+      "ts": "2026-04-25T14:53:42",
+      "op": "keep",
+      "node_id": "n-59b2beb1",
+      "label": "HS-2901A"
+    },
+    {
+      "ts": "2026-04-25T14:53:44",
+      "op": "keep",
+      "node_id": "n-8d478af1",
+      "label": "HS-2901A1 LOCAL/REMOTE"
+    },
+    {
+      "ts": "2026-04-25T14:53:47",
+      "op": "keep",
+      "node_id": "n-51a85431",
+      "label": "HS-2901A2 STOP/START"
+    },
+    {
+      "ts": "2026-04-25T14:53:54",
+      "op": "keep",
+      "node_id": "n-07d46e51",
+      "label": "HS-2901B"
+    },
+    {
+      "ts": "2026-04-25T14:54:12",
+      "op": "keep",
+      "node_id": "n-6ca3c376",
+      "label": "HS-2901B1 LOCAL/REMOTE"
+    },
+    {
+      "ts": "2026-04-25T14:54:20",
+      "op": "keep",
+      "node_id": "n-ec5b6904",
+      "label": "HS-2901B2 STOP/START"
+    },
+    {
+      "ts": "2026-04-25T14:54:25",
+      "op": "keep",
+      "node_id": "n-becafcc7",
+      "label": "PG-2913"
+    },
+    {
+      "ts": "2026-04-25T14:54:29",
+      "op": "keep",
+      "node_id": "n-861d0de4",
+      "label": "PG-2914"
+    },
+    {
+      "ts": "2026-04-25T14:54:32",
+      "op": "keep",
+      "node_id": "n-652652d1",
+      "label": "PSD-2917"
+    },
+    {
+      "ts": "2026-04-25T14:54:35",
+      "op": "keep",
+      "node_id": "n-78c392a8",
+      "label": "PSV-2907"
+    },
+    {
+      "ts": "2026-04-25T14:54:39",
+      "op": "keep",
+      "node_id": "n-56fa848f",
+      "label": "TG-2910"
+    },
+    {
+      "ts": "2026-04-25T14:54:42",
+      "op": "keep",
+      "node_id": "n-ce00fc6f",
+      "label": "TG-2912"
+    },
+    {
+      "ts": "2026-04-25T14:54:45",
+      "op": "keep",
+      "node_id": "n-6244413b",
+      "label": "TG-2917"
+    },
+    {
+      "ts": "2026-04-25T14:54:47",
+      "op": "keep",
+      "node_id": "n-7ea2b5d4",
+      "label": "TI-2909"
+    },
+    {
+      "ts": "2026-04-25T14:54:50",
+      "op": "keep",
+      "node_id": "n-2913cd1a",
+      "label": "TI-2913 H"
+    },
+    {
+      "ts": "2026-04-25T14:54:52",
+      "op": "keep",
+      "node_id": "n-828fc7a1",
+      "label": "TI-2916"
+    },
+    {
+      "ts": "2026-04-25T14:54:55",
+      "op": "keep",
+      "node_id": "n-0fda72e4",
+      "label": "TI-2917 HH"
+    },
+    {
+      "ts": "2026-04-25T14:54:57",
+      "op": "keep",
+      "node_id": "n-d57c93e9",
+      "label": "TIC-2911"
+    },
+    {
+      "ts": "2026-04-25T14:55:00",
+      "op": "keep",
+      "node_id": "n-cca323a0",
+      "label": "TT-2909"
+    },
+    {
+      "ts": "2026-04-25T14:55:02",
+      "op": "keep",
+      "node_id": "n-06ea6fe0",
+      "label": "TT-2911"
+    },
+    {
+      "ts": "2026-04-25T14:55:05",
+      "op": "keep",
+      "node_id": "n-08157ae3",
+      "label": "TT-2913"
+    },
+    {
+      "ts": "2026-04-25T14:55:08",
+      "op": "keep",
+      "node_id": "n-eee235b4",
+      "label": "TT-2916"
+    },
+    {
+      "ts": "2026-04-25T14:55:12",
+      "op": "keep",
+      "node_id": "n-c67f157a",
+      "label": "TT-2917"
+    },
+    {
+      "ts": "2026-04-25T14:55:15",
+      "op": "keep",
+      "node_id": "n-c3d4af06",
+      "label": "TW-2921"
+    },
+    {
+      "ts": "2026-04-25T14:55:18",
+      "op": "keep",
+      "node_id": "n-9ec51584",
+      "label": "TW-2922"
+    },
+    {
+      "ts": "2026-04-25T14:55:23",
+      "op": "keep",
+      "node_id": "n-4d41fd14",
+      "label": "TY-2911"
+    },
+    {
+      "ts": "2026-04-25T14:55:26",
+      "op": "keep",
+      "node_id": "n-4e716ba4",
+      "label": "VA-2901A"
+    },
+    {
+      "ts": "2026-04-25T14:55:30",
+      "op": "keep",
+      "node_id": "n-0c9e7c2a",
+      "label": "VA-2901B"
+    },
+    {
+      "ts": "2026-04-25T14:55:33",
+      "op": "keep",
+      "node_id": "n-b923606a",
+      "label": "VB-2911"
+    },
+    {
+      "ts": "2026-04-25T14:55:37",
+      "op": "keep",
+      "node_id": "n-32737bd7",
+      "label": "VSHH-2901A"
+    },
+    {
+      "ts": "2026-04-25T14:55:44",
+      "op": "keep",
+      "node_id": "n-513fdb90",
+      "label": "VSHH-2901B"
+    },
+    {
+      "ts": "2026-04-25T14:55:47",
+      "op": "keep",
+      "node_id": "n-2821c827",
+      "label": "XA-2901A FAULT"
+    },
+    {
+      "ts": "2026-04-25T14:55:50",
+      "op": "keep",
+      "node_id": "n-1d71b3aa",
+      "label": "XA-2901B FAULT"
+    },
+    {
+      "ts": "2026-04-25T14:55:53",
+      "op": "keep",
+      "node_id": "n-20cde86b",
+      "label": "XI-2901A AVAILABLE"
+    },
+    {
+      "ts": "2026-04-25T14:55:56",
+      "op": "keep",
+      "node_id": "n-ddb5fb57",
+      "label": "XI-2901B AVAILABLE"
+    },
+    {
+      "ts": "2026-04-25T14:55:59",
+      "op": "keep",
+      "node_id": "n-f2e49b99",
+      "label": "XL-2901A RUNNING/STOP"
+    },
+    {
+      "ts": "2026-04-25T14:56:02",
+      "op": "keep",
+      "node_id": "n-5488ff0b",
+      "label": "XL-2901B RUNNING/STOP"
+    },
+    {
+      "ts": "2026-04-25T14:56:05",
+      "op": "keep",
+      "node_id": "n-3294ddb2",
+      "label": "ESD-3200"
+    },
+    {
+      "ts": "2026-04-25T14:56:09",
+      "op": "keep",
+      "node_id": "n-1efc1d9c",
+      "label": "E-234-009"
+    },
+    {
+      "ts": "2026-04-25T14:56:12",
+      "op": "keep",
+      "node_id": "n-ab217151",
+      "label": "E-234-009 Fan1"
+    },
+    {
+      "ts": "2026-04-25T14:56:20",
+      "op": "keep",
+      "node_id": "n-1e5848a3",
+      "label": "OPC IN: Spent Butane from V-234-002A~D (P-234-03016-F3D-8\"-Is)"
+    },
+    {
+      "ts": "2026-04-25T14:56:23",
+      "op": "keep",
+      "node_id": "n-86a8614f",
+      "label": "OPC OUT: Spent Butane to V-234-004 (P-234-03303-CD3D-2\"-N)"
+    },
+    {
+      "ts": "2026-04-25T14:56:26",
+      "op": "keep",
+      "node_id": "n-bef0a3d2",
+      "label": "OPC IN: Min Flow from P-234-002A/B (P-234-03505-CD3D-3\"-N)"
+    },
+    {
+      "ts": "2026-04-25T14:56:29",
+      "op": "keep",
+      "node_id": "n-1f2e4853",
+      "label": "OPC OUT: Sea Water Return to 237-3.00-050 (SWR-234-03301-115201D-10\"-N)"
+    },
+    {
+      "ts": "2026-04-25T14:56:32",
+      "op": "keep",
+      "node_id": "n-e41bf8e7",
+      "label": "OPC IN: Sea Water Supply from 234-3.00-027 (SWS-234-03301-115201D-10\"-N)"
+    },
+    {
+      "ts": "2026-04-25T14:56:35",
+      "op": "keep",
+      "node_id": "n-81f57c35",
+      "label": "OPC OUT: Spent Butane (Cooling/Filling) to F-234-004A/B (P-234-03302-CD3D-6\"-N)"
+    },
+    {
+      "ts": "2026-04-25T14:56:37",
+      "op": "keep",
+      "node_id": "n-25aae1a2",
+      "label": "SEQ sequencer (auto-start sequencer for fans)"
+    },
+    {
+      "ts": "2026-04-25T14:56:43",
+      "op": "keep",
+      "node_id": "n-822443bb",
+      "label": "MCC motor control center (fan A &amp; B)"
+    },
+    {
+      "ts": "2026-04-25T14:56:46",
+      "op": "keep",
+      "node_id": "n-ac43a0c6",
+      "label": "SEQ sequencer - fan A"
+    },
+    {
+      "ts": "2026-04-25T14:58:14",
+      "op": "edge_revise",
+      "edge_id": "e-39ec6c2d",
+      "before": {
+        "from_node": "n-1e5848a3",
+        "to_node": "n-1efc1d9c",
+        "line_type": "process"
+      },
+      "after": {
+        "from_node": "n-1e5848a3",
+        "to_node": "n-a2b0cfb5",
+        "line_type": "process"
+      },
+      "reason": null
+    },
+    {
+      "ts": "2026-04-25T14:58:53",
+      "op": "edge_revise",
+      "edge_id": "e-57af5691",
+      "before": {
+        "from_node": "n-56fa848f",
+        "to_node": "n-1efc1d9c",
+        "line_type": "process"
+      },
+      "after": {
+        "from_node": "n-a2b0cfb5",
+        "to_node": "n-1efc1d9c",
+        "line_type": "process"
+      },
+      "reason": null
+    },
+    {
+      "ts": "2026-04-25T14:59:08",
+      "op": "edge_drop",
+      "edge_id": "e-e768bdc1",
+      "from_node": "n-56fa848f",
+      "to_node": "n-1efc1d9c",
+      "reason": "duplicate"
+    },
+    {
+      "ts": "2026-04-25T15:00:10",
+      "op": "edge_revise",
+      "edge_id": "e-d2d85b3a",
+      "before": {
+        "from_node": "n-c67f157a",
+        "to_node": "n-86a8614f",
+        "line_type": "process"
+      },
+      "after": {
+        "from_node": "n-1efc1d9c",
+        "to_node": "n-86a8614f",
+        "line_type": "process"
+      },
+      "reason": null
+    },
+    {
+      "ts": "2026-04-25T15:02:10",
+      "op": "edge_revise",
+      "edge_id": "e-cff48257",
+      "before": {
+        "from_node": "n-828fc7a1",
+        "to_node": "n-6244413b",
+        "line_type": "process"
+      },
+      "after": {
+        "from_node": "n-dc59a24e",
+        "to_node": "n-1f2e4853",
+        "line_type": "process"
+      },
+      "reason": null
+    },
+    {
+      "ts": "2026-04-25T15:04:03",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-8f188a9e",
+        "from_node": "n-bef0a3d2",
+        "to_node": "n-dc59a24e",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T15:05:00",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-b00a2c87",
+        "from_node": "n-1efc1d9c",
+        "to_node": "n-dc59a24e",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T15:05:32",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-c9f286ee",
+        "from_node": "n-6e54c1b3",
+        "to_node": "n-dc59a24e",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T15:06:03",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-f0a8ad73",
+        "from_node": "n-6e54c1b3",
+        "to_node": "n-81f57c35",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T15:06:17",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-993cf6df",
+        "from_node": "n-e41bf8e7",
+        "to_node": "n-6e54c1b3",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T15:07:01",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-59a1658e",
+        "from_node": "n-822443bb",
+        "to_node": "n-ab217151",
+        "line_type": "signal_electric",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T15:07:15",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-ef6a00e3",
+        "from_node": "n-822443bb",
+        "to_node": "n-0c43adef",
+        "line_type": "signal_electric",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T15:13:26",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-945da1db",
+        "from_node": "n-d57c93e9",
+        "to_node": "n-4d41fd14",
+        "line_type": "signal_electric",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T15:14:55",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-657ce53d",
+        "from_node": "n-bef0a3d2",
+        "to_node": "n-dc59a24e",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "bootstrap_nodes": 59,
+    "kept": 58,
+    "revised": 0,
+    "dropped": 1,
+    "added": 0,
+    "skipped": 0,
+    "final_nodes": 58,
+    "retention_pct": 98.3,
+    "bootstrap_edges": 5,
+    "edge_kept": 0,
+    "edge_revised": 4,
+    "edge_dropped": 1,
+    "edge_added": 9,
+    "edge_skipped": 0,
+    "final_edges": 12,
+    "edge_retention_pct": 0.0,
+    "finalised": true
+  },
+  "edge_walk_done": true
+}

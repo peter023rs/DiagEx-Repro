@@ -1,0 +1,15 @@
+{
+  "cost_usd": 5.537448,
+  "wall_clock_s": 1337.545,
+  "dexpi_validates": true,
+  "input_tokens": 419477,
+  "output_tokens": 47930,
+  "cache_read_tokens": 678102,
+  "cache_write_tokens": 304442,
+  "image_tokens": 0,
+  "n_steps": 55,
+  "n_tool_calls": 121,
+  "retries": 1,
+  "source_run_dir": "out/diagex-phase2/baseline/runs/open100-4/2026-04-27T17-23-58_r-57a5",
+  "source_run_id": "20260427T172357-6718"
+}

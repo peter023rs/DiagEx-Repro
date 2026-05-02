@@ -1,0 +1,17 @@
+{
+  "run_id": "20260428T083413-45a0",
+  "ts": "2026-04-28T08:34:13",
+  "argv": [
+    "eval/run_paper_eval.py",
+    "--phase",
+    "2",
+    "--parallel",
+    "1",
+    "--out",
+    "out/diagex-phase2",
+    "--only",
+    "two-tanks",
+    "--resume-force"
+  ],
+  "model_env": "claude-opus-4-7"
+}

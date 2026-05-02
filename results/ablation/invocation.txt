@@ -1,0 +1,18 @@
+{
+  "run_id": "20260428T084608-e35c",
+  "ts": "2026-04-28T08:46:08",
+  "argv": [
+    "eval/run_paper_eval.py",
+    "--phase",
+    "2",
+    "--conditions",
+    "ablation-no-tile",
+    "--only",
+    "dexpi-reference,butane1,tennessee1",
+    "--parallel",
+    "3",
+    "--out",
+    "out/diagex-ablation"
+  ],
+  "model_env": "claude-opus-4-7"
+}

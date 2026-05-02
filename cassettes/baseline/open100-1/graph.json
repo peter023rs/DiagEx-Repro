@@ -1,0 +1,1345 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "open100-1.pdf",
+  "nodes": [
+    {
+      "id": "n-f2e50691",
+      "kind": "opc",
+      "label": "RHRS inlet",
+      "bbox_global": {
+        "x": 20,
+        "y": 50,
+        "w": 180,
+        "h": 40
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 120-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7bbdd37f46c54994aff4e21e78df88d3"
+      ]
+    },
+    {
+      "id": "n-30f16865",
+      "kind": "opc",
+      "label": "RCS inlet",
+      "bbox_global": {
+        "x": 20,
+        "y": 140,
+        "w": 180,
+        "h": 40
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 100-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c90851430ce24e249c3111b20bb364e5",
+        "9d8e803037404fc9a043c8f75b635a95"
+      ]
+    },
+    {
+      "id": "n-82e527a7",
+      "kind": "opc",
+      "label": "RHR outlet",
+      "bbox_global": {
+        "x": 20,
+        "y": 315,
+        "w": 180,
+        "h": 40
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "PID 120-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e002b86bf4fe40e5a0ef86517a68493e"
+      ]
+    },
+    {
+      "id": "n-98f0c91a",
+      "kind": "opc",
+      "label": "WPS inlet",
+      "bbox_global": {
+        "x": 20,
+        "y": 390,
+        "w": 190,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 270-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "54f31f12083146e7a17dabd8e1e537db"
+      ]
+    },
+    {
+      "id": "n-402c5dd7",
+      "kind": "opc",
+      "label": "RWS inlet",
+      "bbox_global": {
+        "x": 20,
+        "y": 470,
+        "w": 190,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 320-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2bd32975125d46efae8da3858089aee4"
+      ]
+    },
+    {
+      "id": "n-7216c938",
+      "kind": "opc",
+      "label": "RWS outlet",
+      "bbox_global": {
+        "x": 20,
+        "y": 700,
+        "w": 190,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "PID 320-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "85c4f3f7c36a48d1bdcfe9c822428a96"
+      ]
+    },
+    {
+      "id": "n-ec92bf60",
+      "kind": "opc",
+      "label": "Make-up water inlet",
+      "bbox_global": {
+        "x": 20,
+        "y": 850,
+        "w": 190,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 300-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "cfe35770c8fc4791ba5e1dc2c4443e72"
+      ]
+    },
+    {
+      "id": "n-dedd696d",
+      "kind": "equipment",
+      "label": "CVCS-HX-110",
+      "bbox_global": {
+        "x": 730,
+        "y": 325,
+        "w": 425,
+        "h": 105
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube",
+        "service": "Regen Heat Exchanger"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b0cea68c57ba4c889faa2a2dae49a84c"
+      ]
+    },
+    {
+      "id": "n-3b663f78",
+      "kind": "equipment",
+      "label": "CVCS-VCT-118",
+      "bbox_global": {
+        "x": 430,
+        "y": 555,
+        "w": 300,
+        "h": 480
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "tank",
+        "service": "Volume Control Tank"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "47900cd238014a51bf51e2300635dd42"
+      ]
+    },
+    {
+      "id": "n-30ea073b",
+      "kind": "equipment",
+      "label": "MOV-1151",
+      "bbox_global": {
+        "x": 315,
+        "y": 295,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "caa3ebed6a2a4baaa6b614d670c5f2a5"
+      ]
+    },
+    {
+      "id": "n-20e3f26d",
+      "kind": "equipment",
+      "label": "PSV-1101",
+      "bbox_global": {
+        "x": 700,
+        "y": 260,
+        "w": 60,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2243015482604bc9b197ba8db589c32a"
+      ]
+    },
+    {
+      "id": "n-b69848f1",
+      "kind": "equipment",
+      "label": "PSV-1161",
+      "bbox_global": {
+        "x": 555,
+        "y": 380,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3dcbba9f054a438d84c76cf1edeb50e1"
+      ]
+    },
+    {
+      "id": "n-9fd37775",
+      "kind": "equipment",
+      "label": "FCV-1162",
+      "bbox_global": {
+        "x": 425,
+        "y": 440,
+        "w": 60,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9c93f2ebb8d542389feb771e8fdf5e00"
+      ]
+    },
+    {
+      "id": "n-23760b3e",
+      "kind": "equipment",
+      "label": "LCV-1161",
+      "bbox_global": {
+        "x": 315,
+        "y": 670,
+        "w": 60,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8e843310f0d54bd5bb2e7f6b11cea952"
+      ]
+    },
+    {
+      "id": "n-e76d55ff",
+      "kind": "equipment",
+      "label": "FCV-1101",
+      "bbox_global": {
+        "x": 1165,
+        "y": 315,
+        "w": 60,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "53062dc4128949f7b19b242b11df8a42"
+      ]
+    },
+    {
+      "id": "n-4759019c",
+      "kind": "instrument",
+      "label": "TE-1051A",
+      "bbox_global": {
+        "x": 280,
+        "y": 102,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1051"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "270506c2638744d8a16cbd306e0c0e0e"
+      ]
+    },
+    {
+      "id": "n-cbc8ed31",
+      "kind": "instrument",
+      "label": "TE-1051B",
+      "bbox_global": {
+        "x": 325,
+        "y": 102,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1051"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a386cf1b18ac4e13aacc5631cf53a57c"
+      ]
+    },
+    {
+      "id": "n-ffc07d62",
+      "kind": "instrument",
+      "label": "TE-1060A",
+      "bbox_global": {
+        "x": 280,
+        "y": 205,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1060",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ea7f681b1f89409bb1f2716b8aacd27e"
+      ]
+    },
+    {
+      "id": "n-8a6e26e7",
+      "kind": "instrument",
+      "label": "TE-1160B",
+      "bbox_global": {
+        "x": 325,
+        "y": 205,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1060",
+        "label_before_arbitration": "TE-1060B",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e47c9feb7ae94ba2b5f4d3a367ee3e78"
+      ]
+    },
+    {
+      "id": "n-a9fc884d",
+      "kind": "instrument",
+      "label": "TE-1052A",
+      "bbox_global": {
+        "x": 1050,
+        "y": 315,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1052"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "cb0b0b33a16b4ebe9208d96659901120"
+      ]
+    },
+    {
+      "id": "n-9272afa6",
+      "kind": "instrument",
+      "label": "TE-1052B",
+      "bbox_global": {
+        "x": 1093,
+        "y": 315,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1052"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3e4a4067f89542d8a6dae21d1cbd34f2"
+      ]
+    },
+    {
+      "id": "n-0d4eb2e2",
+      "kind": "instrument",
+      "label": "PIT-11859",
+      "bbox_global": {
+        "x": 680,
+        "y": 540,
+        "w": 50,
+        "h": 55
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "1859",
+        "label_before_arbitration": "PIT-1859",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "30919e5c448145b38cd5fb5653a1833f"
+      ]
+    },
+    {
+      "id": "n-652eaea3",
+      "kind": "instrument",
+      "label": "LIT-1859",
+      "bbox_global": {
+        "x": 690,
+        "y": 680,
+        "w": 50,
+        "h": 55
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "1859",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7119da45d3204437b6212ddb2635bfe5"
+      ]
+    },
+    {
+      "id": "n-3dfbb5d4",
+      "kind": "instrument",
+      "label": "LIT-1857",
+      "bbox_global": {
+        "x": 705,
+        "y": 955,
+        "w": 50,
+        "h": 55
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "1857",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4e77edd0f78b4ba8a5a4b3be1d3c2770"
+      ]
+    },
+    {
+      "id": "n-99f4fd88",
+      "kind": "equipment",
+      "label": "CVCS-HX-111",
+      "bbox_global": {
+        "x": 1349,
+        "y": 175,
+        "w": 410,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube",
+        "service": "Letdown Heat Exchanger"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a05073c6c28347699855feadc693fa3f"
+      ]
+    },
+    {
+      "id": "n-a10ad4ce",
+      "kind": "equipment",
+      "label": "CVCS-AN-113B",
+      "bbox_global": {
+        "x": 1454,
+        "y": 660,
+        "w": 175,
+        "h": 175
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "unclassified_equipment",
+        "structural_description": "rectangular box, radiation analyzer",
+        "service": "Radiation Analyzer",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "900802fb71ea4f9b941704a4262eec14"
+      ]
+    },
+    {
+      "id": "n-f92f5bae",
+      "kind": "equipment",
+      "label": "PCV-1112",
+      "bbox_global": {
+        "x": 1714,
+        "y": 160,
+        "w": 60,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3c9eca11258c4c04a1a5a4a6de1071d6"
+      ]
+    },
+    {
+      "id": "n-06a5a95e",
+      "kind": "equipment",
+      "label": "PSV-1113",
+      "bbox_global": {
+        "x": 1759,
+        "y": 290,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "20ff55a8023a453caf07b1dde428f341"
+      ]
+    },
+    {
+      "id": "n-1b5029c4",
+      "kind": "equipment",
+      "label": "FCV-1116",
+      "bbox_global": {
+        "x": 1699,
+        "y": 530,
+        "w": 60,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ff1dcf41ee36440a82a9da30f8e43b56"
+      ]
+    },
+    {
+      "id": "n-7945dc1b",
+      "kind": "equipment",
+      "label": "MOV-1115",
+      "bbox_global": {
+        "x": 1864,
+        "y": 730,
+        "w": 60,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "83e25182ff96438ea20ae00560a35d61"
+      ]
+    },
+    {
+      "id": "n-affac626",
+      "kind": "equipment",
+      "label": "MOV-1113",
+      "bbox_global": {
+        "x": 1989,
+        "y": 790,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c75a8ca42dbb4cdfa0b35a33052cdb4e"
+      ]
+    },
+    {
+      "id": "n-3c492ff8",
+      "kind": "equipment",
+      "label": "MOV-1114",
+      "bbox_global": {
+        "x": 2249,
+        "y": 790,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5912c66bc99e472a899008dace4211dd"
+      ]
+    },
+    {
+      "id": "n-eeaa1d4b",
+      "kind": "opc",
+      "label": "WPS outlet",
+      "bbox_global": {
+        "x": 2124,
+        "y": 305,
+        "w": 200,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "PID 270-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3b7e962d9d714f15911152bccdce6241"
+      ]
+    },
+    {
+      "id": "n-57cbd016",
+      "kind": "instrument",
+      "label": "TE-1153A",
+      "bbox_global": {
+        "x": 1469,
+        "y": 130,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1153"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "933be9f592714cee8a8beb4298a668a2"
+      ]
+    },
+    {
+      "id": "n-ff5c653f",
+      "kind": "instrument",
+      "label": "TE-1153B",
+      "bbox_global": {
+        "x": 1514,
+        "y": 130,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1153"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "27f093a9797e4956aa16ffa871b728eb"
+      ]
+    },
+    {
+      "id": "n-8a9aba6d",
+      "kind": "instrument",
+      "label": "PSC-1112",
+      "bbox_global": {
+        "x": 1559,
+        "y": 130,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "pressure",
+        "loop_number": "1112",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6a75878258654aef83e6095b0fb8c9f2"
+      ]
+    },
+    {
+      "id": "n-e989dfcc",
+      "kind": "instrument",
+      "label": "PIT-1154A",
+      "bbox_global": {
+        "x": 1679,
+        "y": 295,
+        "w": 50,
+        "h": 55
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "1154"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3dfcd8049927470491d986de660d119c"
+      ]
+    },
+    {
+      "id": "n-1e35445e",
+      "kind": "instrument",
+      "label": "PIT-1154B",
+      "bbox_global": {
+        "x": 1679,
+        "y": 380,
+        "w": 50,
+        "h": 55
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "1154"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d5b538d8517543b4b065702df0076f45"
+      ]
+    },
+    {
+      "id": "n-08d58035",
+      "kind": "instrument",
+      "label": "TE-1155A",
+      "bbox_global": {
+        "x": 1834,
+        "y": 410,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1155"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1b47487fc3fd42e79a11f7971c290e85"
+      ]
+    },
+    {
+      "id": "n-7ac65f38",
+      "kind": "instrument",
+      "label": "TE-1155B",
+      "bbox_global": {
+        "x": 1879,
+        "y": 410,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1155"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "20c27aa4d2b14cb7a3f72350b4a9f344"
+      ]
+    },
+    {
+      "id": "n-df56ccad",
+      "kind": "instrument",
+      "label": "FO-1114",
+      "bbox_global": {
+        "x": 1919,
+        "y": 540,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1114",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ac49447e2ab14e198b05b6a38436ff0f"
+      ]
+    },
+    {
+      "id": "n-9106db30",
+      "kind": "instrument",
+      "label": "FT-1114",
+      "bbox_global": {
+        "x": 1964,
+        "y": 540,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1114"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "be9d967660ee4a039a634ef233547b83"
+      ]
+    },
+    {
+      "id": "n-251d4512",
+      "kind": "opc",
+      "label": "CAS inlet",
+      "bbox_global": {
+        "x": 50,
+        "y": 1132,
+        "w": 200,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 320-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5ad7bd136ee34669996591c047a9f3d6"
+      ]
+    },
+    {
+      "id": "n-b501c78d",
+      "kind": "equipment",
+      "label": "CVCS-PU-115",
+      "bbox_global": {
+        "x": 645,
+        "y": 1142,
+        "w": 175,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "positive_displacement",
+        "service": "Positive Displacement Charging Pump"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0de242532fb6478f94ea87f72235bb01"
+      ]
+    },
+    {
+      "id": "n-acdb42aa",
+      "kind": "equipment",
+      "label": "CVCS-PU-116",
+      "bbox_global": {
+        "x": 645,
+        "y": 1282,
+        "w": 175,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "positive_displacement",
+        "service": "Positive Displacement Charging Pump"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7fdbd069e3054c588a9d4030946d4d60"
+      ]
+    },
+    {
+      "id": "n-4907652f",
+      "kind": "equipment",
+      "label": "CVCS-PU-117",
+      "bbox_global": {
+        "x": 645,
+        "y": 1417,
+        "w": 175,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "positive_displacement",
+        "service": "Positive Displacement Charging Pump"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "30542685913c4bd7a04fea9f8f229216"
+      ]
+    },
+    {
+      "id": "n-34284208",
+      "kind": "equipment",
+      "label": "CVCS-ION-114A",
+      "bbox_global": {
+        "x": 1015,
+        "y": 1107,
+        "w": 165,
+        "h": 290
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "vessel",
+        "service": "Ion Exchanger"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ba201964893c4c9f8960f15266126d16"
+      ]
+    },
+    {
+      "id": "n-27c43a2b",
+      "kind": "equipment",
+      "label": "CVCS-ION-114B",
+      "bbox_global": {
+        "x": 1240,
+        "y": 1107,
+        "w": 165,
+        "h": 290
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "vessel",
+        "service": "Ion Exchanger"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e172d4ce32a5486ba927fd6ba1ffa581"
+      ]
+    },
+    {
+      "id": "n-13494085",
+      "kind": "equipment",
+      "label": "RV-1153",
+      "bbox_global": {
+        "x": 850,
+        "y": 1082,
+        "w": 50,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3ad974b71e63462f8dba41fed665437c"
+      ]
+    },
+    {
+      "id": "n-8fee003d",
+      "kind": "equipment",
+      "label": "RV-1152",
+      "bbox_global": {
+        "x": 850,
+        "y": 1217,
+        "w": 50,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "908c6bce68f549d0bd2d010cd1b21cda"
+      ]
+    },
+    {
+      "id": "n-e1199a7f",
+      "kind": "equipment",
+      "label": "RV-1151",
+      "bbox_global": {
+        "x": 850,
+        "y": 1367,
+        "w": 50,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1a9f3d3a8b5d486baac88b84bf7399ad"
+      ]
+    },
+    {
+      "id": "n-7626591f",
+      "kind": "equipment",
+      "label": "MOV-1123",
+      "bbox_global": {
+        "x": 1035,
+        "y": 1047,
+        "w": 60,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7bf05eb6b30d44c1b96c78c291b2e15b"
+      ]
+    },
+    {
+      "id": "n-9ef219c4",
+      "kind": "equipment",
+      "label": "MOV-1122",
+      "bbox_global": {
+        "x": 1260,
+        "y": 1047,
+        "w": 60,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2ee60f3fb1ae40b3ad2d8b5e9fbe1d29"
+      ]
+    },
+    {
+      "id": "n-836257f7",
+      "kind": "equipment",
+      "label": "FCV-1121",
+      "bbox_global": {
+        "x": 1480,
+        "y": 1602,
+        "w": 60,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "03f47c74ef394dfd9bd1f6d8f97034de"
+      ]
+    },
+    {
+      "id": "n-2791889e",
+      "kind": "instrument",
+      "label": "PIT-1156",
+      "bbox_global": {
+        "x": 920,
+        "y": 1052,
+        "w": 50,
+        "h": 55
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "1156"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a2e396013a75409389db70ea25aca195"
+      ]
+    },
+    {
+      "id": "n-64e95014",
+      "kind": "equipment",
+      "label": "CVCS-FL-112A",
+      "bbox_global": {
+        "x": 1919,
+        "y": 887,
+        "w": 220,
+        "h": 245
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "filter",
+        "service": "Letdown Filter"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "85f12ea3aad144c09811a7d37212ad6f"
+      ]
+    },
+    {
+      "id": "n-823e271c",
+      "kind": "equipment",
+      "label": "CVCS-FL-112B",
+      "bbox_global": {
+        "x": 2169,
+        "y": 887,
+        "w": 220,
+        "h": 245
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "filter",
+        "service": "Letdown Filter"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7f40ffab26d846e9883c51d394a51ccc"
+      ]
+    },
+    {
+      "id": "n-7d026462",
+      "kind": "instrument",
+      "label": "PIT-1256",
+      "bbox_global": {
+        "x": 1989,
+        "y": 1217,
+        "w": 50,
+        "h": 55
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "1256"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "420cc6ee87d64522a94b39139dc14c5a"
+      ]
+    },
+    {
+      "id": "n-10562796",
+      "kind": "equipment",
+      "label": "CVCS-AN-113A",
+      "bbox_global": {
+        "x": 1290,
+        "y": 660,
+        "w": 165,
+        "h": 175
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "unclassified_equipment",
+        "structural_description": "rectangular box, boron analyzer",
+        "service": "Boron Analyzer",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6f2fe08a10034229ac85551176d4956d"
+      ]
+    }
+  ],
+  "edges": [],
+  "dangling_opcs": [
+    {
+      "opc_label": "RHRS inlet",
+      "normalised": "RHRSINLET",
+      "node_id": "n-f2e50691",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RCS inlet",
+      "normalised": "RCSINLET",
+      "node_id": "n-30f16865",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RHR outlet",
+      "normalised": "RHROUTLET",
+      "node_id": "n-82e527a7",
+      "page_index": 0
+    },
+    {
+      "opc_label": "WPS inlet",
+      "normalised": "WPSINLET",
+      "node_id": "n-98f0c91a",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RWS inlet",
+      "normalised": "RWSINLET",
+      "node_id": "n-402c5dd7",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RWS outlet",
+      "normalised": "RWSOUTLET",
+      "node_id": "n-7216c938",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Make-up water inlet",
+      "normalised": "MAKE-UPWATERINLET",
+      "node_id": "n-ec92bf60",
+      "page_index": 0
+    },
+    {
+      "opc_label": "WPS outlet",
+      "normalised": "WPSOUTLET",
+      "node_id": "n-eeaa1d4b",
+      "page_index": 0
+    },
+    {
+      "opc_label": "CAS inlet",
+      "normalised": "CASINLET",
+      "node_id": "n-251d4512",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [],
+  "per_page_status": {
+    "0": "ok"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "answers": [
+    {
+      "query_id": "open100-4-q1",
+      "answer": "PCV-1001\nPCV-1011\nPCV-1031\nPCV-1032\nPCV-1041\nPRV-1031\nPRV-1032",
+      "cost_usd": 0.17881,
+      "wall_clock_s": 0.0,
+      "input_tokens": 21307,
+      "output_tokens": 1891,
+      "cache_read_tokens": 8774,
+      "cache_write_tokens": 3298,
+      "image_tokens": 0,
+      "n_steps": 4,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "open100-4-q2",
+      "answer": "Based on my analysis:\n- Main flowsheet: 5 TEs (top-left x2, V-103 top, V-103 bottom, VE-104 inlet)\n- Detail A (RCS-PU-102A): 7 TEs (102A27, 28, 29, 30, 36, 37, 38)\n- Detail B (RCS-PU-102B): 7 TEs (102B39, 40, 41, 42, 48, 49, 50)\n\n19",
+      "cost_usd": 0.474245,
+      "wall_clock_s": 0.0,
+      "input_tokens": 53202,
+      "output_tokens": 4128,
+      "cache_read_tokens": 111771,
+      "cache_write_tokens": 7864,
+      "image_tokens": 0,
+      "n_steps": 10,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "open100-4-q3",
+      "answer": "Based on the diagram, PCV-1031 and PCV-1032 are parallel control valves \u2014 PCV-1031 is on line RCS-103011 (from nozzle N3) and PCV-1032 is on line RCS-103012 (from nozzle N4). Their outlets merge into a common header going to RCS-VE-104. There is no direct process flow path from one to the other.\n\nno",
+      "cost_usd": 0.086146,
+      "wall_clock_s": 0.0,
+      "input_tokens": 10428,
+      "output_tokens": 1125,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 328,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "open100-4-q4",
+      "answer": "pressurizer",
+      "cost_usd": 0.077766,
+      "wall_clock_s": 0.0,
+      "input_tokens": 10802,
+      "output_tokens": 618,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 716,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<svg
+  xmlns = "http://www.w3.org/2000/svg"
+  width = "82mm"
+  height = "102mm"
+  viewBox = "-31 -61 82 102">
+  <defs>
+    <pattern
+      id = "pattern-1"
+      width = "10"
+      height = "20"
+      patternUnits = "userSpaceOnUse"
+      patternTransform = "rotate(0) scale(1.0,1.0) rotate(315) translate(-1.0,-1.0)">
+      <polyline
+        points = "0,1.0 10,1.0"
+        stroke = "#ff00ff"
+        stroke-width = "2mm"
+        vector-effect = "non-scaling-stroke"/>
+    </pattern>
+  </defs>
+  <polygon
+    transform = "translate(10.0,-10.0)"
+    points = "-40.0,50.0 40.0,50.0 -20.0,-50.0 -20.0,10.0"
+    stroke = "#ff00ff"
+    stroke-dasharray = "none"
+    stroke-dashoffset = "0mm"
+    stroke-width = "2mm"
+    stroke-linecap = "round"
+    stroke-linejoin = "round"
+    vector-effect = "non-scaling-stroke"
+    fill = "url(#pattern-1)"/>
+</svg>

@@ -1,0 +1,227 @@
+<svg
+    xmlns = "http://www.w3.org/2000/svg"
+    width = "120.0mm"
+    height = "117.5mm"
+    viewBox = "-13 -11 24 23.5">
+    <style>
+        text {
+        font-family:  Helvetica, Arial;
+        }
+        
+        .gridline {
+        fill: none;
+        stroke: #bbb;
+        stroke-width: 0.03;
+        }
+        
+        .maingridline {
+        fill: none;
+        stroke: #bbb;
+        stroke-width: 0.06;
+        }
+        
+        .gridtext {
+        fill: #000;
+        font-size: 0.75px;
+        }
+        
+        .auxpoint {
+        fill: #88f;
+        stroke: none;
+        stroke-width: 0px;
+        r: 0.3px;
+        }
+        
+        .auxline {
+        fill: none;
+        stroke: #33f;
+        stroke-width: 0.1px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 0.3 0.4;
+        }
+        
+        .auxarrowstart {
+        marker-start: url(#auxarrowhead);
+        }
+        
+        .auxarrowend {
+        marker-end: url(#auxarrowhead);
+        }
+        
+        .auxarrowboth {
+        marker-start: url(#auxarrowhead);
+        marker-end: url(#auxarrowhead);
+        }
+        
+        .auxtext {
+        fill: #33f;;
+        font-size: 0.75px;
+        }
+        
+        .primline {
+        fill: none;
+        stroke: black;
+        stroke-width: 0.1px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        }
+    </style>
+    <defs>
+        <marker
+            id = "auxarrowhead"
+            viewBox = "-0.1 -0.1 10.1 10.1"
+            refX = "9.7"
+            refY = "5"
+            markerWidth = "6.2"
+            markerHeight = "6.2"
+            orient = "auto-start-reverse">
+            <path
+                d = "M 0 0 L 10 5 L 0 10 L 0 0 L 10 5"
+                stroke = "#66f"
+                fill = "#33f"
+                stroke-width = "0.2px"/>
+        </marker>
+    </defs>
+    <g>
+        <path class = "maingridline" d = "M -11,-10 h 22"/>
+        <path class = "gridline" d = "M -11,-9 h 22"/>
+        <path class = "gridline" d = "M -11,-8 h 22"/>
+        <path class = "gridline" d = "M -11,-7 h 22"/>
+        <path class = "gridline" d = "M -11,-6 h 22"/>
+        <path class = "maingridline" d = "M -11,-5 h 22"/>
+        <path class = "gridline" d = "M -11,-4 h 22"/>
+        <path class = "gridline" d = "M -11,-3 h 22"/>
+        <path class = "gridline" d = "M -11,-2 h 22"/>
+        <path class = "gridline" d = "M -11,-1 h 22"/>
+        <path class = "maingridline" d = "M -11,-0 h 22"/>
+        <path class = "gridline" d = "M -11,1 h 22"/>
+        <path class = "gridline" d = "M -11,2 h 22"/>
+        <path class = "gridline" d = "M -11,3 h 22"/>
+        <path class = "gridline" d = "M -11,4 h 22"/>
+        <path class = "maingridline" d = "M -11,5 h 22"/>
+        <path class = "gridline" d = "M -11,6 h 22"/>
+        <path class = "gridline" d = "M -11,7 h 22"/>
+        <path class = "gridline" d = "M -11,8 h 22"/>
+        <path class = "gridline" d = "M -11,9 h 22"/>
+        <path class = "maingridline" d = "M -11,10 h 22"/>
+        <path class = "maingridline" d = "M -10,-11 v 22"/>
+        <path class = "gridline" d = "M -9,-11 v 22"/>
+        <path class = "gridline" d = "M -8,-11 v 22"/>
+        <path class = "gridline" d = "M -7,-11 v 22"/>
+        <path class = "gridline" d = "M -6,-11 v 22"/>
+        <path class = "maingridline" d = "M -5,-11 v 22"/>
+        <path class = "gridline" d = "M -4,-11 v 22"/>
+        <path class = "gridline" d = "M -3,-11 v 22"/>
+        <path class = "gridline" d = "M -2,-11 v 22"/>
+        <path class = "gridline" d = "M -1,-11 v 22"/>
+        <path class = "maingridline" d = "M 0,-11 v 22"/>
+        <path class = "gridline" d = "M 1,-11 v 22"/>
+        <path class = "gridline" d = "M 2,-11 v 22"/>
+        <path class = "gridline" d = "M 3,-11 v 22"/>
+        <path class = "gridline" d = "M 4,-11 v 22"/>
+        <path class = "maingridline" d = "M 5,-11 v 22"/>
+        <path class = "gridline" d = "M 6,-11 v 22"/>
+        <path class = "gridline" d = "M 7,-11 v 22"/>
+        <path class = "gridline" d = "M 8,-11 v 22"/>
+        <path class = "gridline" d = "M 9,-11 v 22"/>
+        <path class = "maingridline" d = "M 10,-11 v 22"/>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "-9.7">-100</text>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "-4.7">-50</text>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "0.3">0</text>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "5.3">50</text>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "10.3">100</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "-10"
+            y = "12.2">-100</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "-5"
+            y = "12.2">-50</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "0"
+            y = "12.2">0</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "5"
+            y = "12.2">50</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "10"
+            y = "12.2">100</text>
+    </g>
+    <g>
+        <circle
+            class = "auxpoint"
+            cx = "-3"
+            cy = "4"/>
+        <a href = "owner.Points">
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "-3.5"
+                y = "5">Points[0]</text>
+        </a>
+        <circle
+            class = "auxpoint"
+            cx = "5"
+            cy = "4"/>
+        <a href = "owner.Points">
+            <text
+                class = "auxtext"
+                text-anchor = "start"
+                x = "5.5"
+                y = "5">Points[1]</text>
+        </a>
+        <circle
+            class = "auxpoint"
+            cx = "-1"
+            cy = "-6"/>
+        <a href = "owner.Points">
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "-1.5"
+                y = "-6.5">Points[2]</text>
+        </a>
+        <circle
+            class = "auxpoint"
+            cx = "-1"
+            cy = "0"/>
+        <a href = "owner.Points">
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "-1.5"
+                y = "0">Points[3]</text>
+        </a>
+        <polygon class = "primline" points = "-3,4 5,4 -1,-6 -1,0"/>
+    </g>
+</svg>

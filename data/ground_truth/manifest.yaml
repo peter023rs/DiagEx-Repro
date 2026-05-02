@@ -1,0 +1,143 @@
+# diagex evaluation corpus — manifest
+#
+# The 10 public P&IDs that drive Phase 1 and Phase 2 numbers reported by the
+# diagex manuscript. Source PDFs live under tests/p-ids-public/. Ground-truth
+# files live under eval/datasets/<stem>/{queries.truth.yaml, graph.truth.json,
+# annotations.truth.jsonl, meta.yaml} per spec §9.1.
+#
+# Regenerated 2026-04-24 from tests/p-ids-public/ directory listing and
+# pdfinfo. Per plan/etfa2026-evaluation-plan.md §2 role + domain tagging
+# (filename retained for git history; the plan describes the diagex
+# evaluation and is not venue-coupled).
+# Out vs. prior revision: h2first1, nuclear1 dropped; grit-washer1,
+# open100-4 added. Headline count unchanged (10).
+
+dataset_version: diagex.v0.2
+paper: "DiagEx — Phase 1 + Phase 2 evaluation (manuscript under review)"
+schema_version: 1
+
+defaults:
+  pdf_root: tests/p-ids-public
+  queries_per_diagram: 4
+  annotation_level: partial         # overridden per-fixture below
+  symbol_standard: iso-10628        # overridden where known
+  source_type: vector               # overridden per-fixture below
+
+fixtures:
+
+  - stem: dexpi-reference
+    pdf: dexpi-reference.pdf
+    domain: dexpi-synthetic
+    source_type: vector
+    page_size_pts: [1190, 1684]     # A2
+    draughting_tool: "FreePDF XP / AFPL Ghostscript"
+    annotation_level: full          # canonical DEXPI reference XML available
+    role: "Golden for Phase 2 DEXPI mapping — near-free ground truth."
+    notable_flags: [canonical_reference_exists]
+
+  - stem: two-tanks
+    pdf: two-tanks.pdf
+    domain: process-utility
+    source_type: raster
+    page_size_pts: [1332, 970]
+    draughting_tool: "Adobe Acrobat 26.1 Image Conversion Plug-in"
+    annotation_level: partial
+    role: "Small sparse two-tank utility P&ID — tests tile-budget lower bound."
+    notable_flags: []
+
+  - stem: butane1
+    pdf: butane1.pdf
+    domain: c4-cracking
+    source_type: raster
+    page_size_pts: [8270, 5847]
+    draughting_tool: "Adobe Acrobat 26.1 Image Conversion Plug-in"
+    annotation_level: full
+    role: "C4-cracking process — representative of the dominant raster source type; full DEXPI truth fixture."
+    notable_flags: [outlier_page_size]
+
+  - stem: butane2
+    pdf: butane2.pdf
+    domain: c4-cracking
+    source_type: raster
+    page_size_pts: [8270, 5847]
+    draughting_tool: "Adobe Acrobat 13.0 Image Conversion Plug-in"
+    annotation_level: partial
+    role: "Same C4 process, older raster export — pairs with butane1 for rendering-variance observation."
+    notable_flags: [outlier_page_size, rendering_variance_pair]
+
+  - stem: tennessee1
+    pdf: tennessee1.pdf
+    domain: tennessee-eastman
+    source_type: vector
+    page_size_pts: [505, 298]
+    draughting_tool: "PDFlib+PDI (conference manuscript render)"
+    annotation_level: full
+    role: "Tennessee-Eastman flowsheet redraw — full DEXPI truth fixture; vector, well-scoped topology; residual memorisation risk noted."
+    notable_flags: [small_page, well_known_process]
+
+  - stem: grit-washer1
+    pdf: grit-washer1.pdf
+    domain: wastewater-grit
+    source_type: raster
+    page_size_pts: [912, 590]
+    draughting_tool: "Adobe Acrobat 26.1 Image Conversion Plug-in"
+    annotation_level: partial
+    role: "San Mateo WWTP grit-washing unit — municipal-wastewater domain; dense utility/control symbol mix."
+    notable_flags: [third_party_engineered_drawing]
+
+  - stem: open100-1
+    pdf: open100-1.pdf
+    domain: nuclear-cvcs
+    source_type: raster
+    page_size_pts: [2792, 1860]
+    draughting_tool: "Adobe Acrobat 26.1 Image Conversion Plug-in"
+    annotation_level: partial
+    role: "OPEN100 open-source PWR plant — CVCS system."
+    notable_flags: [multi_sheet_set]
+
+  - stem: open100-2
+    pdf: open100-2.pdf
+    domain: nuclear-rhr
+    source_type: raster
+    page_size_pts: [2786, 1862]
+    draughting_tool: "Adobe Acrobat 26.1 Image Conversion Plug-in"
+    annotation_level: partial
+    role: "OPEN100 RHR system — companion sheet testing cross-sheet symbol consistency."
+    notable_flags: [multi_sheet_set]
+
+  - stem: open100-3
+    pdf: open100-3.pdf
+    domain: nuclear-rcs
+    source_type: raster
+    page_size_pts: [3188, 2130]
+    draughting_tool: "Adobe Acrobat 26.1 Image Conversion Plug-in"
+    annotation_level: partial
+    role: "OPEN100 Reactor Coolant System — main RCS sheet; outlier page size within the cluster."
+    notable_flags: [multi_sheet_set, outlier_page_size]
+
+  - stem: open100-4
+    pdf: open100-4.pdf
+    domain: nuclear-pressurizer
+    source_type: raster
+    page_size_pts: [3196, 2128]
+    draughting_tool: "Adobe Acrobat 26.1 Image Conversion Plug-in"
+    annotation_level: partial
+    role: "OPEN100 pressurizer + RCP-motor-coolant auxiliary sheet — safety-valve and heater concentration."
+    notable_flags: [multi_sheet_set, outlier_page_size]
+
+# Diversity summary (per plan §2):
+#   domains: 6 (dexpi-synthetic, process-utility, c4-cracking,
+#               tennessee-eastman, wastewater-grit, nuclear-[cvcs|rhr|rcs|pressurizer])
+#   authoring pipelines ≥ 4 (AFPL Ghostscript, PDFlib+PDI,
+#                            Acrobat Image Conversion — two vintages, 13.0 and 26.1)
+#   raster / vector split: 8 raster, 2 vector
+#   rendering-variance clusters: butane1/butane2 (two Acrobat vintages, same
+#                                                 process), open100-1/2/3/4
+#                                                 (four sheets, same plant)
+#
+# Authoring status (as of 2026-04-24):
+#   - queries.truth.yaml: rater_1_locked (40/40; split into eval/datasets/<stem>/
+#                         queries.truth.yaml; awaiting rater_2 adjudication)
+#   - graph.truth.json:  not started (full-truth fixtures: dexpi-reference, butane1, tennessee1)
+#   - annotations.truth.jsonl: not started (all 10, entity inventory only for partials)
+#   - meta.yaml: not started (per-fixture meta capture before graph.truth author)

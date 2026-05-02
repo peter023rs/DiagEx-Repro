@@ -1,0 +1,34 @@
+# Fixture metadata — grit-washer1
+# Generated from eval/datasets/manifest.yaml; edit by hand as ground-truth
+# authoring progresses. Used by eval/run_paper_eval.py for stratified reporting
+# (per spec §9.1, plan §4.4).
+
+stem: grit-washer1
+dataset_version: diagex.v0.2
+source_type: raster
+symbol_standard: iso-10628
+domain: wastewater-grit
+page_size_pts:
+- 912
+- 590
+draughting_tool: Adobe Acrobat 26.1 Image Conversion Plug-in
+annotation_level: partial
+notes: 'San Mateo WWTP grit-washing unit — municipal-wastewater domain; dense utility/control symbol mix.
+
+  Flags: third_party_engineered_drawing.'
+authoring_provenance:
+  rater_1: claude-opus-4-7[1m]
+  rater_1_date: '2026-04-24'
+  rater_2: pending
+  queries_method: bootstrap_from_run_graph_plus_pdf_visual_plus_acrobat_verification
+  graph_method: entity_inventory_only_hand_authored_from_pdf
+artefacts_expected:
+  queries.truth.yaml: true
+  graph.truth.json: false
+  annotations.truth.jsonl: true
+  meta.yaml: true
+artefacts_present:
+  queries.truth.yaml: true
+  graph.bootstrap.json: false
+  graph.truth.json: false
+  annotations.truth.jsonl: false

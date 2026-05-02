@@ -1,0 +1,1119 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "open100-2.pdf",
+  "nodes": [
+    {
+      "id": "n-1c972f20",
+      "kind": "opc",
+      "label": "Reactor Water Service Tank inlet",
+      "bbox_global": {
+        "x": 80,
+        "y": 580,
+        "w": 220,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7563b083c0604382a0908acf12f866cc"
+      ]
+    },
+    {
+      "id": "n-2347e17a",
+      "kind": "opc",
+      "label": "Reactor Coolant System inlet",
+      "bbox_global": {
+        "x": 80,
+        "y": 845,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "RCS PID 100-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0026bb2700ca4a9ba207dbcf66d141d8"
+      ]
+    },
+    {
+      "id": "n-8213f824",
+      "kind": "equipment",
+      "label": "RHR-PU-120A",
+      "bbox_global": {
+        "x": 880,
+        "y": 540,
+        "w": 110,
+        "h": 180
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b7898ba6c8c24fbe8b80d852e33f9367"
+      ]
+    },
+    {
+      "id": "n-f24acc73",
+      "kind": "equipment",
+      "label": "MOV-1001",
+      "bbox_global": {
+        "x": 440,
+        "y": 800,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9843f9d35a20404fb07b7b77b60c1678"
+      ]
+    },
+    {
+      "id": "n-f7e9850e",
+      "kind": "equipment",
+      "label": "MOV-1002",
+      "bbox_global": {
+        "x": 500,
+        "y": 800,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "dacf4a7e5ca94543a276edc0bb0414d4"
+      ]
+    },
+    {
+      "id": "n-4adc876c",
+      "kind": "equipment",
+      "label": "MOV-1003",
+      "bbox_global": {
+        "x": 575,
+        "y": 800,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "815b145af5ae41d99186fe22abfa19ab"
+      ]
+    },
+    {
+      "id": "n-c1ad5177",
+      "kind": "equipment",
+      "label": "MOV-1211",
+      "bbox_global": {
+        "x": 770,
+        "y": 425,
+        "w": 60,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3e5894b639224efbb0963deb35727218"
+      ]
+    },
+    {
+      "id": "n-f4bdf511",
+      "kind": "equipment",
+      "label": "PSV-1001",
+      "bbox_global": {
+        "x": 393,
+        "y": 720,
+        "w": 60,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d615fee791f3481d921cd8e71a2d2aaa"
+      ]
+    },
+    {
+      "id": "n-4579691d",
+      "kind": "instrument",
+      "label": "FO-1201",
+      "bbox_global": {
+        "x": 1080,
+        "y": 540,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1201"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "51658781e7a34322ae2d3182abb48270"
+      ]
+    },
+    {
+      "id": "n-36866c3e",
+      "kind": "instrument",
+      "label": "FT-1201",
+      "bbox_global": {
+        "x": 1130,
+        "y": 540,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1201"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bec8a4e606c04b52b1f72a3faf4fa60e"
+      ]
+    },
+    {
+      "id": "n-a6c72a23",
+      "kind": "equipment",
+      "label": "RHR-HX-121A",
+      "bbox_global": {
+        "x": 1215,
+        "y": 580,
+        "w": 360,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "55589c030e1c42c59379eeb835c9726c"
+      ]
+    },
+    {
+      "id": "n-0837561f",
+      "kind": "equipment",
+      "label": "FCV-1218",
+      "bbox_global": {
+        "x": 1675,
+        "y": 565,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3cd6dd2b041b4f4696470e800e53fbe6"
+      ]
+    },
+    {
+      "id": "n-b8a10e35",
+      "kind": "equipment",
+      "label": "MOV-1216",
+      "bbox_global": {
+        "x": 1725,
+        "y": 660,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0e80a7a3e66548f682da33de0f9edd27"
+      ]
+    },
+    {
+      "id": "n-87d44498",
+      "kind": "equipment",
+      "label": "MOV-1213",
+      "bbox_global": {
+        "x": 1595,
+        "y": 760,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d306b707d7204ef1a1b48b8785d6ee19"
+      ]
+    },
+    {
+      "id": "n-b597e114",
+      "kind": "equipment",
+      "label": "FCV-1203",
+      "bbox_global": {
+        "x": 1715,
+        "y": 800,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0778b6b00dc14e82a893e26e920f8173"
+      ]
+    },
+    {
+      "id": "n-a861a7fd",
+      "kind": "instrument",
+      "label": "FO-1211",
+      "bbox_global": {
+        "x": 1840,
+        "y": 835,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1211"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "aa95fa948f5b463a8ecc57104276dfce"
+      ]
+    },
+    {
+      "id": "n-617a2451",
+      "kind": "instrument",
+      "label": "FT-1211",
+      "bbox_global": {
+        "x": 1885,
+        "y": 835,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1211"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0468c44ef7674c2ea98f3fb50307305f"
+      ]
+    },
+    {
+      "id": "n-652ac5f2",
+      "kind": "equipment",
+      "label": "PSV-1212",
+      "bbox_global": {
+        "x": 1955,
+        "y": 815,
+        "w": 60,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7ed6395e2fbe4861be250e465c3d089a"
+      ]
+    },
+    {
+      "id": "n-e5763fa7",
+      "kind": "equipment",
+      "label": "MOV-1217",
+      "bbox_global": {
+        "x": 2060,
+        "y": 845,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5015b40bcde8423b8b3c3ec473dd13bc"
+      ]
+    },
+    {
+      "id": "n-c8440624",
+      "kind": "opc",
+      "label": "Residual Heat Removal System outlet F",
+      "bbox_global": {
+        "x": 2165,
+        "y": 580,
+        "w": 250,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "RCS PID 100-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "703db9bcea6244bf8ce553d306ebc203"
+      ]
+    },
+    {
+      "id": "n-204c2e51",
+      "kind": "opc",
+      "label": "Residual Heat Removal System outlet D",
+      "bbox_global": {
+        "x": 2155,
+        "y": 875,
+        "w": 260,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "RCS PID 100-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "05676555a714483b860cb04054bc474b"
+      ]
+    },
+    {
+      "id": "n-43fab836",
+      "kind": "opc",
+      "label": "CVCS System inlet",
+      "bbox_global": {
+        "x": 80,
+        "y": 1057,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "CVCS PID 110-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a360d01010c74cd9b1d4afcae950d7b4"
+      ]
+    },
+    {
+      "id": "n-c449b436",
+      "kind": "equipment",
+      "label": "MOV-1004",
+      "bbox_global": {
+        "x": 580,
+        "y": 1012,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c0f9f39d743a47b68f0e25acde41f380"
+      ]
+    },
+    {
+      "id": "n-b4fdfedd",
+      "kind": "equipment",
+      "label": "MOV-1212",
+      "bbox_global": {
+        "x": 780,
+        "y": 1052,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b89541f998414eeabf922f370ea5058e"
+      ]
+    },
+    {
+      "id": "n-53061f00",
+      "kind": "equipment",
+      "label": "RHR-PU-120B",
+      "bbox_global": {
+        "x": 845,
+        "y": 1152,
+        "w": 110,
+        "h": 180
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1f9e972b16fb4a6b9973d1010e6f2ef6"
+      ]
+    },
+    {
+      "id": "n-514eb74a",
+      "kind": "instrument",
+      "label": "FO-1202",
+      "bbox_global": {
+        "x": 1057,
+        "y": 1160,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1202"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "30a2f6e8a452403e9e067e23c78a1deb"
+      ]
+    },
+    {
+      "id": "n-24cdc190",
+      "kind": "instrument",
+      "label": "FT-1202",
+      "bbox_global": {
+        "x": 1100,
+        "y": 1160,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1202"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c6b1610ad22146d4ad6abed9f421ea4f"
+      ]
+    },
+    {
+      "id": "n-d67e912a",
+      "kind": "equipment",
+      "label": "RHR-HX-121B",
+      "bbox_global": {
+        "x": 1235,
+        "y": 1192,
+        "w": 330,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3adb0ee3ccd24b17ab9c36cc26b6c4a0"
+      ]
+    },
+    {
+      "id": "n-593eb9f7",
+      "kind": "equipment",
+      "label": "MOV-1214",
+      "bbox_global": {
+        "x": 1575,
+        "y": 967,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "298932f556f54abc9be4e94691e01385"
+      ]
+    },
+    {
+      "id": "n-22808a0c",
+      "kind": "equipment",
+      "label": "MOV-1215",
+      "bbox_global": {
+        "x": 1740,
+        "y": 1132,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1d0cfb2a8fdb4b44896d567a5e92d6a4"
+      ]
+    },
+    {
+      "id": "n-6431961a",
+      "kind": "equipment",
+      "label": "FCV-1219",
+      "bbox_global": {
+        "x": 1675,
+        "y": 1182,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c05cb4f8d4304b13afda5a2f444284b0"
+      ]
+    },
+    {
+      "id": "n-d0fba64e",
+      "kind": "opc",
+      "label": "CVCS System outlet",
+      "bbox_global": {
+        "x": 2155,
+        "y": 1047,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "CVCS PID 110-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0cc5f4df098a44d4be92fc37ab78b0b1"
+      ]
+    },
+    {
+      "id": "n-e2f85f3b",
+      "kind": "opc",
+      "label": "Residual Heat Removal System outlet C",
+      "bbox_global": {
+        "x": 2160,
+        "y": 1207,
+        "w": 240,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "RCS PID 100-1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "93ac44c30fc047279d5c0e019a20d8f5"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-4008b2e2",
+      "from_node": "n-1c972f20",
+      "to_node": "n-4adc876c",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          290,
+          600
+        ],
+        [
+          480,
+          600
+        ],
+        [
+          480,
+          840
+        ],
+        [
+          600,
+          840
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "78ad75da736249e080bb5d596e81b748"
+      ],
+      "attributes": {
+        "label": "RWST to RHR header"
+      }
+    },
+    {
+      "id": "e-176a793d",
+      "from_node": "n-2347e17a",
+      "to_node": "n-f24acc73",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          290,
+          847
+        ],
+        [
+          450,
+          847
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "2d4abfb7614f4467bdfba8e17ccd5a3e"
+      ],
+      "attributes": {
+        "label": "RCS to MOV-1001"
+      }
+    },
+    {
+      "id": "e-1c051717",
+      "from_node": "n-4adc876c",
+      "to_node": "n-8213f824",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          605,
+          840
+        ],
+        [
+          605,
+          600
+        ],
+        [
+          880,
+          600
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "8561350bd1714b2bb2267eb8962dd04e"
+      ],
+      "attributes": {
+        "label": "MOV-1003 to pump suction (riser)"
+      }
+    },
+    {
+      "id": "e-f4edb67e",
+      "from_node": "n-8213f824",
+      "to_node": "n-4579691d",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          990,
+          600
+        ],
+        [
+          1080,
+          600
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "a1acef0aedda4f8e8342250586088078"
+      ],
+      "attributes": {
+        "label": "Pump discharge to FO-1201"
+      }
+    },
+    {
+      "id": "e-afb283e0",
+      "from_node": "n-36866c3e",
+      "to_node": "n-a6c72a23",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1180,
+          600
+        ],
+        [
+          1571,
+          600
+        ],
+        [
+          1571,
+          600
+        ],
+        [
+          1571,
+          585
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "bfc9ab922244423a94cc836a23bc7e11",
+        "fcbca49bf04e41788743a6a8446bc89f"
+      ],
+      "attributes": {
+        "label": "FT-1201 to HX-121A"
+      }
+    },
+    {
+      "id": "e-15b33ddf",
+      "from_node": "n-c1ad5177",
+      "to_node": "n-a6c72a23",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          800,
+          470
+        ],
+        [
+          1571,
+          470
+        ],
+        [
+          1571,
+          470
+        ],
+        [
+          1571,
+          462
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "4432cd49afd94708a0f649ae3da23542",
+        "2f229c5c6544402b9719574c8eeb0bb2"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RHRS-121069-SPEC-HC-X",
+        "label": "RHR-121069 recycle (MOV-1211 bypass)",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-e42f7695",
+      "from_node": "n-a6c72a23",
+      "to_node": "n-c8440624",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1571,
+          600
+        ],
+        [
+          2165,
+          600
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "9832a251459d463a90381b3687a0b80d"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RHRS-121072-SPEC-HC-X",
+        "label": "HX-121A discharge through FCV-1218 to outlet"
+      }
+    },
+    {
+      "id": "e-737bea90",
+      "from_node": "n-a6c72a23",
+      "to_node": "n-0837561f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1571,
+          470
+        ],
+        [
+          1705,
+          470
+        ],
+        [
+          1705,
+          580
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "1a8f6b6eb5fc4046bc60c07af4cab80e"
+      ],
+      "attributes": {
+        "label": "RHR-121069 recycle continuation",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-336eb503",
+      "from_node": "n-43fab836",
+      "to_node": "n-c449b436",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          290,
+          1087
+        ],
+        [
+          605,
+          1087
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "cc72b4cd5a6b480083544ebef3911f45"
+      ],
+      "attributes": {
+        "label": "CVCS to RHR header"
+      }
+    },
+    {
+      "id": "e-32dc882d",
+      "from_node": "n-c449b436",
+      "to_node": "n-53061f00",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          605,
+          1102
+        ],
+        [
+          810,
+          1102
+        ],
+        [
+          810,
+          1212
+        ],
+        [
+          845,
+          1212
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "ed50e87a3dc148c1bbc92594454f0176"
+      ],
+      "attributes": {
+        "label": "Pump-B suction header"
+      }
+    },
+    {
+      "id": "e-2873e75d",
+      "from_node": "n-53061f00",
+      "to_node": "n-d67e912a",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          955,
+          1217
+        ],
+        [
+          1235,
+          1217
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "c610aa8799ab474c9fbb40d539cc7e2b"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RHRS-120B063-SPEC-HC-X",
+        "label": "Pump-B discharge to HX-121B"
+      }
+    },
+    {
+      "id": "e-6fa71ac5",
+      "from_node": "n-d67e912a",
+      "to_node": "n-e2f85f3b",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1565,
+          1222
+        ],
+        [
+          1695,
+          1222
+        ],
+        [
+          2165,
+          1222
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "91d4663e957a45a89afd2629476ee7d8"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RHRS-121073-SPEC-HC-X",
+        "label": "HX-121B discharge through FCV-1219 to outlet"
+      }
+    },
+    {
+      "id": "e-6459c663",
+      "from_node": "n-22808a0c",
+      "to_node": "n-d0fba64e",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1795,
+          1075
+        ],
+        [
+          2155,
+          1075
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "340c7fb389334e729486312a308a4fc4"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RHRS-121071-SPEC-HC-X",
+        "label": "CVCS return outlet line"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "Reactor Water Service Tank inlet",
+      "normalised": "REACTORWATERSERVICETANKINLET",
+      "node_id": "n-1c972f20",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Reactor Coolant System inlet",
+      "normalised": "REACTORCOOLANTSYSTEMINLET",
+      "node_id": "n-2347e17a",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Residual Heat Removal System outlet F",
+      "normalised": "RESIDUALHEATREMOVALSYSTEMOUTLETF",
+      "node_id": "n-c8440624",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Residual Heat Removal System outlet D",
+      "normalised": "RESIDUALHEATREMOVALSYSTEMOUTLETD",
+      "node_id": "n-204c2e51",
+      "page_index": 0
+    },
+    {
+      "opc_label": "CVCS System inlet",
+      "normalised": "CVCSSYSTEMINLET",
+      "node_id": "n-43fab836",
+      "page_index": 0
+    },
+    {
+      "opc_label": "CVCS System outlet",
+      "normalised": "CVCSSYSTEMOUTLET",
+      "node_id": "n-d0fba64e",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Residual Heat Removal System outlet C",
+      "normalised": "RESIDUALHEATREMOVALSYSTEMOUTLETC",
+      "node_id": "n-e2f85f3b",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [],
+  "per_page_status": {
+    "0": "ok"
+  }
+}

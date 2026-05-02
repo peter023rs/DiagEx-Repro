@@ -1,0 +1,85 @@
+{
+  "per_fixture": {
+    "butane2": {
+      "bootstrap": 51,
+      "final": 59,
+      "retained": 51,
+      "bbox_unchanged": 0,
+      "bbox_edited": 51,
+      "added": 4,
+      "deleted": 0,
+      "retention_pct": 100.0
+    },
+    "grit-washer1": {
+      "bootstrap": 28,
+      "final": 78,
+      "retained": 28,
+      "bbox_unchanged": 0,
+      "bbox_edited": 28,
+      "added": 47,
+      "deleted": 0,
+      "retention_pct": 100.0
+    },
+    "open100-1": {
+      "bootstrap": 50,
+      "final": 51,
+      "retained": 50,
+      "bbox_unchanged": 1,
+      "bbox_edited": 49,
+      "added": 1,
+      "deleted": 0,
+      "retention_pct": 100.0
+    },
+    "open100-2": {
+      "bootstrap": 29,
+      "final": 46,
+      "retained": 29,
+      "bbox_unchanged": 1,
+      "bbox_edited": 28,
+      "added": 0,
+      "deleted": 0,
+      "retention_pct": 100.0
+    },
+    "open100-3": {
+      "bootstrap": 53,
+      "final": 61,
+      "retained": 50,
+      "bbox_unchanged": 7,
+      "bbox_edited": 43,
+      "added": 3,
+      "deleted": 3,
+      "retention_pct": 94.33962264150944
+    },
+    "open100-4": {
+      "bootstrap": 44,
+      "final": 57,
+      "retained": 44,
+      "bbox_unchanged": 0,
+      "bbox_edited": 44,
+      "added": 13,
+      "deleted": 0,
+      "retention_pct": 100.0
+    },
+    "two-tanks": {
+      "bootstrap": 133,
+      "final": 134,
+      "retained": 130,
+      "bbox_unchanged": 3,
+      "bbox_edited": 127,
+      "added": 4,
+      "deleted": 3,
+      "retention_pct": 97.74436090225564
+    }
+  },
+  "totals": {
+    "bootstrap": 388,
+    "final": 486,
+    "retained": 382,
+    "bbox_unchanged": 12,
+    "bbox_edited": 370,
+    "added": 72,
+    "deleted": 6,
+    "retention_pct": 98.45360824742268
+  },
+  "bbox_tol_px": 5
+}

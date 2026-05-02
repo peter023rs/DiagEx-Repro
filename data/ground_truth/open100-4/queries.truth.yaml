@@ -1,0 +1,90 @@
+# Phase 1 ground-truth queries — rater_1_locked
+#
+# Schema: spec §9.1 + plan §4.1
+# Authoring: rater_1 = claude-opus-4-7[1m] (bootstrap from graph.json + Acrobat
+#            verification for all -q4 coordinates; Heiko Koziolek manual review
+#            of inventory/counting/connectivity). rater_2 = pending.
+#
+# Connectivity role (this fixture): NO
+# Coordinate frame: PDF points, top-left origin, y-down (Acrobat rulers).
+#   For fixtures with /Rotate ≠ 0, coords are against the oriented rect
+#   (what Acrobat displays).
+
+schema_version: 1
+dataset_version: diagex.v0.2
+fixture: open100-4
+authoring:
+  rater_1: claude-opus-4-7[1m]
+  rater_1_date: '2026-04-24'
+  rater_2: pending
+  overall_status: rater_1_locked
+queries:
+- id: open100-4-q1
+  family: inventory
+  question: List every pressurizer pressure control / relief valve (PCV-10xx and PRV-10xx) in this drawing with its tag number.
+  expected_answer:
+  - PCV-1001
+  - PCV-1011
+  - PCV-1031
+  - PCV-1032
+  - PCV-1041
+  - PRV-1031
+  - PRV-1032
+  expected_kind: list
+  scoring: set_match
+  scoring_params:
+    case_sensitive: false
+  rater_1:
+    confidence: medium
+    source: graph.json
+    notes: Graph lists 5 PCVs and 2 PRVs as equipment valves. TCV-1043 and LCV-1043 are separate (temperature/level) and excluded
+      by the question.
+  status: rater_1_locked
+- id: open100-4-q2
+  family: counting
+  question: How many temperature elements (TE) are shown?
+  expected_answer: 19
+  expected_kind: integer
+  scoring: numeric_tolerance
+  scoring_params:
+    tolerance_frac: 0.05
+  rater_1:
+    confidence: high
+    source: pdf_visual + manual recount
+    notes: Recounted 19 TE instruments on the PDF (initial truth of 18 was off by
+      one). Graph.json under-counted at 12 — misses in the heater / RCP-coolant
+      dense region.
+  status: rater_1_locked
+- id: open100-4-q3
+  family: connectivity
+  question: Is there a direct process flow path from PCV-1031 to PCV-1032?
+  expected_answer: false
+  expected_kind: boolean
+  scoring: graph_reachability
+  scoring_params:
+    line_types:
+    - process
+  rater_1:
+    confidence: high
+    source: graph.json
+    notes: PCV-1031 and PCV-1032 are parallel pressurizer pressure control valves — parallel relief paths, not in series.
+  status: rater_1_locked
+- id: open100-4-q4
+  family: identification
+  question: What kind of equipment sits at approximate page coordinates (823, 577)?
+  expected_answer: pressurizer
+  expected_kind: string
+  scoring: contains
+  scoring_params:
+    case_sensitive: false
+    normalize: true
+    allowed_synonyms:
+    - pressurizer
+    - vessel
+    - pressure vessel
+  rater_1:
+    confidence: high
+    source: pdf_acrobat
+    notes: RCS-V-103 Pressurizer centre (pt), verified in Acrobat ruler readout. Graph classifies it as 'vessel' (kind class);
+      label says pressurizer. Accept either via synonym set.
+  status: rater_1_locked

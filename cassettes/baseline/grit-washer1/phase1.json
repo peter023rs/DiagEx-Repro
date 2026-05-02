@@ -1,0 +1,75 @@
+{
+  "answers": [
+    {
+      "query_id": "grit-washer1-q1",
+      "answer": "I can see HDC-51-371 and HDC-51-372 in the drawing.\n\nHDC-51-371\nHDC-51-372",
+      "cost_usd": 0.034593,
+      "wall_clock_s": 11.05,
+      "input_tokens": 5399,
+      "output_tokens": 124,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 311,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "grit-washer1-q2",
+      "answer": "3",
+      "cost_usd": 0.068696,
+      "wall_clock_s": 17.76,
+      "input_tokens": 10848,
+      "output_tokens": 346,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 316,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "grit-washer1-q3",
+      "answer": "no",
+      "cost_usd": 0.21787,
+      "wall_clock_s": 63.157,
+      "input_tokens": 26148,
+      "output_tokens": 2436,
+      "cache_read_tokens": 35335,
+      "cache_write_tokens": 1370,
+      "image_tokens": 0,
+      "n_steps": 7,
+      "n_tool_calls": 6,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 5
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "grit-washer1-q4",
+      "answer": "none",
+      "cost_usd": 0.080246,
+      "wall_clock_s": 25.049,
+      "input_tokens": 10923,
+      "output_tokens": 694,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 712,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 1
+      },
+      "retries": 0
+    }
+  ]
+}

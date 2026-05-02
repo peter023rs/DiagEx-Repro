@@ -1,0 +1,1249 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "dexpi-reference.pdf",
+  "nodes": [
+    {
+      "id": "n-6e8a6c7a",
+      "kind": "opc",
+      "label": "MNb 47121 inlet",
+      "bbox_global": {
+        "x": 320,
+        "y": 2266,
+        "w": 200,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "line_id": "MNb 47121 75HB13 80"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "79d38265cbbc41aa8a8e29272b85a7c4"
+      ]
+    },
+    {
+      "id": "n-dda35315",
+      "kind": "equipment",
+      "label": "P4711",
+      "bbox_global": {
+        "x": 645,
+        "y": 2186,
+        "w": 240,
+        "h": 240
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "cfe51e1871b244538de8af0b55e02329"
+      ]
+    },
+    {
+      "id": "n-5aa487bb",
+      "kind": "equipment",
+      "label": "H1007",
+      "bbox_global": {
+        "x": 1255,
+        "y": 2016,
+        "w": 240,
+        "h": 410
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "821226b18d7b4f548adf90fea448b214"
+      ]
+    },
+    {
+      "id": "n-97469ec2",
+      "kind": "instrument",
+      "label": "HS 4750.01",
+      "bbox_global": {
+        "x": 1185,
+        "y": 1826,
+        "w": 215,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "4750.01"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a853bf86df4846a297b3fb3626f6f724"
+      ]
+    },
+    {
+      "id": "n-51d030c7",
+      "kind": "equipment",
+      "label": "T4750",
+      "bbox_global": {
+        "x": 6150,
+        "y": 3421,
+        "w": 1380,
+        "h": 3001
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "tank"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8d88c6a1e4eb401db5ddbb36f964bcba"
+      ]
+    },
+    {
+      "id": "n-76babcde",
+      "kind": "instrument",
+      "label": "TICSA 4750.03",
+      "bbox_global": {
+        "x": 7275,
+        "y": 3301,
+        "w": 660,
+        "h": 330
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "temperature",
+        "loop_number": "4750.03",
+        "instrument_class": "control_loop"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5a657210ef164610a7c99bcfdc4fd41b"
+      ]
+    },
+    {
+      "id": "n-e0c794ad",
+      "kind": "equipment",
+      "label": "P4712",
+      "bbox_global": {
+        "x": 8760,
+        "y": 7007,
+        "w": 900,
+        "h": 720
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "18721c2f666a4d70afef04cc65651acc"
+      ]
+    },
+    {
+      "id": "n-c2111d46",
+      "kind": "instrument",
+      "label": "PI 4712.01",
+      "bbox_global": {
+        "x": 10110,
+        "y": 6692,
+        "w": 660,
+        "h": 330
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "4712.01"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3f594087fb0741538855b466fa8f9567"
+      ]
+    },
+    {
+      "id": "n-258da5ef",
+      "kind": "equipment",
+      "label": "H1008",
+      "bbox_global": {
+        "x": 13305,
+        "y": 5941,
+        "w": 1140,
+        "h": 1140
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "plate"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7435fa662bcb46f48606816a4445d474"
+      ]
+    },
+    {
+      "id": "n-1f690172",
+      "kind": "equipment",
+      "label": "TV 4750.03",
+      "bbox_global": {
+        "x": 13470,
+        "y": 5581,
+        "w": 330,
+        "h": 390
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1e67e9b50a3f43ef863f75be1d922e67"
+      ]
+    },
+    {
+      "id": "n-b45337f9",
+      "kind": "equipment",
+      "label": "PV 4712.02",
+      "bbox_global": {
+        "x": 12840,
+        "y": 5431,
+        "w": 390,
+        "h": 390
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "720badec75d043d3a8fc8510dfed06fb"
+      ]
+    },
+    {
+      "id": "n-66a8680e",
+      "kind": "equipment",
+      "label": "SV 104.01",
+      "bbox_global": {
+        "x": 9420,
+        "y": 5461,
+        "w": 270,
+        "h": 390
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief",
+        "set_pressure": "6 barg",
+        "nominal_diameter": "DN 25/50"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "10e7dfee3712408ebfc362ae77b0d39a"
+      ]
+    },
+    {
+      "id": "n-e0951ebe",
+      "kind": "instrument",
+      "label": "PICSA 4712.02",
+      "bbox_global": {
+        "x": 14280,
+        "y": 6091,
+        "w": 690,
+        "h": 330
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "pressure",
+        "loop_number": "4712.02",
+        "instrument_class": "control_loop"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6d9410ee9522477587a28b9af9c69fc9"
+      ]
+    },
+    {
+      "id": "n-468e5ee9",
+      "kind": "opc",
+      "label": "MNc 47126 outlet",
+      "bbox_global": {
+        "x": 16200,
+        "y": 7322,
+        "w": 600,
+        "h": 300
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "line_id": "MNc 47126 75HB13 25"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3253f53786c64f1d91031bd116ce1da3"
+      ]
+    },
+    {
+      "id": "n-0bcb6428",
+      "kind": "opc",
+      "label": "QSa 47140 outlet",
+      "bbox_global": {
+        "x": 13410,
+        "y": 8882,
+        "w": 240,
+        "h": 600
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "line_id": "QSa 47140 75HB13 50 Q 80"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2635f3f4657e4e47b6c9b4c7873e4350"
+      ]
+    },
+    {
+      "id": "n-b2672027",
+      "kind": "opc",
+      "label": "QSb 47141 outlet",
+      "bbox_global": {
+        "x": 13725,
+        "y": 8882,
+        "w": 240,
+        "h": 600
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "line_id": "QSb 47141 75HB13 50 Q 80"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bd08d4bfec214107ab96de8b93feec58"
+      ]
+    },
+    {
+      "id": "n-cf297143",
+      "kind": "opc",
+      "label": "WKa 47130 outlet",
+      "bbox_global": {
+        "x": 4026,
+        "y": 7742,
+        "w": 240,
+        "h": 600
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "line_id": "WKa 47130 75HB13 50"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d17bf4c7b77f447c98fac302a6b499bc"
+      ]
+    },
+    {
+      "id": "n-0376d9eb",
+      "kind": "opc",
+      "label": "WKb 47131 outlet",
+      "bbox_global": {
+        "x": 4326,
+        "y": 7742,
+        "w": 240,
+        "h": 600
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "line_id": "WKb 47131 75HB13 50"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c5f132daf77544358771810980c3422f"
+      ]
+    },
+    {
+      "id": "n-b32211d2",
+      "kind": "note",
+      "label": "66KL21-80 sight glass",
+      "bbox_global": {
+        "x": 6480,
+        "y": 6362,
+        "w": 240,
+        "h": 390
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4bd31c4a8aea4a599b8e4a04d05af24a"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-0e44db71",
+      "from_node": "n-6e8a6c7a",
+      "to_node": "n-dda35315",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          510,
+          2311
+        ],
+        [
+          645,
+          2311
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "58db7de47c494bdcbd840cc06148b3fb"
+      ],
+      "attributes": {
+        "line_id": "MNb 47121 75HB13 80",
+        "label": "MNb 47121 75HB13 80",
+        "service_code": "MNb"
+      }
+    },
+    {
+      "id": "e-08ddaccf",
+      "from_node": "n-dda35315",
+      "to_node": "n-5aa487bb",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          870,
+          2311
+        ],
+        [
+          1265,
+          2311
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "5ec310c28080451ea7fc4bde05ccf612"
+      ],
+      "attributes": {
+        "line_id": "MNb 47122 75HB13 80",
+        "label": "MNb 47122 75HB13 80",
+        "service_code": "MNb"
+      }
+    },
+    {
+      "id": "e-5c2ca2a7",
+      "from_node": "n-0376d9eb",
+      "to_node": "n-51d030c7",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          4485,
+          7232
+        ],
+        [
+          4485,
+          4186
+        ],
+        [
+          6150,
+          4186
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "1de893d3ad874c61b12009713e22a9d5"
+      ],
+      "attributes": {
+        "line_id": "MNb 47123 75HB13 80",
+        "label": "MNb 47123 75HB13 80",
+        "service_code": "MNb"
+      }
+    },
+    {
+      "id": "e-91f280a9",
+      "from_node": "n-cf297143",
+      "to_node": "n-0376d9eb",
+      "line_type": "signal_electric",
+      "polyline_global": [
+        [
+          3930,
+          7232
+        ],
+        [
+          4395,
+          7232
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "1cceb216297441548aadd3986d50a9d5"
+      ],
+      "attributes": {
+        "label": "signal HS to valve"
+      }
+    },
+    {
+      "id": "e-92223503",
+      "from_node": "n-51d030c7",
+      "to_node": "n-e0c794ad",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          6600,
+          6241
+        ],
+        [
+          6600,
+          7442
+        ],
+        [
+          8760,
+          7442
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "9401a29a79094ff480ceff0339e838e5"
+      ],
+      "attributes": {
+        "line_id": "MNc 47124 75HB13 80",
+        "label": "MNc 47124 75HB13 80",
+        "service_code": "MNc"
+      }
+    },
+    {
+      "id": "e-3033e46a",
+      "from_node": "n-e0c794ad",
+      "to_node": "n-258da5ef",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          9660,
+          7442
+        ],
+        [
+          13185,
+          7442
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "1cc4183efdc147b0bc818f13fd3e57cc"
+      ],
+      "attributes": {
+        "line_id": "MNc 47126 75HB13 25",
+        "label": "MNc 47126 75HB13 25",
+        "service_code": "MNc"
+      }
+    },
+    {
+      "id": "e-a02eac70",
+      "from_node": "n-66a8680e",
+      "to_node": "n-66a8680e",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          9525,
+          5491
+        ],
+        [
+          9525,
+          6151
+        ],
+        [
+          8835,
+          6151
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "839fde61fdbd4da1a6d80ce5546bfb09"
+      ],
+      "attributes": {
+        "line_id": "MNc 47125 73HG12 25",
+        "label": "MNc 47125 73HG12 25",
+        "service_code": "MNc"
+      }
+    },
+    {
+      "id": "e-4259eda1",
+      "from_node": "n-258da5ef",
+      "to_node": "n-66a8680e",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          13305,
+          6031
+        ],
+        [
+          13185,
+          4531
+        ],
+        [
+          8835,
+          4531
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "591b160f50314d6b8627a3d528af767d"
+      ],
+      "attributes": {
+        "line_id": "MNc 47127 75HB13 50 Q 80",
+        "label": "MNc 47127 75HB13 50 Q 80",
+        "service_code": "MNc",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-6a1741d4",
+      "from_node": "n-76babcde",
+      "to_node": "n-1f690172",
+      "line_type": "signal_electric",
+      "polyline_global": [
+        [
+          7620,
+          3511
+        ],
+        [
+          14100,
+          3511
+        ],
+        [
+          14100,
+          5641
+        ],
+        [
+          13665,
+          5641
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "3953ca649fa64ed29dc7d11c1073a8d3"
+      ],
+      "attributes": {
+        "label": "TICSA→TV signal"
+      }
+    },
+    {
+      "id": "e-89170e1f",
+      "from_node": "n-e0951ebe",
+      "to_node": "n-b45337f9",
+      "line_type": "signal_electric",
+      "polyline_global": [
+        [
+          14610,
+          6091
+        ],
+        [
+          14610,
+          5431
+        ],
+        [
+          13200,
+          5431
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "1e85c600a5634bb9bb8df8baf4df20a5"
+      ],
+      "attributes": {
+        "label": "PICSA→PV signal"
+      }
+    },
+    {
+      "id": "e-2856cea7",
+      "from_node": "n-0376d9eb",
+      "to_node": "n-0376d9eb",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          4326,
+          7442
+        ],
+        [
+          4326,
+          8342
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "86de8d58501846aba862037535f82606"
+      ],
+      "attributes": {
+        "line_id": "WKb 47131 75HB13 50",
+        "label": "WKb 47131 75HB13 50"
+      }
+    },
+    {
+      "id": "e-38a3e725",
+      "from_node": "n-258da5ef",
+      "to_node": "n-0bcb6428",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          13410,
+          7112
+        ],
+        [
+          13410,
+          8882
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "eab0a8cb62ea4b3a96cd9a8c27515545"
+      ],
+      "attributes": {
+        "line_id": "QSa 47140 75HB13 50 Q 80",
+        "label": "QSa 47140 75HB13 50 Q 80"
+      }
+    },
+    {
+      "id": "e-8d10daca",
+      "from_node": "n-258da5ef",
+      "to_node": "n-b2672027",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          13740,
+          7112
+        ],
+        [
+          13740,
+          8882
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "7ed8ac67bb2b492f94db0ec139242aaa"
+      ],
+      "attributes": {
+        "line_id": "QSb 47141 75HB13 50 Q 80",
+        "label": "QSb 47141 75HB13 50 Q 80"
+      }
+    },
+    {
+      "id": "e-50918809",
+      "from_node": "n-66a8680e",
+      "to_node": "n-51d030c7",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          9465,
+          4516
+        ],
+        [
+          6630,
+          4516
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "0e0893fafc7540b8b1c2c142276649ec"
+      ],
+      "attributes": {
+        "line_id": "MNc 47125 75HB13 50",
+        "label": "MNc 47125 75HB13 50",
+        "nominal_diameter": "DN 50",
+        "service_code": "MNc",
+        "snap_note": "inferred_loose_from"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "MNb 47121 inlet",
+      "normalised": "MNB47121INLET",
+      "node_id": "n-6e8a6c7a",
+      "page_index": 0
+    },
+    {
+      "opc_label": "MNc 47126 outlet",
+      "normalised": "MNC47126OUTLET",
+      "node_id": "n-468e5ee9",
+      "page_index": 0
+    },
+    {
+      "opc_label": "QSa 47140 outlet",
+      "normalised": "QSA47140OUTLET",
+      "node_id": "n-0bcb6428",
+      "page_index": 0
+    },
+    {
+      "opc_label": "QSb 47141 outlet",
+      "normalised": "QSB47141OUTLET",
+      "node_id": "n-b2672027",
+      "page_index": 0
+    },
+    {
+      "opc_label": "WKa 47130 outlet",
+      "normalised": "WKA47130OUTLET",
+      "node_id": "n-cf297143",
+      "page_index": 0
+    },
+    {
+      "opc_label": "WKb 47131 outlet",
+      "normalised": "WKB47131OUTLET",
+      "node_id": "n-0376d9eb",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4485,
+      "y": 7232,
+      "annotation_id": "1de893d3ad874c61b12009713e22a9d5",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 6150,
+      "y": 4186,
+      "annotation_id": "1de893d3ad874c61b12009713e22a9d5",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3930,
+      "y": 7232,
+      "annotation_id": "1cceb216297441548aadd3986d50a9d5",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4395,
+      "y": 7232,
+      "annotation_id": "1cceb216297441548aadd3986d50a9d5",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 6600,
+      "y": 6241,
+      "annotation_id": "9401a29a79094ff480ceff0339e838e5",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 6600,
+      "y": 7442,
+      "annotation_id": "9401a29a79094ff480ceff0339e838e5",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 8760,
+      "y": 7442,
+      "annotation_id": "9401a29a79094ff480ceff0339e838e5",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 9660,
+      "y": 7442,
+      "annotation_id": "1cc4183efdc147b0bc818f13fd3e57cc",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13185,
+      "y": 7442,
+      "annotation_id": "1cc4183efdc147b0bc818f13fd3e57cc",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 9525,
+      "y": 5491,
+      "annotation_id": "839fde61fdbd4da1a6d80ce5546bfb09",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 9525,
+      "y": 6151,
+      "annotation_id": "839fde61fdbd4da1a6d80ce5546bfb09",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 8835,
+      "y": 6151,
+      "annotation_id": "839fde61fdbd4da1a6d80ce5546bfb09",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13305,
+      "y": 6031,
+      "annotation_id": "591b160f50314d6b8627a3d528af767d",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13185,
+      "y": 4531,
+      "annotation_id": "591b160f50314d6b8627a3d528af767d",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 8835,
+      "y": 4531,
+      "annotation_id": "591b160f50314d6b8627a3d528af767d",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 7620,
+      "y": 3511,
+      "annotation_id": "3953ca649fa64ed29dc7d11c1073a8d3",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 14100,
+      "y": 3511,
+      "annotation_id": "3953ca649fa64ed29dc7d11c1073a8d3",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 14100,
+      "y": 5641,
+      "annotation_id": "3953ca649fa64ed29dc7d11c1073a8d3",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13665,
+      "y": 5641,
+      "annotation_id": "3953ca649fa64ed29dc7d11c1073a8d3",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 14610,
+      "y": 6091,
+      "annotation_id": "1e85c600a5634bb9bb8df8baf4df20a5",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 14610,
+      "y": 5431,
+      "annotation_id": "1e85c600a5634bb9bb8df8baf4df20a5",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13200,
+      "y": 5431,
+      "annotation_id": "1e85c600a5634bb9bb8df8baf4df20a5",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4026,
+      "y": 6812,
+      "annotation_id": "b20d44113f59477a8e1059e406b9723c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4026,
+      "y": 8342,
+      "annotation_id": "b20d44113f59477a8e1059e406b9723c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4326,
+      "y": 7442,
+      "annotation_id": "86de8d58501846aba862037535f82606",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4326,
+      "y": 8342,
+      "annotation_id": "86de8d58501846aba862037535f82606",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13410,
+      "y": 7112,
+      "annotation_id": "eab0a8cb62ea4b3a96cd9a8c27515545",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13410,
+      "y": 8882,
+      "annotation_id": "eab0a8cb62ea4b3a96cd9a8c27515545",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13740,
+      "y": 7112,
+      "annotation_id": "7ed8ac67bb2b492f94db0ec139242aaa",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 13740,
+      "y": 8882,
+      "annotation_id": "7ed8ac67bb2b492f94db0ec139242aaa",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 9465,
+      "y": 4516,
+      "annotation_id": "0e0893fafc7540b8b1c2c142276649ec",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 6630,
+      "y": 4516,
+      "annotation_id": "0e0893fafc7540b8b1c2c142276649ec",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          4026,
+          6812
+        ],
+        [
+          4026,
+          8342
+        ]
+      ],
+      "snap_radius_px": 900,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "b20d44113f59477a8e1059e406b9723c"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    }
+  ],
+  "per_page_status": {
+    "0": "ok"
+  }
+}

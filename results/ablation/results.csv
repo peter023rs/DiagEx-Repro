@@ -1,0 +1,22 @@
+run_id,condition,fixture,phase,family,query_id,scoring,trial,input_tokens,output_tokens,wall_clock_s,cost_usd,source_type,domain,entity_count_truth,metric_kind,score,detail,cache_read_tokens,cache_write_tokens,image_tokens,n_steps,n_tool_calls,tool_call_counts_json,retries
+20260428T084608-e35c,ablation-no-tile,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_equipment_f1,0.5555555555555556,P=0.45 R=0.71 tp=5 fp=6 fn=2,,,,,,,
+20260428T084608-e35c,ablation-no-tile,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_instrument_f1,0.37209302325581395,P=0.35 R=0.40 tp=16 fp=30 fn=24,,,,,,,
+20260428T084608-e35c,ablation-no-tile,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_opc_f1,0.923076923076923,P=1.00 R=0.86 tp=6 fp=0 fn=1,,,,,,,
+20260428T084608-e35c,ablation-no-tile,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_tag_ocr_em,0.2962962962962963,tag-OCR EM = 0.30,,,,,,,
+20260428T084608-e35c,ablation-no-tile,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_edge_f1,0.0,edge F1 (full-truth fixture) tp=0 fp=2 fn=10,,,,,,,
+20260428T084608-e35c,ablation-no-tile,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260428T084608-e35c,ablation-no-tile,butane1,2,,,,0,566556,66378,1252.217,7.423205,raster,c4-cracking,54,phase2_run,1.0,fixture run,1449376.0,353006.0,0.0,139.0,186.0,"{""annotate"": 130, ""get_overview"": 3, ""get_region"": 50, ""get_tile"": 1, ""list_annotations"": 1, ""list_tiles"": 1}",4.0
+20260428T084608-e35c,ablation-no-tile,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_equipment_f1,0.8888888888888888,P=0.89 R=0.89 tp=8 fp=1 fn=1,,,,,,,
+20260428T084608-e35c,ablation-no-tile,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_instrument_f1,0.8571428571428571,P=1.00 R=0.75 tp=3 fp=0 fn=1,,,,,,,
+20260428T084608-e35c,ablation-no-tile,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_opc_f1,0.9090909090909091,P=0.83 R=1.00 tp=5 fp=1 fn=0,,,,,,,
+20260428T084608-e35c,ablation-no-tile,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_tag_ocr_em,0.6111111111111112,tag-OCR EM = 0.61,,,,,,,
+20260428T084608-e35c,ablation-no-tile,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_edge_f1,0.30303030303030304,edge F1 (full-truth fixture) tp=5 fp=12 fn=11,,,,,,,
+20260428T084608-e35c,ablation-no-tile,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260428T084608-e35c,ablation-no-tile,dexpi-reference,2,,,,0,260376,53618,851.891,4.085771,vector,dexpi-synthetic,18,phase2_run,1.0,fixture run,1025619.0,148901.0,0.0,63.0,98.0,"{""annotate"": 68, ""finish"": 1, ""get_overview"": 3, ""get_region"": 24, ""list_annotations"": 1, ""list_tiles"": 1}",1.0
+20260428T084608-e35c,ablation-no-tile,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_equipment_f1,0.8292682926829269,P=0.81 R=0.85 tp=17 fp=4 fn=3,,,,,,,
+20260428T084608-e35c,ablation-no-tile,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_instrument_f1,1.0,P=1.00 R=1.00 tp=38 fp=0 fn=0,,,,,,,
+20260428T084608-e35c,ablation-no-tile,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_opc_f1,0.9090909090909091,P=1.00 R=0.83 tp=10 fp=0 fn=2,,,,,,,
+20260428T084608-e35c,ablation-no-tile,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_tag_ocr_em,0.9,tag-OCR EM = 0.90,,,,,,,
+20260428T084608-e35c,ablation-no-tile,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_edge_f1,0.6956521739130435,edge F1 (full-truth fixture) tp=24 fp=9 fn=12,,,,,,,
+20260428T084608-e35c,ablation-no-tile,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260428T084608-e35c,ablation-no-tile,tennessee1,2,,,,0,229455,37073,434.445,3.851306,vector,tennessee-eastman,70,phase2_run,1.0,fixture run,589350.0,237205.0,0.0,29.0,121.0,"{""annotate"": 104, ""finish"": 1, ""get_overview"": 1, ""get_region"": 13, ""list_annotations"": 1, ""list_tiles"": 1}",0.0

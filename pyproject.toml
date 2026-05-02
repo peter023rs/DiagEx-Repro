@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "diagex"
+version = "0.1.0"
+description = "Pure LLM-vision extraction pipeline for industrial schematics (P&IDs, logic diagrams, SLDs)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Heiko Koziolek", email = "heiko.koziolek@gmail.com" }]
+dependencies = [
+    "anthropic>=0.40.0",
+    "pymupdf>=1.24.0",
+    "Pillow>=10.0.0",
+    "numpy>=1.26.0",
+    "pydantic>=2.6.0",
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0",
+    "openai>=1.40.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-vcr>=1.0.2",
+    "ruff>=0.4.0",
+]
+codegen = [
+    # Used only by `python -m diagex.dexpi.codegen.regenerate`. Requires
+    # Python 3.12+ (per the package's own pin). The diagex runtime stays
+    # compatible with Python 3.11+.
+    "dexpi.specificator==1.0.0",
+]
+
+[project.scripts]
+diagex = "diagex.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/diagex"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+# Make eval/ importable from tests/unit/test_eval_*.py without a PYTHONPATH dance.
+pythonpath = ["."]

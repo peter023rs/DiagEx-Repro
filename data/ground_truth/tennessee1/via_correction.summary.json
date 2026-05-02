@@ -1,0 +1,20 @@
+{
+  "fixture": "tennessee1",
+  "iou_threshold": 0.3,
+  "bootstrap_reviewable_nodes": 57,
+  "annotations": 58,
+  "matched": 41,
+  "matched_iou": 34,
+  "matched_label_fallback": 7,
+  "added": 17,
+  "dropped": 16,
+  "bbox_retained": 1,
+  "bbox_edited": 40,
+  "label_retained": 26,
+  "label_edited": 15,
+  "bbox_retention_pct": 1.8,
+  "label_retention_pct": 45.6,
+  "edges_kept": 24,
+  "edges_auto_dropped": 14,
+  "v2_total_nodes": 70
+}

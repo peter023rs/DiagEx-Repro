@@ -1,0 +1,253 @@
+<svg
+    xmlns = "http://www.w3.org/2000/svg"
+    width = "120.0mm"
+    height = "117.5mm"
+    viewBox = "-13 -11 24 23.5">
+    <style>
+        text {
+        font-family:  Helvetica, Arial;
+        }
+        
+        .gridline {
+        fill: none;
+        stroke: #bbb;
+        stroke-width: 0.03;
+        }
+        
+        .maingridline {
+        fill: none;
+        stroke: #bbb;
+        stroke-width: 0.06;
+        }
+        
+        .gridtext {
+        fill: #000;
+        font-size: 0.75px;
+        }
+        
+        .auxpoint {
+        fill: #88f;
+        stroke: none;
+        stroke-width: 0px;
+        r: 0.3px;
+        }
+        
+        .auxline {
+        fill: none;
+        stroke: #33f;
+        stroke-width: 0.1px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 0.3 0.4;
+        }
+        
+        .auxarrowstart {
+        marker-start: url(#auxarrowhead);
+        }
+        
+        .auxarrowend {
+        marker-end: url(#auxarrowhead);
+        }
+        
+        .auxarrowboth {
+        marker-start: url(#auxarrowhead);
+        marker-end: url(#auxarrowhead);
+        }
+        
+        .auxtext {
+        fill: #33f;;
+        font-size: 0.75px;
+        }
+        
+        .primline {
+        fill: none;
+        stroke: black;
+        stroke-width: 0.1px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        }
+    </style>
+    <defs>
+        <marker
+            id = "auxarrowhead"
+            viewBox = "-0.1 -0.1 10.1 10.1"
+            refX = "9.7"
+            refY = "4"
+            markerWidth = "6.2"
+            markerHeight = "6.2"
+            orient = "auto-start-reverse">
+            <path
+                d = "M 0 0 L 10 4 L 0 8 L 0 0 L 10 4"
+                stroke = "#66f"
+                fill = "#33f"
+                stroke-width = "0.2px"/>
+        </marker>
+    </defs>
+    <g>
+        <path class = "maingridline" d = "M -11,-10 h 22"/>
+        <path class = "gridline" d = "M -11,-9 h 22"/>
+        <path class = "gridline" d = "M -11,-8 h 22"/>
+        <path class = "gridline" d = "M -11,-7 h 22"/>
+        <path class = "gridline" d = "M -11,-6 h 22"/>
+        <path class = "maingridline" d = "M -11,-5 h 22"/>
+        <path class = "gridline" d = "M -11,-4 h 22"/>
+        <path class = "gridline" d = "M -11,-3 h 22"/>
+        <path class = "gridline" d = "M -11,-2 h 22"/>
+        <path class = "gridline" d = "M -11,-1 h 22"/>
+        <path class = "maingridline" d = "M -11,-0 h 22"/>
+        <path class = "gridline" d = "M -11,1 h 22"/>
+        <path class = "gridline" d = "M -11,2 h 22"/>
+        <path class = "gridline" d = "M -11,3 h 22"/>
+        <path class = "gridline" d = "M -11,4 h 22"/>
+        <path class = "maingridline" d = "M -11,5 h 22"/>
+        <path class = "gridline" d = "M -11,6 h 22"/>
+        <path class = "gridline" d = "M -11,7 h 22"/>
+        <path class = "gridline" d = "M -11,8 h 22"/>
+        <path class = "gridline" d = "M -11,9 h 22"/>
+        <path class = "maingridline" d = "M -11,10 h 22"/>
+        <path class = "maingridline" d = "M -10,-11 v 22"/>
+        <path class = "gridline" d = "M -9,-11 v 22"/>
+        <path class = "gridline" d = "M -8,-11 v 22"/>
+        <path class = "gridline" d = "M -7,-11 v 22"/>
+        <path class = "gridline" d = "M -6,-11 v 22"/>
+        <path class = "maingridline" d = "M -5,-11 v 22"/>
+        <path class = "gridline" d = "M -4,-11 v 22"/>
+        <path class = "gridline" d = "M -3,-11 v 22"/>
+        <path class = "gridline" d = "M -2,-11 v 22"/>
+        <path class = "gridline" d = "M -1,-11 v 22"/>
+        <path class = "maingridline" d = "M 0,-11 v 22"/>
+        <path class = "gridline" d = "M 1,-11 v 22"/>
+        <path class = "gridline" d = "M 2,-11 v 22"/>
+        <path class = "gridline" d = "M 3,-11 v 22"/>
+        <path class = "gridline" d = "M 4,-11 v 22"/>
+        <path class = "maingridline" d = "M 5,-11 v 22"/>
+        <path class = "gridline" d = "M 6,-11 v 22"/>
+        <path class = "gridline" d = "M 7,-11 v 22"/>
+        <path class = "gridline" d = "M 8,-11 v 22"/>
+        <path class = "gridline" d = "M 9,-11 v 22"/>
+        <path class = "maingridline" d = "M 10,-11 v 22"/>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "-9.7">-100</text>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "-4.7">-50</text>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "0.3">0</text>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "5.3">50</text>
+        <text
+            class = "gridtext"
+            text-anchor = "end"
+            x = "-11.5"
+            y = "10.3">100</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "-10"
+            y = "12.2">-100</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "-5"
+            y = "12.2">-50</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "0"
+            y = "12.2">0</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "5"
+            y = "12.2">50</text>
+        <text
+            class = "gridtext"
+            text-anchor = "middle"
+            x = "10"
+            y = "12.2">100</text>
+    </g>
+    <g>
+        <circle
+            class = "auxpoint"
+            cx = "1"
+            cy = "2"/>
+        <a href = "owner.Center">
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "1.5"
+                y = "1.2">Center</text>
+        </a>
+        <ellipse
+            class = "primline"
+            cx = "1"
+            cy = "2"
+            rx = "11"
+            ry = "5"
+            transform = "rotate(35 1 2)"/>
+        <line
+            class = "auxline "
+            x1 = "1"
+            y1 = "2"
+            x2 = "10"
+            y2 = "2"/>
+        <line
+            class = "auxline auxarrowboth"
+            x1 = "1"
+            y1 = "2"
+            x2 = "12"
+            y2 = "2"
+            transform = "rotate(35 1 2)"/>
+        <a href = "owner.VerticalSemiAxis">
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "-0.5"
+                y = "3.0">Vertical</text>
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "-0.5"
+                y = "4.0">SemiAxis</text>
+        </a>
+        <line
+            class = "auxline auxarrowboth"
+            x1 = "1"
+            y1 = "2"
+            x2 = "6"
+            y2 = "2"
+            transform = "rotate(125 1 2)"/>
+        <a href = "owner.HorizontalSemiAxis">
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "7.0"
+                y = "7.0">Horizontal</text>
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "7.0"
+                y = "8.0">SemiAxis</text>
+        </a>
+        <path class = "auxline auxarrowend" d = "M 5 2
+           A 4 4 0 0 1 4.28 4.29"/>
+        <a href = "owner.Rotation">
+            <text
+                class = "auxtext"
+                text-anchor = "end"
+                x = "8.0"
+                y = "4.0">Rotation</text>
+        </a>
+    </g>
+</svg>

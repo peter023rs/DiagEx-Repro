@@ -1,0 +1,57 @@
+run_id,condition,fixture,phase,family,query_id,scoring,trial,input_tokens,output_tokens,wall_clock_s,cost_usd,source_type,domain,entity_count_truth,metric_kind,score,detail,cache_read_tokens,cache_write_tokens,image_tokens,n_steps,n_tool_calls,tool_call_counts_json,retries
+20260427T144955-1dbc,baseline,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_equipment_f1,1.0,P=1.00 R=1.00 tp=7 fp=0 fn=0,,,,,,,
+20260427T144955-1dbc,baseline,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_instrument_f1,1.0,P=1.00 R=1.00 tp=40 fp=0 fn=0,,,,,,,
+20260427T144955-1dbc,baseline,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_opc_f1,0.7999999999999999,P=0.75 R=0.86 tp=6 fp=2 fn=1,,,,,,,
+20260427T144955-1dbc,baseline,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_tag_ocr_em,0.7592592592592593,tag-OCR EM = 0.76,,,,,,,
+20260427T144955-1dbc,baseline,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_edge_f1,0.2105263157894737,edge F1 (full-truth fixture) tp=2 fp=7 fn=8,,,,,,,
+20260427T144955-1dbc,baseline,butane1,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,54,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T144955-1dbc,baseline,butane1,2,,,,0,402869,42522,826.738,6.587318,raster,c4-cracking,54,phase2_run,1.0,fixture run,1630821.0,431122.0,0.0,37.0,112.0,"{""annotate"": 76, ""finish"": 1, ""get_overview"": 2, ""get_region"": 5, ""get_tile"": 26, ""list_annotations"": 1, ""list_tiles"": 1}",17.0
+20260427T092228-808b,baseline,butane2,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,55,phase2_equipment_f1,1.0,P=1.00 R=1.00 tp=12 fp=0 fn=0,,,,,,,
+20260427T092228-808b,baseline,butane2,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,55,phase2_instrument_f1,0.8470588235294119,P=0.86 R=0.84 tp=36 fp=6 fn=7,,,,,,,
+20260427T092228-808b,baseline,butane2,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,55,phase2_tag_ocr_em,0.8727272727272727,tag-OCR EM = 0.87,,,,,,,
+20260427T092228-808b,baseline,butane2,2,,,,0,0,0,0.0,0.0,raster,c4-cracking,55,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T092228-808b,baseline,butane2,2,,,,0,67060,9540,142.93487616900074,0.625323,raster,c4-cracking,55,phase2_run,1.0,fixture run,,,,,,,
+20260427T144955-1dbc,baseline,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_equipment_f1,0.9411764705882353,P=1.00 R=0.89 tp=8 fp=0 fn=1,,,,,,,
+20260427T144955-1dbc,baseline,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_instrument_f1,1.0,P=1.00 R=1.00 tp=4 fp=0 fn=0,,,,,,,
+20260427T144955-1dbc,baseline,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_opc_f1,0.9090909090909091,P=0.83 R=1.00 tp=5 fp=1 fn=0,,,,,,,
+20260427T144955-1dbc,baseline,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_tag_ocr_em,0.6666666666666666,tag-OCR EM = 0.67,,,,,,,
+20260427T144955-1dbc,baseline,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_edge_f1,0.39999999999999997,edge F1 (full-truth fixture) tp=6 fp=8 fn=10,,,,,,,
+20260427T144955-1dbc,baseline,dexpi-reference,2,,,,0,0,0,0.0,0.0,vector,dexpi-synthetic,18,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T144955-1dbc,baseline,dexpi-reference,2,,,,0,224577,25452,535.317,2.987533,vector,dexpi-synthetic,18,phase2_run,1.0,fixture run,1525959.0,74459.0,0.0,45.0,69.0,"{""annotate"": 34, ""finish"": 1, ""get_overview"": 1, ""get_region"": 6, ""get_tile"": 25, ""list_annotations"": 1, ""list_tiles"": 1}",0.0
+20260427T144955-1dbc,baseline,grit-washer1,2,,,,0,0,0,0.0,0.0,raster,wastewater-grit,57,phase2_equipment_f1,0.6666666666666666,P=0.50 R=1.00 tp=4 fp=4 fn=0,,,,,,,
+20260427T144955-1dbc,baseline,grit-washer1,2,,,,0,0,0,0.0,0.0,raster,wastewater-grit,57,phase2_instrument_f1,0.8596491228070176,P=0.80 R=0.92 tp=49 fp=12 fn=4,,,,,,,
+20260427T144955-1dbc,baseline,grit-washer1,2,,,,0,0,0,0.0,0.0,raster,wastewater-grit,57,phase2_tag_ocr_em,0.8947368421052632,tag-OCR EM = 0.89,,,,,,,
+20260427T144955-1dbc,baseline,grit-washer1,2,,,,0,0,0,0.0,0.0,raster,wastewater-grit,57,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T144955-1dbc,baseline,grit-washer1,2,,,,0,376408,46530,810.929,6.344787,raster,wastewater-grit,57,phase2_run,1.0,fixture run,1379606.0,417551.0,0.0,43.0,121.0,"{""annotate"": 96, ""finish"": 1, ""get_overview"": 2, ""get_region"": 11, ""get_tile"": 9, ""list_annotations"": 1, ""list_tiles"": 1}",20.0
+20260427T092228-808b,baseline,open100-1,2,,,,0,0,0,0.0,0.0,raster,nuclear-cvcs,50,phase2_equipment_f1,1.0,P=1.00 R=1.00 tp=30 fp=0 fn=0,,,,,,,
+20260427T092228-808b,baseline,open100-1,2,,,,0,0,0,0.0,0.0,raster,nuclear-cvcs,50,phase2_instrument_f1,0.85,P=0.85 R=0.85 tp=17 fp=3 fn=3,,,,,,,
+20260427T092228-808b,baseline,open100-1,2,,,,0,0,0,0.0,0.0,raster,nuclear-cvcs,50,phase2_tag_ocr_em,0.94,tag-OCR EM = 0.94,,,,,,,
+20260427T092228-808b,baseline,open100-1,2,,,,0,0,0,0.0,0.0,raster,nuclear-cvcs,50,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T092228-808b,baseline,open100-1,2,,,,0,93360,14146,176.88619016999928,1.439814,raster,nuclear-cvcs,50,phase2_run,1.0,fixture run,,,,,,,
+20260427T092228-808b,baseline,open100-2,2,,,,0,0,0,0.0,0.0,raster,nuclear-rhr,26,phase2_equipment_f1,1.0,P=1.00 R=1.00 tp=20 fp=0 fn=0,,,,,,,
+20260427T092228-808b,baseline,open100-2,2,,,,0,0,0,0.0,0.0,raster,nuclear-rhr,26,phase2_instrument_f1,1.0,P=1.00 R=1.00 tp=6 fp=0 fn=0,,,,,,,
+20260427T092228-808b,baseline,open100-2,2,,,,0,0,0,0.0,0.0,raster,nuclear-rhr,26,phase2_tag_ocr_em,1.0,tag-OCR EM = 1.00,,,,,,,
+20260427T092228-808b,baseline,open100-2,2,,,,0,0,0,0.0,0.0,raster,nuclear-rhr,26,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T092228-808b,baseline,open100-2,2,,,,0,74923,10568,133.83487109199996,1.003377,raster,nuclear-rhr,26,phase2_run,1.0,fixture run,,,,,,,
+20260427T092228-808b,baseline,open100-3,2,,,,0,0,0,0.0,0.0,raster,nuclear-rcs,44,phase2_equipment_f1,1.0,P=1.00 R=1.00 tp=4 fp=0 fn=0,,,,,,,
+20260427T092228-808b,baseline,open100-3,2,,,,0,0,0,0.0,0.0,raster,nuclear-rcs,44,phase2_instrument_f1,0.7948717948717949,P=0.82 R=0.78 tp=31 fp=7 fn=9,,,,,,,
+20260427T092228-808b,baseline,open100-3,2,,,,0,0,0,0.0,0.0,raster,nuclear-rcs,44,phase2_tag_ocr_em,0.7954545454545454,tag-OCR EM = 0.80,,,,,,,
+20260427T092228-808b,baseline,open100-3,2,,,,0,0,0,0.0,0.0,raster,nuclear-rcs,44,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T092228-808b,baseline,open100-3,2,,,,0,174374,32110,541.6148842080001,2.095557,raster,nuclear-rcs,44,phase2_run,1.0,fixture run,,,,,,,
+20260427T172357-6718,baseline,open100-4,2,,,,0,0,0,0.0,0.0,raster,nuclear-pressurizer,55,phase2_equipment_f1,0.9090909090909091,P=0.83 R=1.00 tp=15 fp=3 fn=0,,,,,,,
+20260427T172357-6718,baseline,open100-4,2,,,,0,0,0,0.0,0.0,raster,nuclear-pressurizer,55,phase2_instrument_f1,0.8536585365853658,P=0.83 R=0.88 tp=35 fp=7 fn=5,,,,,,,
+20260427T172357-6718,baseline,open100-4,2,,,,0,0,0,0.0,0.0,raster,nuclear-pressurizer,55,phase2_tag_ocr_em,0.7454545454545455,tag-OCR EM = 0.75,,,,,,,
+20260427T172357-6718,baseline,open100-4,2,,,,0,0,0,0.0,0.0,raster,nuclear-pressurizer,55,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T172357-6718,baseline,open100-4,2,,,,0,419477,47930,1337.545,5.537448,raster,nuclear-pressurizer,55,phase2_run,1.0,fixture run,678102.0,304442.0,0.0,55.0,121.0,"{""annotate"": 103, ""finish"": 1, ""get_overview"": 1, ""get_region"": 4, ""get_tile"": 10, ""list_annotations"": 1, ""list_tiles"": 1}",1.0
+20260427T092228-808b,baseline,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_equipment_f1,0.9,P=0.90 R=0.90 tp=18 fp=2 fn=2,,,,,,,
+20260427T092228-808b,baseline,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_instrument_f1,1.0,P=1.00 R=1.00 tp=38 fp=0 fn=0,,,,,,,
+20260427T092228-808b,baseline,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_opc_f1,0.9090909090909091,P=1.00 R=0.83 tp=10 fp=0 fn=2,,,,,,,
+20260427T092228-808b,baseline,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_tag_ocr_em,0.8857142857142857,tag-OCR EM = 0.89,,,,,,,
+20260427T092228-808b,baseline,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_edge_f1,0.24561403508771928,edge F1 (full-truth fixture) tp=7 fp=14 fn=29,,,,,,,
+20260427T092228-808b,baseline,tennessee1,2,,,,0,0,0,0.0,0.0,vector,tennessee-eastman,70,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260427T092228-808b,baseline,tennessee1,2,,,,0,110547,23137,213.84674511699995,1.197913,vector,tennessee-eastman,70,phase2_run,1.0,fixture run,,,,,,,
+20260428T083413-45a0,baseline,two-tanks,2,,,,0,0,0,0.0,0.0,raster,process-utility,134,phase2_equipment_f1,0.7768595041322315,P=0.87 R=0.70 tp=47 fp=7 fn=20,,,,,,,
+20260428T083413-45a0,baseline,two-tanks,2,,,,0,0,0,0.0,0.0,raster,process-utility,134,phase2_instrument_f1,0.8194444444444445,P=0.77 R=0.88 tp=59 fp=18 fn=8,,,,,,,
+20260428T083413-45a0,baseline,two-tanks,2,,,,0,0,0,0.0,0.0,raster,process-utility,134,phase2_tag_ocr_em,0.7238805970149254,tag-OCR EM = 0.72,,,,,,,
+20260428T083413-45a0,baseline,two-tanks,2,,,,0,0,0,0.0,0.0,raster,process-utility,134,phase2_dexpi_validates,1.0,dexpi validates,0.0,0.0,0.0,0.0,0.0,,0.0
+20260428T083413-45a0,baseline,two-tanks,2,,,,0,780172,42991,681.645,10.352897,raster,process-utility,134,phase2_run,1.0,fixture run,1094349.0,772814.0,0.0,96.0,199.0,"{""annotate"": 177, ""get_overview"": 1, ""get_tile"": 20, ""list_tiles"": 1}",0.0

@@ -1,0 +1,82 @@
+# Phase 1 ground-truth queries — rater_1_locked
+#
+# Schema: spec §9.1 + plan §4.1
+# Authoring: rater_1 = claude-opus-4-7[1m] (bootstrap from graph.json + Acrobat
+#            verification for all -q4 coordinates; Heiko Koziolek manual review
+#            of inventory/counting/connectivity). rater_2 = pending.
+#
+# Connectivity role (this fixture): NO
+# Coordinate frame: PDF points, top-left origin, y-down (Acrobat rulers).
+#   For fixtures with /Rotate ≠ 0, coords are against the oriented rect
+#   (what Acrobat displays).
+
+schema_version: 1
+dataset_version: diagex.v0.2
+fixture: tennessee1
+authoring:
+  rater_1: claude-opus-4-7[1m]
+  rater_1_date: '2026-04-24'
+  rater_2: pending
+  overall_status: rater_1_locked
+queries:
+- id: tennessee1-q1
+  family: inventory
+  question: List every feed isolation valve V-100X (on streams A, D, E, C) with its tag number.
+  expected_answer:
+  - V-1001
+  - V-1002
+  - V-1003
+  - V-1004
+  expected_kind: list
+  scoring: set_match
+  scoring_params:
+    case_sensitive: false
+  rater_1:
+    confidence: high
+    source: graph.json
+    notes: Four feed valves on left edge; graph confirms all four as equipment valves.
+  status: rater_1_locked
+- id: tennessee1-q2
+  family: counting
+  question: How many flow indicators (FI) are shown in this drawing?
+  expected_answer: 12
+  expected_kind: integer
+  scoring: numeric_tolerance
+  scoring_params:
+    tolerance_frac: 0.05
+  rater_1:
+    confidence: high
+    source: graph.json
+    notes: Graph has 12 distinct FI tags (FI-1001..1006, 1101, 1102, 1201, 1301, 1501, 1502). Tolerance ±1.
+  status: rater_1_locked
+- id: tennessee1-q3
+  family: connectivity
+  question: Is there a process flow path from V-1001 to V-1101?
+  expected_answer: false
+  expected_kind: boolean
+  scoring: graph_reachability
+  scoring_params:
+    line_types:
+    - process
+  rater_1:
+    confidence: high
+    source: graph.json
+    notes: V-1001 = feed A (process stream); V-1101 = reactor cooling-water return (utility). Different services; no process-flow
+      path.
+  status: rater_1_locked
+- id: tennessee1-q4
+  family: identification
+  question: What kind of equipment sits at approximate page coordinates (85, 180)?
+  expected_answer: reactor
+  expected_kind: string
+  scoring: contains
+  scoring_params:
+    case_sensitive: false
+    normalize: true
+  rater_1:
+    confidence: high
+    source: pdf_acrobat + graph.truth.json
+    notes: reactor body — bbox centre at (84, 160) PDF pt; (85, 180) sits well
+      inside the body and avoids the top inlet area where nozzle control valves
+      are drawn.
+  status: rater_1_locked

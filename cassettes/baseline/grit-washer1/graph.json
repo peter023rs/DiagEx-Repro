@@ -1,0 +1,2322 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "grit-washer1.pdf",
+  "nodes": [
+    {
+      "id": "n-bc003d6d",
+      "kind": "instrument",
+      "label": "YI-51-291",
+      "bbox_global": {
+        "x": 1117,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "hand",
+        "loop_number": "291",
+        "function_label": "AUTO"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "59e1d1606b5b4a06bcdcd6c882b43364"
+      ]
+    },
+    {
+      "id": "n-abc0a4be",
+      "kind": "instrument",
+      "label": "YI-51-293",
+      "bbox_global": {
+        "x": 1190,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "hand",
+        "loop_number": "293",
+        "function_label": "AUTO"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0a86c845355040ea9ace9918cc02070e"
+      ]
+    },
+    {
+      "id": "n-c90ffc4c",
+      "kind": "instrument",
+      "label": "ZIO-51-291",
+      "bbox_global": {
+        "x": 1268,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "291",
+        "function_label": "WASH VALVE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6aa9bc9639d84ceca940e8a11a843b18"
+      ]
+    },
+    {
+      "id": "n-067976f6",
+      "kind": "instrument",
+      "label": "ZIO-51-293",
+      "bbox_global": {
+        "x": 1340,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "293",
+        "function_label": "GE VALVE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b3294d7313224c888afa532725a92904"
+      ]
+    },
+    {
+      "id": "n-1a3fc321",
+      "kind": "instrument",
+      "label": "HS-51-371",
+      "bbox_global": {
+        "x": 1420,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "371",
+        "function_label": "ENABLE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "496774a30eb146318354d65f5fa852a7"
+      ]
+    },
+    {
+      "id": "n-b8fef92d",
+      "kind": "instrument",
+      "label": "YA-51-361",
+      "bbox_global": {
+        "x": 1492,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "361",
+        "function_label": "AUTO"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6166905df8d24253b2f919498bc587be"
+      ]
+    },
+    {
+      "id": "n-006993ee",
+      "kind": "instrument",
+      "label": "YA-51-371",
+      "bbox_global": {
+        "x": 1566,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "371",
+        "function_label": "RUNNING"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fbfa26a057034206b8788b324b0f9e8f"
+      ]
+    },
+    {
+      "id": "n-0fc12056",
+      "kind": "instrument",
+      "label": "YQI-51-371",
+      "bbox_global": {
+        "x": 1643,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "371",
+        "function_label": "RUN TIME"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "913eb06f352648e08e5c51620f5339bb"
+      ]
+    },
+    {
+      "id": "n-dd8aa4ac",
+      "kind": "instrument",
+      "label": "TAH-51-371",
+      "bbox_global": {
+        "x": 1719,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "temperature",
+        "loop_number": "371",
+        "function_label": "HIGH TEMP"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e42dddff463e4c5b887292703b65c5dd"
+      ]
+    },
+    {
+      "id": "n-df936072",
+      "kind": "instrument",
+      "label": "YA-51-371A",
+      "bbox_global": {
+        "x": 1792,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "371",
+        "function_label": "FAIL",
+        "base_tag": "YA-51-371A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "352106ef1b274cf58427861ed8eada33"
+      ]
+    },
+    {
+      "id": "n-97baeb49",
+      "kind": "instrument",
+      "label": "YI-51-376",
+      "bbox_global": {
+        "x": 1866,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "hand",
+        "loop_number": "376",
+        "function_label": "AUTO"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "462c24dfb10d44ccbff5438a0fc117ef"
+      ]
+    },
+    {
+      "id": "n-8e46b6e8",
+      "kind": "instrument",
+      "label": "YI-51-376A",
+      "bbox_global": {
+        "x": 1940,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "hand",
+        "loop_number": "376",
+        "function_label": "RUNNING",
+        "base_tag": "YI-51-376A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9124eb0b75e24d73b72fb4ba41a046dd"
+      ]
+    },
+    {
+      "id": "n-d0589aa4",
+      "kind": "instrument",
+      "label": "YQI-51-376",
+      "bbox_global": {
+        "x": 2016,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "376",
+        "function_label": "RUN TIME"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2cf660f5f62b4c5eb21edda196f1d5c4"
+      ]
+    },
+    {
+      "id": "n-67600559",
+      "kind": "instrument",
+      "label": "TAH-51-376",
+      "bbox_global": {
+        "x": 2088,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "temperature",
+        "loop_number": "376",
+        "function_label": "HIGH TEMP"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5a6481b355da4415a293f55ac2d0014e"
+      ]
+    },
+    {
+      "id": "n-2c400287",
+      "kind": "instrument",
+      "label": "YA-51-361A",
+      "bbox_global": {
+        "x": 2162,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "361",
+        "function_label": "FAIL",
+        "base_tag": "YA-51-361A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "953463cdf23c4d14aab5a034fb2f43e1"
+      ]
+    },
+    {
+      "id": "n-c1fa2ed3",
+      "kind": "instrument",
+      "label": "HSO-51-381",
+      "bbox_global": {
+        "x": 2267,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "381",
+        "function_label": "OPEN GATE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3bc155d4725947f99cec0465721c2db8"
+      ]
+    },
+    {
+      "id": "n-29e172b3",
+      "kind": "instrument",
+      "label": "HSC-51-381",
+      "bbox_global": {
+        "x": 2342,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "381",
+        "function_label": "CLOSE GATE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5b98250ca18f4e7d9d8df345cb9208c1"
+      ]
+    },
+    {
+      "id": "n-b8281f4f",
+      "kind": "instrument",
+      "label": "YI-51-381",
+      "bbox_global": {
+        "x": 2414,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "hand",
+        "loop_number": "381",
+        "function_label": "GATE REMOTE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bde0e61db954463f859d7fee43029f2c"
+      ]
+    },
+    {
+      "id": "n-04ee6846",
+      "kind": "instrument",
+      "label": "ZIO-51-381",
+      "bbox_global": {
+        "x": 2486,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "381",
+        "function_label": "GATE OPEN"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ef52076347ff41dc8d3514dceaff3053"
+      ]
+    },
+    {
+      "id": "n-19957e0b",
+      "kind": "instrument",
+      "label": "ZIC-51-381",
+      "bbox_global": {
+        "x": 2556,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "381",
+        "function_label": "GATE CLOSED"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "73e29412db394e288ce135cd312dacec"
+      ]
+    },
+    {
+      "id": "n-9d7343d5",
+      "kind": "instrument",
+      "label": "HSO-51-382",
+      "bbox_global": {
+        "x": 2654,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "382",
+        "function_label": "OPEN GATE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ceed179bc7794df4961027f9a8d82930"
+      ]
+    },
+    {
+      "id": "n-9696678a",
+      "kind": "instrument",
+      "label": "HSC-51-382",
+      "bbox_global": {
+        "x": 2726,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "382",
+        "function_label": "CLOSE GATE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "effd8d28123e43e1b23c213fdfa6decc"
+      ]
+    },
+    {
+      "id": "n-5fb440b7",
+      "kind": "instrument",
+      "label": "YI-51-382",
+      "bbox_global": {
+        "x": 2800,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "hand",
+        "loop_number": "382",
+        "function_label": "GATE REMOTE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7f1ba2c6d56b4dbeb6c25838d0003318"
+      ]
+    },
+    {
+      "id": "n-200549fe",
+      "kind": "instrument",
+      "label": "ZIO-51-382",
+      "bbox_global": {
+        "x": 2872,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "382",
+        "function_label": "GATE OPEN"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2d4d59d7e248432fbc787bfbb9b63c50"
+      ]
+    },
+    {
+      "id": "n-c7ef4e82",
+      "kind": "instrument",
+      "label": "ZIC-51-382",
+      "bbox_global": {
+        "x": 2944,
+        "y": 155,
+        "w": 60,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "382",
+        "function_label": "GATE CLOSED"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d1fbe3c8940f47c7a448cd458fef2904"
+      ]
+    },
+    {
+      "id": "n-5a046257",
+      "kind": "instrument",
+      "label": "YL-51-371A",
+      "bbox_global": {
+        "x": 167,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "371",
+        "function_label": "CTRL PWR",
+        "base_tag": "YL-51-371A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0b51977f886e431ab12c8d678f3e688d"
+      ]
+    },
+    {
+      "id": "n-da201eea",
+      "kind": "instrument",
+      "label": "YL-51-371",
+      "bbox_global": {
+        "x": 270,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "371",
+        "function_label": "RUNNING"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "63c46edf54d34523945528c1a89b65a5"
+      ]
+    },
+    {
+      "id": "n-5865a9f9",
+      "kind": "instrument",
+      "label": "YA-51-371-LCP",
+      "bbox_global": {
+        "x": 374,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "371",
+        "function_label": "FAIL",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fae1255398bc41c18909f8a1414a3137"
+      ]
+    },
+    {
+      "id": "n-09812cfd",
+      "kind": "instrument",
+      "label": "TAH-51-371-LCP",
+      "bbox_global": {
+        "x": 479,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "temperature",
+        "loop_number": "371",
+        "function_label": "HIGH TEMP",
+        "arbitration": "error",
+        "arbitration_error": "RateLimitError(\"Error code: 429 - {'error': {'code': 'RateLimitReached', 'message': 'Rate limit exceeded. Quota request exceeds the tokens limit. Requested tokens: 0.', 'details': 'Rate limit exceeded. Quota request exceeds the tokens limit. Requested tokens: 0.'}}\")"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "90828290bdec4e4c86b6f66398c91427"
+      ]
+    },
+    {
+      "id": "n-89632614",
+      "kind": "instrument",
+      "label": "HS-51-393",
+      "bbox_global": {
+        "x": 597,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "393",
+        "function_label": "HOA"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "333fb62ed5314512baefa3edf0fdb083"
+      ]
+    },
+    {
+      "id": "n-c5f557d0",
+      "kind": "instrument",
+      "label": "HS-51-393A",
+      "bbox_global": {
+        "x": 694,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "393",
+        "function_label": "OC",
+        "base_tag": "HS-51-393A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1b40641b8e0747a0aea2f422d550271a"
+      ]
+    },
+    {
+      "id": "n-00f8828a",
+      "kind": "instrument",
+      "label": "YL-51-376",
+      "bbox_global": {
+        "x": 790,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "376",
+        "function_label": "RUNNING"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1e1ff244e68449a397cce7478c58324d"
+      ]
+    },
+    {
+      "id": "n-4478c9a2",
+      "kind": "instrument",
+      "label": "YA-51-376-LCP",
+      "bbox_global": {
+        "x": 885,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "376",
+        "function_label": "FAIL"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e8f7d53976e541b89041e9a6ae2c181d"
+      ]
+    },
+    {
+      "id": "n-e8ad39c3",
+      "kind": "instrument",
+      "label": "TAH-51-376-LCP",
+      "bbox_global": {
+        "x": 986,
+        "y": 1426,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "temperature",
+        "loop_number": "376",
+        "function_label": "HIGH TEMP"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "99a8f3479bc141e48479a7a8053ac450"
+      ]
+    },
+    {
+      "id": "n-f9dced28",
+      "kind": "instrument",
+      "label": "HS-51-371A",
+      "bbox_global": {
+        "x": 167,
+        "y": 1549,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "371",
+        "function_label": "RST",
+        "base_tag": "HS-51-371A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5628e0bccbda43bca1bbf62c8818c7d2"
+      ]
+    },
+    {
+      "id": "n-327a819d",
+      "kind": "instrument",
+      "label": "HS-51-371-LCP",
+      "bbox_global": {
+        "x": 270,
+        "y": 1549,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "371",
+        "function_label": "HOA"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bd8b37ac10214fe889440c56b97f0880"
+      ]
+    },
+    {
+      "id": "n-2cc11acd",
+      "kind": "instrument",
+      "label": "HS-51-371B",
+      "bbox_global": {
+        "x": 475,
+        "y": 1549,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "371",
+        "function_label": "ESP",
+        "base_tag": "HS-51-371B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d62372954a8b4fb9b947863ad6e679f4"
+      ]
+    },
+    {
+      "id": "n-79b0d381",
+      "kind": "instrument",
+      "label": "HS-51-391",
+      "bbox_global": {
+        "x": 580,
+        "y": 1549,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "391",
+        "function_label": "HOA"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9969f106ac7f4ede99d14875dfd11aa6"
+      ]
+    },
+    {
+      "id": "n-52b51bb1",
+      "kind": "instrument",
+      "label": "LI-51-391",
+      "bbox_global": {
+        "x": 788,
+        "y": 1549,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "level",
+        "loop_number": "391"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "76ce7259758c4c60810bc9f247a64693"
+      ]
+    },
+    {
+      "id": "n-4572a016",
+      "kind": "instrument",
+      "label": "HS-51-376",
+      "bbox_global": {
+        "x": 986,
+        "y": 1549,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "376",
+        "function_label": "HOA"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "dfe64157ca9e447e95f0c20c9a12dd8f"
+      ]
+    },
+    {
+      "id": "n-62206926",
+      "kind": "instrument",
+      "label": "HS-51-371C",
+      "bbox_global": {
+        "x": 475,
+        "y": 1663,
+        "w": 95,
+        "h": 114
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "371",
+        "function_label": "ESP",
+        "base_tag": "HS-51-371C"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "35f44461d5a7460e9bbe9fe28cbc2233"
+      ]
+    },
+    {
+      "id": "n-ebb46aae",
+      "kind": "text",
+      "label": "LCP-51-371",
+      "bbox_global": {
+        "x": 509,
+        "y": 1433,
+        "w": 152,
+        "h": 27
+      },
+      "page_index": 0,
+      "attributes": {
+        "note": "Local Control Panel"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a207bdc97c624522aa8a43f7f59db224"
+      ]
+    },
+    {
+      "id": "n-5d17b95d",
+      "kind": "text",
+      "label": "OIU",
+      "bbox_global": {
+        "x": 690,
+        "y": 1568,
+        "w": 95,
+        "h": 48
+      },
+      "page_index": 0,
+      "attributes": {
+        "note": "Operator Interface Unit"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "148a1c098a3c4ffa9d4cde5cbc58eb1c"
+      ]
+    },
+    {
+      "id": "n-c7d2007b",
+      "kind": "instrument",
+      "label": "LE-51-391",
+      "bbox_global": {
+        "x": 1712,
+        "y": 1675,
+        "w": 60,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "level",
+        "loop_number": "391"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b063ac0a64be471381fb8e69ef8a69ab"
+      ]
+    },
+    {
+      "id": "n-14dda032",
+      "kind": "equipment",
+      "label": "GAT-51-382",
+      "bbox_global": {
+        "x": 1910,
+        "y": 1942,
+        "w": 130,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "gate",
+        "service": "grit chute discharge"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6b780d20544540c9a2d628babf88136f"
+      ]
+    },
+    {
+      "id": "n-ef16109d",
+      "kind": "equipment",
+      "label": "GAT-51-381",
+      "bbox_global": {
+        "x": 2100,
+        "y": 1942,
+        "w": 130,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "gate",
+        "service": "grit chute discharge"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a5ea119e93c14722bc1a1bbaa3a43689"
+      ]
+    },
+    {
+      "id": "n-ec500a3d",
+      "kind": "instrument",
+      "label": "ZSO-51-381",
+      "bbox_global": {
+        "x": 2290,
+        "y": 1642,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "381",
+        "function_label": "Position Switch Open"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c39943e6e8924cb69cb6c0bbaf41921c"
+      ]
+    },
+    {
+      "id": "n-4e7d7cab",
+      "kind": "instrument",
+      "label": "ZSC-51-381",
+      "bbox_global": {
+        "x": 2350,
+        "y": 1642,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "381",
+        "function_label": "Position Switch Closed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e95a9528c0e143319cf6b9bfb8647f2b"
+      ]
+    },
+    {
+      "id": "n-90d07149",
+      "kind": "instrument",
+      "label": "HS-51-381A",
+      "bbox_global": {
+        "x": 2418,
+        "y": 1642,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "381",
+        "function_label": "LOR",
+        "base_tag": "HS-51-381A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "07a2baf58bc54b8cbd4ae207bfac85fd"
+      ]
+    },
+    {
+      "id": "n-1a7d3a9f",
+      "kind": "instrument",
+      "label": "HS-51-381B",
+      "bbox_global": {
+        "x": 2485,
+        "y": 1642,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "381",
+        "function_label": "OC",
+        "base_tag": "HS-51-381B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2a3dd92322b8439f90605ac08691251e"
+      ]
+    },
+    {
+      "id": "n-507f4982",
+      "kind": "instrument",
+      "label": "HSS-51-381",
+      "bbox_global": {
+        "x": 2335,
+        "y": 1718,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "381",
+        "function_label": "DS"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "357157d268ae4c6abf80504ea7ae224d"
+      ]
+    },
+    {
+      "id": "n-1a3beb5b",
+      "kind": "instrument",
+      "label": "ZSO-51-382",
+      "bbox_global": {
+        "x": 2290,
+        "y": 1782,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "382",
+        "function_label": "Position Switch Open"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "71eea802ce49402f9c1be6618eb92e36"
+      ]
+    },
+    {
+      "id": "n-b39303af",
+      "kind": "instrument",
+      "label": "ZSC-51-382",
+      "bbox_global": {
+        "x": 2350,
+        "y": 1782,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "382",
+        "function_label": "Position Switch Closed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "592261e045d743cc885b11690a1d57d3"
+      ]
+    },
+    {
+      "id": "n-e980a123",
+      "kind": "instrument",
+      "label": "HS-51-382A",
+      "bbox_global": {
+        "x": 2418,
+        "y": 1782,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "382",
+        "function_label": "LOR",
+        "base_tag": "HS-51-382A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "40c2c42e4ecd41fdb43702785cccfd8b"
+      ]
+    },
+    {
+      "id": "n-44274dc8",
+      "kind": "instrument",
+      "label": "HS-51-382B",
+      "bbox_global": {
+        "x": 2485,
+        "y": 1782,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "382",
+        "function_label": "OC",
+        "base_tag": "HS-51-382B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d9b857ecd5aa49d99a83d8794b803753"
+      ]
+    },
+    {
+      "id": "n-cc08f41b",
+      "kind": "instrument",
+      "label": "HSS-51-382",
+      "bbox_global": {
+        "x": 2335,
+        "y": 1860,
+        "w": 50,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "382",
+        "function_label": "DS"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "dec66ded930843598f1393b36c4c1b50"
+      ]
+    },
+    {
+      "id": "n-86882a05",
+      "kind": "equipment",
+      "label": "HDC-51-371",
+      "bbox_global": {
+        "x": 1420,
+        "y": 1100,
+        "w": 110,
+        "h": 180
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "separator",
+        "separator_type": "hydrocyclone",
+        "service": "grit slurry from grit pumps 3"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "37c84fb8265441d091704528bc0617a9"
+      ]
+    },
+    {
+      "id": "n-a7f5c0df",
+      "kind": "equipment",
+      "label": "HDC-51-372",
+      "bbox_global": {
+        "x": 1340,
+        "y": 1295,
+        "w": 130,
+        "h": 195
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "separator",
+        "separator_type": "hydrocyclone",
+        "service": "grit slurry from grit pumps 4"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "55979feef0ee477e9aa3a0e1302e0aa9"
+      ]
+    },
+    {
+      "id": "n-7ccccbee",
+      "kind": "equipment",
+      "label": "GWA-51-371",
+      "bbox_global": {
+        "x": 1380,
+        "y": 1480,
+        "w": 510,
+        "h": 480
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "tank",
+        "service": "Grit Washer No. 1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8fcb9ab6f5914739926cc101ab5e21c9"
+      ]
+    },
+    {
+      "id": "n-0ad42d9e",
+      "kind": "equipment",
+      "label": "GCL-51-376",
+      "bbox_global": {
+        "x": 1900,
+        "y": 1440,
+        "w": 360,
+        "h": 360
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "separator",
+        "separator_type": "inclined_screw_classifier",
+        "service": "Grit Classifier No. 1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "70837e7c6ede493a9f56f3c4443c3bdd"
+      ]
+    },
+    {
+      "id": "n-76b5ce3c",
+      "kind": "instrument",
+      "label": "TSH-51-371",
+      "bbox_global": {
+        "x": 1580,
+        "y": 1352,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "temperature",
+        "loop_number": "371",
+        "function_label": "High Temp on Washer Drive"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b0f3d5d38e28470cb926490275746a40"
+      ]
+    },
+    {
+      "id": "n-e531dbfd",
+      "kind": "instrument",
+      "label": "TSH-51-376",
+      "bbox_global": {
+        "x": 2070,
+        "y": 1350,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "temperature",
+        "loop_number": "376",
+        "function_label": "High Temp on Classifier Drive"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8fc8f96011a3422685ed1fa4bce21e8c"
+      ]
+    },
+    {
+      "id": "n-c1579553",
+      "kind": "instrument",
+      "label": "FI-51-391",
+      "bbox_global": {
+        "x": 1330,
+        "y": 1905,
+        "w": 70,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "391"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8f67bc9c59a4479f930c4f38fb661313"
+      ]
+    },
+    {
+      "id": "n-905d8e64",
+      "kind": "opc",
+      "label": "PSW inlet",
+      "bbox_global": {
+        "x": 175,
+        "y": 1915,
+        "w": 200,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "51Y610",
+        "service_code": "PSW",
+        "service_description": "Plant Service Water",
+        "opc_id": "A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ea0044a5fad84fc3a74441dfab3eecbb"
+      ]
+    },
+    {
+      "id": "n-878838ad",
+      "kind": "equipment",
+      "label": "PRV-51-391",
+      "bbox_global": {
+        "x": 700,
+        "y": 1810,
+        "w": 100,
+        "h": 140
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief",
+        "service": "PSW pressure relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6b17f02b53db48f58cb44d656a14188e"
+      ]
+    },
+    {
+      "id": "n-981bc15c",
+      "kind": "instrument",
+      "label": "PI-51-391",
+      "bbox_global": {
+        "x": 865,
+        "y": 1830,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "391"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "203d646d3b4241aaade204117863c059"
+      ]
+    },
+    {
+      "id": "n-72afd0a8",
+      "kind": "equipment",
+      "label": "SV-51-391",
+      "bbox_global": {
+        "x": 980,
+        "y": 1810,
+        "w": 80,
+        "h": 150
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "actuator": "solenoid",
+        "service": "PSW supply isolation",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5aa618a68ed446619193bb6175182646"
+      ]
+    },
+    {
+      "id": "n-2446ce6c",
+      "kind": "opc",
+      "label": "GRT inlet (Grit Pumps 3)",
+      "bbox_global": {
+        "x": 180,
+        "y": 1110,
+        "w": 200,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "51Y612",
+        "service_code": "GRT",
+        "service_description": "From Grit Pumps 3",
+        "opc_id": "C"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f3ba9cade3514673b56244dd7c9e1ebb"
+      ]
+    },
+    {
+      "id": "n-7b850431",
+      "kind": "opc",
+      "label": "GRT inlet (Grit Pumps 4)",
+      "bbox_global": {
+        "x": 180,
+        "y": 1310,
+        "w": 200,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "51Y612",
+        "service_code": "GRT",
+        "service_description": "From Grit Pumps 4",
+        "opc_id": "D"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f0303880e147474aa71ca5b3960c0d3d"
+      ]
+    },
+    {
+      "id": "n-404f8144",
+      "kind": "instrument",
+      "label": "PI-51-371",
+      "bbox_global": {
+        "x": 845,
+        "y": 1050,
+        "w": 70,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "371"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9c4f840fcf694e908eab55c434c421cb"
+      ]
+    },
+    {
+      "id": "n-6fa8f74e",
+      "kind": "instrument",
+      "label": "PI-51-372",
+      "bbox_global": {
+        "x": 845,
+        "y": 1260,
+        "w": 70,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "372"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "221b6d4570fc468ca52543a40982c9d6"
+      ]
+    },
+    {
+      "id": "n-caa6524f",
+      "kind": "opc",
+      "label": "FA outlet (Conveyor No 1)",
+      "bbox_global": {
+        "x": 3245,
+        "y": 1195,
+        "w": 235,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "51Y620",
+        "service_code": "FA",
+        "service_description": "To Conveyor No 1",
+        "opc_id": "B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "42bfb7c7c9374b6ead7c1352d40098d6"
+      ]
+    },
+    {
+      "id": "n-75cc5bd4",
+      "kind": "opc",
+      "label": "Grit Chute outlet (Dumpster 1)",
+      "bbox_global": {
+        "x": 3245,
+        "y": 1905,
+        "w": 235,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "51Y622",
+        "service_description": "To Fine Screenings Dumpster No 1",
+        "opc_id": "A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e220ea0a87a64bb4ab361af0920c6dcf"
+      ]
+    },
+    {
+      "id": "n-08628637",
+      "kind": "opc",
+      "label": "Grit Chute outlet (Dumpster 2)",
+      "bbox_global": {
+        "x": 3245,
+        "y": 2035,
+        "w": 235,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "51Y622",
+        "service_description": "To Fine Screenings Dumpster No 2",
+        "opc_id": "B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b43fd4177ba84c3da222ac16b6a53b4c"
+      ]
+    },
+    {
+      "id": "n-905b2006",
+      "kind": "opc",
+      "label": "GE outlet (Fine Screen Effluent)",
+      "bbox_global": {
+        "x": 3245,
+        "y": 2145,
+        "w": 235,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "51Y614",
+        "service_code": "GE",
+        "service_description": "Fine Screen Effluent Channel",
+        "opc_id": "B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "48c3d74d445c458dae91f319572031c6"
+      ]
+    },
+    {
+      "id": "n-2ce77860",
+      "kind": "opc",
+      "label": "PSW outlet (To Grit Washer No 2)",
+      "bbox_global": {
+        "x": 3180,
+        "y": 2210,
+        "w": 250,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "51Y614",
+        "service_code": "PSW",
+        "service_description": "To Grit Washer No 2",
+        "opc_id": "D"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f7d46711ef5341b283c45178ee5fd5d2"
+      ]
+    },
+    {
+      "id": "n-ceed6dbf",
+      "kind": "instrument",
+      "label": "EN-51-371 (Encoder)",
+      "bbox_global": {
+        "x": 3118,
+        "y": 437,
+        "w": 46,
+        "h": 46
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "371",
+        "function_label": "Encoder I/O marker",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a2c4d3586eba4f318fce6d4b4417fc4a"
+      ]
+    },
+    {
+      "id": "n-9cdc608a",
+      "kind": "instrument",
+      "label": "PB-51-381",
+      "bbox_global": {
+        "x": 3500,
+        "y": 437,
+        "w": 46,
+        "h": 46
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "381",
+        "function_label": "Pushbutton I/O marker",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "baed20cab0c54cff9ec5d3d9c6bcbb1c"
+      ]
+    },
+    {
+      "id": "n-dd2b84c9",
+      "kind": "instrument",
+      "label": "PB-51-382",
+      "bbox_global": {
+        "x": 3880,
+        "y": 437,
+        "w": 46,
+        "h": 46
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "382",
+        "function_label": "Pushbutton I/O marker",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "dad2caf5ec86408c89cac8c01607a3fe"
+      ]
+    },
+    {
+      "id": "n-ecbe4003",
+      "kind": "note",
+      "label": "VENDOR PACKAGE 1 - Vendor has control responsibility for washer/dewater",
+      "bbox_global": {
+        "x": 4427,
+        "y": 2243,
+        "w": 332,
+        "h": 105
+      },
+      "page_index": 0,
+      "attributes": {
+        "keynote_id": "1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "aa9cc3dc92f940f8a5b2d2787c09d6ae"
+      ]
+    },
+    {
+      "id": "n-630ea1ed",
+      "kind": "text",
+      "label": "GRIT WASHER NO. 1",
+      "bbox_global": {
+        "x": 1548,
+        "y": 2295,
+        "w": 200,
+        "h": 67
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c179205efe964f669c6ee4f1746cf1a4"
+      ]
+    },
+    {
+      "id": "n-ea3952ca",
+      "kind": "text",
+      "label": "GRIT CLASSIFIER NO. 1",
+      "bbox_global": {
+        "x": 2027,
+        "y": 2295,
+        "w": 209,
+        "h": 67
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "515e538a50a34c8b98c23ed613c96497"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-10146619",
+      "from_node": "n-2446ce6c",
+      "to_node": "n-86882a05",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          276,
+          1135
+        ],
+        [
+          1463,
+          1135
+        ],
+        [
+          1463,
+          1274
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "233891a61b014af082d05cb17bf8a60c"
+      ],
+      "attributes": {
+        "line_id": "4\"-GRT",
+        "label": "4\"-GRT (Grit Pumps 3 to HDC-51-371)",
+        "nominal_diameter": "4\"",
+        "service_code": "GRT"
+      }
+    },
+    {
+      "id": "e-20783f6d",
+      "from_node": "n-7b850431",
+      "to_node": "n-a7f5c0df",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          276,
+          1369
+        ],
+        [
+          1368,
+          1369
+        ],
+        [
+          1368,
+          1502
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "fd94a8f33d654d3491f9c3fcde912ca3"
+      ],
+      "attributes": {
+        "line_id": "4\"-GRT",
+        "label": "4\"-GRT (Grit Pumps 4 to HDC-51-372)",
+        "nominal_diameter": "4\"",
+        "service_code": "GRT"
+      }
+    },
+    {
+      "id": "e-21a667d4",
+      "from_node": "n-86882a05",
+      "to_node": "n-7ccccbee",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1463,
+          1274
+        ],
+        [
+          1672,
+          1274
+        ],
+        [
+          1672,
+          1445
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "93f11b8d7cf841448170487ffff96e73"
+      ],
+      "attributes": {
+        "line_id": "8\"-GE",
+        "label": "8\"-GE (HDC-51-371 overflow to GWA inlet)",
+        "nominal_diameter": "8\"",
+        "service_code": "GE"
+      }
+    },
+    {
+      "id": "e-c9d29b13",
+      "from_node": "n-a7f5c0df",
+      "to_node": "n-7ccccbee",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1472,
+          1445
+        ],
+        [
+          1472,
+          1806
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "6d837b72839142b687a4d153b46e6ff8"
+      ],
+      "attributes": {
+        "line_id": "10\"-GE",
+        "label": "10\"-GE (HDC-51-371 underflow to GWA)",
+        "nominal_diameter": "10\"",
+        "service_code": "GE"
+      }
+    },
+    {
+      "id": "e-736ddd10",
+      "from_node": "n-7ccccbee",
+      "to_node": "n-7ccccbee",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1378,
+          1654
+        ],
+        [
+          1378,
+          1806
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "933891fa4f4640aba698b0e0d8d4ddcb"
+      ],
+      "attributes": {
+        "line_id": "10\"-GE",
+        "label": "10\"-GE (HDC-51-372 underflow to GWA)",
+        "nominal_diameter": "10\"",
+        "service_code": "GE"
+      }
+    },
+    {
+      "id": "e-af05e50e",
+      "from_node": "n-76b5ce3c",
+      "to_node": "n-caa6524f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1720,
+          1369
+        ],
+        [
+          3325,
+          1369
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "0d11f765dd814b53b419c115d9a33ba0"
+      ],
+      "attributes": {
+        "line_id": "6\"-FA",
+        "label": "6\"-FA (GCL-51-376 to Conveyor No 1)",
+        "nominal_diameter": "6\"",
+        "service_code": "FA",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-fc30d23e",
+      "from_node": "n-630ea1ed",
+      "to_node": "n-2ce77860",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1368,
+          2243
+        ],
+        [
+          3325,
+          2243
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "0f54317f75bd4e80a4dcb37566135e1e"
+      ],
+      "attributes": {
+        "line_id": "10\"-GE",
+        "label": "10\"-GE (GWA discharge to Fine Screen Effluent)",
+        "nominal_diameter": "10\"",
+        "service_code": "GE",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-b08f0735",
+      "from_node": "n-ef16109d",
+      "to_node": "n-08628637",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2118,
+          2053
+        ],
+        [
+          3325,
+          2053
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "0d7f1995cb7241538806ca7f70381111"
+      ],
+      "attributes": {
+        "label": "Grit Chute (GCL via GAT-51-381 to Dumpster 1)"
+      }
+    },
+    {
+      "id": "e-55476b05",
+      "from_node": "n-ea3952ca",
+      "to_node": "n-905b2006",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1957,
+          2148
+        ],
+        [
+          3325,
+          2148
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "121f33bce61045b79c99158685cece82"
+      ],
+      "attributes": {
+        "label": "Grit Chute (GCL via GAT-51-382 to Dumpster 2)",
+        "snap_note": "inferred_loose_from"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "PSW inlet",
+      "normalised": "PSWINLET",
+      "node_id": "n-905d8e64",
+      "page_index": 0
+    },
+    {
+      "opc_label": "GRT inlet (Grit Pumps 3)",
+      "normalised": "GRTINLETGRITPUMPS3",
+      "node_id": "n-2446ce6c",
+      "page_index": 0
+    },
+    {
+      "opc_label": "GRT inlet (Grit Pumps 4)",
+      "normalised": "GRTINLETGRITPUMPS4",
+      "node_id": "n-7b850431",
+      "page_index": 0
+    },
+    {
+      "opc_label": "FA outlet (Conveyor No 1)",
+      "normalised": "FAOUTLETCONVEYORNO1",
+      "node_id": "n-caa6524f",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Grit Chute outlet (Dumpster 1)",
+      "normalised": "GRITCHUTEOUTLETDUMPSTER1",
+      "node_id": "n-75cc5bd4",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Grit Chute outlet (Dumpster 2)",
+      "normalised": "GRITCHUTEOUTLETDUMPSTER2",
+      "node_id": "n-08628637",
+      "page_index": 0
+    },
+    {
+      "opc_label": "GE outlet (Fine Screen Effluent)",
+      "normalised": "GEOUTLETFINESCREENEFFLUENT",
+      "node_id": "n-905b2006",
+      "page_index": 0
+    },
+    {
+      "opc_label": "PSW outlet (To Grit Washer No 2)",
+      "normalised": "PSWOUTLETTOGRITWASHERNO2",
+      "node_id": "n-2ce77860",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          276,
+          2154
+        ],
+        [
+          1178,
+          2154
+        ]
+      ],
+      "snap_radius_px": 105,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "0d1f737f1cac4f168d405531db6e139b"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1178,
+          2154
+        ],
+        [
+          1672,
+          2154
+        ]
+      ],
+      "snap_radius_px": 105,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "1e5258790efa4e80af09282ff2d2dcac"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1672,
+          2154
+        ],
+        [
+          2166,
+          2154
+        ]
+      ],
+      "snap_radius_px": 105,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "c0d6a14941e54099a30dd48a0395c91e"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2166,
+          2154
+        ],
+        [
+          2280,
+          2154
+        ]
+      ],
+      "snap_radius_px": 105,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "54bbb2fe63b441b4b0f6af0d552ef3df"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          456,
+          2234
+        ],
+        [
+          456,
+          2319
+        ],
+        [
+          3325,
+          2319
+        ]
+      ],
+      "snap_radius_px": 105,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "ca481e1f0a514c91871449fce23fb1ce"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    }
+  ],
+  "per_page_status": {
+    "0": "ok"
+  }
+}

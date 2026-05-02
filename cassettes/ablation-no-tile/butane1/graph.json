@@ -1,0 +1,2527 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "butane1.pdf",
+  "nodes": [
+    {
+      "id": "n-4e565dfe",
+      "kind": "equipment",
+      "label": "E-234-009",
+      "bbox_global": {
+        "x": 376,
+        "y": 414,
+        "w": 348,
+        "h": 170
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "air_cooler",
+        "service": "Butane Regeneration Air Cooler"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2f5dbf88579f43ea853a901e842a2926"
+      ]
+    },
+    {
+      "id": "n-ce548cc7",
+      "kind": "equipment",
+      "label": "E-234-010A",
+      "bbox_global": {
+        "x": 800,
+        "y": 770,
+        "w": 285,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube",
+        "service": "Butane Regeneration Water Cooler"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "66b026771eef4d44b9a6329d2ad112f3"
+      ]
+    },
+    {
+      "id": "n-a8a46303",
+      "kind": "equipment",
+      "label": "E-234-010B",
+      "bbox_global": {
+        "x": 800,
+        "y": 870,
+        "w": 285,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube",
+        "service": "Butane Regeneration Water Cooler"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "860a9bdc16704789b16f892250d6f27d"
+      ]
+    },
+    {
+      "id": "n-b20b7b96",
+      "kind": "equipment",
+      "label": "Fan A (E-234-009)",
+      "bbox_global": {
+        "x": 440,
+        "y": 600,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "fan_blower",
+        "fan_blower_type": "axial_fan",
+        "service": "Air cooler fan A",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "57a6fd69179c4eccbae4081785a22f61"
+      ]
+    },
+    {
+      "id": "n-fdc4922f",
+      "kind": "equipment",
+      "label": "Fan B (E-234-009)",
+      "bbox_global": {
+        "x": 580,
+        "y": 600,
+        "w": 60,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "fan_blower",
+        "fan_blower_type": "axial_fan",
+        "service": "Air cooler fan B",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b7638f2be8384593be29fd2e16400c6c"
+      ]
+    },
+    {
+      "id": "n-773d9991",
+      "kind": "opc",
+      "label": "Spent Butane (Cooling/Filling) inlet",
+      "bbox_global": {
+        "x": 30,
+        "y": 485,
+        "w": 195,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "V-234-006A-0",
+        "line_id": "P-234-02916-F30-6\"-N"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c6dca2e8a663498ea30c8cdeee3382ab"
+      ]
+    },
+    {
+      "id": "n-9349a0b4",
+      "kind": "opc",
+      "label": "Spent Butane outlet",
+      "bbox_global": {
+        "x": 1430,
+        "y": 367,
+        "w": 165,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "V-234-004",
+        "line_id": "P-234-03303-CC30-2\"-N"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d6dc20a157f84a95b873a30a8703ea8d"
+      ]
+    },
+    {
+      "id": "n-4b56cde6",
+      "kind": "opc",
+      "label": "Min Flow inlet",
+      "bbox_global": {
+        "x": 1430,
+        "y": 432,
+        "w": 165,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "P-234-005A/B",
+        "line_id": "P-234-03505-CC30-3\"-N"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6f77048f57dd409da61e9f8b6b2f52f7"
+      ]
+    },
+    {
+      "id": "n-2011fb98",
+      "kind": "opc",
+      "label": "Sea Water Return outlet",
+      "bbox_global": {
+        "x": 1430,
+        "y": 740,
+        "w": 165,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "line_id": "SWR-234-03301-1132010-10\"-N"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8eb55477ea154ce8abd75a23877c1043"
+      ]
+    },
+    {
+      "id": "n-cfdbde07",
+      "kind": "opc",
+      "label": "Sea Water Supply inlet",
+      "bbox_global": {
+        "x": 1430,
+        "y": 1075,
+        "w": 165,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "line_id": "SWS-234-03301-1132010-12\"-N"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "22e5ae8dd25c42a79f99da9a1747fcaf"
+      ]
+    },
+    {
+      "id": "n-bf6b71c4",
+      "kind": "opc",
+      "label": "Spent Butane (Cooling/Filling) outlet",
+      "bbox_global": {
+        "x": 1430,
+        "y": 1218,
+        "w": 195,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "E-234-006A/B",
+        "line_id": "P-234-03301-CB30-6\"-N"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "68cb3715890e47fdb1e213cfa04fdc62"
+      ]
+    },
+    {
+      "id": "n-5c6c76eb",
+      "kind": "instrument",
+      "label": "KV-2904",
+      "bbox_global": {
+        "x": 1074,
+        "y": 1240,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "hand",
+        "loop_number": "2904",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "76d626518e9e4a9da474e15a70454cc4",
+        "abfe3b52baba4cd4bea88eaf935bd7bd"
+      ]
+    },
+    {
+      "id": "n-e6cfcff4",
+      "kind": "instrument",
+      "label": "TT-2909",
+      "bbox_global": {
+        "x": 1143,
+        "y": 1242,
+        "w": 24,
+        "h": 24
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2909",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b0f48e0fc1ae4c9fbd002b887e3a7aaa",
+        "bc338e1431e3417f9ceae9aecf5bc67b"
+      ]
+    },
+    {
+      "id": "n-ff70bc18",
+      "kind": "instrument",
+      "label": "TC-2910",
+      "bbox_global": {
+        "x": 1169,
+        "y": 1242,
+        "w": 24,
+        "h": 24
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "temperature",
+        "loop_number": "2910",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2c0a1cc8c0a94934ab4be46f36b025e8",
+        "53112143ecb94fac940a2860bc37e8c8"
+      ]
+    },
+    {
+      "id": "n-85d802d9",
+      "kind": "instrument",
+      "label": "TT-2908",
+      "bbox_global": {
+        "x": 1120,
+        "y": 1182,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2908",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8d1ec01a6a1e4d55be97816a289f4e9f",
+        "76404248c76748aeadff51c1c38f0f7d"
+      ]
+    },
+    {
+      "id": "n-6ac2e818",
+      "kind": "instrument",
+      "label": "TY-2911",
+      "bbox_global": {
+        "x": 1306,
+        "y": 1140,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "temperature",
+        "loop_number": "2911",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d332c63516a64820a0b496a151add254",
+        "ce108bdf46074562a59b0cd224fe253d"
+      ]
+    },
+    {
+      "id": "n-1f1606db",
+      "kind": "instrument",
+      "label": "TIC-2911",
+      "bbox_global": {
+        "x": 1518,
+        "y": 1182,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "temperature",
+        "loop_number": "2911",
+        "instrument_class": "control_loop",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bf091f5360fb4b64bc0c6b1e0987242d",
+        "2c3188da6c88496c9e34db733e8a4fa3"
+      ]
+    },
+    {
+      "id": "n-88aaf9da",
+      "kind": "instrument",
+      "label": "TY-2917",
+      "bbox_global": {
+        "x": 1560,
+        "y": 1182,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "temperature",
+        "loop_number": "2917",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ed2131ff11a84a0cb8aafbec7849dfa5",
+        "283c59829e594f70acd376483333bc9a"
+      ]
+    },
+    {
+      "id": "n-f13a605d",
+      "kind": "instrument",
+      "label": "PSV-234-001 TRIP",
+      "bbox_global": {
+        "x": 1600,
+        "y": 1182,
+        "w": 50,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "pressure",
+        "loop_number": "001",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bb4bd5ed52e1462783c755424e0ef399"
+      ]
+    },
+    {
+      "id": "n-28e4142c",
+      "kind": "instrument",
+      "label": "TT-2911",
+      "bbox_global": {
+        "x": 1516,
+        "y": 1238,
+        "w": 24,
+        "h": 24
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2911",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [
+        "PSV-2907"
+      ],
+      "source_annotation_ids": [
+        "ad341a6c091b4421a2c0a2432ba86b7a",
+        "6461f598df7a40cda5601072782a9b09",
+        "ff56e342b7684087a742c67d61503e9c"
+      ]
+    },
+    {
+      "id": "n-67c0b3d4",
+      "kind": "instrument",
+      "label": "TC-2912",
+      "bbox_global": {
+        "x": 1540,
+        "y": 1238,
+        "w": 24,
+        "h": 24
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "temperature",
+        "loop_number": "2912",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5b75eecd8d3f412aae07dc62cbeb04ce",
+        "6da6dac68f3e46fcadf31d31ff4026cf"
+      ]
+    },
+    {
+      "id": "n-fe11e0e4",
+      "kind": "instrument",
+      "label": "TT-2917",
+      "bbox_global": {
+        "x": 1568,
+        "y": 1238,
+        "w": 24,
+        "h": 24
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2917",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "25f0abb48dcb46e6a8ccb0762d0a3a2c",
+        "a8cc2dbf0fd5468a85c9f908ccbc432d"
+      ]
+    },
+    {
+      "id": "n-14bff653",
+      "kind": "instrument",
+      "label": "HC-2903A",
+      "bbox_global": {
+        "x": 650,
+        "y": 1217,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "hand",
+        "loop_number": "2903",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fa7aa1deb6994d33a8c2b815730335d7",
+        "43fa6b23008641479a8d6e7b548cf04a"
+      ]
+    },
+    {
+      "id": "n-df70da9e",
+      "kind": "instrument",
+      "label": "HC-2903B",
+      "bbox_global": {
+        "x": 940,
+        "y": 1217,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "hand",
+        "loop_number": "2903",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "81f973f41b23407787731d1dca4f7e1f",
+        "455a8a819eb34ca0b5b362021c15c1c3"
+      ]
+    },
+    {
+      "id": "n-38a484e3",
+      "kind": "instrument",
+      "label": "HV-2903A",
+      "bbox_global": {
+        "x": 710,
+        "y": 1220,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "hand",
+        "loop_number": "2903",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "636a2a29f23d41408123e3425f1e9927",
+        "0d3cd9a28ec74981b0b2d3d9bf580bbe"
+      ]
+    },
+    {
+      "id": "n-969618b4",
+      "kind": "instrument",
+      "label": "HV-2903B",
+      "bbox_global": {
+        "x": 850,
+        "y": 1220,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "hand",
+        "loop_number": "2903",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4fa52e9bc9f341498d3a8d72b91a077d",
+        "765ef7dc43954a798928f7620dfb197d"
+      ]
+    },
+    {
+      "id": "n-ae4bad4b",
+      "kind": "instrument",
+      "label": "VSHH-2901A5",
+      "bbox_global": {
+        "x": 690,
+        "y": 1253,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "VSHH-2901A5",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3a0ef17f219f436b81a9f0259b210d17",
+        "3fffadc4e6584d7cba50ab4bf556cd98"
+      ]
+    },
+    {
+      "id": "n-ef0e0633",
+      "kind": "instrument",
+      "label": "VSHH-2901B5",
+      "bbox_global": {
+        "x": 870,
+        "y": 1253,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "VSHH-2901B5",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "06d0ac94bc864847a28b793bfec46b8b",
+        "3dcc3a77dc3a4af9bec5e81ce061dad8"
+      ]
+    },
+    {
+      "id": "n-e5022211",
+      "kind": "instrument",
+      "label": "HS-2901A4 NOTE 9",
+      "bbox_global": {
+        "x": 650,
+        "y": 1253,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901A4",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c206ff910f4d4d1095e485ef477aea62",
+        "08ec31aec6e74420a64dce1058c73f33"
+      ]
+    },
+    {
+      "id": "n-b2a0aede",
+      "kind": "instrument",
+      "label": "HS-2901B4 NOTE 9",
+      "bbox_global": {
+        "x": 940,
+        "y": 1253,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901B4",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b2eb0bea91404f51b047fdf1010dfdbb",
+        "8edd754d52d74207b118481b8f44160d"
+      ]
+    },
+    {
+      "id": "n-dc4b98f2",
+      "kind": "instrument",
+      "label": "VA-2901A4 HH",
+      "bbox_global": {
+        "x": 610,
+        "y": 1315,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "VA-2901A4",
+        "state": "HH",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8d38f8545544402985d50a41091aefc9",
+        "ee5968c45ca3476dad80c3591adcf48a"
+      ]
+    },
+    {
+      "id": "n-404bc061",
+      "kind": "instrument",
+      "label": "VA-2901B4 HH",
+      "bbox_global": {
+        "x": 970,
+        "y": 1315,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "VA-2901B4",
+        "state": "HH",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "af3827091943460092f50e523c6495c3",
+        "072ae91196c8464296863bdb74abc425"
+      ]
+    },
+    {
+      "id": "n-91e265d5",
+      "kind": "instrument",
+      "label": "HS-2901A1 LOCAL/REMOTE",
+      "bbox_global": {
+        "x": 702,
+        "y": 1315,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901A1",
+        "state": "LOCAL/REMOTE",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "178e1a6e0ddc4fd68198559ff5f92f08",
+        "8e8266b5dcc94e69b303e3900699d821"
+      ]
+    },
+    {
+      "id": "n-ec764a66",
+      "kind": "instrument",
+      "label": "HS-2901B1 LOCAL/REMOTE",
+      "bbox_global": {
+        "x": 822,
+        "y": 1315,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901B1",
+        "state": "LOCAL/REMOTE",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6185c4cb7f77473e9d4aa888cc8ce700",
+        "218228700a7544898d0dcba259884b79"
+      ]
+    },
+    {
+      "id": "n-4931c84f",
+      "kind": "instrument",
+      "label": "HS-2901A4 STOP/START",
+      "bbox_global": {
+        "x": 702,
+        "y": 1372,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901A4",
+        "state": "STOP/START",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8137aed0e5fd470a9e5c79590a3097a9",
+        "e91ce801a2354abba801f76d7ba91ee2"
+      ]
+    },
+    {
+      "id": "n-3b65d56e",
+      "kind": "instrument",
+      "label": "HS-2901B4 STOP/START",
+      "bbox_global": {
+        "x": 882,
+        "y": 1372,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901B4",
+        "state": "STOP/START",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e3f7fe95043f4dfb9e054ae4f1cf2b6c",
+        "b437ddb3b2064a1bbf144878a8eccc60"
+      ]
+    },
+    {
+      "id": "n-c3993054",
+      "kind": "instrument",
+      "label": "XL-2901A4 AVAILABLE",
+      "bbox_global": {
+        "x": 750,
+        "y": 1372,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "XL-2901A4",
+        "state": "AVAILABLE",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c86c31997d8e44fba2061f06ac4d2e22",
+        "2a6ac97da2d848279632adbd9235e750"
+      ]
+    },
+    {
+      "id": "n-0feb2c60",
+      "kind": "instrument",
+      "label": "XL-2901B4 AVAILABLE",
+      "bbox_global": {
+        "x": 828,
+        "y": 1372,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "XL-2901B4",
+        "state": "AVAILABLE",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a11b0b97b4504d18aad8c92ce9125449",
+        "b71229d77f7b4ab19a10c48f7369da3b"
+      ]
+    },
+    {
+      "id": "n-984b4e67",
+      "kind": "instrument",
+      "label": "XL-2901A6 RUNNING/STOP",
+      "bbox_global": {
+        "x": 702,
+        "y": 1428,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "XL-2901A6",
+        "state": "RUNNING/STOP",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6b4c8a2068ca4d4c84d21bec13dcc541",
+        "667d52504dcd4e62bbb8eccde695c48e"
+      ]
+    },
+    {
+      "id": "n-b41d4f8a",
+      "kind": "instrument",
+      "label": "XA-2901A FAULT",
+      "bbox_global": {
+        "x": 750,
+        "y": 1428,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "XA-2901A",
+        "state": "FAULT",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b3f164f9f58f4a31a255225fc4b3070d",
+        "eabd0c00542a4f40b88027d58ff0f511"
+      ]
+    },
+    {
+      "id": "n-135ecd90",
+      "kind": "instrument",
+      "label": "XA-2901B FAULT",
+      "bbox_global": {
+        "x": 798,
+        "y": 1428,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "XA-2901B",
+        "state": "FAULT",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d87090ed109d48be95618df388acc4e9",
+        "e3dcb634fd4a4dcca2acd34fedc73209"
+      ]
+    },
+    {
+      "id": "n-b6281dad",
+      "kind": "instrument",
+      "label": "XL-2901B6 RUNNING/STOP",
+      "bbox_global": {
+        "x": 846,
+        "y": 1428,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2901",
+        "base_tag": "XL-2901B6",
+        "state": "RUNNING/STOP",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4f77eceafee7438d83ec9b3a9f0bed2d",
+        "c4c0116538e2473b967be9836a05a2e0"
+      ]
+    },
+    {
+      "id": "n-863f9d9c",
+      "kind": "instrument",
+      "label": "HS-2901A2 START/STOP",
+      "bbox_global": {
+        "x": 578,
+        "y": 1435,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901A2",
+        "state": "START/STOP",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8575368a76d8407a94046afe1131dcc8",
+        "a1397d16eff34b179663c49de99e301e"
+      ]
+    },
+    {
+      "id": "n-2a61fe19",
+      "kind": "instrument",
+      "label": "HS-2901B2 START/STOP",
+      "bbox_global": {
+        "x": 926,
+        "y": 1435,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901B2",
+        "state": "START/STOP",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "65369859145649dba6dcb48dce3399e8",
+        "40dad8ea1f794991bfacb26341b11275"
+      ]
+    },
+    {
+      "id": "n-ca82fa55",
+      "kind": "instrument",
+      "label": "HS-2901A3 EMERGENCY STOP",
+      "bbox_global": {
+        "x": 578,
+        "y": 1478,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901A3",
+        "state": "EMERGENCY STOP",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "025b8b653f254d8bb25ec2cba297b0f9",
+        "4d9014dbb64e48ec8fab32a7efcc97e6"
+      ]
+    },
+    {
+      "id": "n-da2d8bef",
+      "kind": "instrument",
+      "label": "HS-2901B3 EMERGENCY STOP",
+      "bbox_global": {
+        "x": 926,
+        "y": 1478,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901",
+        "base_tag": "HS-2901B3",
+        "state": "EMERGENCY STOP",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b6fe1ce2ce5c474692173bdb74c6b43d",
+        "c02af145c2e24734864b073832ccd826"
+      ]
+    },
+    {
+      "id": "n-afbfa41a",
+      "kind": "instrument",
+      "label": "VR-2911",
+      "bbox_global": {
+        "x": 1370,
+        "y": 1235,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2911",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a64b4b2272b9407ebb2c8a58cb91a0bf",
+        "795fb01396f84460bef487e82a178a0c"
+      ]
+    },
+    {
+      "id": "n-f02f5e33",
+      "kind": "instrument",
+      "label": "PG-2915",
+      "bbox_global": {
+        "x": 1450,
+        "y": 1264,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "2915",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "43372d5defde48039ef02436ae0864e1",
+        "b535d99d0e9349748a8a4b3970dac882"
+      ]
+    },
+    {
+      "id": "n-bc7e9a62",
+      "kind": "instrument",
+      "label": "PT-2916",
+      "bbox_global": {
+        "x": 1450,
+        "y": 1298,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "2916",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2b58480b95514bfbb7ac213ce798916e",
+        "14d3a4065c41401da281656dbe362182"
+      ]
+    },
+    {
+      "id": "n-f3e0c95c",
+      "kind": "instrument",
+      "label": "TG-2917",
+      "bbox_global": {
+        "x": 1525,
+        "y": 1298,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2917",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6339c54dfda1480786226671300bfb4b",
+        "c18687bc516a49b1b6d8c00ded9258f4"
+      ]
+    },
+    {
+      "id": "n-b0978186",
+      "kind": "instrument",
+      "label": "TI-2918",
+      "bbox_global": {
+        "x": 926,
+        "y": 1795,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2918",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1f6a7bc905a2499988fe4fe26d2fa32c",
+        "117bdab861044db380bb1e9818f8fa39"
+      ]
+    },
+    {
+      "id": "n-561acdbf",
+      "kind": "instrument",
+      "label": "TT-2913",
+      "bbox_global": {
+        "x": 970,
+        "y": 1795,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2913",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4167daf32d7243a1bb2ddb8d0a2265f5",
+        "412a64b788c441c6ac9e5d9a349db00d"
+      ]
+    },
+    {
+      "id": "n-1d305de2",
+      "kind": "instrument",
+      "label": "PG-2914",
+      "bbox_global": {
+        "x": 1202,
+        "y": 1630,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "2914",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e72d20619bfc468aa8fa091a0d5c2954",
+        "5792ca14315043e184a387ff73fb89b4"
+      ]
+    },
+    {
+      "id": "n-bb2ca5fa",
+      "kind": "instrument",
+      "label": "TW-2921",
+      "bbox_global": {
+        "x": 1307,
+        "y": 1478,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "2921",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "52121843f2ac47b686878114062811ce",
+        "880626a42a0c4a23b7e824e7c12e1448"
+      ]
+    },
+    {
+      "id": "n-8c4e842c",
+      "kind": "instrument",
+      "label": "TW-2922",
+      "bbox_global": {
+        "x": 1332,
+        "y": 1526,
+        "w": 30,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "2922",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e0ac486026bb4468af082a5f7562b2c6",
+        "ed175a529f5f486ebd21ab92bb638ea1"
+      ]
+    },
+    {
+      "id": "n-2a2c4fd1",
+      "kind": "equipment",
+      "label": "V-1",
+      "bbox_global": {
+        "x": 1138,
+        "y": 1833,
+        "w": 25,
+        "h": 25
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "gate",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6dcdf5d9d67d4594a2372da1e3e28409"
+      ]
+    },
+    {
+      "id": "n-5f134a61",
+      "kind": "equipment",
+      "label": "V-2",
+      "bbox_global": {
+        "x": 1138,
+        "y": 1934,
+        "w": 25,
+        "h": 25
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "gate",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "de737aa718644d50aa78db609f79cc1b"
+      ]
+    },
+    {
+      "id": "n-679ff1dc",
+      "kind": "equipment",
+      "label": "MCD closed drain header",
+      "bbox_global": {
+        "x": 1125,
+        "y": 2268,
+        "w": 60,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "unclassified_equipment",
+        "structural_description": "hexagon symbol labeled MCD - closed drain header connection",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "473e4367739346369ea0c16ec3fbe46b"
+      ]
+    },
+    {
+      "id": "n-30e0fc65",
+      "kind": "equipment",
+      "label": "Condensate pot A",
+      "bbox_global": {
+        "x": 932,
+        "y": 1275,
+        "w": 18,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "vessel",
+        "structural_description": "small vertical bullet-shaped vessel below fan A, likely condensate pot or sample pot",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e5c3c839f22d4d1a95f8e290df67f835"
+      ]
+    },
+    {
+      "id": "n-56a33640",
+      "kind": "equipment",
+      "label": "Condensate pot B",
+      "bbox_global": {
+        "x": 1008,
+        "y": 1275,
+        "w": 18,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "vessel",
+        "structural_description": "small vertical bullet-shaped vessel below fan B, likely condensate pot or sample pot",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0e500e4eeddd408eb7c480935f09a5a1"
+      ]
+    },
+    {
+      "id": "n-48cc444f",
+      "kind": "equipment",
+      "label": "PCV-2913",
+      "bbox_global": {
+        "x": 1612,
+        "y": 1274,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c44632c3e7284ac7a382fc648e9f28d0"
+      ]
+    },
+    {
+      "id": "n-54c4ed36",
+      "kind": "text",
+      "label": "FREE DRAINING",
+      "bbox_global": {
+        "x": 1140,
+        "y": 1168,
+        "w": 70,
+        "h": 12
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a78c7e5bf4a84cfb9dcac85921068b23"
+      ]
+    },
+    {
+      "id": "n-c39675b7",
+      "kind": "text",
+      "label": "NC POCKET",
+      "bbox_global": {
+        "x": 843,
+        "y": 1127,
+        "w": 60,
+        "h": 12
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "dea3dc1036f640baa13be4197367167c"
+      ]
+    },
+    {
+      "id": "n-de51959f",
+      "kind": "text",
+      "label": "HIGH POINT VENT",
+      "bbox_global": {
+        "x": 1558,
+        "y": 1268,
+        "w": 50,
+        "h": 25
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f7726f94dd1e464bb6a92ab81f599169"
+      ]
+    },
+    {
+      "id": "n-135bb506",
+      "kind": "text",
+      "label": "THERM EXP SET @ 440 psig SIZE 10x\"",
+      "bbox_global": {
+        "x": 1682,
+        "y": 1220,
+        "w": 70,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "53d486733bb84ac4ae20fa41d748d1cf"
+      ]
+    },
+    {
+      "id": "n-ff75a5cb",
+      "kind": "text",
+      "label": "TO GRADE AT SAFE LOCATION",
+      "bbox_global": {
+        "x": 1768,
+        "y": 1252,
+        "w": 70,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "12f9c3dfe5284d1dafb03198345090ed"
+      ]
+    },
+    {
+      "id": "n-d7556c62",
+      "kind": "instrument",
+      "label": "PSV-234-001",
+      "bbox_global": {
+        "x": 800,
+        "y": 422,
+        "w": 50,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "pressure",
+        "loop_number": "001",
+        "state": "TRIP",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a79f59f031714b7e910eac9d1b985f9e"
+      ]
+    },
+    {
+      "id": "n-27b9da45",
+      "kind": "instrument",
+      "label": "PSV-2907",
+      "bbox_global": {
+        "x": 1240,
+        "y": 615,
+        "w": 32,
+        "h": 32
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "pressure",
+        "loop_number": "2907",
+        "arbitration": "aborted_high_reject_rate"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "29d2a239d7a44390a2a6c93560b7111d"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-4a632013",
+      "from_node": "n-da2d8bef",
+      "to_node": "n-2a2c4fd1",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1030,
+          1487
+        ],
+        [
+          1030,
+          1590
+        ],
+        [
+          1115,
+          1590
+        ],
+        [
+          1115,
+          1650
+        ],
+        [
+          1115,
+          1590
+        ],
+        [
+          1115,
+          1430
+        ],
+        [
+          1730,
+          1430
+        ],
+        [
+          1115,
+          1590
+        ],
+        [
+          1115,
+          1872
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "22725378243d48a1a37c6f2fa35c724c",
+        "1bfc311714c5478ca85eed6cb35bbba9",
+        "415efc74d6de4feea0e501fb57dfdb22"
+      ],
+      "attributes": {
+        "line_id": "P-234-03303-CC30-2\"-N",
+        "alternate_line_ids": [
+          "P-234-03303-CC30-4\"-N"
+        ],
+        "label": "E-234-009 outlet to header",
+        "nominal_diameter": "2\"",
+        "service_code": "P",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-4c99a061",
+      "from_node": "n-8c4e842c",
+      "to_node": "n-bb2ca5fa",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1300,
+          1570
+        ],
+        [
+          1300,
+          1452
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "low",
+      "source_annotation_ids": [
+        "23b1a6342b8943f5949410c9865ffea7"
+      ],
+      "attributes": {
+        "label": "SW supply to V-1 / V-2"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "Spent Butane (Cooling/Filling) inlet",
+      "normalised": "SPENTBUTANECOOLINGFILLINGINLET",
+      "node_id": "n-773d9991",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Spent Butane outlet",
+      "normalised": "SPENTBUTANEOUTLET",
+      "node_id": "n-9349a0b4",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Min Flow inlet",
+      "normalised": "MINFLOWINLET",
+      "node_id": "n-4b56cde6",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Sea Water Return outlet",
+      "normalised": "SEAWATERRETURNOUTLET",
+      "node_id": "n-2011fb98",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Sea Water Supply inlet",
+      "normalised": "SEAWATERSUPPLYINLET",
+      "node_id": "n-cfdbde07",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Spent Butane (Cooling/Filling) outlet",
+      "normalised": "SPENTBUTANECOOLINGFILLINGOUTLET",
+      "node_id": "n-bf6b71c4",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 525,
+      "y": 1547,
+      "annotation_id": "da79eadbfd8f43d3a2ea8e17bf8d89f4",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 680,
+      "y": 1547,
+      "annotation_id": "cd623ad43c39497b8ede5b7b75b1f4b8",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 680,
+      "y": 1487,
+      "annotation_id": "cd623ad43c39497b8ede5b7b75b1f4b8",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 680,
+      "y": 1590,
+      "annotation_id": "cd623ad43c39497b8ede5b7b75b1f4b8",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1030,
+      "y": 1487,
+      "annotation_id": "22725378243d48a1a37c6f2fa35c724c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1030,
+      "y": 1590,
+      "annotation_id": "22725378243d48a1a37c6f2fa35c724c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1115,
+      "y": 1650,
+      "annotation_id": "22725378243d48a1a37c6f2fa35c724c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1115,
+      "y": 1430,
+      "annotation_id": "1bfc311714c5478ca85eed6cb35bbba9",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1730,
+      "y": 1430,
+      "annotation_id": "1bfc311714c5478ca85eed6cb35bbba9",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1115,
+      "y": 1872,
+      "annotation_id": "415efc74d6de4feea0e501fb57dfdb22",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1730,
+      "y": 1496,
+      "annotation_id": "40759b96e53b4701a9eabf763a2f10cd",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1175,
+      "y": 1496,
+      "annotation_id": "40759b96e53b4701a9eabf763a2f10cd",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1175,
+      "y": 1550,
+      "annotation_id": "40759b96e53b4701a9eabf763a2f10cd",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1730,
+      "y": 2140,
+      "annotation_id": "01208924c2074ab8b4178a1ea53ba17a",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1115,
+      "y": 2140,
+      "annotation_id": "01208924c2074ab8b4178a1ea53ba17a",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1115,
+      "y": 2275,
+      "annotation_id": "a4a1b4396f724b4999bea1639c22c5c7",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1730,
+      "y": 2275,
+      "annotation_id": "a4a1b4396f724b4999bea1639c22c5c7",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1000,
+      "y": 2007,
+      "annotation_id": "1017155175364b69806b100d39199ad9",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1385,
+      "y": 1872,
+      "annotation_id": "bb929d1205b6444e9998421435084559",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1385,
+      "y": 1800,
+      "annotation_id": "bb929d1205b6444e9998421435084559",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1730,
+      "y": 1800,
+      "annotation_id": "bb929d1205b6444e9998421435084559",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1555,
+      "y": 1665,
+      "annotation_id": "3bcf58d45c284e9a971d2cd21d87ce84",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1630,
+      "y": 1695,
+      "annotation_id": "3bcf58d45c284e9a971d2cd21d87ce84",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1000,
+      "y": 2065,
+      "annotation_id": "90573ad3050a4ca6b2f5963fcc201b87",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1115,
+      "y": 2065,
+      "annotation_id": "90573ad3050a4ca6b2f5963fcc201b87",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1115,
+      "y": 2195,
+      "annotation_id": "b27962c433ec4df18310136b8ab67798",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1115,
+      "y": 2240,
+      "annotation_id": "b27962c433ec4df18310136b8ab67798",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1155,
+      "y": 2280,
+      "annotation_id": "a56f85aafa7f4a3e9e9f7743ff0d025f",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 969,
+      "y": 1023,
+      "annotation_id": "fa4048aebec64978931fec426e86ff12",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1180,
+      "y": 1023,
+      "annotation_id": "fa4048aebec64978931fec426e86ff12",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1180,
+      "y": 1052,
+      "annotation_id": "fa4048aebec64978931fec426e86ff12",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1178,
+      "y": 1112,
+      "annotation_id": "d3a11414b3a4416ba3e4eb3b794697a9",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1178,
+      "y": 1090,
+      "annotation_id": "d3a11414b3a4416ba3e4eb3b794697a9",
+      "line_type": "signal_electric",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1705,
+      "y": 1275,
+      "annotation_id": "89d78b85e60c41adb39797647dd9482b",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1705,
+      "y": 1310,
+      "annotation_id": "89d78b85e60c41adb39797647dd9482b",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1300,
+      "y": 1570,
+      "annotation_id": "23b1a6342b8943f5949410c9865ffea7",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1300,
+      "y": 1452,
+      "annotation_id": "23b1a6342b8943f5949410c9865ffea7",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          525,
+          1547
+        ],
+        [
+          573,
+          1547
+        ],
+        [
+          585,
+          1547
+        ],
+        [
+          680,
+          1547
+        ],
+        [
+          680,
+          1487
+        ],
+        [
+          680,
+          1590
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "da79eadbfd8f43d3a2ea8e17bf8d89f4",
+        "cd623ad43c39497b8ede5b7b75b1f4b8"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "line_orientation_break",
+      "page_index": 0,
+      "annotation_ids": [
+        "1bfc311714c5478ca85eed6cb35bbba9",
+        "415efc74d6de4feea0e501fb57dfdb22"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "line_orientation_break"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1730,
+          1496
+        ],
+        [
+          1175,
+          1496
+        ],
+        [
+          1175,
+          1550
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "40759b96e53b4701a9eabf763a2f10cd"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "line_orientation_break",
+      "page_index": 0,
+      "annotation_ids": [
+        "1017155175364b69806b100d39199ad9"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "line_orientation_break"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1730,
+          2140
+        ],
+        [
+          1115,
+          2140
+        ],
+        [
+          1115,
+          1990
+        ],
+        [
+          1115,
+          1985
+        ],
+        [
+          1115,
+          2275
+        ],
+        [
+          1730,
+          2275
+        ],
+        [
+          1000,
+          2007
+        ],
+        [
+          1115,
+          2007
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "01208924c2074ab8b4178a1ea53ba17a",
+        "a4a1b4396f724b4999bea1639c22c5c7",
+        "1017155175364b69806b100d39199ad9"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1385,
+          1872
+        ],
+        [
+          1385,
+          1800
+        ],
+        [
+          1730,
+          1800
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "bb929d1205b6444e9998421435084559"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1555,
+          1665
+        ],
+        [
+          1630,
+          1695
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "3bcf58d45c284e9a971d2cd21d87ce84"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1000,
+          2065
+        ],
+        [
+          1115,
+          2065
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "90573ad3050a4ca6b2f5963fcc201b87"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1115,
+          2195
+        ],
+        [
+          1115,
+          2240
+        ],
+        [
+          1155,
+          2240
+        ],
+        [
+          1155,
+          2240
+        ],
+        [
+          1155,
+          2280
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "b27962c433ec4df18310136b8ab67798",
+        "a56f85aafa7f4a3e9e9f7743ff0d025f"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "signal_electric",
+      "polyline": [
+        [
+          969,
+          1023
+        ],
+        [
+          1180,
+          1023
+        ],
+        [
+          1180,
+          1052
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "fa4048aebec64978931fec426e86ff12"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "signal_electric",
+      "polyline": [
+        [
+          1178,
+          1112
+        ],
+        [
+          1178,
+          1090
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "d3a11414b3a4416ba3e4eb3b794697a9"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1705,
+          1275
+        ],
+        [
+          1705,
+          1310
+        ]
+      ],
+      "snap_radius_px": 48,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "89d78b85e60c41adb39797647dd9482b"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    }
+  ],
+  "per_page_status": {
+    "0": "error"
+  }
+}

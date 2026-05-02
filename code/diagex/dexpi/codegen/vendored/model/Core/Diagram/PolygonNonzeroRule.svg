@@ -1,0 +1,79 @@
+<svg
+    xmlns = "http://www.w3.org/2000/svg"
+    width = "85mm"
+    height = "30.5mm"
+    viewBox = "-3.55 -3.55 17 6.1">
+ <style>
+        text {
+        font-family:  Helvetica, Arial;
+        }
+        
+        .gridline {
+        fill: none;
+        stroke: #bbb;
+        stroke-width: 0.03;
+        }
+        
+        .maingridline {
+        fill: none;
+        stroke: #bbb;
+        stroke-width: 0.06;
+        }
+        
+        .gridtext {
+        fill: #000;
+        font-size: 0.75px;
+        }
+        
+        .auxpoint {
+        fill: #88f;
+        stroke: none;
+        stroke-width: 0px;
+        r: 0.3px;
+        }
+        
+        .auxline {
+        fill: none;
+        stroke: #33f;
+        stroke-width: 0.1px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 0.3 0.4;
+        }
+        
+        .auxarrowstart {
+        marker-start: url(#auxarrowhead);
+        }
+        
+        .auxarrowend {
+        marker-end: url(#auxarrowhead);
+        }
+        
+        .auxarrowboth {
+        marker-start: url(#auxarrowhead);
+        marker-end: url(#auxarrowhead);
+        }
+        
+        .auxtext {
+        fill: #33f;;
+        font-size: 0.75px;
+        }
+        
+        .primline {
+        fill: none;
+        stroke: black;
+        stroke-width: 0.1px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        }
+
+    </style>
+    <g>
+<circle  cx="5" cy="0" class="auxpoint"/>
+<text x="6" y="0" class="auxtext">arbitrary point outside</text>
+<text x="6" y="0.85" class="auxtext">the bounding box</text>
+
+
+        <polygon class = "primline" points = "-2.5,2.5   0,-3.5   2.5,2.5   -3.5,-1   3.5, -1" style="fill: #ccc" />
+    </g>
+</svg>

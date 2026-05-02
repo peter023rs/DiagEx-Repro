@@ -1,0 +1,59 @@
+{
+  "title": "DiagEx — reproducibility package for zero-shot P&ID-to-DEXPI digitization with a vision-language agent",
+  "description": "<p>Reproducibility package for the manuscript <em>DiagEx: Zero-Shot P&amp;ID-to-DEXPI Digitization with a Vision-Language Agent</em> (Koziolek, Braun, Bordis — under review). Contains the <code>diagex</code> Python package, the evaluation harness, ground-truth corpora for 10 public P&amp;IDs, final results CSVs and figures for Phase 1 / Phase 2 / a no-tile ablation / a GPT-4.1 baseline, replay cassettes for offline re-derivation, and the manuscript PDF.</p><p>Per-run agent transcripts and intermediate DEXPI 2.0 JSON / SVG / tile crops are in a <strong>separate supplementary deposition</strong> on Zenodo, cross-linked via <code>related_identifiers</code> below — replace the placeholder DOI before publishing.</p>",
+  "creators": [
+    {
+      "name": "Koziolek, Heiko",
+      "affiliation": "ABB Corporate Research Center, Mannheim, Germany",
+      "orcid": "0000-0002-8805-6206"
+    },
+    {
+      "name": "Braun, Thilo",
+      "affiliation": "ABB Corporate Research Center, Mannheim, Germany",
+      "orcid": "0000-0002-3229-2648"
+    },
+    {
+      "name": "Bordis, Tabea",
+      "affiliation": "ABB Corporate Research Center, Mannheim, Germany",
+      "orcid": "0009-0003-2886-0862"
+    }
+  ],
+  "keywords": [
+    "process engineering",
+    "DEXPI",
+    "P&ID",
+    "large language models",
+    "vision-language agent",
+    "structured extraction",
+    "reproducibility",
+    "evaluation"
+  ],
+  "license": "Apache-2.0",
+  "upload_type": "software",
+  "access_right": "open",
+  "language": "eng",
+  "communities": [],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.19972466",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.0000/REPLACE_ME_PAPER_DOI",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-article",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://github.com/hkoziolek/DiagEx-Repro",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
+    }
+  ],
+  "references": [
+    "DEXPI Initiative (2025). DEXPI Specification 2.0.0. https://gitlab.com/dexpi/Specification (CC-BY 4.0).",
+    "dexpi.specificator (DEXPI e.V., MIT). https://pypi.org/project/dexpi.specificator/"
+  ]
+}

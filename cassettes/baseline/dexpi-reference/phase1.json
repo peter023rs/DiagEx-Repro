@@ -1,0 +1,73 @@
+{
+  "answers": [
+    {
+      "query_id": "dexpi-reference-q1",
+      "answer": "P4711 and P4712 are pumps (confirmed by data tables with pump-related parameters: casing, impeller, design head).\n\n<answer>\nP4711\nP4712\n</answer>",
+      "cost_usd": 0.050544,
+      "wall_clock_s": 11.647,
+      "input_tokens": 5956,
+      "output_tokens": 141,
+      "cache_read_tokens": 2554,
+      "cache_write_tokens": 2554,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "dexpi-reference-q2",
+      "answer": "H1007 and H1008 - two heat exchangers.\n\n2",
+      "cost_usd": 0.032243,
+      "wall_clock_s": 9.38,
+      "input_tokens": 5229,
+      "output_tokens": 102,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 159,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "dexpi-reference-q3",
+      "answer": "yes",
+      "cost_usd": 0.033344,
+      "wall_clock_s": 11.357,
+      "input_tokens": 5218,
+      "output_tokens": 149,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 156,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "dexpi-reference-q4",
+      "answer": "tank",
+      "cost_usd": 0.097771,
+      "wall_clock_s": 28.718,
+      "input_tokens": 12393,
+      "output_tokens": 1100,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 716,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 1
+      },
+      "retries": 0
+    }
+  ]
+}

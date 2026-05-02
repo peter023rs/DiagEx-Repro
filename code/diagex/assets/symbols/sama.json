@@ -1,0 +1,179 @@
+{
+  "schema_version": "0.1.0",
+  "source_hash": "",
+  "source_ref": "built-in:sama",
+  "standard": "sama",
+  "entries": [
+    {
+      "label": "sum",
+      "description": "SAMA summer block — square containing the Greek letter sigma (Σ); algebraic sum of two or more input signals.",
+      "symbol_class": "sum",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "sum"},
+      "source": "built_in"
+    },
+    {
+      "label": "gain",
+      "description": "SAMA gain (proportional) block — square containing 'K' or a slope-line icon; multiplies the input by a constant.",
+      "symbol_class": "gain",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "gain"},
+      "source": "built_in"
+    },
+    {
+      "label": "lag",
+      "description": "SAMA first-order lag block — square with a rising exponential-approach curve; first-order time filter.",
+      "symbol_class": "lag",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "lag"},
+      "source": "built_in"
+    },
+    {
+      "label": "lead_lag",
+      "description": "SAMA lead-lag block — square with an overshoot-then-decay curve; dynamic compensation for feed-forward loops.",
+      "symbol_class": "lead_lag",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "lead_lag"},
+      "source": "built_in"
+    },
+    {
+      "label": "integrator",
+      "description": "SAMA integrator block — square containing an integral sign (∫) or a rising ramp icon; accumulates the input over time.",
+      "symbol_class": "integrator",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "integrator"},
+      "source": "built_in"
+    },
+    {
+      "label": "derivative",
+      "description": "SAMA derivative block — square containing 'd/dt' or a spike icon; outputs the rate of change of the input.",
+      "symbol_class": "derivative",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "derivative"},
+      "source": "built_in"
+    },
+    {
+      "label": "pid_controller",
+      "description": "SAMA PID controller block — square (or stacked rectangles) labeled P+I+D or with separate proportional/integral/derivative icons; closed-loop regulator.",
+      "symbol_class": "pid_controller",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "pid_controller"},
+      "source": "built_in"
+    },
+    {
+      "label": "bias",
+      "description": "SAMA bias block — square containing '+/-' or 'B'; adds a constant offset to the input signal.",
+      "symbol_class": "bias",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "bias"},
+      "source": "built_in"
+    },
+    {
+      "label": "limit",
+      "description": "SAMA limiter block — square with a clipped-ramp icon showing upper and lower bounds; clamps the output between set limits.",
+      "symbol_class": "limit",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "limit"},
+      "source": "built_in"
+    },
+    {
+      "label": "selector_high",
+      "description": "SAMA high-signal selector block — square marked '>' or 'HS'; outputs the maximum of two or more input signals.",
+      "symbol_class": "selector_high",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "selector_high"},
+      "source": "built_in"
+    },
+    {
+      "label": "selector_low",
+      "description": "SAMA low-signal selector block — square marked '<' or 'LS'; outputs the minimum of two or more input signals.",
+      "symbol_class": "selector_low",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "selector_low"},
+      "source": "built_in"
+    },
+    {
+      "label": "selector_median",
+      "description": "SAMA median selector block — square marked 'MS' or with a middle-pick icon; outputs the median of three input signals.",
+      "symbol_class": "selector_median",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "selector_median"},
+      "source": "built_in"
+    },
+    {
+      "label": "function_generator",
+      "description": "SAMA function generator block — square containing 'f(x)' or a piecewise curve; arbitrary single-input characterization.",
+      "symbol_class": "function_generator",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "function_generator"},
+      "source": "built_in"
+    },
+    {
+      "label": "manual_station",
+      "description": "SAMA manual/auto station — square (often with A/M toggle) allowing operator to switch between automatic control output and manual output.",
+      "symbol_class": "manual_station",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "manual_station"},
+      "source": "built_in"
+    },
+    {
+      "label": "transmitter",
+      "description": "SAMA transmitter block — circle with a 'T' or measured-variable letters; converts a field measurement into a signal entering the logic.",
+      "symbol_class": "transmitter",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "transmitter"},
+      "source": "built_in"
+    },
+    {
+      "label": "signal_input",
+      "description": "SAMA signal input — small circle or arrow tag at the left edge of a diagram denoting an external signal entering the logic.",
+      "symbol_class": "signal_input",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "signal_input"},
+      "source": "built_in"
+    },
+    {
+      "label": "signal_output",
+      "description": "SAMA signal output — small circle or arrow tag at the right edge of a diagram denoting a signal leaving the logic to a field device or another sheet.",
+      "symbol_class": "signal_output",
+      "kind": "other",
+      "standard": "sama",
+      "image_b64": null,
+      "attributes": {"block_function": "signal_output"},
+      "source": "built_in"
+    }
+  ],
+  "notes": "SAMA starter set — v0 stub for Phase 3 fallback per spec §7.2.2. Covers the core continuous-control block vocabulary: math operators (sum, gain, bias), dynamic elements (lag, lead_lag, integrator, derivative), the PID block, limiters and selectors (H/L/median), function generator, manual/auto station, and the signal I/O terminations. Discrete-logic (AND/OR/NOT, timers, counters) is intentionally omitted — those come from the logic-diagram extractor's custom schema, not this legend pack."
+}

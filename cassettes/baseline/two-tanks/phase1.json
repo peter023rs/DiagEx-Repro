@@ -1,0 +1,74 @@
+{
+  "answers": [
+    {
+      "query_id": "two-tanks-q1",
+      "answer": "P-207\nP-209\nP-415\nP-417\nP-223",
+      "cost_usd": 0.051525,
+      "wall_clock_s": 16.246,
+      "input_tokens": 6097,
+      "output_tokens": 152,
+      "cache_read_tokens": 2554,
+      "cache_write_tokens": 2554,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "two-tanks-q2",
+      "answer": "Based on my inspection, I've identified TT (temperature transmitter) tags at:\n- TT-003 (top right area)\n- TT-004 (top right second row)\n- TT-002 (HX-211 area)\n- TT-001 (HX-411 area)\n\nThe TI-007, TI-008, TI-009, TI-010 are just indicators (not transmitters).\n\n4",
+      "cost_usd": 0.306889,
+      "wall_clock_s": 75.773,
+      "input_tokens": 40745,
+      "output_tokens": 2800,
+      "cache_read_tokens": 27904,
+      "cache_write_tokens": 3074,
+      "image_tokens": 0,
+      "n_steps": 6,
+      "n_tool_calls": 9,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 8
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "two-tanks-q3",
+      "answer": "T-211 outlet (N12) goes through XV-002, XV-004, then through FL-399, and then to P-207 (visible labeled SCS 207 with pump). The path is clear: T-211 \u2192 outlet piping \u2192 XV-002/004 \u2192 FL-399 \u2192 P-207.\n\nyes",
+      "cost_usd": 0.075251,
+      "wall_clock_s": 21.135,
+      "input_tokens": 11989,
+      "output_tokens": 375,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 336,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "two-tanks-q4",
+      "answer": "Tank (HOT PUW2 TANK T-411) is at that location.\n\ntank",
+      "cost_usd": 0.04086,
+      "wall_clock_s": 15.131,
+      "input_tokens": 6010,
+      "output_tokens": 241,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 357,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "fixtures": [
+    "dexpi-reference",
+    "butane1",
+    "tennessee1"
+  ],
+  "nodes": {
+    "model_proposed_reviewable": 155,
+    "rater_added_beyond_bootstrap": 22,
+    "final_ground_truth": 154,
+    "confirm_unchanged": -14,
+    "confirm_count": 104,
+    "revise_count_lower": 93,
+    "revise_count_upper": 121,
+    "reject_count": 51,
+    "add_count": 22,
+    "confirm_pct": 67.1,
+    "reject_pct": 32.9,
+    "revise_pct_lower": 60.0,
+    "revise_pct_upper": 78.1,
+    "add_pct_of_final": 14.3
+  },
+  "edges": {
+    "rater_added_beyond_bootstrap": 25,
+    "final_ground_truth": 70,
+    "history_kept": 34,
+    "history_revised": 11,
+    "history_dropped": 5,
+    "history_added": 25,
+    "history_bootstrap_total": 51,
+    "history_confirm_pct": 66.7,
+    "history_revise_pct": 21.6,
+    "history_reject_pct": 9.8,
+    "add_pct_of_final": 35.7
+  },
+  "per_fixture": {
+    "dexpi-reference": {
+      "nodes": {
+        "via_reviewable": 20,
+        "via_matched": 19,
+        "via_dropped": 1,
+        "via_added": 2,
+        "via_bbox_edited": 19,
+        "via_label_edited": 0,
+        "history_bootstrap_v2": 28,
+        "history_kept": 26,
+        "history_revised": 0,
+        "history_dropped": 2,
+        "history_added": 0,
+        "final": 26
+      },
+      "edges": {
+        "via_kept": 22,
+        "via_auto_dropped": 2,
+        "history_bootstrap": 22,
+        "history_kept": 16,
+        "history_revised": 3,
+        "history_dropped": 3,
+        "history_added": 2,
+        "final": 21
+      }
+    },
+    "butane1": {
+      "nodes": {
+        "via_reviewable": 78,
+        "via_matched": 47,
+        "via_dropped": 31,
+        "via_added": 3,
+        "via_bbox_edited": 34,
+        "via_label_edited": 13,
+        "history_bootstrap_v2": 59,
+        "history_kept": 58,
+        "history_revised": 0,
+        "history_dropped": 1,
+        "history_added": 0,
+        "final": 58
+      },
+      "edges": {
+        "via_kept": 5,
+        "via_auto_dropped": 11,
+        "history_bootstrap": 5,
+        "history_kept": 0,
+        "history_revised": 4,
+        "history_dropped": 1,
+        "history_added": 9,
+        "final": 12
+      }
+    },
+    "tennessee1": {
+      "nodes": {
+        "via_reviewable": 57,
+        "via_matched": 41,
+        "via_dropped": 16,
+        "via_added": 17,
+        "via_bbox_edited": 40,
+        "via_label_edited": 15,
+        "history_bootstrap_v2": 70,
+        "history_kept": 70,
+        "history_revised": 0,
+        "history_dropped": 0,
+        "history_added": 0,
+        "final": 70
+      },
+      "edges": {
+        "via_kept": 24,
+        "via_auto_dropped": 14,
+        "history_bootstrap": 24,
+        "history_kept": 18,
+        "history_revised": 4,
+        "history_dropped": 1,
+        "history_added": 14,
+        "final": 37
+      }
+    }
+  }
+}

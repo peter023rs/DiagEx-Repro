@@ -1,0 +1,13 @@
+# Reproducibility-package gitignore
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.idea/
+.vscode/
+build/
+dist/
+*.egg-info/

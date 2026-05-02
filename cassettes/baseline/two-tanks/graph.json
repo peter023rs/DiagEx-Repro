@@ -1,0 +1,4519 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "two-tanks.pdf",
+  "nodes": [
+    {
+      "id": "n-f4eba07c",
+      "kind": "instrument",
+      "label": "PRV-001",
+      "bbox_global": {
+        "x": 730,
+        "y": 130,
+        "w": 90,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "pressure",
+        "loop_number": "001",
+        "note": "SET @ 2.0 BARG"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "39e4ffd20a5c4406b0c98f0db7d5bcfc"
+      ]
+    },
+    {
+      "id": "n-f05a30bc",
+      "kind": "equipment",
+      "label": "PRV-001 body",
+      "bbox_global": {
+        "x": 760,
+        "y": 220,
+        "w": 110,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3d604d08b430465a9c843ebed8e85276"
+      ]
+    },
+    {
+      "id": "n-00811952",
+      "kind": "equipment",
+      "label": "XV-005",
+      "bbox_global": {
+        "x": 1240,
+        "y": 200,
+        "w": 100,
+        "h": 200
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "62a768192d254ec590e1e48f2bc86e2a"
+      ]
+    },
+    {
+      "id": "n-b97658f0",
+      "kind": "instrument",
+      "label": "PRV-002",
+      "bbox_global": {
+        "x": 2393,
+        "y": 330,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "pressure",
+        "loop_number": "002",
+        "note": "SET @ 2.0 BARG"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b2923405aac1423f99be44846eff8479"
+      ]
+    },
+    {
+      "id": "n-8befee1e",
+      "kind": "equipment",
+      "label": "PRV-002 body",
+      "bbox_global": {
+        "x": 2443,
+        "y": 430,
+        "w": 130,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9f93c0b989d5499c9a65b78e9f68df78"
+      ]
+    },
+    {
+      "id": "n-ca402cb6",
+      "kind": "instrument",
+      "label": "XV-009",
+      "bbox_global": {
+        "x": 1808,
+        "y": 1015,
+        "w": 90,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "loop_number": "009"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a18694f36d5c43599f03edf4ef1f47f5"
+      ]
+    },
+    {
+      "id": "n-d4d9882c",
+      "kind": "equipment",
+      "label": "XV-006",
+      "bbox_global": {
+        "x": 2786,
+        "y": 290,
+        "w": 100,
+        "h": 250
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c34a9cc355f246ebace8fd5e6caa52b7"
+      ]
+    },
+    {
+      "id": "n-08f405ba",
+      "kind": "equipment",
+      "label": "V-043",
+      "bbox_global": {
+        "x": 2936,
+        "y": 280,
+        "w": 110,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ffe2f2da58a5425988f5a3700b1e6d81"
+      ]
+    },
+    {
+      "id": "n-94dbcc90",
+      "kind": "equipment",
+      "label": "V-044",
+      "bbox_global": {
+        "x": 2936,
+        "y": 510,
+        "w": 110,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f9348e43aa594502b78a031b22b3b445"
+      ]
+    },
+    {
+      "id": "n-cbd6f87c",
+      "kind": "instrument",
+      "label": "PI-006",
+      "bbox_global": {
+        "x": 3176,
+        "y": 295,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3fd03ba76d164f00a6a0162a33d2014d"
+      ]
+    },
+    {
+      "id": "n-af0ded9f",
+      "kind": "instrument",
+      "label": "FT-003",
+      "bbox_global": {
+        "x": 3716,
+        "y": 110,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "57f4e1fe26af4ee18f9df16ef91cb2f9"
+      ]
+    },
+    {
+      "id": "n-a3f8edab",
+      "kind": "instrument",
+      "label": "FIT-003",
+      "bbox_global": {
+        "x": 3836,
+        "y": 100,
+        "w": 80,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "dccdd258c1534c3faaab195f56f392d3"
+      ]
+    },
+    {
+      "id": "n-b6a41a3c",
+      "kind": "instrument",
+      "label": "FT-004",
+      "bbox_global": {
+        "x": 3716,
+        "y": 320,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2c7927d78493420384ac3f0810adb5f2"
+      ]
+    },
+    {
+      "id": "n-8d63c588",
+      "kind": "instrument",
+      "label": "FIT-004",
+      "bbox_global": {
+        "x": 3836,
+        "y": 320,
+        "w": 80,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f6c1849a863c482194ace7237c3e9da8"
+      ]
+    },
+    {
+      "id": "n-44e2222b",
+      "kind": "instrument",
+      "label": "PI-005",
+      "bbox_global": {
+        "x": 3989,
+        "y": 95,
+        "w": 90,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "61d3d99c27904fce88964d45a436f0cf"
+      ]
+    },
+    {
+      "id": "n-8e273b26",
+      "kind": "instrument",
+      "label": "TT-003",
+      "bbox_global": {
+        "x": 4269,
+        "y": 90,
+        "w": 90,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1837ebd9d56742e7ab74edffdf8bd8bd"
+      ]
+    },
+    {
+      "id": "n-e0fc4d93",
+      "kind": "instrument",
+      "label": "TIT-003",
+      "bbox_global": {
+        "x": 4409,
+        "y": 90,
+        "w": 110,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "79e25ae43ea943d4919944c8787b4ce6"
+      ]
+    },
+    {
+      "id": "n-9702d608",
+      "kind": "instrument",
+      "label": "TT-004",
+      "bbox_global": {
+        "x": 4269,
+        "y": 320,
+        "w": 90,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0e8d78dad1e949ee8e05d2850beee8da"
+      ]
+    },
+    {
+      "id": "n-84fad6b6",
+      "kind": "instrument",
+      "label": "TIT-004",
+      "bbox_global": {
+        "x": 4409,
+        "y": 320,
+        "w": 110,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0847b5a2d95b473eb48b652da3e0556e"
+      ]
+    },
+    {
+      "id": "n-678f3279",
+      "kind": "instrument",
+      "label": "TCV-005",
+      "bbox_global": {
+        "x": 4299,
+        "y": 800,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "temperature",
+        "loop_number": "005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f6150f902d5e42df912680b3da6a9ee9"
+      ]
+    },
+    {
+      "id": "n-7c99a422",
+      "kind": "instrument",
+      "label": "TCV-006",
+      "bbox_global": {
+        "x": 4689,
+        "y": 800,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "temperature",
+        "loop_number": "006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e06eddd91aff417fbdc7cf9fd9daaaad"
+      ]
+    },
+    {
+      "id": "n-5c7d1846",
+      "kind": "instrument",
+      "label": "PI-009",
+      "bbox_global": {
+        "x": 5351,
+        "y": 920,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "009"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a8a62fe9c3c747f69fcc9cfd8657ee94"
+      ]
+    },
+    {
+      "id": "n-543ae8be",
+      "kind": "opc",
+      "label": "85-PUW2-S6-164-IH outlet",
+      "bbox_global": {
+        "x": 4896,
+        "y": 230,
+        "w": 600,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "119f9f6089d54f8da66b4d1cff5e8095"
+      ]
+    },
+    {
+      "id": "n-02eb03ae",
+      "kind": "opc",
+      "label": "85-DETERGENT-S6-163-IH outlet",
+      "bbox_global": {
+        "x": 4896,
+        "y": 440,
+        "w": 600,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "39ccfc311edd405c88f3b8b6860045a0"
+      ]
+    },
+    {
+      "id": "n-36f193d2",
+      "kind": "opc",
+      "label": "80-PUW1-S6-485-IH outlet",
+      "bbox_global": {
+        "x": 4896,
+        "y": 615,
+        "w": 600,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a1291dd895424b68a13ba3dbcb1132a5"
+      ]
+    },
+    {
+      "id": "n-e41ce76e",
+      "kind": "opc",
+      "label": "80-PUW1-S6-486-IH outlet",
+      "bbox_global": {
+        "x": 4896,
+        "y": 720,
+        "w": 600,
+        "h": 30
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "15773d11ec514a4082f974be9dcde8b4"
+      ]
+    },
+    {
+      "id": "n-891dcd0a",
+      "kind": "instrument",
+      "label": "LA-005",
+      "bbox_global": {
+        "x": 320,
+        "y": 1057,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "level",
+        "loop_number": "005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1b90d95fe3c8410a8d05ef8269882eb4"
+      ]
+    },
+    {
+      "id": "n-d798fbc3",
+      "kind": "instrument",
+      "label": "LS-005",
+      "bbox_global": {
+        "x": 320,
+        "y": 1237,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "level",
+        "loop_number": "005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bc509493898b4034aa6009d5b8e64307"
+      ]
+    },
+    {
+      "id": "n-db493986",
+      "kind": "instrument",
+      "label": "SG-001",
+      "bbox_global": {
+        "x": 130,
+        "y": 1317,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f8896bf408bb4f48969e1bf6ace8f039"
+      ]
+    },
+    {
+      "id": "n-8574a6c4",
+      "kind": "instrument",
+      "label": "ZS-030",
+      "bbox_global": {
+        "x": 60,
+        "y": 1457,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "030"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "35ffb769856e4d08993258f776e85410"
+      ]
+    },
+    {
+      "id": "n-fc85abe8",
+      "kind": "instrument",
+      "label": "XV-008",
+      "bbox_global": {
+        "x": 920,
+        "y": 977,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "loop_number": "008"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e8253071d0ad4329842cbe311774f6a8"
+      ]
+    },
+    {
+      "id": "n-139b4896",
+      "kind": "instrument",
+      "label": "SG-007",
+      "bbox_global": {
+        "x": 1145,
+        "y": 1607,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "007"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9e6644b6556149e3bbdf335125f01c80"
+      ]
+    },
+    {
+      "id": "n-d46d425e",
+      "kind": "equipment",
+      "label": "V-033",
+      "bbox_global": {
+        "x": 1145,
+        "y": 1757,
+        "w": 110,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fe708d9a592044bb8bba0d928bc6a4cd"
+      ]
+    },
+    {
+      "id": "n-8b11295e",
+      "kind": "instrument",
+      "label": "TI-007",
+      "bbox_global": {
+        "x": 1320,
+        "y": 1827,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "007"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f6c3964ef14444f69c05f08dae9d1920"
+      ]
+    },
+    {
+      "id": "n-7eafb63d",
+      "kind": "equipment",
+      "label": "T-411 (HOT PUW2 TANK, top)",
+      "bbox_global": {
+        "x": 200,
+        "y": 1477,
+        "w": 800,
+        "h": 490
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "tank",
+        "note": "6000 L, 80°C, HOT PUW2 TANK"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a73850204783439091e97f9df3a5b854"
+      ]
+    },
+    {
+      "id": "n-28d52ca2",
+      "kind": "instrument",
+      "label": "LA-006",
+      "bbox_global": {
+        "x": 2338,
+        "y": 1117,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "level",
+        "loop_number": "006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a9c1edace86c48249a9744b2f1d3728a"
+      ]
+    },
+    {
+      "id": "n-95118d49",
+      "kind": "instrument",
+      "label": "LS-006",
+      "bbox_global": {
+        "x": 2468,
+        "y": 1257,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "level",
+        "loop_number": "006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d34e95b5e0cf4e4aac1d0c238f891e74"
+      ]
+    },
+    {
+      "id": "n-543ecad0",
+      "kind": "instrument",
+      "label": "SG-002",
+      "bbox_global": {
+        "x": 2583,
+        "y": 1402,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "066b5026484a4276aee038702b7ec48c"
+      ]
+    },
+    {
+      "id": "n-af4522d5",
+      "kind": "instrument",
+      "label": "ZS-031",
+      "bbox_global": {
+        "x": 2583,
+        "y": 1527,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "loop_number": "031"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7166758e95c84efbad5a489db416aa78"
+      ]
+    },
+    {
+      "id": "n-e876c372",
+      "kind": "instrument",
+      "label": "SG-006",
+      "bbox_global": {
+        "x": 1523,
+        "y": 1607,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "loop_number": "006"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7d03e72c287f4b8bb22643e94552384b"
+      ]
+    },
+    {
+      "id": "n-98de0b5a",
+      "kind": "equipment",
+      "label": "V-032",
+      "bbox_global": {
+        "x": 1523,
+        "y": 1747,
+        "w": 110,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6716d5dd40634817971ec4ee9520fb27"
+      ]
+    },
+    {
+      "id": "n-5a9be435",
+      "kind": "instrument",
+      "label": "TI-008",
+      "bbox_global": {
+        "x": 2598,
+        "y": 1877,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "008"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5fbcdffac0154a7cb88c7982fff89013"
+      ]
+    },
+    {
+      "id": "n-50904288",
+      "kind": "equipment",
+      "label": "T-211 (HOT DETERGENT TANK, top)",
+      "bbox_global": {
+        "x": 1663,
+        "y": 1457,
+        "w": 920,
+        "h": 510
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "tank",
+        "note": "6000 L, 80°C, HOT DETERGENT TANK"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e115f5b99a724279a24173b2ab02a5d2"
+      ]
+    },
+    {
+      "id": "n-6a02a828",
+      "kind": "equipment",
+      "label": "V-021",
+      "bbox_global": {
+        "x": 3591,
+        "y": 1617,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bde2c46f1945422eaf94e063df5af47b"
+      ]
+    },
+    {
+      "id": "n-ccdca6e8",
+      "kind": "equipment",
+      "label": "ST-001",
+      "bbox_global": {
+        "x": 3581,
+        "y": 1697,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "structural_description": "steam trap ST-001",
+        "equipment_class_before_arbitration": "unclassified_equipment",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "67b5fae8d6654f6f925d6c972bd96d4f"
+      ]
+    },
+    {
+      "id": "n-f8e4757e",
+      "kind": "instrument",
+      "label": "SG-003",
+      "bbox_global": {
+        "x": 3591,
+        "y": 1797,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "loop_number": "003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9c7b9a5c59bb48089f1423bc8600cb6a"
+      ]
+    },
+    {
+      "id": "n-11def177",
+      "kind": "equipment",
+      "label": "V-022",
+      "bbox_global": {
+        "x": 3601,
+        "y": 1892,
+        "w": 100,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f4ee6a91a31f4f538c99217f72b026a4"
+      ]
+    },
+    {
+      "id": "n-c4884f00",
+      "kind": "equipment",
+      "label": "V-019",
+      "bbox_global": {
+        "x": 4694,
+        "y": 1077,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "28d3437a01854330a153ba554b187c0c"
+      ]
+    },
+    {
+      "id": "n-6dd9a4b4",
+      "kind": "equipment",
+      "label": "V-020",
+      "bbox_global": {
+        "x": 4309,
+        "y": 1077,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve_tag_bubble",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d7ab9570de2b43e986c37f7ba2b6842f"
+      ]
+    },
+    {
+      "id": "n-d2f10c8c",
+      "kind": "instrument",
+      "label": "PI-007",
+      "bbox_global": {
+        "x": 4934,
+        "y": 1072,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "007"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7161f9ef0c294c89bc05bf581822ba4d"
+      ]
+    },
+    {
+      "id": "n-e9c402ac",
+      "kind": "instrument",
+      "label": "S-002",
+      "bbox_global": {
+        "x": 5101,
+        "y": 1077,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "unclassified_instrument",
+        "structural_description": "circle marked S-002 (signal/strainer)",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bf2d00e3558e4dd783356a16636f7413"
+      ]
+    },
+    {
+      "id": "n-80760d1f",
+      "kind": "instrument",
+      "label": "XV-022",
+      "bbox_global": {
+        "x": 5221,
+        "y": 1077,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "loop_number": "022"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "18a42c07e82d4469847b3d9a135d898f"
+      ]
+    },
+    {
+      "id": "n-0e838aa9",
+      "kind": "equipment",
+      "label": "V-045",
+      "bbox_global": {
+        "x": 5441,
+        "y": 1092,
+        "w": 100,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d8997bc3655442209554d24fdb09a955"
+      ]
+    },
+    {
+      "id": "n-f94e3662",
+      "kind": "equipment",
+      "label": "V-016",
+      "bbox_global": {
+        "x": 5441,
+        "y": 1197,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a8d3016b9de14472b378c8e58a9d51f4"
+      ]
+    },
+    {
+      "id": "n-889836fd",
+      "kind": "equipment",
+      "label": "V-017",
+      "bbox_global": {
+        "x": 5191,
+        "y": 1357,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6f25504c728049ebb97dfeb38a3f3724"
+      ]
+    },
+    {
+      "id": "n-40f617f2",
+      "kind": "instrument",
+      "label": "LIT-001",
+      "bbox_global": {
+        "x": 80,
+        "y": 2474,
+        "w": 130,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2cef79cd94464c9d98a2ccf96a20398c"
+      ]
+    },
+    {
+      "id": "n-aac6518f",
+      "kind": "instrument",
+      "label": "LF-001",
+      "bbox_global": {
+        "x": 270,
+        "y": 2474,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "level",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9f5bcdb67b704150abfcdaa72485a103"
+      ]
+    },
+    {
+      "id": "n-7f7f4be8",
+      "kind": "instrument",
+      "label": "LS-003",
+      "bbox_global": {
+        "x": 805,
+        "y": 2474,
+        "w": 110,
+        "h": 120
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "level",
+        "loop_number": "003",
+        "state": "LL"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "33343b783c0a4ca3ac85aa2c25f67010"
+      ]
+    },
+    {
+      "id": "n-73f6689c",
+      "kind": "instrument",
+      "label": "LAL-1103",
+      "bbox_global": {
+        "x": 945,
+        "y": 2474,
+        "w": 130,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "level",
+        "loop_number": "1103",
+        "state": "LL",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ab03691981464da39480322d33e46f73"
+      ]
+    },
+    {
+      "id": "n-3c0b0537",
+      "kind": "equipment",
+      "label": "T-411 (HOT PUW2 TANK, bottom)",
+      "bbox_global": {
+        "x": 130,
+        "y": 1754,
+        "w": 920,
+        "h": 700
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "tank",
+        "note": "Vortex breaker, sample point"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "da6ed91c6790403e818e4fcccc90f5e4"
+      ]
+    },
+    {
+      "id": "n-f00de819",
+      "kind": "instrument",
+      "label": "LIT-002",
+      "bbox_global": {
+        "x": 1583,
+        "y": 2454,
+        "w": 130,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "74cbda5c4cf14da89c1e43a166c149f7"
+      ]
+    },
+    {
+      "id": "n-9ffcf6e2",
+      "kind": "instrument",
+      "label": "LT-002",
+      "bbox_global": {
+        "x": 1758,
+        "y": 2454,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b412992d85964502979ee4242895b68a"
+      ]
+    },
+    {
+      "id": "n-7bbd3437",
+      "kind": "instrument",
+      "label": "XV-002",
+      "bbox_global": {
+        "x": 2048,
+        "y": 2414,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "65fb187fd952464f8f8881d2f21e091e"
+      ]
+    },
+    {
+      "id": "n-1c3668f2",
+      "kind": "instrument",
+      "label": "XV-004",
+      "bbox_global": {
+        "x": 2173,
+        "y": 2414,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "loop_number": "004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "22c9482d392e47448c58c15b5a4f9257"
+      ]
+    },
+    {
+      "id": "n-79cfe793",
+      "kind": "instrument",
+      "label": "LS-004",
+      "bbox_global": {
+        "x": 2433,
+        "y": 2309,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "level",
+        "loop_number": "004",
+        "state": "LL"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0235d97579ee41bda2ef12f7a00bcff6"
+      ]
+    },
+    {
+      "id": "n-6b89b56a",
+      "kind": "instrument",
+      "label": "LA-004",
+      "bbox_global": {
+        "x": 2543,
+        "y": 2309,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "level",
+        "loop_number": "004",
+        "state": "LL"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ed30ffc1b51343ac8307ed81d2b639a7"
+      ]
+    },
+    {
+      "id": "n-b65055a3",
+      "kind": "instrument",
+      "label": "XV-007",
+      "bbox_global": {
+        "x": 2543,
+        "y": 2399,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "loop_number": "007"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "976879b0128c4deb83ff359960a8b71e"
+      ]
+    },
+    {
+      "id": "n-efa2e968",
+      "kind": "equipment",
+      "label": "V-040",
+      "bbox_global": {
+        "x": 2338,
+        "y": 2704,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c6cb753b5e8a40cc8dedbbd29f5542ca"
+      ]
+    },
+    {
+      "id": "n-54962024",
+      "kind": "equipment",
+      "label": "T-211 (HOT DETERGENT TANK, bottom)",
+      "bbox_global": {
+        "x": 1663,
+        "y": 1754,
+        "w": 920,
+        "h": 590
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "tank",
+        "note": "Vortex breaker, sample point"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1ccb721895434133b7644c4c0bb03459"
+      ]
+    },
+    {
+      "id": "n-037553a5",
+      "kind": "equipment",
+      "label": "V-023",
+      "bbox_global": {
+        "x": 3641,
+        "y": 1954,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "67f4c1d0821c4893b388dc19055e962a"
+      ]
+    },
+    {
+      "id": "n-eebdd45e",
+      "kind": "equipment",
+      "label": "FL-399",
+      "bbox_global": {
+        "x": 2821,
+        "y": 2369,
+        "w": 240,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "filter",
+        "filter_type": "inline strainer"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "48a27dd9993748d18da38c55d0ada8cd"
+      ]
+    },
+    {
+      "id": "n-8876578e",
+      "kind": "equipment",
+      "label": "V-008",
+      "bbox_global": {
+        "x": 3106,
+        "y": 2349,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "cc9a3c7daa844a1f8d0b23289dace7da"
+      ]
+    },
+    {
+      "id": "n-83394296",
+      "kind": "equipment",
+      "label": "V-009",
+      "bbox_global": {
+        "x": 3111,
+        "y": 2674,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "103f9a25cd634c97b9e82c168bd01750"
+      ]
+    },
+    {
+      "id": "n-5e0477b5",
+      "kind": "equipment",
+      "label": "V-010",
+      "bbox_global": {
+        "x": 3481,
+        "y": 2299,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "07073ae633854128a2b30756403ee999"
+      ]
+    },
+    {
+      "id": "n-a1bf5d26",
+      "kind": "equipment",
+      "label": "V-030",
+      "bbox_global": {
+        "x": 3176,
+        "y": 2554,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "uncertain"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a8e80368d33744eaac2166f6efac786e"
+      ]
+    },
+    {
+      "id": "n-c66d6a2c",
+      "kind": "instrument",
+      "label": "SCS-207",
+      "bbox_global": {
+        "x": 3331,
+        "y": 2264,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "loop_number": "207",
+        "note": "Speed controller for P-207",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "834344a036734162849765ae578cf545"
+      ]
+    },
+    {
+      "id": "n-9979c26f",
+      "kind": "equipment",
+      "label": "P-207",
+      "bbox_global": {
+        "x": 3286,
+        "y": 2439,
+        "w": 200,
+        "h": 200
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "136d3f8203864866ac064bd6d37502c3"
+      ]
+    },
+    {
+      "id": "n-54b7ffd2",
+      "kind": "equipment",
+      "label": "P-209",
+      "bbox_global": {
+        "x": 3286,
+        "y": 2734,
+        "w": 200,
+        "h": 120
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d71c59af5e1b44a5b9afe88ba573594a"
+      ]
+    },
+    {
+      "id": "n-eebf4f84",
+      "kind": "instrument",
+      "label": "PI-004",
+      "bbox_global": {
+        "x": 3596,
+        "y": 2279,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a93e1711233941cd879aaad30c0ac3e2"
+      ]
+    },
+    {
+      "id": "n-24871d08",
+      "kind": "equipment",
+      "label": "HX-211",
+      "bbox_global": {
+        "x": 4224,
+        "y": 2414,
+        "w": 360,
+        "h": 360
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0ad850902c6647b9959c0d58d0ab4c98"
+      ]
+    },
+    {
+      "id": "n-74882ddd",
+      "kind": "instrument",
+      "label": "PSV-002",
+      "bbox_global": {
+        "x": 4619,
+        "y": 2164,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "pressure",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "24b62b04c1984fe0b48a5db483ce2a43"
+      ]
+    },
+    {
+      "id": "n-2d184477",
+      "kind": "equipment",
+      "label": "V-012",
+      "bbox_global": {
+        "x": 4024,
+        "y": 2374,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "69292cccdc70412193240f638b38d659"
+      ]
+    },
+    {
+      "id": "n-4e5c46d9",
+      "kind": "equipment",
+      "label": "V-042",
+      "bbox_global": {
+        "x": 5019,
+        "y": 2739,
+        "w": 90,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "454547a7879541628898b814d0fb1c15"
+      ]
+    },
+    {
+      "id": "n-b4a47476",
+      "kind": "instrument",
+      "label": "TIT-002",
+      "bbox_global": {
+        "x": 4844,
+        "y": 2359,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "624a565eb6554a71bab00b8c7f0df606"
+      ]
+    },
+    {
+      "id": "n-0eae302f",
+      "kind": "instrument",
+      "label": "PIT-002",
+      "bbox_global": {
+        "x": 4999,
+        "y": 2359,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0aa43a2558bb47258150f687351e1f11"
+      ]
+    },
+    {
+      "id": "n-34ae503e",
+      "kind": "instrument",
+      "label": "TT-002",
+      "bbox_global": {
+        "x": 4849,
+        "y": 2469,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f45a74c2071e44a1987ab2285c1085db"
+      ]
+    },
+    {
+      "id": "n-3231a2c5",
+      "kind": "instrument",
+      "label": "TI-010",
+      "bbox_global": {
+        "x": 4949,
+        "y": 2454,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "010"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "437b903320834f87bc06010356ac0ad2"
+      ]
+    },
+    {
+      "id": "n-b9606a1a",
+      "kind": "instrument",
+      "label": "PT-002",
+      "bbox_global": {
+        "x": 5039,
+        "y": 2469,
+        "w": 90,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9e704a5bf2a24cb0843c932fcc0ce5c4"
+      ]
+    },
+    {
+      "id": "n-097ac608",
+      "kind": "instrument",
+      "label": "CIT-001",
+      "bbox_global": {
+        "x": 5121,
+        "y": 2359,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "analysis",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c930b4bd0a094dba91ea349bea4fae40"
+      ]
+    },
+    {
+      "id": "n-2e41ac5e",
+      "kind": "instrument",
+      "label": "CT-001",
+      "bbox_global": {
+        "x": 5126,
+        "y": 2474,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "analysis",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "05a85ce61de94009a20ef8285fddecbb"
+      ]
+    },
+    {
+      "id": "n-f17351f5",
+      "kind": "instrument",
+      "label": "FIT-002",
+      "bbox_global": {
+        "x": 5276,
+        "y": 2359,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "eaf33ce574424d7f96db77b487431909"
+      ]
+    },
+    {
+      "id": "n-b9ff9a13",
+      "kind": "instrument",
+      "label": "FT-002",
+      "bbox_global": {
+        "x": 5286,
+        "y": 2474,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5e1bf4bda0c84f39a2690d76d0dd1487"
+      ]
+    },
+    {
+      "id": "n-5ed2ecb8",
+      "kind": "equipment",
+      "label": "V-014",
+      "bbox_global": {
+        "x": 5441,
+        "y": 2514,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "label_before_arbitration": "V-014",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d3919ab8358447428f3b4cb299ca9de1"
+      ]
+    },
+    {
+      "id": "n-f7c4fd82",
+      "kind": "instrument",
+      "label": "XV-001",
+      "bbox_global": {
+        "x": 700,
+        "y": 2951,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0ee84b69efc74a92a1edc6ba73a0b155"
+      ]
+    },
+    {
+      "id": "n-b9689c8e",
+      "kind": "instrument",
+      "label": "XV-003",
+      "bbox_global": {
+        "x": 1160,
+        "y": 2951,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "loop_number": "003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "602c064369c24d658b58f357bb4efd72"
+      ]
+    },
+    {
+      "id": "n-e7b0922e",
+      "kind": "equipment",
+      "label": "V-034",
+      "bbox_global": {
+        "x": 1290,
+        "y": 3171,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f36799af53b74195997ac14eeaad8fa8"
+      ]
+    },
+    {
+      "id": "n-84464369",
+      "kind": "equipment",
+      "label": "V-036",
+      "bbox_global": {
+        "x": 1240,
+        "y": 3621,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "994bcbb5be5a4117a523944791913426"
+      ]
+    },
+    {
+      "id": "n-cd71de33",
+      "kind": "instrument",
+      "label": "SCS-223",
+      "bbox_global": {
+        "x": 1290,
+        "y": 3431,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "loop_number": "223",
+        "note": "Speed controller for P-223",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1065a80d9c324662a03ee4b670e4e12b"
+      ]
+    },
+    {
+      "id": "n-fb6a26a6",
+      "kind": "equipment",
+      "label": "FL-401",
+      "bbox_global": {
+        "x": 1618,
+        "y": 2951,
+        "w": 250,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "filter",
+        "filter_type": "inline strainer"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4cc2b402f01a473f8c321b9c874daf92"
+      ]
+    },
+    {
+      "id": "n-7470506e",
+      "kind": "equipment",
+      "label": "V-035",
+      "bbox_global": {
+        "x": 1628,
+        "y": 3176,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8ca51b37f01b46dea343fae39ade2789"
+      ]
+    },
+    {
+      "id": "n-37e2f4cf",
+      "kind": "equipment",
+      "label": "V-001",
+      "bbox_global": {
+        "x": 2433,
+        "y": 2971,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "04e5dc5e969b4baf9528b11f0432ad36"
+      ]
+    },
+    {
+      "id": "n-a29c8458",
+      "kind": "equipment",
+      "label": "V-002",
+      "bbox_global": {
+        "x": 2433,
+        "y": 3251,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "beed3562c5b94cf3864ef877371d9d32"
+      ]
+    },
+    {
+      "id": "n-1f9401b4",
+      "kind": "equipment",
+      "label": "V-028",
+      "bbox_global": {
+        "x": 2593,
+        "y": 3171,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c7b5bbac6a69424ba3c29a12ed689431"
+      ]
+    },
+    {
+      "id": "n-9fafe8ef",
+      "kind": "instrument",
+      "label": "PI-008",
+      "bbox_global": {
+        "x": 1943,
+        "y": 3276,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "008"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "babeb1e014f84f54abaca8eead4f4113"
+      ]
+    },
+    {
+      "id": "n-b128ca9c",
+      "kind": "instrument",
+      "label": "FS-005",
+      "bbox_global": {
+        "x": 1628,
+        "y": 3446,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "flow",
+        "loop_number": "005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5dada5e6a45944e2b821d7817301ff83"
+      ]
+    },
+    {
+      "id": "n-77875f61",
+      "kind": "instrument",
+      "label": "FA-005",
+      "bbox_global": {
+        "x": 1758,
+        "y": 3446,
+        "w": 130,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "flow",
+        "loop_number": "005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8f330a3ad0b54bedb9798c79841cbc2d"
+      ]
+    },
+    {
+      "id": "n-a590f3a9",
+      "kind": "instrument",
+      "label": "SCS-417",
+      "bbox_global": {
+        "x": 2483,
+        "y": 3551,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "loop_number": "417",
+        "note": "Speed controller for P-417",
+        "arbitration": "uncertain"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "262bc62497f84c2dadf02e5f011a7b34"
+      ]
+    },
+    {
+      "id": "n-cb556795",
+      "kind": "equipment",
+      "label": "P-415",
+      "bbox_global": {
+        "x": 2686,
+        "y": 3011,
+        "w": 220,
+        "h": 200
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d06a111ab8e54d11993c99a7906898af"
+      ]
+    },
+    {
+      "id": "n-e7b2311c",
+      "kind": "equipment",
+      "label": "P-417",
+      "bbox_global": {
+        "x": 2686,
+        "y": 3321,
+        "w": 220,
+        "h": 200
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "centrifugal"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "02b8620af3e84d6a8641d9dc2758bb83"
+      ]
+    },
+    {
+      "id": "n-ec937385",
+      "kind": "instrument",
+      "label": "SCS-415",
+      "bbox_global": {
+        "x": 2741,
+        "y": 2851,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "loop_number": "415",
+        "note": "Speed controller for P-415",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4b9045e549d34d0fae5859fb16de05bb"
+      ]
+    },
+    {
+      "id": "n-96f9ccde",
+      "kind": "instrument",
+      "label": "SCS-209",
+      "bbox_global": {
+        "x": 3211,
+        "y": 2981,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "loop_number": "209",
+        "note": "Speed controller for P-209",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3ecd1feb0e89432ba6f11fa45c7562be"
+      ]
+    },
+    {
+      "id": "n-0218d25f",
+      "kind": "equipment",
+      "label": "V-003",
+      "bbox_global": {
+        "x": 2971,
+        "y": 2921,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f9cc851ed1ff4eb2bc0783f53c8824be"
+      ]
+    },
+    {
+      "id": "n-be39e21a",
+      "kind": "equipment",
+      "label": "V-004",
+      "bbox_global": {
+        "x": 2971,
+        "y": 3226,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0cad9fecc8704f84bbe26fc17736b4e0"
+      ]
+    },
+    {
+      "id": "n-921d1ae5",
+      "kind": "equipment",
+      "label": "V-005",
+      "bbox_global": {
+        "x": 3551,
+        "y": 2981,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "01b145fc342f470ba0b31686bf7e19a3"
+      ]
+    },
+    {
+      "id": "n-32a199c7",
+      "kind": "equipment",
+      "label": "V-006",
+      "bbox_global": {
+        "x": 3416,
+        "y": 3171,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "da598277169142a8a2c7f658d48526d3"
+      ]
+    },
+    {
+      "id": "n-8ee16773",
+      "kind": "equipment",
+      "label": "V-031",
+      "bbox_global": {
+        "x": 3421,
+        "y": 2951,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8a446309cdc24f8980f7b61c17082dab"
+      ]
+    },
+    {
+      "id": "n-ef385e24",
+      "kind": "instrument",
+      "label": "FI-003",
+      "bbox_global": {
+        "x": 3101,
+        "y": 2871,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "003"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f3483155c0444f4ab87a49d084f2496f"
+      ]
+    },
+    {
+      "id": "n-8af312c6",
+      "kind": "instrument",
+      "label": "FI-004",
+      "bbox_global": {
+        "x": 3021,
+        "y": 3236,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1e406a7acd354f69bf583442c173cc22"
+      ]
+    },
+    {
+      "id": "n-f1778aa1",
+      "kind": "equipment",
+      "label": "ST-003",
+      "bbox_global": {
+        "x": 3776,
+        "y": 3436,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "unclassified_equipment",
+        "structural_description": "steam trap ST-003",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "04c1118679664169bcee51f241d2d802"
+      ]
+    },
+    {
+      "id": "n-eeebd796",
+      "kind": "instrument",
+      "label": "SG-004",
+      "bbox_global": {
+        "x": 3786,
+        "y": 3551,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "loop_number": "004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4d9ec67a13814595a5e00b40ba155e98"
+      ]
+    },
+    {
+      "id": "n-9bbf2d84",
+      "kind": "equipment",
+      "label": "HX-411",
+      "bbox_global": {
+        "x": 3809,
+        "y": 2991,
+        "w": 380,
+        "h": 360
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "aef6d86f61704f7b9ea26a11d5974101"
+      ]
+    },
+    {
+      "id": "n-5c4e567d",
+      "kind": "equipment",
+      "label": "ST-002",
+      "bbox_global": {
+        "x": 4224,
+        "y": 2951,
+        "w": 100,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "unclassified_equipment",
+        "structural_description": "steam trap ST-002",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "32f9bdef9ec84bceae9e0eadcc8e0d88"
+      ]
+    },
+    {
+      "id": "n-741e1ab1",
+      "kind": "instrument",
+      "label": "SG-005",
+      "bbox_global": {
+        "x": 4224,
+        "y": 3056,
+        "w": 100,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "loop_number": "005"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "97469fb5e2c248eb93cc2d8c1549c334"
+      ]
+    },
+    {
+      "id": "n-79781b43",
+      "kind": "equipment",
+      "label": "V-024",
+      "bbox_global": {
+        "x": 4209,
+        "y": 3171,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "301e2ba063824f4d9bd029d6e1f6a655"
+      ]
+    },
+    {
+      "id": "n-5c26b7c6",
+      "kind": "equipment",
+      "label": "V-025",
+      "bbox_global": {
+        "x": 4379,
+        "y": 3196,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "label_before_arbitration": "V-025",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "cb3db7d2ad1f44cdb45a6f39d9490fa4"
+      ]
+    },
+    {
+      "id": "n-d3ec1a46",
+      "kind": "instrument",
+      "label": "PSV-001",
+      "bbox_global": {
+        "x": 4409,
+        "y": 2881,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "pressure",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5dd5e5c1a97046e89d2f0133694ca651"
+      ]
+    },
+    {
+      "id": "n-9d6803f4",
+      "kind": "instrument",
+      "label": "TIT-001",
+      "bbox_global": {
+        "x": 4649,
+        "y": 2951,
+        "w": 130,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f089aab6eba04a7d98358e0c34f36afc"
+      ]
+    },
+    {
+      "id": "n-6efb7338",
+      "kind": "instrument",
+      "label": "PIT-001",
+      "bbox_global": {
+        "x": 4844,
+        "y": 2951,
+        "w": 130,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d8f6e71c16f24652a929e6dbdcf4d7f9"
+      ]
+    },
+    {
+      "id": "n-3c3d065e",
+      "kind": "instrument",
+      "label": "TT-001",
+      "bbox_global": {
+        "x": 4664,
+        "y": 3111,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "44249b4ea35747b18a8b6a666b27624b"
+      ]
+    },
+    {
+      "id": "n-937d8907",
+      "kind": "instrument",
+      "label": "FI-009",
+      "bbox_global": {
+        "x": 4784,
+        "y": 3111,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "flow",
+        "loop_number": "009"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5550f6a420114d6f80fb6b918d522967"
+      ]
+    },
+    {
+      "id": "n-5eaad6c8",
+      "kind": "instrument",
+      "label": "PT-001",
+      "bbox_global": {
+        "x": 4864,
+        "y": 3111,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5f47fdd5a0934c54a40e02aed53d9b9b"
+      ]
+    },
+    {
+      "id": "n-66c74afc",
+      "kind": "instrument",
+      "label": "FIT-001",
+      "bbox_global": {
+        "x": 5156,
+        "y": 2951,
+        "w": 130,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9849b4e1be394990a469fb3b3fa4cdcf"
+      ]
+    },
+    {
+      "id": "n-0e8bfa44",
+      "kind": "instrument",
+      "label": "FT-001",
+      "bbox_global": {
+        "x": 5186,
+        "y": 3111,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b1be667866a440d6954da9a1c8499f05"
+      ]
+    },
+    {
+      "id": "n-cf723d06",
+      "kind": "equipment",
+      "label": "V-007",
+      "bbox_global": {
+        "x": 5356,
+        "y": 3111,
+        "w": 110,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "vent",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1a714b117c6d448582e41cf5b1842ca9"
+      ]
+    },
+    {
+      "id": "n-46c0eb92",
+      "kind": "equipment",
+      "label": "V-041",
+      "bbox_global": {
+        "x": 5026,
+        "y": 3346,
+        "w": 110,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "other",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "cbf2665b29564803bdc929d04a3bad1f"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-09921a66",
+      "from_node": "n-891dcd0a",
+      "to_node": "n-f05a30bc",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          620,
+          1095
+        ],
+        [
+          620,
+          250
+        ],
+        [
+          760,
+          250
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "5dc4271e574d4821af3a3e6a68c7e5ed"
+      ],
+      "attributes": {
+        "label": "PRV-001 inlet pipe",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-48bc5827",
+      "from_node": "n-f05a30bc",
+      "to_node": "n-00811952",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          850,
+          250
+        ],
+        [
+          1290,
+          250
+        ],
+        [
+          1290,
+          290
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "aae0d360e7f141dbab8bec75d66c6f26"
+      ],
+      "attributes": {
+        "label": "PRV outlet to drain"
+      }
+    },
+    {
+      "id": "e-bc1c02a1",
+      "from_node": "n-8befee1e",
+      "to_node": "n-8befee1e",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2573,
+          470
+        ],
+        [
+          2573,
+          555
+        ],
+        [
+          2633,
+          580
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "8ef26cbc2f754a089abec34fd4fd9842"
+      ],
+      "attributes": {
+        "line_id": "50-DRAIN-S6-174-NI",
+        "label": "drain to gully"
+      }
+    },
+    {
+      "id": "e-ce720099",
+      "from_node": "n-28d52ca2",
+      "to_node": "n-8befee1e",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2173,
+          1095
+        ],
+        [
+          2173,
+          470
+        ],
+        [
+          2443,
+          470
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "a87ce32de8434ca6b9f39bdaadc92e21"
+      ],
+      "attributes": {
+        "label": "PRV-002 inlet",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-ac53a980",
+      "from_node": "n-a3f8edab",
+      "to_node": "n-b97658f0",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3906,
+          245
+        ],
+        [
+          2406,
+          245
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "a99776aeb39f425585ac17f322f8420c"
+      ],
+      "attributes": {
+        "line_id": "PUW2 header",
+        "label": "PUW2 supply through FT-003"
+      }
+    },
+    {
+      "id": "e-093e0711",
+      "from_node": "n-8d63c588",
+      "to_node": "n-b97658f0",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3906,
+          460
+        ],
+        [
+          2406,
+          460
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "b28858c2d4c8412d90243596339ea221"
+      ],
+      "attributes": {
+        "line_id": "Detergent header",
+        "label": "Detergent supply through FT-004"
+      }
+    },
+    {
+      "id": "e-ae6fe8c7",
+      "from_node": "n-a3f8edab",
+      "to_node": "n-543ae8be",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3906,
+          245
+        ],
+        [
+          5109,
+          245
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "82bb9610e90345a79e7f1b551436ac38"
+      ],
+      "attributes": {
+        "line_id": "85-PUW2-S6-164-IH",
+        "label": "PUW2 header east"
+      }
+    },
+    {
+      "id": "e-f07d1032",
+      "from_node": "n-8d63c588",
+      "to_node": "n-02eb03ae",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3906,
+          460
+        ],
+        [
+          5109,
+          460
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "5624a5752209472a8320e8b8f922d94c"
+      ],
+      "attributes": {
+        "line_id": "85-DETERGENT-S6-163-IH",
+        "label": "Detergent header east"
+      }
+    },
+    {
+      "id": "e-97a2b5a6",
+      "from_node": "n-b6a41a3c",
+      "to_node": "n-36f193d2",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3609,
+          660
+        ],
+        [
+          5109,
+          660
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "low",
+      "source_annotation_ids": [
+        "c3772da57fdc4eb4acfa7ee199d7647a"
+      ],
+      "attributes": {
+        "line_id": "80-PUW1-S6-486-IH",
+        "label": "PUW1 supply lines (2x)",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-de56787d",
+      "from_node": "n-543ae8be",
+      "to_node": "n-543ae8be",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          5109,
+          245
+        ],
+        [
+          5546,
+          245
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "12bc982263c04e7481dc29e622a9f651"
+      ],
+      "attributes": {
+        "label": "PUW2 line continuation"
+      }
+    },
+    {
+      "id": "e-7527147f",
+      "from_node": "n-02eb03ae",
+      "to_node": "n-02eb03ae",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          5109,
+          460
+        ],
+        [
+          5546,
+          460
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "89a138c157884b24932d48582e91672e"
+      ],
+      "attributes": {
+        "label": "Detergent line continuation"
+      }
+    },
+    {
+      "id": "e-f01d4a33",
+      "from_node": "n-36f193d2",
+      "to_node": "n-36f193d2",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          5109,
+          660
+        ],
+        [
+          5546,
+          660
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "6eca4801dba1450caf661efb53b68b48"
+      ],
+      "attributes": {
+        "label": "PUW1 line continuation"
+      }
+    },
+    {
+      "id": "e-21bcde41",
+      "from_node": "n-891dcd0a",
+      "to_node": "n-7eafb63d",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          620,
+          877
+        ],
+        [
+          620,
+          1417
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "f8991ec0fac84dc7b2906eef4aa2b859"
+      ],
+      "attributes": {
+        "line_id": "50-PUW1-S6-148-IH",
+        "label": "50-PUW1-S6-148-IH inlet",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-e7315fd4",
+      "from_node": "n-7eafb63d",
+      "to_node": "n-50904288",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          825,
+          1337
+        ],
+        [
+          825,
+          1317
+        ],
+        [
+          1500,
+          1317
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "abc3e47aef0e4a3baebe334cdcfe4466"
+      ],
+      "attributes": {
+        "line_id": "100-VENT-S6-168-NI",
+        "label": "100-VENT-S6-168-NI",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-b862f61c",
+      "from_node": "n-28d52ca2",
+      "to_node": "n-50904288",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2173,
+          877
+        ],
+        [
+          2173,
+          1417
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "74583b16d0af410898bfecb80569817d"
+      ],
+      "attributes": {
+        "line_id": "50-PUW1-S6-147-IH",
+        "label": "50-PUW1-S6-147-IH inlet",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-dede2b98",
+      "from_node": "n-7c99a422",
+      "to_node": "n-74882ddd",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          4599,
+          877
+        ],
+        [
+          4599,
+          1972
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "93036f3a20354c1d972f29583ca3fb06"
+      ],
+      "attributes": {
+        "line_id": "PLANT STEAM-CS1-183-IH",
+        "label": "PLANT STEAM-CS1-183-IH",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-81ae9b9f",
+      "from_node": "n-3c0b0537",
+      "to_node": "n-f7c4fd82",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          620,
+          2344
+        ],
+        [
+          620,
+          2849
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "7027d805690247088720a3e306d2adcd"
+      ],
+      "attributes": {
+        "line_id": "80-PUW2-S6-155-IH",
+        "label": "T-411 outlet"
+      }
+    },
+    {
+      "id": "e-c85ade54",
+      "from_node": "n-54962024",
+      "to_node": "n-1c3668f2",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2073,
+          2294
+        ],
+        [
+          2073,
+          2534
+        ],
+        [
+          2313,
+          2534
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "3bd46716a7b94af481386113ab634d45"
+      ],
+      "attributes": {
+        "line_id": "80-DETERGENT-S6-150-IH",
+        "label": "T-211 outlet to XV-002/XV-004"
+      }
+    },
+    {
+      "id": "e-c9a70bb8",
+      "from_node": "n-79cfe793",
+      "to_node": "n-8876578e",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2406,
+          2474
+        ],
+        [
+          3106,
+          2474
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "b534cc42154d4d6587e1a8d60c93fb9f"
+      ],
+      "attributes": {
+        "line_id": "80-DETERGENT-S6-149-IH",
+        "label": "80-DETERGENT-S6-149-IH"
+      }
+    },
+    {
+      "id": "e-648fc0b0",
+      "from_node": "n-9979c26f",
+      "to_node": "n-eebf4f84",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3486,
+          2524
+        ],
+        [
+          3696,
+          2524
+        ],
+        [
+          3696,
+          2344
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "3d4ec6c430e246a9bcf7220526920da2"
+      ],
+      "attributes": {
+        "line_id": "65-DETERGENT-S6-153-IH",
+        "label": "P-207 discharge"
+      }
+    },
+    {
+      "id": "e-c75a68e0",
+      "from_node": "n-5e0477b5",
+      "to_node": "n-24871d08",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3609,
+          2474
+        ],
+        [
+          4224,
+          2474
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "eb1af9fae50640eb8b7589bd7c1f2c32"
+      ],
+      "attributes": {
+        "line_id": "65-DETERGENT-S6-153-IH",
+        "label": "65-DETERGENT-S6-153-IH to HX-211"
+      }
+    },
+    {
+      "id": "e-4aeb72f5",
+      "from_node": "n-24871d08",
+      "to_node": "n-4e5c46d9",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          4579,
+          2754
+        ],
+        [
+          5109,
+          2754
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "4b2ed8a8e06544f5974f86722ce8d593"
+      ],
+      "attributes": {
+        "label": "HX-211 outlet"
+      }
+    },
+    {
+      "id": "e-75d9230a",
+      "from_node": "n-4e5c46d9",
+      "to_node": "n-5ed2ecb8",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          5109,
+          2754
+        ],
+        [
+          5546,
+          2754
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "ae12fcaed7ae4c29a5959ee1fc3e4bb8"
+      ],
+      "attributes": {
+        "label": "HX-211 process outlet east"
+      }
+    },
+    {
+      "id": "e-a8101b7e",
+      "from_node": "n-3c0b0537",
+      "to_node": "n-fb6a26a6",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          620,
+          2631
+        ],
+        [
+          620,
+          3101
+        ],
+        [
+          1500,
+          3101
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "a1573f5a430d44a481ae95df01944e11"
+      ],
+      "attributes": {
+        "line_id": "80-PUW2-S6-155-IH",
+        "label": "80-PUW2-S6-155-IH continuation",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-cf62b495",
+      "from_node": "n-b9689c8e",
+      "to_node": "n-cb556795",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1203,
+          3101
+        ],
+        [
+          2703,
+          3101
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "2ad77ab95658462bbab10a4c8aa9a0b2"
+      ],
+      "attributes": {
+        "line_id": "80-PUW2-S6-156-IH",
+        "label": "80-PUW2-S6-156-IH"
+      }
+    },
+    {
+      "id": "e-b8ef9457",
+      "from_node": "n-b9689c8e",
+      "to_node": "n-ec937385",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1203,
+          2881
+        ],
+        [
+          2703,
+          2881
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "e5de73bb777348fa88ace8fd7756427a"
+      ],
+      "attributes": {
+        "line_id": "25-PROCESS-S6-162-NI",
+        "label": "25-PROCESS-S6-162-NI"
+      }
+    },
+    {
+      "id": "e-5db0f4cc",
+      "from_node": "n-73f6689c",
+      "to_node": "n-efa2e968",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1203,
+          2711
+        ],
+        [
+          2503,
+          2711
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "3715e9e246a84b3f9c207d4622b6d261"
+      ],
+      "attributes": {
+        "line_id": "50-DRAIN-S6-170-NI",
+        "label": "50-DRAIN-S6-170-NI",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-f27c1037",
+      "from_node": "n-cb556795",
+      "to_node": "n-9bbf2d84",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2866,
+          3091
+        ],
+        [
+          3906,
+          3091
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "8faa1de2ce8a4b0381919db5642d6445"
+      ],
+      "attributes": {
+        "line_id": "65-PUW2-S6-159-IH",
+        "label": "P-415 discharge"
+      }
+    },
+    {
+      "id": "e-a0b6c388",
+      "from_node": "n-e7b2311c",
+      "to_node": "n-0218d25f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2866,
+          3371
+        ],
+        [
+          3076,
+          3371
+        ],
+        [
+          3076,
+          3091
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "4434a412a0fb4c51a734b94ee0c2d6b2"
+      ],
+      "attributes": {
+        "line_id": "65-PUW2-S6-158-IH",
+        "label": "65-PUW2-S6-158-IH P-417 discharge"
+      }
+    },
+    {
+      "id": "e-db4bfaa8",
+      "from_node": "n-9bbf2d84",
+      "to_node": "n-9bbf2d84",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3906,
+          3091
+        ],
+        [
+          3809,
+          3291
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "23c4069f072648b5b189242d8625d7d8"
+      ],
+      "attributes": {
+        "line_id": "65-PUW2-S6-159-IH",
+        "label": "65-PUW2-S6-159-IH to HX-411 + outlet to east"
+      }
+    },
+    {
+      "id": "e-37df811d",
+      "from_node": "n-9bbf2d84",
+      "to_node": "n-46c0eb92",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          4189,
+          3311
+        ],
+        [
+          5109,
+          3311
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "38aeff0831aa47f1a663866c65ee7301"
+      ],
+      "attributes": {
+        "line_id": "85-PUW2-S6-160-IH",
+        "label": "85-PUW2-S6-160-IH from HX-411"
+      }
+    },
+    {
+      "id": "e-42488813",
+      "from_node": "n-9bbf2d84",
+      "to_node": "n-cf723d06",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          4046,
+          3311
+        ],
+        [
+          5546,
+          3311
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "cb9fdf5de1444a11ae19f750da0d757c"
+      ],
+      "attributes": {
+        "line_id": "85-PUW2-S6-160-IH",
+        "label": "85-PUW2-S6-160-IH continuation east"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "85-PUW2-S6-164-IH outlet",
+      "normalised": "85-PUW2-S6-164-IHOUTLET",
+      "node_id": "n-543ae8be",
+      "page_index": 0
+    },
+    {
+      "opc_label": "85-DETERGENT-S6-163-IH outlet",
+      "normalised": "85-DETERGENT-S6-163-IHOUTLET",
+      "node_id": "n-02eb03ae",
+      "page_index": 0
+    },
+    {
+      "opc_label": "80-PUW1-S6-485-IH outlet",
+      "normalised": "80-PUW1-S6-485-IHOUTLET",
+      "node_id": "n-36f193d2",
+      "page_index": 0
+    },
+    {
+      "opc_label": "80-PUW1-S6-486-IH outlet",
+      "normalised": "80-PUW1-S6-486-IHOUTLET",
+      "node_id": "n-e41ce76e",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.197,
+      "kind": "equipment",
+      "labels": [
+        "T-411 (HOT PUW2 TANK, top)",
+        "T-411 (HOT PUW2 TANK, bottom)"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "a73850204783439091e97f9df3a5b854",
+        "da6ed91c6790403e818e4fcccc90f5e4"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "SAME",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.24,
+      "kind": "equipment",
+      "labels": [
+        "T-211 (HOT DETERGENT TANK, top)",
+        "T-211 (HOT DETERGENT TANK, bottom)"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "e115f5b99a724279a24173b2ab02a5d2",
+        "1ccb721895434133b7644c4c0bb03459"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "SAME",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "iou_grey_zone",
+      "iou": 0.158,
+      "kind": "instrument",
+      "labels": [
+        "FI-009",
+        "PT-001"
+      ],
+      "page_index": 0,
+      "annotation_ids": [
+        "5550f6a420114d6f80fb6b918d522967",
+        "5f47fdd5a0934c54a40e02aed53d9b9b"
+      ],
+      "arbitration": {
+        "status": "ok",
+        "verdict": "DIFFERENT",
+        "type": "iou_grey_zone"
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 620,
+      "y": 1095,
+      "annotation_id": "5dc4271e574d4821af3a3e6a68c7e5ed",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2173,
+      "y": 1095,
+      "annotation_id": "a87ce32de8434ca6b9f39bdaadc92e21",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3906,
+      "y": 245,
+      "annotation_id": "a99776aeb39f425585ac17f322f8420c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2406,
+      "y": 245,
+      "annotation_id": "a99776aeb39f425585ac17f322f8420c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3906,
+      "y": 460,
+      "annotation_id": "b28858c2d4c8412d90243596339ea221",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2406,
+      "y": 460,
+      "annotation_id": "b28858c2d4c8412d90243596339ea221",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5109,
+      "y": 245,
+      "annotation_id": "82bb9610e90345a79e7f1b551436ac38",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5109,
+      "y": 460,
+      "annotation_id": "5624a5752209472a8320e8b8f922d94c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3609,
+      "y": 660,
+      "annotation_id": "c3772da57fdc4eb4acfa7ee199d7647a",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5109,
+      "y": 660,
+      "annotation_id": "c3772da57fdc4eb4acfa7ee199d7647a",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5546,
+      "y": 245,
+      "annotation_id": "12bc982263c04e7481dc29e622a9f651",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5546,
+      "y": 460,
+      "annotation_id": "89a138c157884b24932d48582e91672e",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5546,
+      "y": 660,
+      "annotation_id": "6eca4801dba1450caf661efb53b68b48",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 620,
+      "y": 877,
+      "annotation_id": "f8991ec0fac84dc7b2906eef4aa2b859",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1500,
+      "y": 1317,
+      "annotation_id": "abc3e47aef0e4a3baebe334cdcfe4466",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2173,
+      "y": 877,
+      "annotation_id": "74583b16d0af410898bfecb80569817d",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1203,
+      "y": 1317,
+      "annotation_id": "86e112d5397d44d994fc3c1ff84a1c29",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3726,
+      "y": 877,
+      "annotation_id": "df1dc8c0dfc9404391649f6795a1077f",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3726,
+      "y": 1972,
+      "annotation_id": "df1dc8c0dfc9404391649f6795a1077f",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4189,
+      "y": 877,
+      "annotation_id": "4ad8a374ff3a43a780bb92781e014c51",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4189,
+      "y": 1972,
+      "annotation_id": "4ad8a374ff3a43a780bb92781e014c51",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4599,
+      "y": 877,
+      "annotation_id": "93036f3a20354c1d972f29583ca3fb06",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4599,
+      "y": 1972,
+      "annotation_id": "93036f3a20354c1d972f29583ca3fb06",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3609,
+      "y": 1272,
+      "annotation_id": "256e1b5f87a6491c923002385845b434",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5109,
+      "y": 1272,
+      "annotation_id": "256e1b5f87a6491c923002385845b434",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 620,
+      "y": 2849,
+      "annotation_id": "7027d805690247088720a3e306d2adcd",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2406,
+      "y": 2474,
+      "annotation_id": "b534cc42154d4d6587e1a8d60c93fb9f",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3609,
+      "y": 2474,
+      "annotation_id": "eb1af9fae50640eb8b7589bd7c1f2c32",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5109,
+      "y": 2754,
+      "annotation_id": "4b2ed8a8e06544f5974f86722ce8d593",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5546,
+      "y": 2754,
+      "annotation_id": "ae12fcaed7ae4c29a5959ee1fc3e4bb8",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 620,
+      "y": 2631,
+      "annotation_id": "a1573f5a430d44a481ae95df01944e11",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1500,
+      "y": 3101,
+      "annotation_id": "a1573f5a430d44a481ae95df01944e11",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1203,
+      "y": 3101,
+      "annotation_id": "2ad77ab95658462bbab10a4c8aa9a0b2",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2703,
+      "y": 3101,
+      "annotation_id": "2ad77ab95658462bbab10a4c8aa9a0b2",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1203,
+      "y": 2881,
+      "annotation_id": "e5de73bb777348fa88ace8fd7756427a",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 2703,
+      "y": 2881,
+      "annotation_id": "e5de73bb777348fa88ace8fd7756427a",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1203,
+      "y": 2711,
+      "annotation_id": "3715e9e246a84b3f9c207d4622b6d261",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 3906,
+      "y": 3091,
+      "annotation_id": "8faa1de2ce8a4b0381919db5642d6445",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5109,
+      "y": 3311,
+      "annotation_id": "38aeff0831aa47f1a663866c65ee7301",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 4046,
+      "y": 3311,
+      "annotation_id": "cb9fdf5de1444a11ae19f750da0d757c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 5546,
+      "y": 3311,
+      "annotation_id": "cb9fdf5de1444a11ae19f750da0d757c",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1280,
+          350
+        ],
+        [
+          1280,
+          545
+        ],
+        [
+          1340,
+          580
+        ]
+      ],
+      "snap_radius_px": 165,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "d1f067e45e134153a603ef5015de01fa"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1500,
+          1317
+        ],
+        [
+          1203,
+          1317
+        ]
+      ],
+      "snap_radius_px": 165,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "86e112d5397d44d994fc3c1ff84a1c29"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          3726,
+          877
+        ],
+        [
+          3726,
+          1972
+        ]
+      ],
+      "snap_radius_px": 165,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "df1dc8c0dfc9404391649f6795a1077f"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          4189,
+          877
+        ],
+        [
+          4189,
+          1972
+        ]
+      ],
+      "snap_radius_px": 165,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "4ad8a374ff3a43a780bb92781e014c51"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          3609,
+          1272
+        ],
+        [
+          5109,
+          1272
+        ]
+      ],
+      "snap_radius_px": 165,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "256e1b5f87a6491c923002385845b434"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    }
+  ],
+  "per_page_status": {
+    "0": "cost_exhausted"
+  }
+}

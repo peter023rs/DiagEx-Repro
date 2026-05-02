@@ -1,0 +1,16 @@
+<svg
+  xmlns = "http://www.w3.org/2000/svg"
+  width = "42mm"
+  height = "96mm"
+  viewBox = "64 -1 42 96">
+  <path
+    d = "M 65.11969 0.5439408 A 110 50 35.0 0 1 84.86389 93.29673"
+    stroke = "#ff0000"
+    stroke-dasharray = "10mm 14mm"
+    stroke-dashoffset = "0mm"
+    stroke-width = "2mm"
+    stroke-linecap = "round"
+    stroke-linejoin = "round"
+    vector-effect = "non-scaling-stroke"
+    fill = "none"/>
+</svg>

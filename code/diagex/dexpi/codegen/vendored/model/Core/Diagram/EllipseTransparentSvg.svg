@@ -1,0 +1,18 @@
+<svg
+  xmlns = "http://www.w3.org/2000/svg"
+  width = "192mm"
+  height = "154mm"
+  viewBox = "-86 -57 192 154">
+  <ellipse
+    transform = "translate(10,20) rotate(35.0)"
+    rx = "110"
+    ry = "50"
+    stroke = "#ff0000"
+    stroke-dasharray = "none"
+    stroke-dashoffset = "0mm"
+    stroke-width = "2mm"
+    stroke-linecap = "round"
+    stroke-linejoin = "round"
+    vector-effect = "non-scaling-stroke"
+    fill = "none"/>
+</svg>

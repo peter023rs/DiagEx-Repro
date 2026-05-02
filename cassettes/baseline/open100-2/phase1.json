@@ -1,0 +1,64 @@
+{
+  "answers": [
+    {
+      "query_id": "open100-2-q1",
+      "answer": "MOV-1001\nMOV-1002\nMOV-1003\nMOV-1004\nMOV-1211\nMOV-1212\nMOV-1213\nMOV-1214\nMOV-1215\nMOV-1216\nMOV-1217",
+      "cost_usd": 0.142235,
+      "wall_clock_s": 0.0,
+      "input_tokens": 20857,
+      "output_tokens": 1174,
+      "cache_read_tokens": 11074,
+      "cache_write_tokens": 490,
+      "image_tokens": 0,
+      "n_steps": 4,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "open100-2-q2",
+      "answer": "2",
+      "cost_usd": 0.032612,
+      "wall_clock_s": 0.0,
+      "input_tokens": 5034,
+      "output_tokens": 154,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 166,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "open100-2-q3",
+      "answer": "PU-120A discharges to HX-121A on the top train.\n\nyes",
+      "cost_usd": 0.031183,
+      "wall_clock_s": 0.0,
+      "input_tokens": 5032,
+      "output_tokens": 97,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 167,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    },
+    {
+      "query_id": "open100-2-q4",
+      "answer": "pump",
+      "cost_usd": 0.067944,
+      "wall_clock_s": 0.0,
+      "input_tokens": 10300,
+      "output_tokens": 361,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 574,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 0,
+      "tool_call_counts": {},
+      "retries": 0
+    }
+  ]
+}

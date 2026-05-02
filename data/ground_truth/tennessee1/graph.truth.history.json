@@ -1,0 +1,807 @@
+{
+  "stem": "tennessee1",
+  "bootstrap_path": "/home/abb/repos/Image-Processing/eval/datasets/tennessee1/graph.bootstrap_v2.json",
+  "rater": "Heiko Koziolek",
+  "started_at": "2026-04-25T11:40:38",
+  "completed_at": "2026-04-25T12:00:25",
+  "actions": [
+    {
+      "ts": "2026-04-25T11:41:07",
+      "op": "keep",
+      "node_id": "n-6d188350",
+      "label": "Compressor"
+    },
+    {
+      "ts": "2026-04-25T11:41:18",
+      "op": "keep",
+      "node_id": "n-f62035df",
+      "label": "Condenser"
+    },
+    {
+      "ts": "2026-04-25T11:41:23",
+      "op": "keep",
+      "node_id": "n-16bae620",
+      "label": "Product pump"
+    },
+    {
+      "ts": "2026-04-25T11:41:26",
+      "op": "keep",
+      "node_id": "n-dffb5cef",
+      "label": "Reactor"
+    },
+    {
+      "ts": "2026-04-25T11:41:30",
+      "op": "keep",
+      "node_id": "n-1d9d19c2",
+      "label": "Reactor agitator motor"
+    },
+    {
+      "ts": "2026-04-25T11:41:33",
+      "op": "keep",
+      "node_id": "n-cb2f51f6",
+      "label": "Separator bottom pump"
+    },
+    {
+      "ts": "2026-04-25T11:41:37",
+      "op": "keep",
+      "node_id": "n-60860bb9",
+      "label": "Heat Exchanger"
+    },
+    {
+      "ts": "2026-04-25T11:41:45",
+      "op": "keep",
+      "node_id": "n-860d237d",
+      "label": "V-1001"
+    },
+    {
+      "ts": "2026-04-25T11:41:48",
+      "op": "keep",
+      "node_id": "n-80f91572",
+      "label": "V-1002"
+    },
+    {
+      "ts": "2026-04-25T11:41:50",
+      "op": "keep",
+      "node_id": "n-b0f5e1ea",
+      "label": "V-1003"
+    },
+    {
+      "ts": "2026-04-25T11:41:52",
+      "op": "keep",
+      "node_id": "n-0e283ca2",
+      "label": "V-1004"
+    },
+    {
+      "ts": "2026-04-25T11:41:55",
+      "op": "keep",
+      "node_id": "n-63269a7c",
+      "label": "V-1005"
+    },
+    {
+      "ts": "2026-04-25T11:41:59",
+      "op": "keep",
+      "node_id": "n-15d5a748",
+      "label": "V-1101"
+    },
+    {
+      "ts": "2026-04-25T11:42:01",
+      "op": "keep",
+      "node_id": "n-8e60bc3c",
+      "label": "V-1201"
+    },
+    {
+      "ts": "2026-04-25T11:42:04",
+      "op": "keep",
+      "node_id": "n-95fc3308",
+      "label": "V-1301"
+    },
+    {
+      "ts": "2026-04-25T11:42:06",
+      "op": "keep",
+      "node_id": "n-863b6169",
+      "label": "V-1401"
+    },
+    {
+      "ts": "2026-04-25T11:42:08",
+      "op": "keep",
+      "node_id": "n-f76e887a",
+      "label": "V-1501"
+    },
+    {
+      "ts": "2026-04-25T11:42:11",
+      "op": "keep",
+      "node_id": "n-a19b465a",
+      "label": "V-1502"
+    },
+    {
+      "ts": "2026-04-25T11:42:15",
+      "op": "keep",
+      "node_id": "n-ee9ecf54",
+      "label": "Vapor-Liquid Separator"
+    },
+    {
+      "ts": "2026-04-25T11:42:17",
+      "op": "keep",
+      "node_id": "n-4b41d227",
+      "label": "FI-1001"
+    },
+    {
+      "ts": "2026-04-25T11:42:20",
+      "op": "keep",
+      "node_id": "n-860faddb",
+      "label": "FI-1002"
+    },
+    {
+      "ts": "2026-04-25T11:42:23",
+      "op": "keep",
+      "node_id": "n-5ac92417",
+      "label": "FI-1003"
+    },
+    {
+      "ts": "2026-04-25T11:42:25",
+      "op": "keep",
+      "node_id": "n-54998c06",
+      "label": "FI-1004"
+    },
+    {
+      "ts": "2026-04-25T11:42:28",
+      "op": "keep",
+      "node_id": "n-028f45ae",
+      "label": "FI-1005"
+    },
+    {
+      "ts": "2026-04-25T11:42:30",
+      "op": "keep",
+      "node_id": "n-6db52389",
+      "label": "FI-1006"
+    },
+    {
+      "ts": "2026-04-25T11:42:33",
+      "op": "keep",
+      "node_id": "n-e3fd8750",
+      "label": "FI-1101"
+    },
+    {
+      "ts": "2026-04-25T11:42:35",
+      "op": "keep",
+      "node_id": "n-40a1a31e",
+      "label": "FI-1102"
+    },
+    {
+      "ts": "2026-04-25T11:42:38",
+      "op": "keep",
+      "node_id": "n-37a29bef",
+      "label": "FI-1201"
+    },
+    {
+      "ts": "2026-04-25T11:42:40",
+      "op": "keep",
+      "node_id": "n-22b8ad2e",
+      "label": "FI-1301"
+    },
+    {
+      "ts": "2026-04-25T11:42:43",
+      "op": "keep",
+      "node_id": "n-a71ad453",
+      "label": "FI-1501"
+    },
+    {
+      "ts": "2026-04-25T11:42:45",
+      "op": "keep",
+      "node_id": "n-d73d1496",
+      "label": "FI-1502"
+    },
+    {
+      "ts": "2026-04-25T11:42:48",
+      "op": "keep",
+      "node_id": "n-089840b4",
+      "label": "JI-1401"
+    },
+    {
+      "ts": "2026-04-25T11:42:51",
+      "op": "keep",
+      "node_id": "n-5e1cfbb6",
+      "label": "LIAZ\u00b1 1101"
+    },
+    {
+      "ts": "2026-04-25T11:42:53",
+      "op": "keep",
+      "node_id": "n-56c3c241",
+      "label": "LIAZ\u00b1 1301"
+    },
+    {
+      "ts": "2026-04-25T11:42:56",
+      "op": "keep",
+      "node_id": "n-ee6023fc",
+      "label": "LIAZ\u00b1 1501"
+    },
+    {
+      "ts": "2026-04-25T11:42:58",
+      "op": "keep",
+      "node_id": "n-a322939a",
+      "label": "PI-1301"
+    },
+    {
+      "ts": "2026-04-25T11:43:01",
+      "op": "keep",
+      "node_id": "n-b376094f",
+      "label": "PI-1501"
+    },
+    {
+      "ts": "2026-04-25T11:43:03",
+      "op": "keep",
+      "node_id": "n-5d4a2eb2",
+      "label": "PIAZ+ 1101"
+    },
+    {
+      "ts": "2026-04-25T11:43:06",
+      "op": "keep",
+      "node_id": "n-9819828a",
+      "label": "SC-1101"
+    },
+    {
+      "ts": "2026-04-25T11:43:09",
+      "op": "keep",
+      "node_id": "n-6bac71d8",
+      "label": "TI-1001"
+    },
+    {
+      "ts": "2026-04-25T11:43:12",
+      "op": "keep",
+      "node_id": "n-9a32c183",
+      "label": "TI-1002"
+    },
+    {
+      "ts": "2026-04-25T11:43:14",
+      "op": "keep",
+      "node_id": "n-33eaf4f3",
+      "label": "TI-1003"
+    },
+    {
+      "ts": "2026-04-25T11:43:17",
+      "op": "keep",
+      "node_id": "n-aa227f9f",
+      "label": "TI-1004"
+    },
+    {
+      "ts": "2026-04-25T11:43:20",
+      "op": "keep",
+      "node_id": "n-eb471650",
+      "label": "TI-1102"
+    },
+    {
+      "ts": "2026-04-25T11:43:24",
+      "op": "keep",
+      "node_id": "n-f88ca12c",
+      "label": "TI-1103"
+    },
+    {
+      "ts": "2026-04-25T11:43:27",
+      "op": "keep",
+      "node_id": "n-36382d7b",
+      "label": "TI-1201"
+    },
+    {
+      "ts": "2026-04-25T11:43:29",
+      "op": "keep",
+      "node_id": "n-e5a45880",
+      "label": "TI-1202"
+    },
+    {
+      "ts": "2026-04-25T11:43:32",
+      "op": "keep",
+      "node_id": "n-c18cc765",
+      "label": "TI-1301"
+    },
+    {
+      "ts": "2026-04-25T11:43:34",
+      "op": "keep",
+      "node_id": "n-9bc18f63",
+      "label": "TI-1501"
+    },
+    {
+      "ts": "2026-04-25T11:43:37",
+      "op": "keep",
+      "node_id": "n-36260c83",
+      "label": "TIAZ+ 1101"
+    },
+    {
+      "ts": "2026-04-25T11:43:39",
+      "op": "keep",
+      "node_id": "n-a4f998ac",
+      "label": "XI-1001"
+    },
+    {
+      "ts": "2026-04-25T11:43:42",
+      "op": "keep",
+      "node_id": "n-a072d482",
+      "label": "XI-1002"
+    },
+    {
+      "ts": "2026-04-25T11:43:45",
+      "op": "keep",
+      "node_id": "n-90287c2d",
+      "label": "XI-1003"
+    },
+    {
+      "ts": "2026-04-25T11:43:47",
+      "op": "keep",
+      "node_id": "n-4ca92298",
+      "label": "XI-1004"
+    },
+    {
+      "ts": "2026-04-25T11:43:49",
+      "op": "keep",
+      "node_id": "n-c148eecd",
+      "label": "XI-1005"
+    },
+    {
+      "ts": "2026-04-25T11:43:52",
+      "op": "keep",
+      "node_id": "n-3ff61998",
+      "label": "XI-1006"
+    },
+    {
+      "ts": "2026-04-25T11:43:55",
+      "op": "keep",
+      "node_id": "n-ec5a6751",
+      "label": "XI-1101"
+    },
+    {
+      "ts": "2026-04-25T11:43:57",
+      "op": "keep",
+      "node_id": "n-b41b5933",
+      "label": "Stripper"
+    },
+    {
+      "ts": "2026-04-25T11:43:59",
+      "op": "keep",
+      "node_id": "n-3364b910",
+      "label": "Feed A inlet"
+    },
+    {
+      "ts": "2026-04-25T11:44:02",
+      "op": "keep",
+      "node_id": "n-84158b20",
+      "label": "Feed D inlet"
+    },
+    {
+      "ts": "2026-04-25T11:44:04",
+      "op": "keep",
+      "node_id": "n-d7abbb4c",
+      "label": "Feed E inlet"
+    },
+    {
+      "ts": "2026-04-25T11:44:10",
+      "op": "keep",
+      "node_id": "n-3e65c842",
+      "label": "CWS to condenser"
+    },
+    {
+      "ts": "2026-04-25T11:44:15",
+      "op": "keep",
+      "node_id": "n-73321e9d",
+      "label": "CWS to reactor jacket"
+    },
+    {
+      "ts": "2026-04-25T11:44:18",
+      "op": "keep",
+      "node_id": "n-45b52c05",
+      "label": "CWR from condenser"
+    },
+    {
+      "ts": "2026-04-25T11:44:21",
+      "op": "keep",
+      "node_id": "n-17d80ba7",
+      "label": "CWR from reactor"
+    },
+    {
+      "ts": "2026-04-25T11:44:24",
+      "op": "keep",
+      "node_id": "n-600ccec6",
+      "label": "Purge outlet"
+    },
+    {
+      "ts": "2026-04-25T11:44:27",
+      "op": "keep",
+      "node_id": "n-9140b091",
+      "label": "Feed C inlet"
+    },
+    {
+      "ts": "2026-04-25T11:44:31",
+      "op": "keep",
+      "node_id": "n-a1ab7d3a",
+      "label": "Steam inlet"
+    },
+    {
+      "ts": "2026-04-25T11:44:33",
+      "op": "keep",
+      "node_id": "n-93a0e96b",
+      "label": "Cond outlet"
+    },
+    {
+      "ts": "2026-04-25T11:44:36",
+      "op": "keep",
+      "node_id": "n-683b64be",
+      "label": "Product outlet"
+    },
+    {
+      "ts": "2026-04-25T11:44:45",
+      "op": "edge_keep",
+      "edge_id": "e-bf91c4e6"
+    },
+    {
+      "ts": "2026-04-25T11:45:20",
+      "op": "edge_revise",
+      "edge_id": "e-1008520e",
+      "before": {
+        "from_node": "n-860d237d",
+        "to_node": "n-9819828a",
+        "line_type": "process"
+      },
+      "after": {
+        "from_node": "n-860d237d",
+        "to_node": "n-dffb5cef",
+        "line_type": "process"
+      },
+      "reason": null
+    },
+    {
+      "ts": "2026-04-25T11:45:56",
+      "op": "edge_keep",
+      "edge_id": "e-578a45d7"
+    },
+    {
+      "ts": "2026-04-25T11:46:03",
+      "op": "edge_keep",
+      "edge_id": "e-e865acc6"
+    },
+    {
+      "ts": "2026-04-25T11:46:07",
+      "op": "edge_keep",
+      "edge_id": "e-7af2e940"
+    },
+    {
+      "ts": "2026-04-25T11:46:14",
+      "op": "edge_keep",
+      "edge_id": "e-1dc5ac54"
+    },
+    {
+      "ts": "2026-04-25T11:46:20",
+      "op": "edge_keep",
+      "edge_id": "e-5a29a093"
+    },
+    {
+      "ts": "2026-04-25T11:46:38",
+      "op": "edge_keep",
+      "edge_id": "e-8d4c806a"
+    },
+    {
+      "ts": "2026-04-25T11:47:09",
+      "op": "edge_drop",
+      "edge_id": "e-92f694fa",
+      "from_node": "n-dffb5cef",
+      "to_node": "n-9819828a",
+      "reason": "already exists the other way around"
+    },
+    {
+      "ts": "2026-04-25T11:47:37",
+      "op": "edge_keep",
+      "edge_id": "e-19fe54ca"
+    },
+    {
+      "ts": "2026-04-25T11:47:48",
+      "op": "edge_keep",
+      "edge_id": "e-a13defda"
+    },
+    {
+      "ts": "2026-04-25T11:48:01",
+      "op": "edge_keep",
+      "edge_id": "e-a7182a6a"
+    },
+    {
+      "ts": "2026-04-25T11:48:08",
+      "op": "edge_keep",
+      "edge_id": "e-302a410d"
+    },
+    {
+      "ts": "2026-04-25T11:48:33",
+      "op": "edge_revise",
+      "edge_id": "e-d507d94a",
+      "before": {
+        "from_node": "n-6db52389",
+        "to_node": "n-9819828a",
+        "line_type": "process"
+      },
+      "after": {
+        "from_node": "n-6db52389",
+        "to_node": "n-dffb5cef",
+        "line_type": "process"
+      },
+      "reason": null
+    },
+    {
+      "ts": "2026-04-25T11:48:43",
+      "op": "edge_keep",
+      "edge_id": "e-d893bfd7"
+    },
+    {
+      "ts": "2026-04-25T11:48:48",
+      "op": "edge_keep",
+      "edge_id": "e-c314ba27"
+    },
+    {
+      "ts": "2026-04-25T11:49:09",
+      "op": "edge_keep",
+      "edge_id": "e-5de98105"
+    },
+    {
+      "ts": "2026-04-25T11:49:15",
+      "op": "edge_keep",
+      "edge_id": "e-6b7eb9e9"
+    },
+    {
+      "ts": "2026-04-25T11:49:19",
+      "op": "edge_keep",
+      "edge_id": "e-aaa46486"
+    },
+    {
+      "ts": "2026-04-25T11:49:22",
+      "op": "edge_keep",
+      "edge_id": "e-32b14fa2"
+    },
+    {
+      "ts": "2026-04-25T11:49:41",
+      "op": "edge_revise",
+      "edge_id": "e-53cae5ed",
+      "before": {
+        "from_node": "n-0e283ca2",
+        "to_node": "n-dffb5cef",
+        "line_type": "process"
+      },
+      "after": {
+        "from_node": "n-0e283ca2",
+        "to_node": "n-b41b5933",
+        "line_type": "process"
+      },
+      "reason": null
+    },
+    {
+      "ts": "2026-04-25T11:50:39",
+      "op": "edge_revise",
+      "edge_id": "e-4a20d38f",
+      "before": {
+        "from_node": "n-dffb5cef",
+        "to_node": "n-b41b5933",
+        "line_type": "process"
+      },
+      "after": {
+        "from_node": "n-dffb5cef",
+        "to_node": "n-f62035df",
+        "line_type": "process"
+      },
+      "reason": null
+    },
+    {
+      "ts": "2026-04-25T11:50:46",
+      "op": "edge_keep",
+      "edge_id": "e-e2e77198"
+    },
+    {
+      "ts": "2026-04-25T11:55:56",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-d25d5a19",
+        "from_node": "n-16bae620",
+        "to_node": "n-f76e887a",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:56:10",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-ed03d20e",
+        "from_node": "n-f76e887a",
+        "to_node": "n-683b64be",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:56:26",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-f3ca53e9",
+        "from_node": "n-60860bb9",
+        "to_node": "n-93a0e96b",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:56:41",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-5205f539",
+        "from_node": "n-a1ab7d3a",
+        "to_node": "n-a19b465a",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:56:53",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-5f27becb",
+        "from_node": "n-a19b465a",
+        "to_node": "n-60860bb9",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:57:30",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-6f0ee821",
+        "from_node": "n-cb2f51f6",
+        "to_node": "n-95fc3308",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:57:41",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-dcaa9023",
+        "from_node": "n-95fc3308",
+        "to_node": "n-b41b5933",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:58:02",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-1138e7af",
+        "from_node": "n-ee9ecf54",
+        "to_node": "n-63269a7c",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:58:11",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-16596710",
+        "from_node": "n-63269a7c",
+        "to_node": "n-600ccec6",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:58:30",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-90353d0f",
+        "from_node": "n-ee9ecf54",
+        "to_node": "n-6d188350",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:58:54",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-4b07e469",
+        "from_node": "n-b41b5933",
+        "to_node": "n-60860bb9",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T11:59:01",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-9b968e29",
+        "from_node": "n-60860bb9",
+        "to_node": "n-b41b5933",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T12:00:01",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-87b266a3",
+        "from_node": "n-f62035df",
+        "to_node": "n-8e60bc3c",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    },
+    {
+      "ts": "2026-04-25T12:00:12",
+      "op": "edge_add",
+      "new_edge": {
+        "id": "e-457c84c0",
+        "from_node": "n-8e60bc3c",
+        "to_node": "n-45b52c05",
+        "line_type": "process",
+        "confidence": "high",
+        "attributes": {
+          "gt_added": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "bootstrap_nodes": 70,
+    "kept": 70,
+    "revised": 0,
+    "dropped": 0,
+    "added": 0,
+    "skipped": 0,
+    "final_nodes": 70,
+    "retention_pct": 100.0,
+    "bootstrap_edges": 24,
+    "edge_kept": 18,
+    "edge_revised": 4,
+    "edge_dropped": 1,
+    "edge_added": 14,
+    "edge_skipped": 0,
+    "final_edges": 37,
+    "edge_retention_pct": 75.0,
+    "finalised": true
+  },
+  "edge_walk_done": true
+}

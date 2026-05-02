@@ -1,0 +1,76 @@
+{
+  "answers": [
+    {
+      "query_id": "open100-1-q1",
+      "answer": "MOV-1113\nMOV-1114\nMOV-1122\nMOV-1123\nMOV-1151",
+      "cost_usd": 0.3457,
+      "wall_clock_s": 107.415,
+      "input_tokens": 31451,
+      "output_tokens": 3836,
+      "cache_read_tokens": 125902,
+      "cache_write_tokens": 4735,
+      "image_tokens": 0,
+      "n_steps": 15,
+      "n_tool_calls": 16,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 15
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "open100-1-q2",
+      "answer": "10",
+      "cost_usd": 0.141806,
+      "wall_clock_s": 32.7,
+      "input_tokens": 22086,
+      "output_tokens": 974,
+      "cache_read_tokens": 11139,
+      "cache_write_tokens": 233,
+      "image_tokens": 0,
+      "n_steps": 4,
+      "n_tool_calls": 4,
+      "tool_call_counts": {
+        "get_overview": 1,
+        "get_region": 3
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "open100-1-q3",
+      "answer": "yes",
+      "cost_usd": 0.034549,
+      "wall_clock_s": 12.543,
+      "input_tokens": 5064,
+      "output_tokens": 223,
+      "cache_read_tokens": 5108,
+      "cache_write_tokens": 176,
+      "image_tokens": 0,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "tool_call_counts": {
+        "get_overview": 1
+      },
+      "retries": 0
+    },
+    {
+      "query_id": "open100-1-q4",
+      "answer": "heat exchanger",
+      "cost_usd": 0.075441,
+      "wall_clock_s": 22.493,
+      "input_tokens": 10642,
+      "output_tokens": 557,
+      "cache_read_tokens": 7662,
+      "cache_write_tokens": 716,
+      "image_tokens": 0,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "tool_call_counts": {
+        "finish": 1,
+        "get_overview": 1,
+        "get_region": 1
+      },
+      "retries": 0
+    }
+  ]
+}

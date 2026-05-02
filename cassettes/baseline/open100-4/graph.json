@@ -1,0 +1,2617 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "open100-4.pdf",
+  "nodes": [
+    {
+      "id": "n-922363a8",
+      "kind": "opc",
+      "label": "RCS (G-1) inlet",
+      "bbox_global": {
+        "x": 60,
+        "y": 215,
+        "w": 200,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 100-1 (G-1)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6c3146424cef49f6b341300eed9ad3a0"
+      ]
+    },
+    {
+      "id": "n-471b0a56",
+      "kind": "opc",
+      "label": "RCS (C-1) inlet",
+      "bbox_global": {
+        "x": 60,
+        "y": 540,
+        "w": 200,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 100-1 (C-1)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e490e27b1a12490f9790a78cb622e137"
+      ]
+    },
+    {
+      "id": "n-44c1144e",
+      "kind": "instrument",
+      "label": "TE-1011",
+      "bbox_global": {
+        "x": 332,
+        "y": 121,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1011"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6e7296fb511b4c58b5833785e158b68f"
+      ]
+    },
+    {
+      "id": "n-b856908a",
+      "kind": "instrument",
+      "label": "TE-10118",
+      "bbox_global": {
+        "x": 332,
+        "y": 446,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1015",
+        "label_before_arbitration": "TE-1015",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d066f56bbcc04b309233f276f15ebd8a"
+      ]
+    },
+    {
+      "id": "n-6280b2c6",
+      "kind": "equipment",
+      "label": "PCV-1001",
+      "bbox_global": {
+        "x": 425,
+        "y": 195,
+        "w": 70,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control",
+        "measured_variable": "pressure",
+        "loop_number": "1001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0aa2dbd7a7504b389c3f4391ff4b08d0"
+      ]
+    },
+    {
+      "id": "n-654ae6f3",
+      "kind": "equipment",
+      "label": "PCV-1011",
+      "bbox_global": {
+        "x": 425,
+        "y": 520,
+        "w": 70,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control",
+        "measured_variable": "pressure",
+        "loop_number": "1011"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6090bead9b5346f088c3e9c658cf8afd"
+      ]
+    },
+    {
+      "id": "n-0fe2abb1",
+      "kind": "instrument",
+      "label": "FT-1002",
+      "bbox_global": {
+        "x": 502,
+        "y": 350,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "53d16325b64844808507337985a0b5ed"
+      ]
+    },
+    {
+      "id": "n-9eb0d123",
+      "kind": "instrument",
+      "label": "FO-1002",
+      "bbox_global": {
+        "x": 555,
+        "y": 350,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1002"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "70587c8ec43f414f9903bfbb54eb2ec4"
+      ]
+    },
+    {
+      "id": "n-5f4cc878",
+      "kind": "instrument",
+      "label": "FO-1001",
+      "bbox_global": {
+        "x": 502,
+        "y": 660,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "flow",
+        "loop_number": "1001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "24d4e207bdd04bc48b352d20f086bb8e"
+      ]
+    },
+    {
+      "id": "n-f80a7d0e",
+      "kind": "instrument",
+      "label": "FT-1001",
+      "bbox_global": {
+        "x": 555,
+        "y": 660,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "flow",
+        "loop_number": "1001"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "71f7955df8b6487da0895e5745b22e56"
+      ]
+    },
+    {
+      "id": "n-2fabb139",
+      "kind": "instrument",
+      "label": "PRV-1031",
+      "bbox_global": {
+        "x": 808,
+        "y": 138,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "pressure",
+        "loop_number": "1031"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "24f662ba06f24a458488860497150596"
+      ]
+    },
+    {
+      "id": "n-91ea8f7f",
+      "kind": "equipment",
+      "label": "PRV-1031 body",
+      "bbox_global": {
+        "x": 818,
+        "y": 200,
+        "w": 40,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c6f37fd9ddd240c09dffde717b6970b4"
+      ]
+    },
+    {
+      "id": "n-844e41cf",
+      "kind": "instrument",
+      "label": "PRV-1032",
+      "bbox_global": {
+        "x": 808,
+        "y": 270,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "pressure",
+        "loop_number": "1032"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e05e65f7af414843b55bd4bd0a7e8888"
+      ]
+    },
+    {
+      "id": "n-91fb3bf0",
+      "kind": "equipment",
+      "label": "PRV-1032",
+      "bbox_global": {
+        "x": 818,
+        "y": 322,
+        "w": 50,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "instrument",
+        "valve_type": "safety_relief",
+        "label_before_arbitration": "PRV-1032 body",
+        "equipment_class_before_arbitration": "valve",
+        "arbitration": "revised"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8ad8afd0b38b4390bdcd0aefab6d1816"
+      ]
+    },
+    {
+      "id": "n-818ba658",
+      "kind": "equipment",
+      "label": "PCV-1031",
+      "bbox_global": {
+        "x": 1075,
+        "y": 410,
+        "w": 70,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control",
+        "measured_variable": "pressure",
+        "loop_number": "1031"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5b217bb04ce242579f80619a69458df2"
+      ]
+    },
+    {
+      "id": "n-4a72609b",
+      "kind": "equipment",
+      "label": "PCV-1032",
+      "bbox_global": {
+        "x": 1075,
+        "y": 510,
+        "w": 70,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control",
+        "measured_variable": "pressure",
+        "loop_number": "1032"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "594f182484344f24848b236c2624c025"
+      ]
+    },
+    {
+      "id": "n-1d7e4bc8",
+      "kind": "instrument",
+      "label": "TE-1031'9",
+      "bbox_global": {
+        "x": 990,
+        "y": 632,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1031",
+        "label_before_arbitration": "TE-1031",
+        "arbitration": "revised"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e6e270d3872c4f2fa00915d80e35fa57"
+      ]
+    },
+    {
+      "id": "n-200af19a",
+      "kind": "instrument",
+      "label": "TE-1C324",
+      "bbox_global": {
+        "x": 1495,
+        "y": 395,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "1324",
+        "label_before_arbitration": "TE-1324",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "04f0418a51b14d8790eaa7261e5ed076"
+      ]
+    },
+    {
+      "id": "n-e713f236",
+      "kind": "equipment",
+      "label": "RCS-VE-104",
+      "bbox_global": {
+        "x": 1623,
+        "y": 290,
+        "w": 720,
+        "h": 220
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "tank",
+        "service": "pressure relief tank"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "687c40cd843d4103ae804f765f51c648"
+      ]
+    },
+    {
+      "id": "n-0d819d1e",
+      "kind": "instrument",
+      "label": "PSE-1041",
+      "bbox_global": {
+        "x": 1740,
+        "y": 178,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "pressure",
+        "loop_number": "1041"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a8f2cb6faefb4761bf41e1faa5c99e49"
+      ]
+    },
+    {
+      "id": "n-0e8c660a",
+      "kind": "equipment",
+      "label": "Rupture Disk N2",
+      "bbox_global": {
+        "x": 1718,
+        "y": 245,
+        "w": 80,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "rupture_disc"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b67a118a965742ed80e1149bceca5b8e"
+      ]
+    },
+    {
+      "id": "n-551d3a5a",
+      "kind": "instrument",
+      "label": "PSE-1042",
+      "bbox_global": {
+        "x": 1893,
+        "y": 178,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "pressure",
+        "loop_number": "1042"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "76e91547b0034b97ad7d881074b0de1c"
+      ]
+    },
+    {
+      "id": "n-e1ab8440",
+      "kind": "equipment",
+      "label": "Rupture Disk N3",
+      "bbox_global": {
+        "x": 1871,
+        "y": 245,
+        "w": 80,
+        "h": 35
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "rupture_disc"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a35f2ef046904849b9f6386ebda23f7a"
+      ]
+    },
+    {
+      "id": "n-bd2e6533",
+      "kind": "equipment",
+      "label": "PCV-1041",
+      "bbox_global": {
+        "x": 2163,
+        "y": 95,
+        "w": 70,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control",
+        "measured_variable": "pressure",
+        "loop_number": "1041"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8718ba2f7a1a48d5bdb0854f9f356d3f"
+      ]
+    },
+    {
+      "id": "n-f6d26c88",
+      "kind": "opc",
+      "label": "RWS outlet",
+      "bbox_global": {
+        "x": 2478,
+        "y": 110,
+        "w": 220,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "PID 320-1 Rad Waste System"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3df4cee0a29c49a1a94e990094636f1d"
+      ]
+    },
+    {
+      "id": "n-faf466a0",
+      "kind": "equipment",
+      "label": "TCV-1043",
+      "bbox_global": {
+        "x": 2268,
+        "y": 200,
+        "w": 70,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control",
+        "measured_variable": "temperature",
+        "loop_number": "1043"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bcacb74e2daa4ad4b0a63d2bc2401ab9"
+      ]
+    },
+    {
+      "id": "n-ce848bdb",
+      "kind": "opc",
+      "label": "SWS outlet",
+      "bbox_global": {
+        "x": 2478,
+        "y": 200,
+        "w": 220,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "PID 130-1 Service Water System"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1b828450bbe742ca96c8efabc480b5de"
+      ]
+    },
+    {
+      "id": "n-e844648a",
+      "kind": "instrument",
+      "label": "PT-10326",
+      "bbox_global": {
+        "x": 2399,
+        "y": 295,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "pressure",
+        "loop_number": "10326"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a93d89762e1046ec9084a7116f5a0c78"
+      ]
+    },
+    {
+      "id": "n-533e9f96",
+      "kind": "instrument",
+      "label": "LT-10325",
+      "bbox_global": {
+        "x": 2368,
+        "y": 363,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "10325"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3bd37e74b08945d1b5b2b09fadbc4f44"
+      ]
+    },
+    {
+      "id": "n-7e4879a1",
+      "kind": "equipment",
+      "label": "LCV-1043",
+      "bbox_global": {
+        "x": 2363,
+        "y": 460,
+        "w": 70,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "control",
+        "measured_variable": "level",
+        "loop_number": "1043"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "df70ffd0c48b46ea82f35413be326e3b"
+      ]
+    },
+    {
+      "id": "n-d03f6fb5",
+      "kind": "opc",
+      "label": "RWS outlet (B)",
+      "bbox_global": {
+        "x": 2478,
+        "y": 478,
+        "w": 220,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "PID 320-1 Rad Waste System"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "c97215e30984492aa478def254655c10"
+      ]
+    },
+    {
+      "id": "n-3a499bcc",
+      "kind": "instrument",
+      "label": "TE-102B39",
+      "bbox_global": {
+        "x": 1863,
+        "y": 941,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102B39"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "13d2af00eafa4b35b65ff156240a3923"
+      ]
+    },
+    {
+      "id": "n-ebbe0861",
+      "kind": "instrument",
+      "label": "YE-102B43",
+      "bbox_global": {
+        "x": 2346,
+        "y": 805,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102B43"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ee21655162b543c9875d10607733342b"
+      ]
+    },
+    {
+      "id": "n-7647c09a",
+      "kind": "instrument",
+      "label": "YE-102B44",
+      "bbox_global": {
+        "x": 2346,
+        "y": 870,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102B44"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "eff130467ef5438294355bed2e3580b4"
+      ]
+    },
+    {
+      "id": "n-5b451955",
+      "kind": "instrument",
+      "label": "YE-102B45",
+      "bbox_global": {
+        "x": 2346,
+        "y": 942,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102B45"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "98b05f58295342c39066311f77992802"
+      ]
+    },
+    {
+      "id": "n-8056c359",
+      "kind": "equipment",
+      "label": "RCS-V-103",
+      "bbox_global": {
+        "x": 580,
+        "y": 838,
+        "w": 285,
+        "h": 530
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "vessel",
+        "service": "Pressurizer"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7587dfe36fa24f618d3d6565e210ffdd"
+      ]
+    },
+    {
+      "id": "n-d8a22388",
+      "kind": "equipment",
+      "label": "RCS-EX-105",
+      "bbox_global": {
+        "x": 600,
+        "y": 1363,
+        "w": 240,
+        "h": 175
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "fired_heater",
+        "service": "Electric Heater"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "761ec238a1f3400bbb26d31cc9e94371"
+      ]
+    },
+    {
+      "id": "n-e19a3d43",
+      "kind": "instrument",
+      "label": "LIT-10323",
+      "bbox_global": {
+        "x": 663,
+        "y": 1025,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "10323"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1f2c10af48a447b58293e95d39cb2168"
+      ]
+    },
+    {
+      "id": "n-4485383b",
+      "kind": "instrument",
+      "label": "LIT-10320",
+      "bbox_global": {
+        "x": 935,
+        "y": 990,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "10320"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "68b100d6b2f04f4d9fdea89070fd11f3"
+      ]
+    },
+    {
+      "id": "n-769a9abf",
+      "kind": "instrument",
+      "label": "LIT-10322",
+      "bbox_global": {
+        "x": 545,
+        "y": 1188,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "level",
+        "loop_number": "10322"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "15e94ce71b6a47f6928253a297d4e08c"
+      ]
+    },
+    {
+      "id": "n-ff8d0257",
+      "kind": "instrument",
+      "label": "TE-1032",
+      "bbox_global": {
+        "x": 945,
+        "y": 1431,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "10321",
+        "label_before_arbitration": "TE-10321",
+        "arbitration": "revised"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "22ff6a19774a4d1eb449f1027b7cc996"
+      ]
+    },
+    {
+      "id": "n-c8cc2cff",
+      "kind": "opc",
+      "label": "RCS (D-1) inlet",
+      "bbox_global": {
+        "x": 95,
+        "y": 1663,
+        "w": 220,
+        "h": 50
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 100-1 (D-1)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "53072838ad5f490da45e4f544d5cc69a"
+      ]
+    },
+    {
+      "id": "n-ad11eee1",
+      "kind": "instrument",
+      "label": "TE-102A27",
+      "bbox_global": {
+        "x": 1213,
+        "y": 1348,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102A27"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7ec1114ceda54f81ac6168660f6ac259"
+      ]
+    },
+    {
+      "id": "n-5555c643",
+      "kind": "instrument",
+      "label": "TE-102A28",
+      "bbox_global": {
+        "x": 1213,
+        "y": 1460,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102A28"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "905b421fbe5d436f9f5f58e1bce9313f"
+      ]
+    },
+    {
+      "id": "n-3b2e86e5",
+      "kind": "instrument",
+      "label": "TE-102A29",
+      "bbox_global": {
+        "x": 1213,
+        "y": 1596,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102A29"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2631b65ec16f48fea0ec8d9afc7539c7"
+      ]
+    },
+    {
+      "id": "n-d8ae7b30",
+      "kind": "instrument",
+      "label": "TE-102A30",
+      "bbox_global": {
+        "x": 1213,
+        "y": 1738,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102A30"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6c46b5328b084ab7b4839991295d4cd5"
+      ]
+    },
+    {
+      "id": "n-dde47e1a",
+      "kind": "equipment",
+      "label": "RCS-PU-102B",
+      "bbox_global": {
+        "x": 1848,
+        "y": 838,
+        "w": 380,
+        "h": 700
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "reactor coolant pump",
+        "service": "Reactor Coolant Pump B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "08833fdc69f14b7e8fd9cb16c23367f3"
+      ]
+    },
+    {
+      "id": "n-89dd6908",
+      "kind": "equipment",
+      "label": "RC-P100-X001 (B)",
+      "bbox_global": {
+        "x": 2268,
+        "y": 1243,
+        "w": 100,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "service": "Coolant Heat Exchanger (Pump B)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fb8b624fa5b740f8a1c2b89438b2a5ea"
+      ]
+    },
+    {
+      "id": "n-0f950f70",
+      "kind": "instrument",
+      "label": "TE-102B40",
+      "bbox_global": {
+        "x": 1791,
+        "y": 1060,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102B40"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fa06d0b46c9b4049be3b4c132fdd4b67"
+      ]
+    },
+    {
+      "id": "n-6b4ca89d",
+      "kind": "instrument",
+      "label": "TE-102B41",
+      "bbox_global": {
+        "x": 1791,
+        "y": 1212,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102B41"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "fec6082e6d1845c6b0b7ad8f51d88df2"
+      ]
+    },
+    {
+      "id": "n-b24e02c0",
+      "kind": "instrument",
+      "label": "TE-102B42",
+      "bbox_global": {
+        "x": 1791,
+        "y": 1368,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102B42"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "43ecdbd86e174bdcbb5e3097264b895b"
+      ]
+    },
+    {
+      "id": "n-213fb3b2",
+      "kind": "instrument",
+      "label": "YE-102B46",
+      "bbox_global": {
+        "x": 2228,
+        "y": 1060,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102B46"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "11e2a30d8d814a16b4e5d10b42d2753c"
+      ]
+    },
+    {
+      "id": "n-647c0635",
+      "kind": "instrument",
+      "label": "YE-102B47",
+      "bbox_global": {
+        "x": 2228,
+        "y": 1134,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102B47"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3b24a304f8114abaad0c2c265f3400bb"
+      ]
+    },
+    {
+      "id": "n-8c24baa6",
+      "kind": "instrument",
+      "label": "TE-102B48",
+      "bbox_global": {
+        "x": 2368,
+        "y": 1275,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102B48"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e57bf6b3372a461db6653d206d3d3adb"
+      ]
+    },
+    {
+      "id": "n-12276dd2",
+      "kind": "instrument",
+      "label": "TE-102B50",
+      "bbox_global": {
+        "x": 2555,
+        "y": 1275,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102B50"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7901eae2864c4c1d95d8ab33d9a117b0"
+      ]
+    },
+    {
+      "id": "n-f3409c47",
+      "kind": "instrument",
+      "label": "TE-102B49",
+      "bbox_global": {
+        "x": 2411,
+        "y": 1431,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102B49"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "227cae2b0431455f8db2d446be23cfda"
+      ]
+    },
+    {
+      "id": "n-f23e00a6",
+      "kind": "opc",
+      "label": "ACW outlet (B)",
+      "bbox_global": {
+        "x": 2548,
+        "y": 1320,
+        "w": 230,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "PID 210-2 Aux Cooling Water"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "5263b238a4d843a1adaf709bf3d12c7d"
+      ]
+    },
+    {
+      "id": "n-daad5313",
+      "kind": "opc",
+      "label": "ACW (C-1) inlet",
+      "bbox_global": {
+        "x": 2548,
+        "y": 1470,
+        "w": 230,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 210-2 (C-1) Aux Cooling Water"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0cfc90aa850a472690cea404102d180f"
+      ]
+    },
+    {
+      "id": "n-5dc19388",
+      "kind": "equipment",
+      "label": "RCS-PU-102A",
+      "bbox_global": {
+        "x": 1258,
+        "y": 1128,
+        "w": 425,
+        "h": 700
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "pump",
+        "pump_type": "reactor coolant pump",
+        "service": "Reactor Coolant Pump A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9bdc9481252d4a5485a3ca9c5cc697b2"
+      ]
+    },
+    {
+      "id": "n-17ca1fbf",
+      "kind": "equipment",
+      "label": "RC-P100-X001 (A)",
+      "bbox_global": {
+        "x": 1543,
+        "y": 1608,
+        "w": 100,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "service": "Coolant Heat Exchanger (Pump A)"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b65d6a0997834623b0fd92597fadbc7d"
+      ]
+    },
+    {
+      "id": "n-53297ad7",
+      "kind": "instrument",
+      "label": "YE-102A31",
+      "bbox_global": {
+        "x": 1695,
+        "y": 1254,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102A31"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "86441a950f024329a7f6520feb77bb08"
+      ]
+    },
+    {
+      "id": "n-9846f9d6",
+      "kind": "instrument",
+      "label": "YE-102A32",
+      "bbox_global": {
+        "x": 1695,
+        "y": 1308,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102A32"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "50ac87447aee43daa8e664071b493389"
+      ]
+    },
+    {
+      "id": "n-01b7ee9e",
+      "kind": "instrument",
+      "label": "YE-102A33",
+      "bbox_global": {
+        "x": 1695,
+        "y": 1366,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102A33"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b98f5ad064214878bcbdfa1c3ccfc770"
+      ]
+    },
+    {
+      "id": "n-e2e2ff22",
+      "kind": "instrument",
+      "label": "YE-102A34",
+      "bbox_global": {
+        "x": 1695,
+        "y": 1450,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102A34"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "897ae2bfbd06430fabd082264189f56d"
+      ]
+    },
+    {
+      "id": "n-79592bce",
+      "kind": "instrument",
+      "label": "YE-102A35",
+      "bbox_global": {
+        "x": 1695,
+        "y": 1556,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "other",
+        "loop_number": "102A35"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7502537a0117401daec42ebda5c73ca7"
+      ]
+    },
+    {
+      "id": "n-66a18a8d",
+      "kind": "instrument",
+      "label": "TE-102A36",
+      "bbox_global": {
+        "x": 1663,
+        "y": 1658,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102A36"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2bf47f6679e7472385ce4654de126306"
+      ]
+    },
+    {
+      "id": "n-aeee261e",
+      "kind": "instrument",
+      "label": "TE-102A38",
+      "bbox_global": {
+        "x": 1853,
+        "y": 1670,
+        "w": 56,
+        "h": 56
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102A38"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ce20d84544f245d9bf5cf273de3d302a"
+      ]
+    },
+    {
+      "id": "n-871ea5cb",
+      "kind": "instrument",
+      "label": "TE-102A37",
+      "bbox_global": {
+        "x": 1691,
+        "y": 1848,
+        "w": 56,
+        "h": 38
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "102A37",
+        "label_before_arbitration": "TE-102A37",
+        "arbitration": "revised"
+      },
+      "confidence": "low",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b46054b212344f04889543d2af6660e0"
+      ]
+    },
+    {
+      "id": "n-d9a1d1ba",
+      "kind": "opc",
+      "label": "ACW outlet (A)",
+      "bbox_global": {
+        "x": 1978,
+        "y": 1688,
+        "w": 230,
+        "h": 65
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "target_sheet": "PID 210-2 Aux Cooling Water"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "8b73dc080fee4d1f9db11150ea2d0fb3"
+      ]
+    },
+    {
+      "id": "n-48e9ad32",
+      "kind": "opc",
+      "label": "ACW (C-1) inlet (A)",
+      "bbox_global": {
+        "x": 1788,
+        "y": 1830,
+        "w": 230,
+        "h": 60
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "PID 210-2 (C-1) Aux Cooling Water"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "70ebd4cffb2d456f81a47e6938468b9c"
+      ]
+    },
+    {
+      "id": "n-5f31f3f9",
+      "kind": "text",
+      "label": "REACTOR COOLANT SYSTEM PID 100 (Sheet 2 of 2)",
+      "bbox_global": {
+        "x": 2713,
+        "y": 1840,
+        "w": 320,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {},
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6c32ae5510c946098e6a860cb2d02dae"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-e25e8ad5",
+      "from_node": "n-922363a8",
+      "to_node": "n-6280b2c6",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          260,
+          237
+        ],
+        [
+          425,
+          237
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "0fd6fbe801744393b7224e2d6996cba9"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100007-SPEC-HC-X",
+        "label": "SIZE-RCS-100007",
+        "service_code": "RCS"
+      }
+    },
+    {
+      "id": "e-8f45894b",
+      "from_node": "n-6280b2c6",
+      "to_node": "n-9eb0d123",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          495,
+          237
+        ],
+        [
+          595,
+          237
+        ],
+        [
+          595,
+          480
+        ],
+        [
+          705,
+          480
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "9f2ab042e0ec43a7ae5963a1af880967"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100007-SPEC-HC-X",
+        "label": "SIZE-RCS-100007 to header",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-e1d64db5",
+      "from_node": "n-922363a8",
+      "to_node": "n-6280b2c6",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          297,
+          237
+        ],
+        [
+          297,
+          320
+        ],
+        [
+          600,
+          320
+        ],
+        [
+          600,
+          237
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "b4c02d9980eb4a69b9ca935c3e94cff2"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100009-SPEC-HC-X",
+        "label": "SIZE-RCS-100009 bypass",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-e89c2799",
+      "from_node": "n-471b0a56",
+      "to_node": "n-654ae6f3",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          260,
+          562
+        ],
+        [
+          425,
+          562
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "719a42a7d6f34c2d99c11b71f0f043ff"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100008-SPEC-HC-X",
+        "label": "SIZE-RCS-100008",
+        "service_code": "RCS"
+      }
+    },
+    {
+      "id": "e-440507c3",
+      "from_node": "n-654ae6f3",
+      "to_node": "n-9eb0d123",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          495,
+          562
+        ],
+        [
+          600,
+          562
+        ],
+        [
+          600,
+          485
+        ],
+        [
+          705,
+          485
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "f85c0f52235547199850123376f84afc"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100008-SPEC-HC-X",
+        "label": "SIZE-RCS-100008 to header",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-d911b3f4",
+      "from_node": "n-471b0a56",
+      "to_node": "n-f80a7d0e",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          297,
+          562
+        ],
+        [
+          297,
+          645
+        ],
+        [
+          600,
+          645
+        ],
+        [
+          600,
+          562
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "470cec9116554f4d9c87721a622c04fd"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100010-SPEC-HC-X",
+        "label": "SIZE-RCS-100010 bypass",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-8e72ad0d",
+      "from_node": "n-91fb3bf0",
+      "to_node": "n-91ea8f7f",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          770,
+          480
+        ],
+        [
+          830,
+          250
+        ],
+        [
+          830,
+          200
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "95d259e5278e491388cbf7b9388a1476"
+      ],
+      "attributes": {
+        "label": "N2 to PRV-1031",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-26f52aa3",
+      "from_node": "n-2fabb139",
+      "to_node": "n-91fb3bf0",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          830,
+          165
+        ],
+        [
+          880,
+          230
+        ],
+        [
+          1500,
+          230
+        ],
+        [
+          1500,
+          442
+        ],
+        [
+          1573,
+          442
+        ],
+        [
+          1573,
+          450
+        ],
+        [
+          1180,
+          450
+        ],
+        [
+          1075,
+          480
+        ],
+        [
+          825,
+          480
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "dabf5e7190ba4d0f8932ef928ae960c2",
+        "3d2761832ceb475488ebd8ccb7ac6991"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-103013-SPEC-HC-X",
+        "alternate_line_ids": [
+          "SIZE-RCS-103011-SPEC-HC-X"
+        ],
+        "label": "SIZE-RCS-103013",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-c49314b6",
+      "from_node": "n-91fb3bf0",
+      "to_node": "n-844e41cf",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          800,
+          480
+        ],
+        [
+          830,
+          360
+        ],
+        [
+          830,
+          322
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "84dd84549db141a5ae8156da31e4a256"
+      ],
+      "attributes": {
+        "label": "N3 to PRV-1032",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-ccb889e1",
+      "from_node": "n-91fb3bf0",
+      "to_node": "n-818ba658",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          830,
+          500
+        ],
+        [
+          1075,
+          580
+        ],
+        [
+          1075,
+          510
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "d4c11bf6db6f42c4bccc8634222db8b3"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-103012-SPEC-HC-X",
+        "label": "SIZE-RCS-103012",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-a07a1888",
+      "from_node": "n-e713f236",
+      "to_node": "n-e713f236",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1623,
+          450
+        ],
+        [
+          2158,
+          450
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "a9a1bd09e1204f898302f9abf6ee9453"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-103011-SPEC-HC-X",
+        "label": "SIZE-RCS-103011 to RCS-VE-104"
+      }
+    },
+    {
+      "id": "e-91b049c6",
+      "from_node": "n-e713f236",
+      "to_node": "n-e713f236",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1623,
+          295
+        ],
+        [
+          2158,
+          295
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "271569d94c9040be98457618c3b01009"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-103013-SPEC-HC-X",
+        "label": "SIZE-RCS-103013 to N1 of VE-104"
+      }
+    },
+    {
+      "id": "e-f86fe446",
+      "from_node": "n-e713f236",
+      "to_node": "n-bd2e6533",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2083,
+          270
+        ],
+        [
+          2083,
+          137
+        ],
+        [
+          2163,
+          137
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "a95c63def83544e88da54c1379c50a5a"
+      ],
+      "attributes": {
+        "label": "N4 to PCV-1041"
+      }
+    },
+    {
+      "id": "e-3cdc7acb",
+      "from_node": "n-bd2e6533",
+      "to_node": "n-f6d26c88",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2228,
+          137
+        ],
+        [
+          2478,
+          137
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "2c78afa2b9c942e7a3026cd54dd048ea"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RWS-104025-SPEC-HC-X",
+        "label": "SIZE-RWS-104025",
+        "service_code": "RWS"
+      }
+    },
+    {
+      "id": "e-63380bdc",
+      "from_node": "n-e713f236",
+      "to_node": "n-faf466a0",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2153,
+          270
+        ],
+        [
+          2153,
+          240
+        ],
+        [
+          2268,
+          240
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "4c73a4657e1e4d15bf126ea1259dc0e9"
+      ],
+      "attributes": {
+        "label": "N5 to TCV-1043"
+      }
+    },
+    {
+      "id": "e-0fd53930",
+      "from_node": "n-faf466a0",
+      "to_node": "n-ce848bdb",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2338,
+          240
+        ],
+        [
+          2478,
+          240
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "0c5eb82687834c99806a804515ccb1c8"
+      ],
+      "attributes": {
+        "line_id": "SIZE-SWS-132172-SPEC-HC-X",
+        "label": "SIZE-SWS-132172",
+        "service_code": "SWS"
+      }
+    },
+    {
+      "id": "e-ee2a9ef4",
+      "from_node": "n-e713f236",
+      "to_node": "n-7e4879a1",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2283,
+          475
+        ],
+        [
+          2363,
+          500
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "4df7c88ec55046268b10c1588239a99e"
+      ],
+      "attributes": {
+        "label": "VE-104 outlet to LCV-1043"
+      }
+    },
+    {
+      "id": "e-733c948a",
+      "from_node": "n-7e4879a1",
+      "to_node": "n-d03f6fb5",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2423,
+          505
+        ],
+        [
+          2478,
+          505
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "ba2532b906a54a5da822a2e4c2bdd5e5"
+      ],
+      "attributes": {
+        "label": "LCV-1043 to RWS outlet"
+      }
+    },
+    {
+      "id": "e-e9fbf6c8",
+      "from_node": "n-7e4879a1",
+      "to_node": "n-dde47e1a",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2303,
+          660
+        ],
+        [
+          2083,
+          660
+        ],
+        [
+          2083,
+          770
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "6a8f60ee16b946b2ac10202c06cdc4be"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100004-SPEC-HC-X",
+        "label": "SIZE-RCS-100004 to pump B suction",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-3643f565",
+      "from_node": "n-c8cc2cff",
+      "to_node": "n-d8a22388",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          310,
+          1688
+        ],
+        [
+          770,
+          1688
+        ],
+        [
+          770,
+          1568
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "18b45bff443843bd8513cdcccf1c5e5c"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-101006-SPEC-HC-X",
+        "label": "SIZE-RCS-101006",
+        "service_code": "RCS"
+      }
+    },
+    {
+      "id": "e-8f91f4d4",
+      "from_node": "n-ad11eee1",
+      "to_node": "n-ff8d0257",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1210,
+          1326
+        ],
+        [
+          1010,
+          1326
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "c40d6fd616a84bf6ac0243348e2ed59c"
+      ],
+      "attributes": {
+        "line_id": "SIZE-RCS-100003-SPEC-HC-X",
+        "label": "SIZE-RCS-100003 from pump A",
+        "service_code": "RCS",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-d051ce77",
+      "from_node": "n-89dd6908",
+      "to_node": "n-f23e00a6",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2338,
+          1298
+        ],
+        [
+          2488,
+          1248
+        ],
+        [
+          2548,
+          1348
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "d1194a0c9bb345a5b5bdbfbe9c3f39a4"
+      ],
+      "attributes": {
+        "line_id": "SIZE-ACW-102160-SPEC-HC-X",
+        "label": "SIZE-ACW-102160",
+        "service_code": "ACW"
+      }
+    },
+    {
+      "id": "e-437b5397",
+      "from_node": "n-89dd6908",
+      "to_node": "n-daad5313",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          2333,
+          1318
+        ],
+        [
+          2333,
+          1498
+        ],
+        [
+          2548,
+          1498
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "80decf8d1c9d42cf9bdb7af6817a2c76"
+      ],
+      "attributes": {
+        "line_id": "SIZE-ACW-211158-SPEC-HC-X",
+        "label": "SIZE-ACW-211158",
+        "service_code": "ACW"
+      }
+    },
+    {
+      "id": "e-8f0392a6",
+      "from_node": "n-5dc19388",
+      "to_node": "n-d9a1d1ba",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1638,
+          1668
+        ],
+        [
+          1768,
+          1668
+        ],
+        [
+          1768,
+          1718
+        ],
+        [
+          1978,
+          1718
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "0a5f9a8f871f4b4e869caf2d0f4f7814"
+      ],
+      "attributes": {
+        "line_id": "SIZE-ACW-102161-SPEC-HC-X",
+        "label": "SIZE-ACW-102161",
+        "service_code": "ACW"
+      }
+    },
+    {
+      "id": "e-6c422d19",
+      "from_node": "n-5dc19388",
+      "to_node": "n-48e9ad32",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1578,
+          1695
+        ],
+        [
+          1578,
+          1860
+        ],
+        [
+          1788,
+          1860
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "e97e5892e58a452586bb3351b59a55fe"
+      ],
+      "attributes": {
+        "line_id": "SIZE-ACW-211157-SPEC-HC-X",
+        "label": "SIZE-ACW-211157",
+        "service_code": "ACW"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "RCS (G-1) inlet",
+      "normalised": "RCSG-1INLET",
+      "node_id": "n-922363a8",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RCS (C-1) inlet",
+      "normalised": "RCSC-1INLET",
+      "node_id": "n-471b0a56",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RWS outlet",
+      "normalised": "RWSOUTLET",
+      "node_id": "n-f6d26c88",
+      "page_index": 0
+    },
+    {
+      "opc_label": "SWS outlet",
+      "normalised": "SWSOUTLET",
+      "node_id": "n-ce848bdb",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RWS outlet (B)",
+      "normalised": "RWSOUTLETB",
+      "node_id": "n-d03f6fb5",
+      "page_index": 0
+    },
+    {
+      "opc_label": "RCS (D-1) inlet",
+      "normalised": "RCSD-1INLET",
+      "node_id": "n-c8cc2cff",
+      "page_index": 0
+    },
+    {
+      "opc_label": "ACW outlet (B)",
+      "normalised": "ACWOUTLETB",
+      "node_id": "n-f23e00a6",
+      "page_index": 0
+    },
+    {
+      "opc_label": "ACW (C-1) inlet",
+      "normalised": "ACWC-1INLET",
+      "node_id": "n-daad5313",
+      "page_index": 0
+    },
+    {
+      "opc_label": "ACW outlet (A)",
+      "normalised": "ACWOUTLETA",
+      "node_id": "n-d9a1d1ba",
+      "page_index": 0
+    },
+    {
+      "opc_label": "ACW (C-1) inlet (A)",
+      "normalised": "ACWC-1INLETA",
+      "node_id": "n-48e9ad32",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1623,
+      "y": 450,
+      "annotation_id": "a9a1bd09e1204f898302f9abf6ee9453",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1623,
+      "y": 295,
+      "annotation_id": "271569d94c9040be98457618c3b01009",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1623,
+      "y": 915,
+      "annotation_id": "40e24c0ad689444d8605b598e818ea7b",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1573,
+      "y": 1033,
+      "annotation_id": "5da8af0c98a04723ad16fd49f6ee325b",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 1258,
+      "y": 916,
+      "annotation_id": "e70727c3393d4d99acbc1166621add2a",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          705,
+          482
+        ],
+        [
+          730,
+          495
+        ]
+      ],
+      "snap_radius_px": 84,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "a44c1cff06dc45989c5e93c03b503e33"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          830,
+          295
+        ],
+        [
+          880,
+          290
+        ],
+        [
+          1180,
+          290
+        ],
+        [
+          1180,
+          240
+        ]
+      ],
+      "snap_radius_px": 84,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "26a5949a1eda49c8b039bdc92fae70ba"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1943,
+          915
+        ],
+        [
+          1623,
+          915
+        ]
+      ],
+      "snap_radius_px": 84,
+      "has_from": true,
+      "has_to": false,
+      "source_annotation_ids": [
+        "40e24c0ad689444d8605b598e818ea7b"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1573,
+          1033
+        ],
+        [
+          1325,
+          1033
+        ],
+        [
+          1325,
+          1248
+        ]
+      ],
+      "snap_radius_px": 84,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "5da8af0c98a04723ad16fd49f6ee325b"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1573,
+          1033
+        ],
+        [
+          1363,
+          1033
+        ],
+        [
+          1363,
+          1218
+        ]
+      ],
+      "snap_radius_px": 84,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "f01cee68acd2481c802f803701068905"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          1623,
+          916
+        ],
+        [
+          1258,
+          916
+        ]
+      ],
+      "snap_radius_px": 84,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "e70727c3393d4d99acbc1166621add2a"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    }
+  ],
+  "per_page_status": {
+    "0": "ok"
+  }
+}

@@ -1,0 +1,1879 @@
+{
+  "schema_version": "0.1.0",
+  "source_path": "butane1.pdf",
+  "nodes": [
+    {
+      "id": "n-071d59b7",
+      "kind": "equipment",
+      "label": "E-234-009",
+      "bbox_global": {
+        "x": 1500,
+        "y": 1300,
+        "w": 540,
+        "h": 460
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "air_cooler",
+        "service": "Butane Regeneration Air Cooler"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "26cd94efbe2d4b3eb6e99b09edabfb16"
+      ]
+    },
+    {
+      "id": "n-d5b9b62f",
+      "kind": "equipment",
+      "label": "KV-2904",
+      "bbox_global": {
+        "x": 765,
+        "y": 1385,
+        "w": 75,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "other",
+        "service": "spent butane inlet block",
+        "arbitration": "error",
+        "arbitration_error": "RateLimitError(\"Error code: 429 - {'error': {'code': 'RateLimitReached', 'message': 'Rate limit exceeded. Quota request exceeds the tokens limit. Requested tokens: 0.', 'details': 'Rate limit exceeded. Quota request exceeds the tokens limit. Requested tokens: 0.'}}\")"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9029a905e6c74f0daef2690ff305a0b0"
+      ]
+    },
+    {
+      "id": "n-3c11dd51",
+      "kind": "instrument",
+      "label": "TT-2909",
+      "bbox_global": {
+        "x": 1005,
+        "y": 1390,
+        "w": 70,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2909"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "762ae2cb06f441cda941fdcc3025cb9c"
+      ]
+    },
+    {
+      "id": "n-ceb251a4",
+      "kind": "instrument",
+      "label": "TG-2910",
+      "bbox_global": {
+        "x": 1110,
+        "y": 1390,
+        "w": 70,
+        "h": 70
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2910"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bfdaec9599824486ae5c2290bda92556"
+      ]
+    },
+    {
+      "id": "n-d7642f98",
+      "kind": "instrument",
+      "label": "HIC-2903A",
+      "bbox_global": {
+        "x": 1330,
+        "y": 1775,
+        "w": 90,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "hand",
+        "loop_number": "2903A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e83936d9d9614de1a6ea62619517edb4"
+      ]
+    },
+    {
+      "id": "n-2f0dc9a5",
+      "kind": "instrument",
+      "label": "HIC-2903B",
+      "bbox_global": {
+        "x": 2125,
+        "y": 1775,
+        "w": 90,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "hand",
+        "loop_number": "2903B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b61613de94d24091b7ded14e972216f5"
+      ]
+    },
+    {
+      "id": "n-cbe14980",
+      "kind": "instrument",
+      "label": "HY-2903A",
+      "bbox_global": {
+        "x": 1490,
+        "y": 1775,
+        "w": 80,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "hand",
+        "loop_number": "2903A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bd66250cbfb14c9189e622775593cd7d"
+      ]
+    },
+    {
+      "id": "n-ce3d4633",
+      "kind": "instrument",
+      "label": "HY-2903B",
+      "bbox_global": {
+        "x": 1965,
+        "y": 1775,
+        "w": 80,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "hand",
+        "loop_number": "2903B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f83da034cf3a4a2ba395e6ce6c0ac0ef"
+      ]
+    },
+    {
+      "id": "n-a9ed048b",
+      "kind": "instrument",
+      "label": "HS-2901A",
+      "bbox_global": {
+        "x": 1330,
+        "y": 1895,
+        "w": 80,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "298c707b6b29436a96f312831d5fa9ea"
+      ]
+    },
+    {
+      "id": "n-973bc1a9",
+      "kind": "instrument",
+      "label": "HS-2901B",
+      "bbox_global": {
+        "x": 2125,
+        "y": 1895,
+        "w": 80,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "58e761c24ceb42c4be2bc411659fb678"
+      ]
+    },
+    {
+      "id": "n-fb9b6e84",
+      "kind": "instrument",
+      "label": "VSHH-2901A",
+      "bbox_global": {
+        "x": 1490,
+        "y": 1895,
+        "w": 80,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "2901A",
+        "service": "vibration switch high-high"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "ce0a0920edac45bfb23134c425cb5a0d"
+      ]
+    },
+    {
+      "id": "n-ccbf7425",
+      "kind": "instrument",
+      "label": "VSHH-2901B",
+      "bbox_global": {
+        "x": 1965,
+        "y": 1895,
+        "w": 80,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "other",
+        "loop_number": "2901B",
+        "service": "vibration switch high-high"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "de088d1a9ab64d2485ff6d92c7390860"
+      ]
+    },
+    {
+      "id": "n-ae3cfb43",
+      "kind": "opc",
+      "label": "Spent Butane inlet",
+      "bbox_global": {
+        "x": 0,
+        "y": 1380,
+        "w": 200,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "target_sheet": "V-234-002A~D",
+        "stream": "spent butane cooling/filling",
+        "line_id": "P-234-03016-F3D-8\"-Is"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "54216472b5a747d7b5e389270841a506"
+      ]
+    },
+    {
+      "id": "n-7b4e3117",
+      "kind": "instrument",
+      "label": "TI-2909",
+      "bbox_global": {
+        "x": 1005,
+        "y": 1200,
+        "w": 90,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2909",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "b8f1d5fe800a409f9cf5ba91a24e10e5"
+      ]
+    },
+    {
+      "id": "n-94aa9cbf",
+      "kind": "equipment",
+      "label": "Fan A of E-234-009",
+      "bbox_global": {
+        "x": 1602,
+        "y": 1808,
+        "w": 90,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "fan_blower",
+        "fan_blower_type": "axial_fan",
+        "service": "air cooler fan A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "79a9f3fe87574cdc8eb605a5160d656d"
+      ]
+    },
+    {
+      "id": "n-e50dd773",
+      "kind": "equipment",
+      "label": "Fan B of E-234-009",
+      "bbox_global": {
+        "x": 1802,
+        "y": 1808,
+        "w": 90,
+        "h": 100
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "fan_blower",
+        "fan_blower_type": "axial_fan",
+        "service": "air cooler fan B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "747e8ef7ec834c5c90fb63234e2477b9"
+      ]
+    },
+    {
+      "id": "n-64ac957f",
+      "kind": "instrument",
+      "label": "VA-2901A HH",
+      "bbox_global": {
+        "x": 1237,
+        "y": 2073,
+        "w": 95,
+        "h": 85
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "2901A",
+        "service": "vibration alarm high-high",
+        "base_tag": "VA-2901A",
+        "state": "HH"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f541fa653e1a443bbc602bb82e26e307"
+      ]
+    },
+    {
+      "id": "n-a208b4f8",
+      "kind": "instrument",
+      "label": "VA-2901B HH",
+      "bbox_global": {
+        "x": 2042,
+        "y": 2073,
+        "w": 95,
+        "h": 85
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "2901B",
+        "service": "vibration alarm high-high",
+        "base_tag": "VA-2901B",
+        "state": "HH"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a73d137c185e44f0a4f9fb7f301020a1"
+      ]
+    },
+    {
+      "id": "n-1c0ee860",
+      "kind": "instrument",
+      "label": "HS-2901A1 LOCAL/REMOTE",
+      "bbox_global": {
+        "x": 1572,
+        "y": 2133,
+        "w": 95,
+        "h": 85
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901A1",
+        "base_tag": "HS-2901A1",
+        "state": "LOCAL/REMOTE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "387102168d0348928e49853f8c064b54"
+      ]
+    },
+    {
+      "id": "n-686a892f",
+      "kind": "instrument",
+      "label": "HS-2901B1 LOCAL/REMOTE",
+      "bbox_global": {
+        "x": 1727,
+        "y": 2133,
+        "w": 95,
+        "h": 85
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901B1",
+        "base_tag": "HS-2901B1",
+        "state": "LOCAL/REMOTE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "af62423faaef427c8c13e04d1c639af7"
+      ]
+    },
+    {
+      "id": "n-33452510",
+      "kind": "instrument",
+      "label": "HS-2901A2 STOP/START",
+      "bbox_global": {
+        "x": 1237,
+        "y": 2303,
+        "w": 95,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901A2",
+        "base_tag": "HS-2901A2",
+        "state": "STOP/START"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "57e0d444673c4ea4ae0f11478f756714"
+      ]
+    },
+    {
+      "id": "n-02419d07",
+      "kind": "instrument",
+      "label": "HS-2901B2 STOP/START",
+      "bbox_global": {
+        "x": 2052,
+        "y": 2303,
+        "w": 95,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "switch",
+        "measured_variable": "hand",
+        "loop_number": "2901B2",
+        "base_tag": "HS-2901B2",
+        "state": "STOP/START"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3800c345cc8a4f4b864965a415a7f223"
+      ]
+    },
+    {
+      "id": "n-3c2dfee1",
+      "kind": "instrument",
+      "label": "XI-2901A AVAILABLE",
+      "bbox_global": {
+        "x": 1572,
+        "y": 2303,
+        "w": 95,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2901A",
+        "base_tag": "XI-2901A",
+        "state": "AVAILABLE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2f18573c26ae4779a5622d5fd328998c"
+      ]
+    },
+    {
+      "id": "n-791c8423",
+      "kind": "instrument",
+      "label": "XI-2901B AVAILABLE",
+      "bbox_global": {
+        "x": 1727,
+        "y": 2303,
+        "w": 95,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2901B",
+        "base_tag": "XI-2901B",
+        "state": "AVAILABLE"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "323772c902ea44cf991ddafff1bc4e63"
+      ]
+    },
+    {
+      "id": "n-58feecdf",
+      "kind": "instrument",
+      "label": "XL-2901A RUNNING/STOP",
+      "bbox_global": {
+        "x": 1412,
+        "y": 2463,
+        "w": 95,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2901A",
+        "base_tag": "XL-2901A",
+        "state": "RUNNING/STOP"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "925062fc0a1c468da66271b85a607eab"
+      ]
+    },
+    {
+      "id": "n-cd65bd28",
+      "kind": "instrument",
+      "label": "XL-2901B RUNNING/STOP",
+      "bbox_global": {
+        "x": 1877,
+        "y": 2463,
+        "w": 95,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2901B",
+        "base_tag": "XL-2901B",
+        "state": "RUNNING/STOP"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "174d4121e1554e0dab0b2a019fa446bb"
+      ]
+    },
+    {
+      "id": "n-96fc3c0a",
+      "kind": "instrument",
+      "label": "XA-2901A FAULT",
+      "bbox_global": {
+        "x": 1572,
+        "y": 2463,
+        "w": 95,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "2901A",
+        "base_tag": "XA-2901A",
+        "state": "FAULT"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f754d31596464a728b5acc7d0d3821ae"
+      ]
+    },
+    {
+      "id": "n-ae43838a",
+      "kind": "instrument",
+      "label": "XA-2901B FAULT",
+      "bbox_global": {
+        "x": 1727,
+        "y": 2463,
+        "w": 95,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "alarm",
+        "measured_variable": "other",
+        "loop_number": "2901B",
+        "base_tag": "XA-2901B",
+        "state": "FAULT"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "0fb7c14bb1464d99bcb95134549eeeee"
+      ]
+    },
+    {
+      "id": "n-3fe4c7d9",
+      "kind": "instrument",
+      "label": "VB-2911",
+      "bbox_global": {
+        "x": 3510,
+        "y": 1780,
+        "w": 75,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "other",
+        "loop_number": "2911",
+        "service": "vibration sensor",
+        "arbitration": "confirmed"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "4a65e28845fe417c88fcdeed4af2a385"
+      ]
+    },
+    {
+      "id": "n-2a1d3bd3",
+      "kind": "instrument",
+      "label": "TI-2916 H/L",
+      "bbox_global": {
+        "x": 3755,
+        "y": 1785,
+        "w": 95,
+        "h": 95
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2916",
+        "base_tag": "TI-2916",
+        "state": "H/L"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e8f9ce4267364bc182a2b86ad6c1c0c3"
+      ]
+    },
+    {
+      "id": "n-eec04f7c",
+      "kind": "instrument",
+      "label": "TT-2916",
+      "bbox_global": {
+        "x": 3755,
+        "y": 1940,
+        "w": 80,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2916"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "2ba036b1cb48499b879096d4dff2185e"
+      ]
+    },
+    {
+      "id": "n-543b5121",
+      "kind": "instrument",
+      "label": "PG-2913",
+      "bbox_global": {
+        "x": 3665,
+        "y": 1870,
+        "w": 75,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "2913"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e324ee0c993b4e17a19799f757598153"
+      ]
+    },
+    {
+      "id": "n-0133778e",
+      "kind": "instrument",
+      "label": "TG-2917",
+      "bbox_global": {
+        "x": 3985,
+        "y": 1950,
+        "w": 75,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2917"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d714bb109e7c4b568c3aa40214c5b1c3"
+      ]
+    },
+    {
+      "id": "n-fa41648c",
+      "kind": "equipment",
+      "label": "PSV-2907",
+      "bbox_global": {
+        "x": 3840,
+        "y": 1700,
+        "w": 100,
+        "h": 95
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "valve",
+        "valve_type": "safety_relief",
+        "service": "thermal expansion relief, set 440 psig, size 1D1"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "d364f4ff72844e3ea839ab7d680defe9"
+      ]
+    },
+    {
+      "id": "n-01bdd79f",
+      "kind": "instrument",
+      "label": "TIC-2911",
+      "bbox_global": {
+        "x": 2385,
+        "y": 1210,
+        "w": 100,
+        "h": 105
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "temperature",
+        "loop_number": "2911",
+        "instrument_class": "control_loop",
+        "base_tag": "TIC-2911",
+        "state": "H"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7ca3f277e0d54c4a896d8126c0a89bc3"
+      ]
+    },
+    {
+      "id": "n-a06e8919",
+      "kind": "instrument",
+      "label": "TI-2917 HH",
+      "bbox_global": {
+        "x": 2590,
+        "y": 1060,
+        "w": 100,
+        "h": 105
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2917",
+        "base_tag": "TI-2917",
+        "state": "HH"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "7dbf4c04ab184fc1bf0bc3a8dcd2cf0b"
+      ]
+    },
+    {
+      "id": "n-34c3559b",
+      "kind": "instrument",
+      "label": "PSD-2917 H-234-001 TRIP",
+      "bbox_global": {
+        "x": 2600,
+        "y": 1210,
+        "w": 90,
+        "h": 105
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "controller",
+        "measured_variable": "temperature",
+        "loop_number": "2917",
+        "service": "process shutdown / trip",
+        "base_tag": "PSD-2917",
+        "state": "H-234-001 TRIP"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "3327174f51e5483c99dc7cebd1d4b94a"
+      ]
+    },
+    {
+      "id": "n-e9efe2c9",
+      "kind": "instrument",
+      "label": "TT-2911",
+      "bbox_global": {
+        "x": 2380,
+        "y": 1355,
+        "w": 80,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2911"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "89892e02d12040afba4fd9cfc40dcd5a"
+      ]
+    },
+    {
+      "id": "n-45086e2a",
+      "kind": "instrument",
+      "label": "TG-2912",
+      "bbox_global": {
+        "x": 2505,
+        "y": 1355,
+        "w": 80,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2912"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "bc1bd11d475745469bb0ba0a7d3c2fb7"
+      ]
+    },
+    {
+      "id": "n-0e5f4a02",
+      "kind": "instrument",
+      "label": "TT-2917",
+      "bbox_global": {
+        "x": 2620,
+        "y": 1355,
+        "w": 80,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2917"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1aa89ac64f03494e929dfbc4c505a123"
+      ]
+    },
+    {
+      "id": "n-f3f78902",
+      "kind": "instrument",
+      "label": "TY-2911",
+      "bbox_global": {
+        "x": 1497,
+        "y": 1079,
+        "w": 75,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "valve_actuator",
+        "measured_variable": "temperature",
+        "loop_number": "2911",
+        "service": "louver actuator transducer for TIC-2911"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e38b098ec7064e53b920d701d41ce969",
+        "a0da954167724f2c84c518d73924cc67"
+      ]
+    },
+    {
+      "id": "n-ff93f587",
+      "kind": "instrument",
+      "label": "TI-2913 H",
+      "bbox_global": {
+        "x": 2402,
+        "y": 3363,
+        "w": 100,
+        "h": 95
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "temperature",
+        "loop_number": "2913",
+        "base_tag": "TI-2913",
+        "state": "H"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "505dac0e7ac5448fb2ad68e89ea64be3"
+      ]
+    },
+    {
+      "id": "n-8c569eca",
+      "kind": "instrument",
+      "label": "TT-2913",
+      "bbox_global": {
+        "x": 2557,
+        "y": 3368,
+        "w": 80,
+        "h": 80
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "transmitter",
+        "measured_variable": "temperature",
+        "loop_number": "2913"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "1ece14bbd4be41b9b12b10ee381fda1b"
+      ]
+    },
+    {
+      "id": "n-7760c5cd",
+      "kind": "opc",
+      "label": "HCD outlet",
+      "bbox_global": {
+        "x": 2904,
+        "y": 3578,
+        "w": 130,
+        "h": 110
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "stream": "hydrocarbon closed drain",
+        "target_sheet": "closed drain header"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "46f13b0fad0d433f939d57dfbd38a9a6"
+      ]
+    },
+    {
+      "id": "n-76253340",
+      "kind": "opc",
+      "label": "Sea Water Supply inlet",
+      "bbox_global": {
+        "x": 4466,
+        "y": 2972,
+        "w": 350,
+        "h": 130
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "stream": "sea water supply",
+        "line_id": "SWS-234-03301-115201D-10\"-N",
+        "target_sheet": "234-3.00-027"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "9a89d8bbf46d4a7b809438a861188dcf"
+      ]
+    },
+    {
+      "id": "n-c56c00c5",
+      "kind": "opc",
+      "label": "Sea Water Return outlet",
+      "bbox_global": {
+        "x": 4396,
+        "y": 1958,
+        "w": 350,
+        "h": 130
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "stream": "sea water return",
+        "line_id": "SWR-234-03301-115201D-10\"-N",
+        "target_sheet": "237-3.00-050"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "f6eace11d2ed465a98408a6cea57693d"
+      ]
+    },
+    {
+      "id": "n-9619aa99",
+      "kind": "opc",
+      "label": "SWR (PSV-2907 outlet) outlet",
+      "bbox_global": {
+        "x": 3946,
+        "y": 1828,
+        "w": 270,
+        "h": 120
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "stream": "sea water return - PSV discharge",
+        "line_id": "SWR-234-03302-115201D-1\"-N",
+        "target_sheet": "to grade at safe location"
+      },
+      "confidence": "medium",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "706a1c168a394f6ca3403ac617de9427"
+      ]
+    },
+    {
+      "id": "n-fb605425",
+      "kind": "opc",
+      "label": "Spent Butane outlet",
+      "bbox_global": {
+        "x": 4076,
+        "y": 994,
+        "w": 350,
+        "h": 130
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "stream": "spent butane",
+        "line_id": "P-234-03303-CD3D-2\"-N",
+        "target_sheet": "V-234-004"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a36125c730d0429eabd0b141ccaf69e7"
+      ]
+    },
+    {
+      "id": "n-d6a2ae31",
+      "kind": "opc",
+      "label": "Min Flow inlet",
+      "bbox_global": {
+        "x": 4076,
+        "y": 1184,
+        "w": 350,
+        "h": 130
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "in",
+        "stream": "minimum flow",
+        "line_id": "P-234-03505-CD3D-3\"-N",
+        "target_sheet": "P-234-002A/B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "6262c3b58ef24d8db07be0abd01dc5ef"
+      ]
+    },
+    {
+      "id": "n-13222966",
+      "kind": "equipment",
+      "label": "E-234-010A",
+      "bbox_global": {
+        "x": 3070,
+        "y": 2330,
+        "w": 615,
+        "h": 175
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube",
+        "service": "Butane Regeneration Water Cooler shell A"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "00fce7e323d14c4ab5a7d3933b32ba61"
+      ]
+    },
+    {
+      "id": "n-c8a05545",
+      "kind": "equipment",
+      "label": "E-234-010B",
+      "bbox_global": {
+        "x": 3070,
+        "y": 2660,
+        "w": 615,
+        "h": 175
+      },
+      "page_index": 0,
+      "attributes": {
+        "equipment_class": "heat_exchanger",
+        "heat_exchanger_type": "shell_and_tube",
+        "service": "Butane Regeneration Water Cooler shell B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "de650a5bd3994976aeabd82f06f2bdf2"
+      ]
+    },
+    {
+      "id": "n-6008cafd",
+      "kind": "instrument",
+      "label": "TW-2921",
+      "bbox_global": {
+        "x": 3370,
+        "y": 2575,
+        "w": 90,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "2921",
+        "service": "thermowell"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "a7cc787707754cbba50385297b09b0e7"
+      ]
+    },
+    {
+      "id": "n-b007eef7",
+      "kind": "instrument",
+      "label": "TW-2922",
+      "bbox_global": {
+        "x": 3525,
+        "y": 2575,
+        "w": 90,
+        "h": 90
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "element",
+        "measured_variable": "temperature",
+        "loop_number": "2922",
+        "service": "thermowell"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "093e5c68cc89439fbfeea10c976ada51"
+      ]
+    },
+    {
+      "id": "n-d2351b03",
+      "kind": "instrument",
+      "label": "PG-2914",
+      "bbox_global": {
+        "x": 3585,
+        "y": 2905,
+        "w": 75,
+        "h": 75
+      },
+      "page_index": 0,
+      "attributes": {
+        "instrument_function": "indicator",
+        "measured_variable": "pressure",
+        "loop_number": "2914"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "92552d2dedc940928c8f081742cc8306"
+      ]
+    },
+    {
+      "id": "n-79cb29a5",
+      "kind": "opc",
+      "label": "Spent Butane (cooling/filling) outlet",
+      "bbox_global": {
+        "x": 4416,
+        "y": 3718,
+        "w": 350,
+        "h": 130
+      },
+      "page_index": 0,
+      "attributes": {
+        "direction": "out",
+        "stream": "spent butane cooling/filling",
+        "line_id": "P-234-03302-CD3D-6\"-N",
+        "target_sheet": "F-234-004A/B"
+      },
+      "confidence": "high",
+      "alternate_readings": [],
+      "source_annotation_ids": [
+        "e9bf30739eb441e387b89ac875f13787"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-72d097e4",
+      "from_node": "n-d5b9b62f",
+      "to_node": "n-071d59b7",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          820,
+          1515
+        ],
+        [
+          1500,
+          1515
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "8d0a5bca70e4453e9f36c48adab03775"
+      ],
+      "attributes": {
+        "label": "spent butane to air cooler inlet manifold"
+      }
+    },
+    {
+      "id": "e-d23185b9",
+      "from_node": "n-071d59b7",
+      "to_node": "n-e9efe2c9",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          1875,
+          1620
+        ],
+        [
+          2460,
+          1620
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "9b40dead558e40e58277025db70aace8"
+      ],
+      "attributes": {
+        "label": "E-234-009 outlet manifold to free draining header",
+        "snap_note": "inferred_loose_to"
+      }
+    },
+    {
+      "id": "e-6d2b9795",
+      "from_node": "n-13222966",
+      "to_node": "n-79cb29a5",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3240,
+          2491
+        ],
+        [
+          3240,
+          3691
+        ],
+        [
+          4590,
+          3691
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "243fd79f5f92477f95018e67a26d63de"
+      ],
+      "attributes": {
+        "line_id": "P-234-03302-CD3D-6\"-N",
+        "label": "E-234-010B outlet down to spent butane outlet OPC",
+        "nominal_diameter": "6\"",
+        "service_code": "CD3D"
+      }
+    },
+    {
+      "id": "e-c159acbd",
+      "from_node": "n-76253340",
+      "to_node": "n-13222966",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          4590,
+          3031
+        ],
+        [
+          3240,
+          3031
+        ],
+        [
+          3240,
+          2491
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "6a9ebe6a637b4af6b20beb0689b68290"
+      ],
+      "attributes": {
+        "line_id": "SWS-234-03301-115201D-10\"-N",
+        "label": "sea water supply to E-234-010 cooler tube inlet",
+        "nominal_diameter": "10\"",
+        "service_code": "SWS"
+      }
+    },
+    {
+      "id": "e-654a3223",
+      "from_node": "n-3fe4c7d9",
+      "to_node": "n-9619aa99",
+      "line_type": "process",
+      "polyline_global": [
+        [
+          3345,
+          1800
+        ],
+        [
+          3990,
+          1800
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "medium",
+      "source_annotation_ids": [
+        "a72d50314039421f82a864ec209ac32e"
+      ],
+      "attributes": {
+        "line_id": "SWR-234-03302-115201D-1\"-N",
+        "label": "PSV-2907 outlet to grade",
+        "nominal_diameter": "1\"",
+        "service_code": "SWR",
+        "snap_note": "inferred_loose_from"
+      }
+    },
+    {
+      "id": "e-c39c05f6",
+      "from_node": "n-01bdd79f",
+      "to_node": "n-f3f78902",
+      "line_type": "signal_electric",
+      "polyline_global": [
+        [
+          2447,
+          1249
+        ],
+        [
+          2447,
+          1109
+        ],
+        [
+          1572,
+          1109
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "a26708defc2d46d2a8602bc410f193a2"
+      ],
+      "attributes": {
+        "label": "TIC-2911 to TY-2911 signal"
+      }
+    },
+    {
+      "id": "e-0dd29d29",
+      "from_node": "n-e9efe2c9",
+      "to_node": "n-01bdd79f",
+      "line_type": "signal_electric",
+      "polyline_global": [
+        [
+          2432,
+          1374
+        ],
+        [
+          2432,
+          1294
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "398e8c91250f4a2d9cad8bbcf762ca71"
+      ],
+      "attributes": {
+        "label": "TT-2911 to TIC-2911 signal"
+      }
+    },
+    {
+      "id": "e-d24bb8f1",
+      "from_node": "n-0e5f4a02",
+      "to_node": "n-34c3559b",
+      "line_type": "signal_electric",
+      "polyline_global": [
+        [
+          2662,
+          1374
+        ],
+        [
+          2662,
+          1294
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "e9a02d4827ad4f97af1f027c06f3740c"
+      ],
+      "attributes": {
+        "label": "TT-2917 to PSD-2917 signal"
+      }
+    },
+    {
+      "id": "e-104a3714",
+      "from_node": "n-34c3559b",
+      "to_node": "n-a06e8919",
+      "line_type": "signal_electric",
+      "polyline_global": [
+        [
+          2662,
+          1234
+        ],
+        [
+          2662,
+          1154
+        ]
+      ],
+      "cross_sheet": false,
+      "confidence": "high",
+      "source_annotation_ids": [
+        "e690c1c5bb694ddb90372af208bf7ac2"
+      ],
+      "attributes": {
+        "label": "PSD-2917 to TI-2917 signal"
+      }
+    }
+  ],
+  "dangling_opcs": [
+    {
+      "opc_label": "Spent Butane inlet",
+      "normalised": "SPENTBUTANEINLET",
+      "node_id": "n-ae3cfb43",
+      "page_index": 0
+    },
+    {
+      "opc_label": "HCD outlet",
+      "normalised": "HCDOUTLET",
+      "node_id": "n-7760c5cd",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Sea Water Supply inlet",
+      "normalised": "SEAWATERSUPPLYINLET",
+      "node_id": "n-76253340",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Sea Water Return outlet",
+      "normalised": "SEAWATERRETURNOUTLET",
+      "node_id": "n-c56c00c5",
+      "page_index": 0
+    },
+    {
+      "opc_label": "SWR (PSV-2907 outlet) outlet",
+      "normalised": "SWRPSV-2907OUTLETOUTLET",
+      "node_id": "n-9619aa99",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Spent Butane outlet",
+      "normalised": "SPENTBUTANEOUTLET",
+      "node_id": "n-fb605425",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Min Flow inlet",
+      "normalised": "MINFLOWINLET",
+      "node_id": "n-d6a2ae31",
+      "page_index": 0
+    },
+    {
+      "opc_label": "Spent Butane (cooling/filling) outlet",
+      "normalised": "SPENTBUTANECOOLINGFILLINGOUTLET",
+      "node_id": "n-79cb29a5",
+      "page_index": 0
+    }
+  ],
+  "conflicts": [
+    {
+      "type": "unstitched_line_endpoint",
+      "page_index": 0,
+      "x": 600,
+      "y": 1515,
+      "annotation_id": "4ab8a1f06b184a14964c94b7dd897466",
+      "line_type": "process",
+      "arbitration": {
+        "status": "skipped_handled_by_edge_resolve",
+        "detail": ""
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          600,
+          1515
+        ],
+        [
+          800,
+          1515
+        ],
+        [
+          1340,
+          1515
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "4ab8a1f06b184a14964c94b7dd897466"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          720,
+          1620
+        ],
+        [
+          885,
+          1620
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "8ffa15ba4d7d41afae9cd5757bf164bf"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          885,
+          1620
+        ],
+        [
+          1320,
+          1620
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "5e8deaf0927d47098d3b7b4dde40004f"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2460,
+          1620
+        ],
+        [
+          2460,
+          2191
+        ],
+        [
+          2835,
+          2191
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "bb63688c7ab14ce7a94cc856cb69b033"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2835,
+          2191
+        ],
+        [
+          3045,
+          2191
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "2af75aa226ab4d069097467222844f48"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2820,
+          2191
+        ],
+        [
+          2820,
+          2491
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "157bda8f71844fd8b807047f30237497"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2820,
+          2491
+        ],
+        [
+          3045,
+          2491
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": true,
+      "source_annotation_ids": [
+        "ee440bacf19146f686f591f61f7eb4a0"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2625,
+          2191
+        ],
+        [
+          2625,
+          2266
+        ],
+        [
+          4590,
+          2266
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "f329a43e145041e08902a61e4999b825"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          3345,
+          1590
+        ],
+        [
+          3345,
+          1845
+        ],
+        [
+          2610,
+          1845
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "fe7f5a6e6efb403e8950ab549e69f58c"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          2460,
+          1620
+        ],
+        [
+          2460,
+          1410
+        ],
+        [
+          4590,
+          1410
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "a1764083e4454807b63fb4b6cc106ace"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    },
+    {
+      "type": "dropped_edge_unsnappable",
+      "page_index": 0,
+      "line_type": "process",
+      "polyline": [
+        [
+          4590,
+          1500
+        ],
+        [
+          2460,
+          1500
+        ],
+        [
+          2460,
+          1590
+        ]
+      ],
+      "snap_radius_px": 142,
+      "has_from": false,
+      "has_to": false,
+      "source_annotation_ids": [
+        "03c49f16cc964fcfbef72a10bcec048f"
+      ],
+      "arbitration": {
+        "status": "skipped_unknown_type",
+        "detail": "dropped_edge_unsnappable"
+      }
+    }
+  ],
+  "per_page_status": {
+    "0": "ok"
+  }
+}

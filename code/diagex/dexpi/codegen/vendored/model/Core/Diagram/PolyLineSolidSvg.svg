@@ -1,0 +1,16 @@
+<svg
+  xmlns = "http://www.w3.org/2000/svg"
+  width = "82mm"
+  height = "102mm"
+  viewBox = "-31 -61 82 102">
+  <polyline
+    points = "-30,40 50,40 -10,-60"
+    stroke = "#007fff"
+    stroke-dasharray = "none"
+    stroke-dashoffset = "0mm"
+    stroke-width = "2mm"
+    stroke-linecap = "round"
+    stroke-linejoin = "round"
+    vector-effect = "non-scaling-stroke"
+    fill = "none"/>
+</svg>
