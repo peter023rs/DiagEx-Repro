@@ -32,7 +32,10 @@ if TYPE_CHECKING:  # optional rich console for progress display
 # import deferred so this module imports cleanly if pid_legend.py is not yet on disk;
 # `run_pid_extract` fails fast with a clear error if it's still missing at call time.
 try:  # pragma: no cover - import shape depends on parallel work
-    from diagex.extractors.pid_legend import LegendResolution, resolve_legend  # type: ignore[attr-defined]
+    from diagex.extractors.pid_legend import (  # type: ignore[attr-defined]
+        LegendResolution,
+        resolve_legend,
+    )
     _LEGEND_IMPORT_ERROR: Exception | None = None
 except Exception as _exc:  # noqa: BLE001 - surface the real cause at call time
     LegendResolution = None  # type: ignore[assignment,misc]
@@ -192,9 +195,11 @@ def run_pid_extract(
     persist: bool = True,
     out_path: Optional[Path] = None,
     confidence_report_path: Optional[Path] = None,
-    console: Optional["Console"] = None,
+    console: Console | None = None,
 ) -> PidExtractionResult:
     # Defer heavy imports so `--help` paths in the CLI don't pay for them.
+    from rich.console import Console as _RichConsole
+
     from diagex.agent.runtime import ReactRuntime, RunConfig
     from diagex.agent.state import AgentState, aggregate_tool_call_counts
     from diagex.agent.tools import build_phase2_tools
@@ -231,6 +236,9 @@ def run_pid_extract(
     # --- 1. Load + tile substrate ----------------------------------------------
     source = load(diagram, tiling=cfg.tiling, scan_cfg=cfg.scan)
 
+    progress_console = console or _RichConsole()
+    reporter_factory = lambda: make_reporter(progress_console, effort=effort)  # noqa: E731
+
     # --- 2. Shared infrastructure ----------------------------------------------
     cost = CostTracker(pricing=cfg.pricing) if _cost_accepts_pricing() else CostTracker()
     llm = LLMClient(cfg.llm, budgets=cfg.budgets)
@@ -242,20 +250,30 @@ def run_pid_extract(
     legend_entry_count = 0
     legend_pack: LegendPack | None = None
     legend_budget = None
+    legend_reporter = reporter_factory()
     try:
-        resolution = resolve_legend(  # type: ignore[misc]
-            source=source,
-            symbol_standard=symbol_standard,
-            cfg=cfg,
-            client=llm,
-            cost_tracker=cost,
-            legend_path=legend_path,
-            legend_pages=legend_pages,
-            legend_region=legend_region,
-            no_legend=no_legend,
-            legend_key=legend_key,
-            runs_dir_for_stem=runs_root,
-        )
+        with legend_reporter:
+            legend_reporter.on_phase_start(
+                name="legend resolution",
+                total_items=source.metadata.get("page_count"),
+            )
+            resolution = resolve_legend(  # type: ignore[misc]
+                source=source,
+                symbol_standard=symbol_standard,
+                cfg=cfg,
+                client=llm,
+                cost_tracker=cost,
+                legend_path=legend_path,
+                legend_pages=legend_pages,
+                legend_region=legend_region,
+                no_legend=no_legend,
+                legend_key=legend_key,
+                runs_dir_for_stem=runs_root,
+                reporter=legend_reporter,
+            )
+            legend_reporter.on_phase_end(
+                detail=str(getattr(resolution, "source", "resolved"))
+            )
         legend_pack = getattr(resolution, "pack", None)
         legend_budget = getattr(resolution, "budget", None)
         legend_source_tag = str(getattr(resolution, "source", "") or "")
@@ -293,12 +311,6 @@ def run_pid_extract(
         budgets=cfg.budgets,
     )
     runtime.tools_override = build_phase2_tools(with_lookup=has_lookup)
-
-    # Progress reporter — fresh instance per page.
-    from rich.console import Console as _RichConsole
-
-    progress_console = console or _RichConsole()
-    reporter_factory = lambda: make_reporter(progress_console, effort=effort)  # noqa: E731
 
     # --- 6. Per-page agent tile-walk -------------------------------------------
     all_annotations: list = []

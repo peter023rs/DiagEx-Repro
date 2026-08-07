@@ -72,6 +72,21 @@ Choose a model that supports both image input and tool calling. `OPENROUTER_MODE
 is accepted as an alias for `DIAGEX_MODEL`. Optional attribution settings are
 `OPENROUTER_HTTP_REFERER` and `OPENROUTER_APP_TITLE`.
 
+Kimi Code K3 is also supported with the Kimi Code Console key:
+
+```bash
+export DIAGEX_LLM_PROVIDER=kimi
+export KIMI_API_KEY=...
+export KIMI_BASE_URL=https://api.kimi.com/coding/v1
+export DIAGEX_MODEL=k3
+
+diagex extract-pid path/to/drawing.pdf --effort medium
+```
+
+DiagEx accepts Kimi's OpenAI-style `/coding/v1` setting above, but uses Kimi's
+Anthropic-compatible `/coding/v1/messages` endpoint internally so image and tool
+blocks do not need conversion. `KIMI_MODEL` is accepted as a model-name alias.
+
 Live results are non-deterministic; expect ±0.02 macro-F1 around the
 published numbers per the evaluation plan §8.1.
 

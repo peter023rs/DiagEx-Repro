@@ -236,14 +236,17 @@ def load(
     ext = p.suffix.lower()
     if ext in _PDF_EXTS:
         kind: str = "pdf"
+        with fitz.open(p) as doc:
+            page_count = int(doc.page_count)
         iter_factory = lambda: _iter_pdf_pages(p, tiling, scan_cfg)  # noqa: E731
     elif ext in _IMAGE_EXTS:
         kind = "image"
+        page_count = 1
         iter_factory = lambda: _iter_image_page(p, tiling, scan_cfg)  # noqa: E731
     else:
         raise ValueError(f"Unsupported file type: {ext}")
 
-    metadata: dict[str, Any] = {"source_stem": p.stem}
+    metadata: dict[str, Any] = {"source_stem": p.stem, "page_count": page_count}
     # `pages` is a zero-arg callable that returns a fresh iterator per call —
     # this lets callers re-iterate (e.g. resume from checkpoint) without
     # materialising all pages up front. Pydantic stores it opaquely.

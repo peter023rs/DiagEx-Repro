@@ -38,10 +38,11 @@ from pydantic import ValidationError
 from diagex.agent.runtime import ReactRuntime, RunConfig
 from diagex.agent.state import AgentState
 from diagex.agent.tools import build_phase2_tools
-from diagex.config import Config, EFFORT_PROFILES, PidConfig
+from diagex.config import EFFORT_PROFILES, Config, PidConfig
 from diagex.llm.client import LLMClient
 from diagex.llm.cost import CostTracker
 from diagex.llm.prompts.phase2_legend import build_legend_system_prompt
+from diagex.ui.progress import NullReporter, ProgressReporter
 from diagex.vision.encode import encode_image_block
 from diagex.vision.legend_models import (
     LegendBudget,
@@ -50,10 +51,9 @@ from diagex.vision.legend_models import (
     SymbolStandard,
 )
 from diagex.vision.loader import iter_pages
-from diagex.vision.models import BBox, DiagramPage, DiagramSource, Tile
+from diagex.vision.models import BBox, DiagramPage, DiagramSource
 from diagex.vision.tiling import AspectAwareStrategy, tile
 from diagex.vision.views import ViewProvider
-
 
 # ---------------------------------------------------------------------------
 # Result container
@@ -353,20 +353,14 @@ def _auto_detect_page(
         }
     ]
 
-    try:
-        resp = client.messages_create(
-            system=system_blocks,
-            messages=messages,
-            tools=None,
-            max_tokens=128,
-            thinking={"type": "disabled"},
-            output_config={"effort": "low"},
-        )
-    except Exception:
-        # Any transport/validation failure -> treat the page as 'not a legend'.
-        # A missed legend page just falls through to built-in-only; it does
-        # not corrupt the run.
-        return False, None
+    resp = client.messages_create(
+        system=system_blocks,
+        messages=messages,
+        tools=None,
+        max_tokens=128,
+        thinking={"type": "disabled"},
+        output_config={"effort": "low"},
+    )
 
     cost_tracker.record(resp, step=0, page_index=page.page_index)
     text = _extract_text(resp).strip()
@@ -623,6 +617,7 @@ def resolve_legend(
     no_legend: bool = False,
     legend_key: Optional[str] = None,
     runs_dir_for_stem: Optional[Path] = None,
+    reporter: ProgressReporter | None = None,
 ) -> LegendResolution:
     """Resolve, extract, cache, merge, and budget-split the legend.
 
@@ -645,6 +640,7 @@ def resolve_legend(
         )
 
     builtin = load_builtin_pack(symbol_standard)
+    progress = reporter or NullReporter()
     cache_path = _cache_path_for(
         legend_key=legend_key,
         cfg_pid=cfg.pid,
@@ -713,6 +709,7 @@ def resolve_legend(
         client=client,
         cost_tracker=cost_tracker,
         cache_path=cache_path,
+        reporter=progress,
     )
 
 
@@ -951,19 +948,41 @@ def _resolve_auto(
     client: LLMClient,
     cost_tracker: CostTracker,
     cache_path: Optional[Path],
+    reporter: ProgressReporter,
 ) -> LegendResolution:
     """Default path: classify each page, extract detected legends, merge."""
     detected: list[tuple[DiagramPage, Optional[tuple[int, int, int, int]]]] = []
     detected_page_bytes: list[bytes] = []
+    raw_total = source.metadata.get("page_count")
+    total_pages = raw_total if isinstance(raw_total, int) else None
+    reporter.on_phase_start(name="legend scan", total_items=total_pages)
+    processed_pages = 0
     for page in iter_pages(source):
-        is_legend, bbox = _auto_detect_page(
-            page=page,
-            client=client,
-            cost_tracker=cost_tracker,
+        processed_pages += 1
+        reporter.on_phase_item_start(
+            item=processed_pages,
+            total_items=total_pages,
+            label=f"classifying page {page.page_index + 1}",
+        )
+        try:
+            is_legend, bbox = _auto_detect_page(
+                page=page,
+                client=client,
+                cost_tracker=cost_tracker,
+            )
+        except Exception as exc:  # preserve best-effort legend detection
+            reporter.on_phase_item_end(detail=str(exc), is_error=True)
+            continue
+        reporter.on_phase_item_end(
+            detail="legend detected" if is_legend else "not a legend"
         )
         if is_legend:
             detected.append((page, bbox))
             detected_page_bytes.append(_page_png_bytes(page))
+
+    reporter.on_phase_end(
+        detail=f"{len(detected)} legend page(s) detected"
+    )
 
     if not detected:
         merged = LegendPack(
@@ -1002,7 +1021,13 @@ def _resolve_auto(
 
     all_entries: list[LegendEntry] = []
     notes_parts: list[str] = []
-    for page, bbox in detected:
+    reporter.on_phase_start(name="legend extraction", total_items=len(detected))
+    for item, (page, bbox) in enumerate(detected, start=1):
+        reporter.on_phase_item_start(
+            item=item,
+            total_items=len(detected),
+            label=f"extracting page {page.page_index + 1}",
+        )
         try:
             entries = _extract_from_page(
                 page=page,
@@ -1013,8 +1038,12 @@ def _resolve_auto(
             )
         except Exception as exc:
             notes_parts.append(f"page {page.page_index}: {exc}")
+            reporter.on_phase_item_end(detail=str(exc), is_error=True)
             continue
         all_entries.extend(entries)
+        reporter.on_phase_item_end(detail=f"{len(entries)} entries")
+
+    reporter.on_phase_end(detail=f"{len(all_entries)} entries extracted")
 
     extracted = LegendPack(
         source_hash=src_hash,

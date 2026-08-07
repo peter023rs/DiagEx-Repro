@@ -63,6 +63,19 @@ image, tool-use, prompt-caching, and thinking blocks do not require conversion.
 `OPENROUTER_MODEL` may be used instead of `DIAGEX_MODEL`; the latter takes
 precedence when both are set.
 
+For Kimi Code K3, use a key created in the Kimi Code Console:
+
+```bash
+export DIAGEX_LLM_PROVIDER=kimi
+export KIMI_API_KEY=...
+export KIMI_BASE_URL=https://api.kimi.com/coding/v1
+export DIAGEX_MODEL=k3
+```
+
+Although this accepts Kimi's commonly published OpenAI-style base URL, DiagEx
+normalizes it to the Anthropic-compatible base and calls `/coding/v1/messages`.
+This keeps the existing image, tool-use, and thinking-block request format.
+
 ## 2. Phase 2 — P&ID → DEXPI 2.0 (Table 3, Fig. 3)
 
 Cassette mode:

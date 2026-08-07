@@ -116,6 +116,9 @@ class ReactRuntime:
                 max_tokens=max_tokens,
                 thinking=thinking,
                 output_config=output_config,
+                on_stream_delta=lambda kind, text: self.reporter.on_stream_delta(
+                    kind=kind, text=text
+                ),
             )
             self.cost.record(resp, step=state.steps, page_index=state.page.page_index)
             self.reporter.on_cost_update(total_usd=self.cost.total_usd())

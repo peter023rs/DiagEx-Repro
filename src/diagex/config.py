@@ -105,9 +105,9 @@ class LLMConfig:
     """
 
     model: str = "claude-opus-4-7"
-    # OpenRouter exposes an Anthropic-compatible /api/v1/messages endpoint, so
-    # all transports retain the runtime's native image/tool/thinking block shape.
-    transport: Literal["anthropic", "azure", "openrouter"] = "anthropic"
+    # OpenRouter and Kimi expose Anthropic-compatible Messages endpoints, so all
+    # transports retain the runtime's native image/tool/thinking block shape.
+    transport: Literal["anthropic", "azure", "openrouter", "kimi"] = "anthropic"
     anthropic_api_key: str | None = None
     azure_endpoint: str | None = None
     azure_api_key: str | None = None
@@ -117,6 +117,8 @@ class LLMConfig:
     openrouter_base_url: str = "https://openrouter.ai/api"
     openrouter_http_referer: str | None = None
     openrouter_app_title: str = "DiagEx"
+    kimi_api_key: str | None = None
+    kimi_base_url: str = "https://api.kimi.com/coding/v1"
 
     @classmethod
     def from_env(cls) -> LLMConfig:
@@ -128,10 +130,33 @@ class LLMConfig:
         azure_api_version = os.environ.get("AZURE_OPENAI_API_VERSION")
         anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
         openrouter_key = os.environ.get("OPENROUTER_API_KEY")
+        kimi_key = os.environ.get("KIMI_API_KEY")
 
-        if provider and provider not in {"anthropic", "azure", "openrouter"}:
+        if provider and provider not in {"anthropic", "azure", "openrouter", "kimi"}:
             raise ValueError(
-                "DIAGEX_LLM_PROVIDER must be one of: anthropic, azure, openrouter"
+                "DIAGEX_LLM_PROVIDER must be one of: anthropic, azure, openrouter, kimi"
+            )
+
+        use_kimi = provider == "kimi" or (
+            not provider
+            and bool(kimi_key)
+            and not openrouter_key
+            and not anthropic_key
+            and not (azure_endpoint and azure_key and azure_deployment)
+        )
+        if use_kimi:
+            model = os.environ.get("DIAGEX_MODEL") or os.environ.get("KIMI_MODEL")
+            if not model:
+                raise ValueError(
+                    "Kimi requires a model ID; set DIAGEX_MODEL (for example, k3)."
+                )
+            return cls(
+                transport="kimi",
+                model=model,
+                kimi_api_key=kimi_key,
+                kimi_base_url=os.environ.get(
+                    "KIMI_BASE_URL", "https://api.kimi.com/coding/v1"
+                ).rstrip("/"),
             )
 
         use_openrouter = provider == "openrouter" or (

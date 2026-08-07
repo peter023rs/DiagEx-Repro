@@ -3,12 +3,13 @@
 Spec refs: §4 (stack), §6.2 (prompt caching), §6.3 (budgets), §6.4 (resilience: retry),
 §10 (cost).
 
-Three transports are supported:
+Four transports are supported:
   - "anthropic": direct api.anthropic.com via anthropic.Anthropic().
   - "azure":    Azure AI Foundry's Anthropic-compatible endpoint, driven via
                 anthropic.Anthropic(base_url=..., default_headers={"api-key": ...}).
   - "openrouter": OpenRouter's Anthropic Messages endpoint, authenticated with
                   an OpenRouter bearer token and accepting any compatible model slug.
+  - "kimi":      Kimi Code's Anthropic-compatible endpoint, accepting K3 model IDs.
 
 The SDK's own retry machinery is deliberately bypassed — this module enforces the
 spec's backoff policy (base 2s, factor 2, max 60s, 6 attempts) from RuntimeBudgets so
@@ -20,6 +21,7 @@ from __future__ import annotations
 import random
 import sys
 import time
+from collections.abc import Callable
 from typing import Any
 
 import anthropic
@@ -86,6 +88,17 @@ class LLMClient:
                 max_retries=0,  # we own retry policy
             )
 
+        if config.transport == "kimi":
+            if not config.kimi_api_key:
+                raise ValueError(
+                    "Kimi transport requires kimi_api_key; set KIMI_API_KEY."
+                )
+            return anthropic.Anthropic(
+                base_url=LLMClient._kimi_anthropic_base_url(config.kimi_base_url),
+                api_key=config.kimi_api_key,
+                max_retries=0,  # we own retry policy
+            )
+
         # Direct Anthropic transport.
         if not config.anthropic_api_key:
             raise ValueError(
@@ -97,6 +110,23 @@ class LLMClient:
         )
 
     # ---- internals --------------------------------------------------------
+
+    @staticmethod
+    def _kimi_anthropic_base_url(configured_url: str) -> str:
+        """Convert Kimi's commonly published OpenAI base to its Anthropic base.
+
+        Kimi documents ``/coding/v1`` for OpenAI-compatible clients and
+        ``/coding`` for Anthropic-compatible clients. DiagEx uses the latter;
+        the Anthropic SDK appends ``/v1/messages`` itself.
+        """
+        base_url = configured_url.rstrip("/")
+        messages_suffix = "/coding/v1/messages"
+        openai_suffix = "/coding/v1"
+        if base_url.endswith(messages_suffix):
+            return base_url[: -len("/v1/messages")]
+        if base_url.endswith(openai_suffix):
+            return base_url[: -len("/v1")]
+        return base_url
 
     def _sleep_for_attempt(self, attempt: int) -> float:
         """Exponential backoff with jitter, clamped to retry_max_s."""
@@ -133,6 +163,7 @@ class LLMClient:
         thinking: dict[str, Any] | None = None,
         output_config: dict[str, Any] | None = None,
         extra_cache_breakpoints: list[dict[str, Any]] | None = None,
+        on_stream_delta: Callable[[str, str], None] | None = None,
     ) -> Any:
         """Send a Messages request with caching + spec-compliant retry.
 
@@ -179,7 +210,14 @@ class LLMClient:
         if tools_payload is not None:
             kwargs["tools"] = tools_payload
         if thinking is not None:
-            kwargs["thinking"] = thinking
+            # ``display`` is an Anthropic-specific presentation option. Kimi K3
+            # accepts adaptive/disabled thinking plus output_config.effort, but
+            # rejects unknown thinking members with HTTP 400.
+            kwargs["thinking"] = (
+                {key: value for key, value in thinking.items() if key != "display"}
+                if self.config.transport == "kimi"
+                else thinking
+            )
         if output_config is not None:
             kwargs["output_config"] = output_config
 
@@ -190,6 +228,9 @@ class LLMClient:
         for attempt in range(self.budgets.retry_attempts):
             try:
                 with self._client.messages.stream(**kwargs) as stream:
+                    if on_stream_delta is not None:
+                        for event in stream:
+                            self._forward_stream_delta(event, on_stream_delta)
                     return stream.get_final_message()
             except anthropic.APIStatusError as exc:
                 status = getattr(exc, "status_code", None)
@@ -216,3 +257,53 @@ class LLMClient:
         # Exhausted — re-raise the last observed error.
         assert last_exc is not None
         raise last_exc
+
+    @staticmethod
+    def _forward_stream_delta(
+        event: Any, callback: Callable[[str, str], None]
+    ) -> None:
+        """Forward visible text/reasoning deltas without coupling UI to the SDK."""
+        event_type = (
+            event.get("type") if isinstance(event, dict) else getattr(event, "type", None)
+        )
+        if event_type != "content_block_delta":
+            return
+
+        delta = (
+            event.get("delta") if isinstance(event, dict) else getattr(event, "delta", None)
+        )
+        if delta is None:
+            return
+        delta_type = (
+            delta.get("type")
+            if isinstance(delta, dict)
+            else getattr(delta, "type", None)
+        )
+        if delta_type in {"thinking_delta", "reasoning_delta"}:
+            kind = "thinking"
+            field_names = ("thinking", "reasoning", "text")
+        elif delta_type == "text_delta":
+            kind = "text"
+            field_names = ("text",)
+        else:
+            return
+
+        text = ""
+        for field_name in field_names:
+            value = (
+                delta.get(field_name)
+                if isinstance(delta, dict)
+                else getattr(delta, field_name, None)
+            )
+            if isinstance(value, str) and value:
+                text = value
+                break
+        if not text:
+            return
+
+        # Display failures must never abort and retry an otherwise healthy, costly
+        # model request.
+        try:
+            callback(kind, text)
+        except Exception:
+            pass
