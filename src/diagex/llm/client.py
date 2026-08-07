@@ -1,12 +1,14 @@
-"""LLM transport layer: wraps Anthropic SDK (direct or Azure AI Foundry).
+"""LLM transport layer for Anthropic-compatible Messages APIs.
 
 Spec refs: §4 (stack), §6.2 (prompt caching), §6.3 (budgets), §6.4 (resilience: retry),
 §10 (cost).
 
-Two transports are supported:
+Three transports are supported:
   - "anthropic": direct api.anthropic.com via anthropic.Anthropic().
   - "azure":    Azure AI Foundry's Anthropic-compatible endpoint, driven via
                 anthropic.Anthropic(base_url=..., default_headers={"api-key": ...}).
+  - "openrouter": OpenRouter's Anthropic Messages endpoint, authenticated with
+                  an OpenRouter bearer token and accepting any compatible model slug.
 
 The SDK's own retry machinery is deliberately bypassed — this module enforces the
 spec's backoff policy (base 2s, factor 2, max 60s, 6 attempts) from RuntimeBudgets so
@@ -65,6 +67,22 @@ class LLMClient:
                 api_key=config.azure_api_key,  # satisfies SDK; ignored by Azure
                 default_headers={"api-key": config.azure_api_key},
                 default_query=default_query or None,
+                max_retries=0,  # we own retry policy
+            )
+
+        if config.transport == "openrouter":
+            if not config.openrouter_api_key:
+                raise ValueError(
+                    "OpenRouter transport requires openrouter_api_key; "
+                    "set OPENROUTER_API_KEY."
+                )
+            headers = {"X-OpenRouter-Title": config.openrouter_app_title}
+            if config.openrouter_http_referer:
+                headers["HTTP-Referer"] = config.openrouter_http_referer
+            return anthropic.Anthropic(
+                base_url=config.openrouter_base_url,
+                auth_token=config.openrouter_api_key,
+                default_headers=headers,
                 max_retries=0,  # we own retry policy
             )
 

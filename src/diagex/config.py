@@ -98,31 +98,69 @@ class RuntimeBudgets:
 
 @dataclass
 class LLMConfig:
-    """LLM transport settings — direct Anthropic or Azure-hosted Anthropic-compatible.
+    """LLM transport settings for Anthropic-compatible Messages endpoints.
 
     Note: Opus 4.7 rejects `temperature` / `top_p` / `top_k` with 400. Thinking
     depth is controlled via `output_config.effort`, not sampling parameters.
     """
 
     model: str = "claude-opus-4-7"
-    # Transport: "anthropic" for api.anthropic.com, "azure" for Azure AI Foundry.
-    transport: Literal["anthropic", "azure"] = "anthropic"
+    # OpenRouter exposes an Anthropic-compatible /api/v1/messages endpoint, so
+    # all transports retain the runtime's native image/tool/thinking block shape.
+    transport: Literal["anthropic", "azure", "openrouter"] = "anthropic"
     anthropic_api_key: str | None = None
     azure_endpoint: str | None = None
     azure_api_key: str | None = None
     azure_deployment: str | None = None
     azure_api_version: str | None = None
+    openrouter_api_key: str | None = None
+    openrouter_base_url: str = "https://openrouter.ai/api"
+    openrouter_http_referer: str | None = None
+    openrouter_app_title: str = "DiagEx"
 
     @classmethod
-    def from_env(cls) -> "LLMConfig":
-        """Prefer Azure if its env vars are set; otherwise direct Anthropic."""
+    def from_env(cls) -> LLMConfig:
+        """Select a provider explicitly, retaining the historical auto-detection."""
+        provider = os.environ.get("DIAGEX_LLM_PROVIDER", "").strip().lower()
         azure_endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
         azure_key = os.environ.get("AZURE_OPENAI_API_KEY")
         azure_deployment = os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME")
         azure_api_version = os.environ.get("AZURE_OPENAI_API_VERSION")
         anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
+        openrouter_key = os.environ.get("OPENROUTER_API_KEY")
 
-        if azure_endpoint and azure_key and azure_deployment:
+        if provider and provider not in {"anthropic", "azure", "openrouter"}:
+            raise ValueError(
+                "DIAGEX_LLM_PROVIDER must be one of: anthropic, azure, openrouter"
+            )
+
+        use_openrouter = provider == "openrouter" or (
+            not provider
+            and bool(openrouter_key)
+            and not anthropic_key
+            and not (azure_endpoint and azure_key and azure_deployment)
+        )
+        if use_openrouter:
+            model = os.environ.get("DIAGEX_MODEL") or os.environ.get("OPENROUTER_MODEL")
+            if not model:
+                raise ValueError(
+                    "OpenRouter requires a model slug; set DIAGEX_MODEL "
+                    "(for example, a model supporting both image input and tools)."
+                )
+            return cls(
+                transport="openrouter",
+                model=model,
+                openrouter_api_key=openrouter_key,
+                openrouter_base_url=os.environ.get(
+                    "OPENROUTER_BASE_URL", "https://openrouter.ai/api"
+                ).rstrip("/"),
+                openrouter_http_referer=os.environ.get("OPENROUTER_HTTP_REFERER"),
+                openrouter_app_title=os.environ.get("OPENROUTER_APP_TITLE", "DiagEx"),
+            )
+
+        if provider == "azure" or (
+            not provider and azure_endpoint and azure_key and azure_deployment
+        ):
             return cls(
                 transport="azure",
                 model=azure_deployment,

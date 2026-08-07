@@ -50,6 +50,19 @@ python eval/run_paper_eval.py \
     --phase 1 --conditions baseline --out /tmp/live/phase1
 ```
 
+To use OpenRouter instead, select a model that supports both images and tools:
+
+```bash
+export DIAGEX_LLM_PROVIDER=openrouter
+export OPENROUTER_API_KEY=...
+export DIAGEX_MODEL=provider/model-slug
+```
+
+DiagEx uses OpenRouter's Anthropic Messages-compatible endpoint so its native
+image, tool-use, prompt-caching, and thinking blocks do not require conversion.
+`OPENROUTER_MODEL` may be used instead of `DIAGEX_MODEL`; the latter takes
+precedence when both are set.
+
 ## 2. Phase 2 — P&ID → DEXPI 2.0 (Table 3, Fig. 3)
 
 Cassette mode:

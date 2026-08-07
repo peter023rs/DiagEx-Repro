@@ -58,6 +58,20 @@ export ANTHROPIC_API_KEY=...
 python eval/run_paper_eval.py --conditions baseline --phase 1 --out /tmp/live
 ```
 
+OpenRouter is supported through its Anthropic Messages-compatible endpoint:
+
+```bash
+export DIAGEX_LLM_PROVIDER=openrouter
+export OPENROUTER_API_KEY=...
+export DIAGEX_MODEL=provider/model-slug
+
+diagex extract-pid path/to/drawing.pdf --effort medium
+```
+
+Choose a model that supports both image input and tool calling. `OPENROUTER_MODEL`
+is accepted as an alias for `DIAGEX_MODEL`. Optional attribution settings are
+`OPENROUTER_HTTP_REFERER` and `OPENROUTER_APP_TITLE`.
+
 Live results are non-deterministic; expect ±0.02 macro-F1 around the
 published numbers per the evaluation plan §8.1.
 
