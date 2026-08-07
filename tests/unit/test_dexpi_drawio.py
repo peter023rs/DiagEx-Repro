@@ -712,7 +712,7 @@ def test_extract_pid_writes_pid_drawio_alongside_pid_svg(tmp_path: Path):
         effort="medium",
         model="claude-opus-4-7",
         graph=g,
-        cost_summary={"total_usd": 0.0},
+        cost_summary={"total_tokens": 1_234_000},
         dexpi_stats={},
         dexpi_issues=issues,
         validation_issues=[],

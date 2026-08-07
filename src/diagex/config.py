@@ -88,7 +88,6 @@ class ScanConfig:
 
 @dataclass
 class RuntimeBudgets:
-    max_usd_per_sheet: float = 10.0
     max_image_requests_per_tile: int = 3
     retry_base_s: float = 2.0
     retry_factor: float = 2.0

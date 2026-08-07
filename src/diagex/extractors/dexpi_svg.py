@@ -24,6 +24,7 @@ from typing import Iterable
 from xml.sax.saxutils import escape as _xml_escape
 
 from diagex.dexpi_schema import EQUIPMENT_REGISTRY, VALVE_REGISTRY
+from diagex.llm.cost import format_tokens_millions, total_tokens_from_summary
 from diagex.vision.models import BBox, ReconciledEdge, ReconciledGraph, ReconciledNode
 
 # Fill colours are sourced from the DEXPI registry so adding an equipment
@@ -202,7 +203,7 @@ def _harvest_run_metadata(graph_json_path: Path) -> dict:
             "run_id": r.get("run_id"),
             "model": r.get("model"),
             "effort": r.get("effort"),
-            "total_usd": (r.get("cost") or {}).get("total_usd"),
+            "total_tokens": total_tokens_from_summary(r.get("cost") or {}),
             "timestamp": graph_json_path.parent.name.split("_", 1)[0],
         }
     except Exception:
@@ -1854,7 +1855,7 @@ def _title_block(
 ) -> str:
     """Bottom-right title block with drawing metadata (ISA-5.1 / ISO 10628 convention).
 
-    Shows: heading (drawing name/stem), run id, model, effort, cost, timestamp,
+    Shows: heading (drawing name/stem), run id, model, effort, tokens, timestamp,
     node/edge counts. Renders as a small bordered table.
     """
     width = 300
@@ -1863,7 +1864,12 @@ def _title_block(
         ("drawing",        heading[:46] if heading else (graph.source_path or "—")),
         ("model",          str(metadata.get("model", "—"))),
         ("effort",         str(metadata.get("effort", "—"))),
-        ("cost",           f"${metadata.get('total_usd', 0.0):.3f}" if metadata.get('total_usd') is not None else "—"),
+        (
+            "tokens",
+            format_tokens_millions(metadata["total_tokens"])
+            if metadata.get("total_tokens") is not None
+            else "—",
+        ),
         ("timestamp",      str(metadata.get("timestamp", "—"))),
         ("nodes / edges",  f"{len(graph.nodes)} / {len(graph.edges)}"),
     ]

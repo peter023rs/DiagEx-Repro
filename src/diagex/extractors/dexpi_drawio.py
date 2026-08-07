@@ -33,6 +33,7 @@ from diagex.dexpi_schema import (
     valve_spec_for,
 )
 from diagex.extractors.dexpi_svg import _prepare_edges
+from diagex.llm.cost import format_tokens_millions, total_tokens_from_summary
 from diagex.vision.models import ReconciledGraph, ReconciledNode
 
 
@@ -452,9 +453,11 @@ def _render_title_block(
         bits.append(f"run: {metadata['run_id']}")
     if metadata.get("model"):
         bits.append(f"model: {metadata['model']}")
-    if metadata.get("total_usd") is not None:
+    if metadata.get("total_tokens") is not None:
         try:
-            bits.append(f"cost: ${float(metadata['total_usd']):.4f}")
+            bits.append(
+                f"tokens: {format_tokens_millions(int(metadata['total_tokens']))}"
+            )
         except (TypeError, ValueError):
             pass
     label = _xml_escape("  ·  ".join(bits))
@@ -677,7 +680,7 @@ def _harvest_run_metadata(graph_json_path: Path) -> dict:
             "run_id": r.get("run_id"),
             "model": r.get("model"),
             "effort": r.get("effort"),
-            "total_usd": (r.get("cost") or {}).get("total_usd"),
+            "total_tokens": total_tokens_from_summary(r.get("cost") or {}),
         }
     except Exception:
         return {}

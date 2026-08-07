@@ -26,7 +26,6 @@ class RunConfig:
     effort: EffortLevel = "high"
     max_steps: int | None = None          # None → use EFFORT_PROFILES[effort].max_steps
     max_tokens: int | None = None         # per-step max_tokens; None → effort profile
-    max_usd: float | None = None          # None → budgets.max_usd_per_sheet
 
 
 class ReactRuntime:
@@ -63,8 +62,6 @@ class ReactRuntime:
         profile = EFFORT_PROFILES[run_cfg.effort]
         max_steps = run_cfg.max_steps or profile.max_steps
         max_tokens = run_cfg.max_tokens or profile.max_output_tokens
-        max_usd = run_cfg.max_usd if run_cfg.max_usd is not None else self.budgets.max_usd_per_sheet
-
         # Opus 4.7 shape: adaptive thinking + output_config.effort; no budget_tokens.
         # `display: summarized` opts back in to non-empty thinking bodies so live
         # feedback can surface the model's reasoning (default is "omitted" on 4.7).
@@ -80,6 +77,7 @@ class ReactRuntime:
             max_steps=max_steps,
             effort=run_cfg.effort,
         )
+        self.reporter.on_token_update(total_tokens=self.cost.total_tokens())
 
         messages: list[dict[str, Any]] = [
             {
@@ -101,11 +99,6 @@ class ReactRuntime:
         ]
 
         while not state.done and state.steps < max_steps:
-            # Per-sheet cost cap (spec §6.4).
-            if self.cost.exceeded_cap(max_usd):
-                state.push_transcript("budget_abort", {"reason": "cost_cap_exceeded", "usd": self.cost.total_usd()})
-                break
-
             state.steps += 1
             self.reporter.on_step_start(step=state.steps)
             t0 = time.time()
@@ -121,7 +114,7 @@ class ReactRuntime:
                 ),
             )
             self.cost.record(resp, step=state.steps, page_index=state.page.page_index)
-            self.reporter.on_cost_update(total_usd=self.cost.total_usd())
+            self.reporter.on_token_update(total_tokens=self.cost.total_tokens())
             state.push_transcript("llm_response", {
                 "step": state.steps,
                 "stop_reason": getattr(resp, "stop_reason", None),

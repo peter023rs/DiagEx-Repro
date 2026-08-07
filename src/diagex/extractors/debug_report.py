@@ -22,13 +22,13 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Iterable
 
+from diagex.llm.cost import format_tokens_millions, total_tokens_from_summary
 from diagex.vision.models import (
     BBox,
     ReconciledEdge,
     ReconciledGraph,
     ReconciledNode,
 )
-
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -156,7 +156,7 @@ def _harvest_run_metadata(graph_json_path: Path) -> dict:
             "run_id": r.get("run_id"),
             "model": r.get("model"),
             "effort": r.get("effort"),
-            "total_usd": (r.get("cost") or {}).get("total_usd"),
+            "total_tokens": total_tokens_from_summary(r.get("cost") or {}),
             "timestamp": graph_json_path.parent.name.split("_", 1)[0],
         }
     except Exception:
@@ -178,8 +178,8 @@ def _render_header(graph: ReconciledGraph, *, title: str, metadata: dict) -> str
         kv.append(f"effort={metadata['effort']}")
     if metadata.get("model"):
         kv.append(f"model={metadata['model']}")
-    if metadata.get("total_usd") is not None:
-        kv.append(f"cost=${float(metadata['total_usd']):.4f}")
+    if metadata.get("total_tokens") is not None:
+        kv.append(f"tokens={format_tokens_millions(metadata['total_tokens'])}")
     if metadata.get("timestamp"):
         kv.append(f"timestamp={metadata['timestamp']}")
     if kv:

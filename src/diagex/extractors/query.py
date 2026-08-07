@@ -21,15 +21,18 @@ from diagex.agent.runtime import ReactRuntime, RunConfig
 from diagex.agent.state import AgentState, aggregate_tool_call_counts
 from diagex.config import Config, EffortLevel, load_config
 from diagex.llm.client import LLMClient
-from diagex.llm.cost import CostTracker
+from diagex.llm.cost import (
+    CostTracker,
+    format_tokens_millions,
+    total_tokens_from_summary,
+)
 from diagex.llm.prompts.phase1_query import build_system_prompt
-from diagex.ui.progress import ProgressReporter, make_reporter
+from diagex.ui.progress import make_reporter
 from diagex.vision.loader import iter_pages, load
 from diagex.vision.models import ReconciledGraph
 from diagex.vision.reconcile import reconcile
 from diagex.vision.tiling import AspectAwareStrategy, tile
 from diagex.vision.views import ViewProvider
-
 
 # ---------------------------------------------------------------------------
 # Result container
@@ -64,9 +67,12 @@ class QueryResult:
             lines.append(pa.answer.rstrip())
         if len(self.answers) > 1:
             lines.append(f"--- {len(self.answers)} pages queried ---")
-        lines.append(f"cost: ${self.cost_summary.get('total_usd', 0):.4f} "
-                     f"({self.cost_summary.get('input_tokens', 0)} in / "
-                     f"{self.cost_summary.get('output_tokens', 0)} out tokens)")
+        lines.append(
+            "tokens: "
+            f"{format_tokens_millions(total_tokens_from_summary(self.cost_summary))} "
+            f"({format_tokens_millions(self.cost_summary.get('input_tokens', 0))} in / "
+            f"{format_tokens_millions(self.cost_summary.get('output_tokens', 0))} out)"
+        )
         if self.run_dir is not None:
             lines.append(f"run: {self.run_dir}")
         return "\n".join(lines)

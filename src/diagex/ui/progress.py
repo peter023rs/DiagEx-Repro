@@ -18,6 +18,8 @@ from rich.live import Live
 from rich.panel import Panel
 from rich.text import Text
 
+from diagex.llm.cost import format_tokens_millions
+
 
 class ProgressReporter(Protocol):
     """Events emitted by the extraction runtime."""
@@ -49,7 +51,7 @@ class ProgressReporter(Protocol):
 
     def on_step_start(self, *, step: int) -> None: ...
 
-    def on_cost_update(self, *, total_usd: float) -> None: ...
+    def on_token_update(self, *, total_tokens: int) -> None: ...
 
     def on_stream_delta(self, *, kind: str, text: str) -> None: ...
 
@@ -102,7 +104,7 @@ class NullReporter:
     def on_step_start(self, *, step: int) -> None:
         return None
 
-    def on_cost_update(self, *, total_usd: float) -> None:
+    def on_token_update(self, *, total_tokens: int) -> None:
         return None
 
     def on_stream_delta(self, *, kind: str, text: str) -> None:
@@ -235,8 +237,10 @@ class PlainProgressReporter(NullReporter):
         self._step_started_at = now
         self._emit("step", str(step), style="cyan")
 
-    def on_cost_update(self, *, total_usd: float) -> None:
-        self._emit("cost", f"${total_usd:.4f}", style="green")
+    def on_token_update(self, *, total_tokens: int) -> None:
+        self._emit(
+            "tokens", format_tokens_millions(total_tokens), style="green"
+        )
 
     def on_thinking(self, *, text: str) -> None:
         if text:
@@ -290,7 +294,7 @@ class LiveProgressReporter(NullReporter):
         self.page = 0
         self.step = 0
         self.max_steps = 0
-        self.total_usd = 0.0
+        self.total_tokens = 0
         self.status = "preparing"
         self.events: list[tuple[str, str]] = []
         self._live: Live | None = None
@@ -371,7 +375,8 @@ class LiveProgressReporter(NullReporter):
         headline = Text(
             f"page {self.page + 1}  ·  {self.status}  ·  "
             f"step {self.step}/{self.max_steps or '?'} ({step_elapsed})  ·  "
-            f"total {total_elapsed}  ·  ${self.total_usd:.4f}",
+            f"total {total_elapsed}  ·  "
+            f"{format_tokens_millions(self.total_tokens)} tokens",
             style="bold cyan",
         )
         active_lines: list[Text] = []
@@ -480,9 +485,11 @@ class LiveProgressReporter(NullReporter):
         self._stream_text = ""
         self._event("step", str(step), style="cyan")
 
-    def on_cost_update(self, *, total_usd: float) -> None:
-        self.total_usd = total_usd
-        self._event("cost", f"${total_usd:.4f}", style="green")
+    def on_token_update(self, *, total_tokens: int) -> None:
+        self.total_tokens = total_tokens
+        self._event(
+            "tokens", format_tokens_millions(total_tokens), style="green"
+        )
 
     def on_stream_delta(self, *, kind: str, text: str) -> None:
         if not text:

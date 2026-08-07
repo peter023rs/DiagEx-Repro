@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional
 
 from diagex.config import EFFORT_PROFILES, Config, EffortLevel, load_config
+from diagex.llm.cost import format_tokens_millions, total_tokens_from_summary
 from diagex.vision.legend_models import LegendPack, SymbolStandard
 from diagex.vision.models import ReconciledGraph
 
@@ -85,9 +86,10 @@ class PidExtractionResult:
         if self.dexpi_issues:
             lines.append(f"build issues: {len(self.dexpi_issues)}")
         lines.append(
-            f"cost: ${self.cost_summary.get('total_usd', 0):.4f} "
-            f"({self.cost_summary.get('input_tokens', 0)} in / "
-            f"{self.cost_summary.get('output_tokens', 0)} out)"
+            "tokens: "
+            f"{format_tokens_millions(total_tokens_from_summary(self.cost_summary))} "
+            f"({format_tokens_millions(self.cost_summary.get('input_tokens', 0))} in / "
+            f"{format_tokens_millions(self.cost_summary.get('output_tokens', 0))} out)"
         )
         if self.dexpi_json_path is not None:
             lines.append(f"dexpi: {self.dexpi_json_path}")
@@ -353,11 +355,7 @@ def run_pid_extract(
         try:
             with reporter:
                 runtime.run(state=state, view_provider=vp, run_cfg=RunConfig(effort=effort))
-            if any(t.payload.get("reason") == "cost_cap_exceeded"
-                   for t in state.transcript if t.kind == "budget_abort"):
-                per_page_status[page.page_index] = "cost_exhausted"
-            else:
-                per_page_status[page.page_index] = "ok" if state.done else "error"
+            per_page_status[page.page_index] = "ok" if state.done else "error"
         except Exception as exc:  # noqa: BLE001
             state.push_transcript("error", {"text": f"page {page.page_index}: {exc!r}"})
             per_page_status[page.page_index] = "error"
@@ -631,7 +629,7 @@ def _write_run_artefacts(
         "run_id": run_id,
         "model": model,
         "effort": effort,
-        "total_usd": cost_summary.get("total_usd"),
+        "total_tokens": total_tokens_from_summary(cost_summary),
         "timestamp": run_dir.name.split("_", 1)[0],
     }
     try:
@@ -810,7 +808,8 @@ def _write_confidence_report(
     parts.append(
         f"<div><span class='kv'><span class='k'>run:</span> {_h(run_id)}</span>"
         f"<span class='kv'><span class='k'>effort:</span> {_h(effort)}</span>"
-        f"<span class='kv'><span class='k'>cost:</span> ${cost_summary.get('total_usd', 0):.4f}</span>"
+        f"<span class='kv'><span class='k'>tokens:</span> "
+        f"{format_tokens_millions(total_tokens_from_summary(cost_summary))}</span>"
         f"<span class='kv'><span class='k'>legend:</span> {_h(legend_source_tag)} "
         f"({legend_entry_count})</span></div>"
     )

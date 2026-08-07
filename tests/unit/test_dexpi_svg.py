@@ -290,11 +290,17 @@ def test_title_block_renders_metadata_when_supplied():
                            bbox_global=BBox(x=0, y=0, w=20, h=20), page_index=0,
                            attributes={"equipment_class": "tank"}, confidence="high"),
         ]),
-        metadata={"run_id": "r-1234", "model": "claude-opus-4-7", "effort": "medium", "total_usd": 1.234},
+        metadata={
+            "run_id": "r-1234",
+            "model": "claude-opus-4-7",
+            "effort": "medium",
+            "total_tokens": 1_234_000,
+        },
     )
     assert "r-1234" in svg
     assert "claude-opus-4-7" in svg
-    assert "$1.234" in svg
+    assert "tokens" in svg
+    assert "1.234M" in svg
 
 
 def test_flow_arrow_markers_are_emitted_and_referenced():

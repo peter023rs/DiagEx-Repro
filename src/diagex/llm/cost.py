@@ -1,6 +1,6 @@
 """Cost + token accounting.
 
-Spec refs: §6.3 (budgets), §6.4 (per-sheet cost cap), §10 (cost model), §7.1
+Spec refs: §6.3 (budgets), §10 (cost model), §7.1
 (`cost.json` written to runs/<stem>/<run>/).
 
 Usage figures come straight from `response.usage` on the Anthropic SDK Message
@@ -24,6 +24,26 @@ from dataclasses import asdict, dataclass, field
 from typing import Any
 
 from diagex.config import PricingConfig
+
+
+def format_tokens_millions(token_count: int) -> str:
+    """Render token usage compactly and consistently for user-facing output."""
+    return f"{max(0, int(token_count)) / 1_000_000:.3f}M"
+
+
+def total_tokens_from_summary(summary: dict[str, Any]) -> int:
+    """Read a total from new summaries or derive it from legacy summaries."""
+    if summary.get("total_tokens") is not None:
+        return int(summary["total_tokens"] or 0)
+    return sum(
+        int(summary.get(key, 0) or 0)
+        for key in (
+            "input_tokens",
+            "output_tokens",
+            "cache_read_tokens",
+            "cache_write_tokens",
+        )
+    )
 
 
 @dataclass
@@ -111,9 +131,19 @@ class CostTracker:
             for s in self.steps
         )
 
+    def total_tokens(self) -> int:
+        return sum(
+            s.input_tokens
+            + s.output_tokens
+            + s.cache_read_tokens
+            + s.cache_write_tokens
+            for s in self.steps
+        )
+
     def summary(self) -> dict[str, Any]:
         return {
             "total_usd": round(self.total_usd(), 6),
+            "total_tokens": self.total_tokens(),
             "input_tokens": sum(s.input_tokens for s in self.steps),
             "output_tokens": sum(s.output_tokens for s in self.steps),
             "cache_read_tokens": sum(s.cache_read_tokens for s in self.steps),
@@ -125,6 +155,3 @@ class CostTracker:
     def to_json(self) -> str:
         """Pretty-printed JSON — the on-disk shape written to cost.json."""
         return json.dumps(self.summary(), indent=2, sort_keys=True)
-
-    def exceeded_cap(self, max_usd: float) -> bool:
-        return self.total_usd() >= max_usd
