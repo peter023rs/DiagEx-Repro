@@ -1,13 +1,18 @@
 # Reproducibility-package gitignore
 __pycache__/
+.DS_Store
 *.pyc
 .venv/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
 .coverage
+.env
+.env.*
+!.env.example
 .idea/
 .vscode/
 build/
 dist/
 *.egg-info/
+.runs/
