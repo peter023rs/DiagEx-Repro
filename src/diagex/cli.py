@@ -158,7 +158,17 @@ def extract_pid(
     ),
     effort: str = typer.Option(
         "medium", "--effort",
-        help="Reasoning depth: low|medium|high|xhigh (per-sheet; default medium per spec §12.1.5).",
+        help="Reasoning depth: low|medium|high|xhigh (independent of page step limit).",
+    ),
+    max_steps: Optional[int] = typer.Option(
+        None,
+        "--max-steps",
+        min=1,
+        max=200,
+        help=(
+            "Override the dynamic per-page step ceiling. By default it is based "
+            "on tile count and clamped to 20-60."
+        ),
     ),
     out: Optional[Path] = typer.Option(
         None, "--out", help="Path for the DEXPI JSON output (default: run_dir/pid.dexpi.json).",
@@ -220,6 +230,7 @@ def extract_pid(
             no_legend=no_legend,
             legend_key=legend_key,
             effort=effort,                     # type: ignore[arg-type]
+            max_steps=max_steps,
             config=cfg,
             persist=not no_persist,
             out_path=out,

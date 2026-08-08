@@ -20,7 +20,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional
 
-from diagex.config import EFFORT_PROFILES, Config, EffortLevel, load_config
+from diagex.config import Config, EffortLevel, PidConfig, load_config
 from diagex.llm.cost import format_tokens_millions, total_tokens_from_summary
 from diagex.vision.legend_models import LegendPack, SymbolStandard
 from diagex.vision.models import ReconciledGraph
@@ -85,6 +85,15 @@ class PidExtractionResult:
             lines.append(f"validation: {len(self.validation_issues)} issue(s)")
         if self.dexpi_issues:
             lines.append(f"build issues: {len(self.dexpi_issues)}")
+        partial_pages = sorted(
+            page + 1
+            for page, status in self.graph.per_page_status.items()
+            if status == "partial"
+        )
+        if partial_pages:
+            lines.append(
+                "partial pages: " + ", ".join(str(page) for page in partial_pages)
+            )
         lines.append(
             "tokens: "
             f"{format_tokens_millions(total_tokens_from_summary(self.cost_summary))} "
@@ -173,9 +182,21 @@ def _cost_accepts_pricing() -> bool:
 
 
 def _coerce_status(s: str) -> str:
-    if s in ("ok", "cost_exhausted", "error"):
+    if s in ("ok", "partial", "cost_exhausted", "error"):
         return s
     return "error"
+
+
+def _page_step_limit(
+    *, tile_count: int, cfg: PidConfig, explicit_max_steps: int | None
+) -> int:
+    if explicit_max_steps is not None:
+        return max(1, int(explicit_max_steps))
+    dynamic = max(0, int(tile_count)) + max(0, int(cfg.page_step_buffer))
+    return min(
+        max(1, int(cfg.page_max_steps)),
+        max(max(1, int(cfg.page_min_steps)), dynamic),
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -193,6 +214,7 @@ def run_pid_extract(
     no_legend: bool = False,
     legend_key: Optional[str] = None,
     effort: EffortLevel = "medium",
+    max_steps: int | None = None,
     config: Optional[Config] = None,
     persist: bool = True,
     out_path: Optional[Path] = None,
@@ -297,12 +319,11 @@ def run_pid_extract(
     has_lookup = len(lookup_only) > 0
 
     # --- 4. Build Phase 2 system prompt (cached, reused across pages) ----------
-    effort_profile = EFFORT_PROFILES[effort]
     system_blocks = build_pid_system_prompt(
         symbol_standard=symbol_standard,
         few_shot=few_shot,
         has_lookup_tool=has_lookup,
-        effort_max_steps=effort_profile.max_steps,
+        effort_max_steps=cfg.pid.page_max_steps,
     )
 
     # --- 5. Runtime construction -----------------------------------------------
@@ -335,6 +356,18 @@ def run_pid_extract(
             ),
         )
         vp = ViewProvider(page, tiles)
+        page_max_steps = _page_step_limit(
+            tile_count=len(tiles),
+            cfg=cfg.pid,
+            explicit_max_steps=max_steps,
+        )
+        runtime.system_blocks = build_pid_system_prompt(
+            symbol_standard=symbol_standard,
+            few_shot=few_shot,
+            has_lookup_tool=has_lookup,
+            effort_max_steps=page_max_steps,
+            expected_tile_count=len(tiles),
+        )
         state = AgentState(
             question="Extract this P&ID to structured DEXPI form.",
             page=page,
@@ -354,8 +387,20 @@ def run_pid_extract(
         runtime.reporter = reporter
         try:
             with reporter:
-                runtime.run(state=state, view_provider=vp, run_cfg=RunConfig(effort=effort))
-            per_page_status[page.page_index] = "ok" if state.done else "error"
+                runtime.run(
+                    state=state,
+                    view_provider=vp,
+                    run_cfg=RunConfig(
+                        effort=effort,
+                        max_steps=page_max_steps,
+                        require_tile_coverage=True,
+                        minimum_tile_coverage=cfg.pid.page_min_tile_coverage,
+                        no_progress_step_limit=cfg.pid.page_no_progress_steps,
+                    ),
+                )
+            per_page_status[page.page_index] = (
+                "partial" if state.completion_status == "partial" else "ok"
+            )
         except Exception as exc:  # noqa: BLE001
             state.push_transcript("error", {"text": f"page {page.page_index}: {exc!r}"})
             per_page_status[page.page_index] = "error"

@@ -235,7 +235,11 @@ def run_query(
         try:
             with reporter:
                 runtime.run(state=state, view_provider=vp, run_cfg=RunConfig(effort=effort))
-            per_page_status[page.page_index] = "ok" if state.final_answer else "error"
+            per_page_status[page.page_index] = (
+                "partial"
+                if state.completion_status == "partial"
+                else "ok" if state.final_answer else "error"
+            )
         except Exception as exc:
             state.final_answer = f"error during extraction: {exc}"
             state.final_confidence = "low"
@@ -298,7 +302,7 @@ def run_query(
 
 
 def _coerce_status(s: str) -> str:
-    if s in ("ok", "cost_exhausted", "error"):
+    if s in ("ok", "partial", "cost_exhausted", "error"):
         return s
     return "error"
 

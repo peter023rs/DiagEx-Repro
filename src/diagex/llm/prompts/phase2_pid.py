@@ -392,6 +392,7 @@ def build_pid_system_prompt(
     few_shot: list[LegendEntry],
     has_lookup_tool: bool,
     effort_max_steps: int,
+    expected_tile_count: int | None = None,
 ) -> list[dict[str, Any]]:
     """Return Phase 2 system-prompt blocks.
 
@@ -406,6 +407,7 @@ def build_pid_system_prompt(
         has_lookup_tool: True when overflow entries were demoted to the
             lookup_symbol tool and the prompt should tell the agent it exists.
         effort_max_steps: step budget for this run (volatile; never cached).
+        expected_tile_count: number of tiles the page planner produced, when known.
     """
     stable_block: dict[str, Any] = {
         "type": "text",
@@ -424,11 +426,18 @@ def build_pid_system_prompt(
         "cache_control": {"type": "ephemeral"},
     }
 
+    tile_plan = (
+        f"This page has {expected_tile_count} planned tiles. "
+        if expected_tile_count is not None
+        else ""
+    )
     volatile_block: dict[str, Any] = {
         "type": "text",
         "text": (
             f"BUDGET AND COVERAGE FOR THIS P&ID:\n"
-            f"You have up to {effort_max_steps} tool-use steps. The drawing "
+            f"{tile_plan}You have up to {effort_max_steps} tool-use steps. "
+            f"This is a safety ceiling derived from page complexity, not a "
+            f"target to consume. The drawing "
             f"is rendered at high resolution and contains hundreds of "
             f"distinct entities — your job is to find ALL of them, not a "
             f"representative subset.\n\n"
@@ -454,9 +463,8 @@ def build_pid_system_prompt(
             f"bubble, valve, equipment, OPC and line on it has been "
             f"recorded.\n"
             f"You may use multiple parallel annotate calls per LLM "
-            f"response (the runtime accepts batched tool use), so a "
-            f"step budget of {effort_max_steps} comfortably covers "
-            f"~5-15 tiles with thorough annotation."
+            f"response (the runtime accepts batched tool use). Call finish "
+            f"as soon as the required tile coverage and annotation work are complete."
         ),
     }
 

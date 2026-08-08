@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import uuid
 from pathlib import Path
-from typing import Any, Iterable, Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -208,6 +208,8 @@ class ReconciledGraph(BaseModel):
     edges: list[ReconciledEdge] = Field(default_factory=list)
     dangling_opcs: list[dict] = Field(default_factory=list)
     conflicts: list[dict] = Field(default_factory=list)
-    per_page_status: dict[int, Literal["ok", "cost_exhausted", "error"]] = Field(
+    per_page_status: dict[
+        int, Literal["ok", "partial", "cost_exhausted", "error"]
+    ] = Field(
         default_factory=dict
     )

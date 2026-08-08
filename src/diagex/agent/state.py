@@ -48,6 +48,13 @@ class AgentState:
     done: bool = False
     final_answer: str | None = None
     final_confidence: str | None = None
+    completion_status: str = "running"
+    completion_reason: str | None = None
+
+    # Optional completion guard installed by extraction runtimes that require
+    # systematic tile coverage before accepting the finish tool.
+    required_tile_ids: set[str] = field(default_factory=set)
+    minimum_tile_coverage: float = 0.0
 
     # Per-tile image-fetch counter — enforces max_image_requests_per_tile (§6.3).
     tile_fetch_counts: dict[str, int] = field(default_factory=dict)

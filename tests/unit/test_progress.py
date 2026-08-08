@@ -30,7 +30,9 @@ def test_null_reporter_supports_runtime_events_and_context_manager() -> None:
         reporter.on_text(text="answering")
         reporter.on_tool_call(name="get_overview", input={"max_dim": 1000})
         reporter.on_tool_result(name="get_overview", elapsed_s=0.1, is_error=False)
-        reporter.on_run_end(final_answer="done", confidence="high")
+        reporter.on_run_end(
+            status="complete", final_answer="done", confidence="high"
+        )
 
 
 def test_non_terminal_console_gets_plain_progress_lines() -> None:
@@ -43,7 +45,9 @@ def test_non_terminal_console_gets_plain_progress_lines() -> None:
         reporter.on_run_start(page_index=0, max_steps=3, effort="medium")
         reporter.on_step_start(step=1)
         reporter.on_token_update(total_tokens=1_250_000)
-        reporter.on_run_end(final_answer="done", confidence="medium")
+        reporter.on_run_end(
+            status="complete", final_answer="done", confidence="medium"
+        )
 
     output = stream.getvalue()
     assert "page 1" in output
@@ -51,6 +55,27 @@ def test_non_terminal_console_gets_plain_progress_lines() -> None:
     assert "1.250M" in output
     assert "$" not in output
     assert "confidence medium" in output
+
+
+def test_plain_reporter_labels_step_limit_as_partial() -> None:
+    stream = StringIO()
+    reporter = PlainProgressReporter(
+        Console(file=stream, force_terminal=False, width=120), effort="medium"
+    )
+
+    reporter.on_run_start(page_index=0, max_steps=40, effort="medium")
+    reporter.on_step_start(step=40)
+    reporter.on_run_end(
+        status="partial",
+        final_answer="partial extraction",
+        confidence="low",
+        detail="step limit reached (40/40)",
+    )
+
+    output = stream.getvalue()
+    assert "partial" in output
+    assert "step limit reached (40/40)" in output
+    assert "complete" not in output
 
 
 def test_terminal_console_gets_live_progress_reporter() -> None:

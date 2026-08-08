@@ -220,6 +220,14 @@ class PidConfig:
     # Confidence report: write an HTML digest alongside the DEXPI JSON.
     write_confidence_report: bool = True
 
+    # Page-agent safety ceiling. Reasoning effort remains independent: dense
+    # pages receive one step per planned tile plus a buffer, clamped here.
+    page_min_steps: int = 20
+    page_step_buffer: int = 15
+    page_max_steps: int = 60
+    page_min_tile_coverage: float = 1.0
+    page_no_progress_steps: int = 4
+
     # LLM-arbitrated reconciliation (spec §5.5 final paragraph).
     # Enabled by default for P&IDs; capped per spec [DECISION] default 25.
     arbitrate_conflicts: bool = True

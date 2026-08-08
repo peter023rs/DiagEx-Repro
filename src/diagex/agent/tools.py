@@ -12,6 +12,7 @@ the runtime projects to global coords via the ViewInfo stored in AgentState.view
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Any
 
@@ -416,9 +417,36 @@ def dispatch(
 
         if name == "finish":
             args = _FinishIn.model_validate(raw_input)
+            required_tiles = state.required_tile_ids
+            if required_tiles:
+                visited_tiles = required_tiles.intersection(state.tile_fetch_counts)
+                required_count = math.ceil(
+                    len(required_tiles) * state.minimum_tile_coverage
+                )
+                if len(visited_tiles) < required_count:
+                    missing = sorted(required_tiles - visited_tiles)
+                    preview = ", ".join(missing[:8])
+                    if len(missing) > 8:
+                        preview += f", … (+{len(missing) - 8} more)"
+                    return ToolResult(
+                        content=[
+                            {
+                                "type": "text",
+                                "text": (
+                                    "finish rejected: tile coverage is "
+                                    f"{len(visited_tiles)}/{len(required_tiles)}; "
+                                    f"at least {required_count} tiles are required. "
+                                    f"Fetch the missing tiles first: {preview}"
+                                ),
+                            }
+                        ],
+                        is_error=True,
+                    )
             state.final_answer = args.answer
             state.final_confidence = args.confidence
             state.done = True
+            state.completion_status = "complete"
+            state.completion_reason = "finish"
             return ToolResult(content=[{"type": "text", "text": "finish acknowledged."}])
 
         if name == "lookup_symbol":

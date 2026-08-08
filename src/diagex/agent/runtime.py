@@ -8,6 +8,7 @@ cost story, caching story, and debuggability of each step first-class.
 
 from __future__ import annotations
 
+import json
 import time
 from dataclasses import dataclass
 from typing import Any
@@ -26,6 +27,9 @@ class RunConfig:
     effort: EffortLevel = "high"
     max_steps: int | None = None          # None → use EFFORT_PROFILES[effort].max_steps
     max_tokens: int | None = None         # per-step max_tokens; None → effort profile
+    require_tile_coverage: bool = False
+    minimum_tile_coverage: float = 1.0
+    no_progress_step_limit: int | None = None
 
 
 class ReactRuntime:
@@ -60,8 +64,20 @@ class ReactRuntime:
         run_cfg: RunConfig,
     ) -> AgentState:
         profile = EFFORT_PROFILES[run_cfg.effort]
-        max_steps = run_cfg.max_steps or profile.max_steps
-        max_tokens = run_cfg.max_tokens or profile.max_output_tokens
+        max_steps = run_cfg.max_steps if run_cfg.max_steps is not None else profile.max_steps
+        max_tokens = (
+            run_cfg.max_tokens
+            if run_cfg.max_tokens is not None
+            else profile.max_output_tokens
+        )
+        state.required_tile_ids = (
+            {str(tile.id) for tile in view_provider.tiles}
+            if run_cfg.require_tile_coverage
+            else set()
+        )
+        state.minimum_tile_coverage = max(
+            0.0, min(1.0, run_cfg.minimum_tile_coverage)
+        )
         # Opus 4.7 shape: adaptive thinking + output_config.effort; no budget_tokens.
         # `display: summarized` opts back in to non-empty thinking bodies so live
         # feedback can surface the model's reasoning (default is "omitted" on 4.7).
@@ -98,8 +114,12 @@ class ReactRuntime:
             }
         ]
 
+        seen_successful_actions: set[tuple[str, str]] = set()
+        no_progress_steps = 0
+
         while not state.done and state.steps < max_steps:
             state.steps += 1
+            step_made_progress = False
             self.reporter.on_step_start(step=state.steps)
             t0 = time.time()
             resp = self.client.messages_create(
@@ -148,6 +168,13 @@ class ReactRuntime:
                         state.final_answer = "\n".join(t["text"] for t in text_blocks)
                         state.final_confidence = state.final_confidence or "medium"
                     state.done = True
+                    if run_cfg.require_tile_coverage:
+                        state.completion_status = "partial"
+                        state.completion_reason = "model ended without calling finish"
+                        state.final_confidence = "low"
+                    else:
+                        state.completion_status = "complete"
+                        state.completion_reason = "end_turn"
                 break
 
             tool_result_blocks: list[dict[str, Any]] = []
@@ -168,6 +195,19 @@ class ReactRuntime:
                     state=state,
                     view_provider=view_provider,
                 )
+                if not result.is_error:
+                    action_key = (
+                        str(tu.get("name") or ""),
+                        json.dumps(
+                            tu.get("input") or {},
+                            sort_keys=True,
+                            ensure_ascii=False,
+                            default=str,
+                        ),
+                    )
+                    if action_key not in seen_successful_actions:
+                        seen_successful_actions.add(action_key)
+                        step_made_progress = True
                 self.reporter.on_tool_result(
                     name=tu.get("name") or "",
                     elapsed_s=time.time() - t_tool,
@@ -191,18 +231,48 @@ class ReactRuntime:
             if state.done:
                 break
 
-        if state.steps >= max_steps and not state.done:
-            state.push_transcript("step_limit", {"steps": state.steps, "max_steps": max_steps})
-            if state.final_answer is None:
-                state.final_answer = "cannot determine from the drawing within step budget."
-                state.final_confidence = "low"
-            state.done = True
+            if run_cfg.no_progress_step_limit is not None:
+                no_progress_steps = 0 if step_made_progress else no_progress_steps + 1
+                if no_progress_steps >= run_cfg.no_progress_step_limit:
+                    state.push_transcript(
+                        "no_progress_stop",
+                        {
+                            "steps_without_progress": no_progress_steps,
+                            "limit": run_cfg.no_progress_step_limit,
+                        },
+                    )
+                    _mark_partial(
+                        state,
+                        "no progress for "
+                        f"{no_progress_steps} consecutive model steps",
+                    )
+                    break
+
+        if not state.done:
+            if state.steps >= max_steps:
+                state.push_transcript(
+                    "step_limit", {"steps": state.steps, "max_steps": max_steps}
+                )
+                _mark_partial(state, f"step limit reached ({state.steps}/{max_steps})")
+            else:
+                _mark_partial(state, "model stopped without completing the run")
 
         self.reporter.on_run_end(
+            status=state.completion_status,
             final_answer=state.final_answer,
             confidence=state.final_confidence,
+            detail=state.completion_reason or "",
         )
         return state
+
+
+def _mark_partial(state: AgentState, reason: str) -> None:
+    state.done = True
+    state.completion_status = "partial"
+    state.completion_reason = reason
+    state.final_confidence = "low"
+    if state.final_answer is None:
+        state.final_answer = f"partial extraction: {reason}."
 
 
 def _response_content_to_blocks(resp: Any) -> list[dict[str, Any]]:

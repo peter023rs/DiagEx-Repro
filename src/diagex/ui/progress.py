@@ -66,7 +66,12 @@ class ProgressReporter(Protocol):
     ) -> None: ...
 
     def on_run_end(
-        self, *, final_answer: str | None, confidence: str | None
+        self,
+        *,
+        status: str,
+        final_answer: str | None,
+        confidence: str | None,
+        detail: str = "",
     ) -> None: ...
 
 
@@ -125,7 +130,12 @@ class NullReporter:
         return None
 
     def on_run_end(
-        self, *, final_answer: str | None, confidence: str | None
+        self,
+        *,
+        status: str,
+        final_answer: str | None,
+        confidence: str | None,
+        detail: str = "",
     ) -> None:
         return None
 
@@ -263,18 +273,26 @@ class PlainProgressReporter(NullReporter):
         self._emit(marker, f"{name} · {elapsed_s:.1f}s", style=style)
 
     def on_run_end(
-        self, *, final_answer: str | None, confidence: str | None
+        self,
+        *,
+        status: str,
+        final_answer: str | None,
+        confidence: str | None,
+        detail: str = "",
     ) -> None:
         now = time.monotonic()
         self._finish_step(now=now)
-        state = "complete" if final_answer else "no answer"
+        state = status if status != "running" else ("complete" if final_answer else "no answer")
         suffix = f" · confidence {confidence}" if confidence else ""
+        if detail and detail not in {"finish", "end_turn"}:
+            suffix += f" · {detail}"
         total = (
             f" · total {_format_elapsed(now - self._run_started_at)}"
             if self._run_started_at is not None
             else ""
         )
-        self._emit("finish", state + suffix + total, style="bold green")
+        style = "bold yellow" if state == "partial" else "bold green"
+        self._emit("finish", state + suffix + total, style=style)
 
 
 class _LiveProgressView:
@@ -529,7 +547,12 @@ class LiveProgressReporter(NullReporter):
         )
 
     def on_run_end(
-        self, *, final_answer: str | None, confidence: str | None
+        self,
+        *,
+        status: str,
+        final_answer: str | None,
+        confidence: str | None,
+        detail: str = "",
     ) -> None:
         now = time.monotonic()
         if self.step and self._step_started_at is not None:
@@ -539,11 +562,17 @@ class LiveProgressReporter(NullReporter):
                 style="dim cyan",
             )
             self._step_started_at = None
-        self.status = "complete" if final_answer else "no answer"
+        self.status = status if status != "running" else ("complete" if final_answer else "no answer")
         self._stream_kind = ""
         self._stream_text = ""
+        message_parts = []
         if confidence:
-            self._event("finish", f"confidence {confidence}", style="bold green")
+            message_parts.append(f"confidence {confidence}")
+        if detail and detail not in {"finish", "end_turn"}:
+            message_parts.append(detail)
+        if message_parts:
+            style = "bold yellow" if self.status == "partial" else "bold green"
+            self._event("finish", " · ".join(message_parts), style=style)
         else:
             self._refresh()
 
