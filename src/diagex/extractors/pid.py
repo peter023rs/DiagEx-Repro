@@ -21,7 +21,11 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional
 
 from diagex.config import Config, EffortLevel, PidConfig, load_config
-from diagex.llm.cost import format_tokens_millions, total_tokens_from_summary
+from diagex.llm.cost import (
+    format_elapsed,
+    format_tokens_millions,
+    total_tokens_from_summary,
+)
 from diagex.vision.legend_models import LegendPack, SymbolStandard
 from diagex.vision.models import ReconciledGraph
 
@@ -98,7 +102,8 @@ class PidExtractionResult:
             "tokens: "
             f"{format_tokens_millions(total_tokens_from_summary(self.cost_summary))} "
             f"({format_tokens_millions(self.cost_summary.get('input_tokens', 0))} in / "
-            f"{format_tokens_millions(self.cost_summary.get('output_tokens', 0))} out)"
+            f"{format_tokens_millions(self.cost_summary.get('output_tokens', 0))} out)   "
+            f"elapsed: {format_elapsed(self.cost_summary.get('wall_clock_s', 0.0))}"
         )
         if self.dexpi_json_path is not None:
             lines.append(f"dexpi: {self.dexpi_json_path}")
@@ -246,6 +251,7 @@ def run_pid_extract(
 
     cfg = config or load_config()
     stem = _safe_stem(diagram)
+    _t_run_start = time.perf_counter()
 
     run_dir: Path | None = None
     run_id: str = _new_run_id()
@@ -267,7 +273,6 @@ def run_pid_extract(
     cost = CostTracker(pricing=cfg.pricing) if _cost_accepts_pricing() else CostTracker()
     llm = LLMClient(cfg.llm, budgets=cfg.budgets)
     llm.reset_retry_counter()
-    _t_run_start = time.perf_counter()
 
     # --- 3. Legend resolution (best-effort) ------------------------------------
     legend_source_tag = ""
@@ -505,12 +510,10 @@ def run_pid_extract(
                 {"type": "arbitration_low_confidence_error", "detail": repr(exc)}
             )
 
-    wall_clock_s = round(time.perf_counter() - _t_run_start, 3)
     retries = int(llm.retries_total)
     tool_call_counts = aggregate_tool_call_counts(per_page_states)
 
     cost_summary = cost.summary()
-    cost_summary["wall_clock_s"] = wall_clock_s
     cost_summary["retries"] = retries
     cost_summary["tool_call_counts"] = tool_call_counts
     cost_summary["n_tool_calls"] = sum(tool_call_counts.values())
@@ -564,6 +567,10 @@ def run_pid_extract(
         except Exception as exc:  # noqa: BLE001
             dexpi_issues.append(f"dexpi serialise failed: {exc!r}")
             dexpi_json_path = None
+
+    # Include loading, legend resolution, page extraction, reconciliation,
+    # DEXPI construction, validation, and serialisation in the console total.
+    cost_summary["wall_clock_s"] = round(time.perf_counter() - _t_run_start, 3)
 
     # --- 11. Artefacts ---------------------------------------------------------
     if run_dir is not None:
@@ -855,6 +862,8 @@ def _write_confidence_report(
         f"<span class='kv'><span class='k'>effort:</span> {_h(effort)}</span>"
         f"<span class='kv'><span class='k'>tokens:</span> "
         f"{format_tokens_millions(total_tokens_from_summary(cost_summary))}</span>"
+        f"<span class='kv'><span class='k'>elapsed:</span> "
+        f"{format_elapsed(cost_summary.get('wall_clock_s', 0.0))}</span>"
         f"<span class='kv'><span class='k'>legend:</span> {_h(legend_source_tag)} "
         f"({legend_entry_count})</span></div>"
     )

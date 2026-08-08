@@ -31,6 +31,16 @@ def format_tokens_millions(token_count: int) -> str:
     return f"{max(0, int(token_count)) / 1_000_000:.3f}M"
 
 
+def format_elapsed(elapsed_s: float) -> str:
+    """Render elapsed seconds as ``MM:SS`` or ``H:MM:SS``."""
+    total_seconds = max(0, int(elapsed_s))
+    hours, remainder = divmod(total_seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if hours:
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
+    return f"{minutes:02d}:{seconds:02d}"
+
+
 def total_tokens_from_summary(summary: dict[str, Any]) -> int:
     """Read a total from new summaries or derive it from legacy summaries."""
     if summary.get("total_tokens") is not None:
