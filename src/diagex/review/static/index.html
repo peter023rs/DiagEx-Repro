@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DiagEx Review</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><strong>DiagEx</strong><span data-i18n="humanReview">human review</span></div>
+    <div class="page-tools">
+      <button id="prevPage" title="Previous page" data-i18n-title="previousPage">←</button>
+      <span id="pageLabel">Page 1 / 1</span>
+      <button id="nextPage" title="Next page" data-i18n-title="nextPage">→</button>
+      <select id="pageRole" aria-label="Page role" data-i18n-aria-label="pageRole"></select>
+      <button id="approvePage" data-i18n="approvePage">Approve page</button>
+      <button id="waivePage" class="quiet" data-i18n="waive">Waive</button>
+    </div>
+    <div class="view-tools">
+      <button id="zoomOut" title="Zoom out" data-i18n-title="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn" title="Zoom in" data-i18n-title="zoomIn">+</button><button id="fitView" data-i18n="fit">Fit</button>
+      <select id="backgroundMode" aria-label="Inference background" data-i18n-aria-label="inferenceBackground">
+        <option value="full" data-i18n="backgroundFull">PDF + overlays</option>
+        <option value="dim" data-i18n="backgroundDim">Dimmed PDF</option>
+        <option value="none" data-i18n="backgroundNone">Overlays only</option>
+      </select>
+      <select id="languageSwitch" aria-label="Language" data-i18n-aria-label="language">
+        <option value="en">English</option>
+        <option value="zh-CN">中文</option>
+      </select>
+      <button id="undoButton" class="quiet" data-i18n="undo">Undo</button>
+      <button id="finishButton" class="primary" data-i18n="finishExport">Finish &amp; export</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="queue-panel">
+      <div class="panel-heading">
+        <h2 data-i18n="reviewQueue">Review queue</h2>
+        <span id="progressBadge" class="badge" data-i18n="loading">Loading…</span>
+      </div>
+      <div class="filters">
+        <select id="queueFilter"><option value="unreviewed" data-i18n="needsReview">Needs review</option><option value="all" data-i18n="allItems">All items</option></select>
+        <select id="queueType"><option value="all" data-i18n="allTypes">All types</option><option value="node" data-i18n="entities">Entities</option><option value="edge" data-i18n="connections">Connections</option><option value="conflict" data-i18n="conflicts">Conflicts</option></select>
+      </div>
+      <div id="warningBox" class="warnings hidden"></div>
+      <div id="queue" class="queue"></div>
+    </aside>
+
+    <section class="compare-panel">
+      <div class="compare-toolbar">
+        <strong data-i18n="comparisonView">Comparison view</strong>
+        <select id="layoutMode" aria-label="Comparison layout" data-i18n-aria-label="comparisonLayout">
+          <option value="side-by-side" data-i18n="sideBySide">Side by side</option>
+          <option value="stacked" data-i18n="stacked">Stacked</option>
+        </select>
+        <button id="toggleQueue" class="quiet">Hide queue</button>
+        <button id="toggleInspector" class="quiet">Hide inspector</button>
+      </div>
+      <div class="pane source-pane">
+        <div class="pane-title" data-i18n="originalSource">Original source</div>
+        <div id="sourceViewport" class="viewport">
+          <div id="sourceStage" class="stage">
+            <img id="sourceImage" alt="Original P&amp;ID page" data-i18n-alt="originalPidPage">
+            <svg id="sourceOverlay" class="overlay" preserveAspectRatio="none"></svg>
+          </div>
+        </div>
+      </div>
+      <div class="pane inference-pane">
+        <div class="pane-title">
+          <span data-i18n="editableExtraction">Editable extraction</span>
+          <span class="legend"><i class="approved"></i><span data-i18n="reviewed">reviewed</span> <i class="pending"></i><span data-i18n="pending">pending</span> <i class="rejected"></i><span data-i18n="rejected">rejected</span></span>
+        </div>
+        <div id="inferenceViewport" class="viewport">
+          <div id="inferenceStage" class="stage">
+            <img id="inferenceImage" alt="Inference rendering frame" data-i18n-alt="inferenceFrame">
+            <svg id="graphOverlay" class="overlay editable" preserveAspectRatio="none"></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="inspector-panel">
+      <div class="panel-heading"><h2 data-i18n="inspector">Inspector</h2></div>
+      <div class="add-tools">
+        <button id="addNode" data-i18n="drawMissingEntity">Draw missing entity</button>
+        <button id="addEdge" data-i18n="addConnection">Add connection</button>
+      </div>
+      <div id="inspector" class="inspector empty" data-i18n="selectItem">Select an entity, connection, or conflict.</div>
+    </aside>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

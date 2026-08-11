@@ -85,7 +85,9 @@ class DexpiEntityBase(BaseModel):
     """
 
     model_config = ConfigDict(validate_assignment=True, populate_by_name=True)
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    # XML ``xs:ID`` requires a name-safe leading character and disallows the
+    # hyphens in a canonical UUID. Keep UUID entropy while emitting valid IDs.
+    id: str = Field(default_factory=lambda: f"id_{uuid.uuid4().hex}")
     proteusId: Optional[str] = None
     customAttributes: list = Field(default_factory=list)
 

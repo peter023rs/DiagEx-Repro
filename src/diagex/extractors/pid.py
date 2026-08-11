@@ -676,6 +676,44 @@ def _write_run_artefacts(
     # graph.json — full reconciled graph.
     (run_dir / "graph.json").write_text(graph.model_dump_json(indent=2), encoding="utf-8")
 
+    # pages.json — the exact coordinate frame used by graph.json.  The human
+    # review workbench uses this to reproduce source-aligned page renderings
+    # even if rendering defaults change after the extraction run.
+    page_records: list[dict] = []
+    seen_pages: set[int] = set()
+    for state in states:
+        page = state.page
+        if page.page_index in seen_pages:
+            continue
+        seen_pages.add(page.page_index)
+        page_records.append(
+            {
+                "page_index": page.page_index,
+                "width": page.width,
+                "height": page.height,
+                "dpi": page.dpi,
+                "effective_dpi": page.effective_dpi,
+                "is_scanned": page.is_scanned,
+                "rotation_deg": page.rotation_deg,
+                "source_ref": page.source_ref,
+            }
+        )
+    (run_dir / "pages.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "1.0.0",
+                "scan": {
+                    "deskew": bool(getattr(load_config().scan, "deskew", False)),
+                    "contrast": bool(getattr(load_config().scan, "contrast", True)),
+                    "despeckle": bool(getattr(load_config().scan, "despeckle", True)),
+                },
+                "pages": sorted(page_records, key=lambda item: item["page_index"]),
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
     # pid.svg — self-contained visualisation of the extracted DEXPI model.
     render_metadata = {
         "run_id": run_id,

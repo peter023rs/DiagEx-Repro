@@ -31,10 +31,10 @@ Known v1 limitations:
 """
 from __future__ import annotations
 
+import types
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-import types
 from typing import Any, Union, get_args, get_origin
 from xml.etree import ElementTree as ET
 
@@ -85,11 +85,11 @@ _ENUM_QNAMES: dict[str, str] | None = None
 
 
 def _build_registry() -> dict[str, type]:
+    from diagex.dexpi import extensions as _ext  # noqa: F401
     from diagex.dexpi._generated import core as _core
     from diagex.dexpi._generated import enums as _enums
     from diagex.dexpi._generated import plant as _plant
     from diagex.dexpi._generated import process as _process
-    from diagex.dexpi import extensions as _ext  # noqa: F401
 
     out: dict[str, type] = {}
     for module in (_core, _plant, _process, _enums):
@@ -357,26 +357,28 @@ def _parse_value(elem: ET.Element) -> Any:
     if tag == "AggregatedDataValue":
         type_attr = elem.get("type", "")
         cls = _local_class(type_attr)
-        kwargs = _parse_data_children(elem)
+        kwargs = _parse_data_children(elem, cls)
         return cls.model_validate(kwargs)
     return elem.text
 
 
-def _parse_data_children(elem: ET.Element) -> dict[str, Any]:
+def _parse_data_children(elem: ET.Element, cls: type | None = None) -> dict[str, Any]:
     """Inverse of `_pydantic_to_data_children`: parse <Data> children of a value object."""
     out: dict[str, Any] = {}
     for child in elem:
         if child.tag != "Data":
             continue
         prop = child.get("property", "")
+        py_name, ann = _resolve_field_name(cls, prop) if cls is not None else (prop, None)
+        is_list_field = ann is not None and _allows_list(ann)
         # Could be a single value, an aggregated value, or a list
         children = list(child)
         if len(children) == 0:
-            out[prop] = None
-        elif len(children) == 1:
-            out[prop] = _parse_value(children[0])
+            parsed: Any = [] if is_list_field else None
         else:
-            out[prop] = [_parse_value(c) for c in children]
+            values = [_parse_value(c) for c in children]
+            parsed = values if is_list_field or len(values) > 1 else values[0]
+        out[py_name] = parsed
     return out
 
 

@@ -41,6 +41,9 @@ codegen = [
     # compatible with Python 3.11+.
     "dexpi.specificator==1.0.0",
 ]
+validate = [
+    "xmlschema>=3.4.0",
+]
 
 [project.scripts]
 diagex = "diagex.cli:app"

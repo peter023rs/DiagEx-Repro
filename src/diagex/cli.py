@@ -470,6 +470,55 @@ def version() -> None:
     console.print(__version__)
 
 
+@app.command("review")
+def review_pid(
+    target: Path = typer.Argument(
+        ...,
+        exists=True,
+        readable=True,
+        help="Run directory or graph.json emitted by `diagex extract-pid`.",
+    ),
+    pdf: Path = typer.Option(
+        ...,
+        "--pdf",
+        exists=True,
+        readable=True,
+        help="Original source PDF or image used for extraction.",
+    ),
+    rater: str = typer.Option(..., "--rater", help="Reviewer name recorded in the audit log."),
+    out_dir: Optional[Path] = typer.Option(
+        None,
+        "--out-dir",
+        help="Review directory (default: <run-dir>/review).",
+    ),
+    host: str = typer.Option("127.0.0.1", "--host", help="Local server bind address."),
+    port: int = typer.Option(8765, "--port", min=0, max=65535, help="Local server port; 0 selects a free port."),
+    no_open: bool = typer.Option(False, "--no-open", help="Do not open the browser automatically."),
+) -> None:
+    """Review an extracted P&ID beside its source and export corrected DEXPI."""
+    from diagex.review.core import ReviewStore
+    from diagex.review.server import serve_review
+
+    try:
+        store = ReviewStore.open(target, source_path=pdf, rater=rater, out_dir=out_dir)
+    except Exception as exc:  # noqa: BLE001
+        console.print(f"[red]review failed:[/red] {exc}")
+        raise typer.Exit(1)
+
+    if host not in {"127.0.0.1", "localhost", "::1"}:
+        console.print(
+            "[yellow]warning:[/yellow] review is being exposed beyond this machine and has no authentication"
+        )
+    console.print(f"autosave: {store.out_dir}   (Ctrl+C stops safely)")
+    serve_review(
+        store,
+        host=host,
+        port=port,
+        open_browser=not no_open,
+        on_ready=lambda url: console.print(f"review: [cyan]{url}[/cyan]"),
+    )
+
+
 # ---------------------------------------------------------------------------
 # `diagex gt …` — ground-truth dataset tooling (spec §9.1)
 # ---------------------------------------------------------------------------

@@ -148,6 +148,8 @@ def test_entity_classes_carry_uuid_id():
     b = OperatedValve()
     assert a.id != b.id
     assert hash(a) != hash(b)
+    assert a.id.startswith("id_")
+    assert "-" not in a.id
 
 
 @pytest.mark.parametrize("expected", [

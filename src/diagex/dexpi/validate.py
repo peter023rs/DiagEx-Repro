@@ -20,14 +20,13 @@ re-number an existing rule, even if it's removed (mark deprecated).
 """
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-import re
 from typing import Any
 
 from pydantic import BaseModel
-
 
 VENDORED_XSD = (
     Path(__file__).parent / "codegen" / "vendored" / "DEXPI_XML_Schema.xsd"
@@ -63,15 +62,17 @@ class XmlschemaUnavailableError(RuntimeError):
 def xsd_validate(xml_path: str | Path) -> list[Issue]:
     """Validate ``xml_path`` against the vendored DEXPI 2.0 XSD.
 
-    Requires ``xmlschema`` (install with ``pip install xmlschema`` or
-    ``pip install -e '.[validate]'``). Returns a list of :class:`Issue`s.
+    Requires ``xmlschema`` (install with ``uv pip install xmlschema`` or
+    ``uv pip install -e '.[validate]'``). Returns a list of :class:`Issue`s.
     """
     try:
         import xmlschema  # noqa: PLC0415
     except ImportError as exc:
         raise XmlschemaUnavailableError(
             "xsd_validate requires the 'xmlschema' package. "
-            "Install via: pip install xmlschema"
+            "Install into this environment via: uv pip install xmlschema "
+            "(or install the project with its validation extra: "
+            "uv pip install -e '.[validate]')"
         ) from exc
 
     schema = xmlschema.XMLSchema(str(VENDORED_XSD))

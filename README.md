@@ -90,6 +90,25 @@ blocks do not need conversion. `KIMI_MODEL` is accepted as a model-name alias.
 Live results are non-deterministic; expect ±0.02 macro-F1 around the
 published numbers per the evaluation plan §8.1.
 
+## Human review workbench
+
+Review an extraction beside its original PDF in a local browser:
+
+```bash
+diagex review runs/<drawing>/<run-id> \
+  --pdf path/to/drawing.pdf \
+  --rater "Reviewer name"
+```
+
+The left pane preserves the source page and the right pane shows editable,
+source-aligned entities and connections. Every action is autosaved under the
+run's `review/` directory, so Ctrl+C is safe and the same command resumes the
+session. Final export remains disabled until every page, entity, connection,
+and extraction conflict has an explicit disposition. Completion writes
+`graph.reviewed.json`, `pid.reviewed.dexpi.json`,
+`pid.reviewed.dexpi.xml`, and `review.report.json` without changing the
+original `graph.json`.
+
 ## Layout
 
 ```

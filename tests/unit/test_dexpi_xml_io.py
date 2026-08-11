@@ -211,6 +211,24 @@ def test_diagex_emitted_xml_roundtrips():
     assert isinstance(items[0], OperatedValve)
 
 
+def test_single_item_value_object_list_roundtrips():
+    """A one-item aggregated list must not collapse into a scalar on parse."""
+    value = MultiLanguageString(
+        SingleLanguageStrings=[
+            SingleLanguageString(Language="en-US", Value="compressor")
+        ]
+    )
+    root = ET.Element("Model")
+    xml_io._write_object(root, value, top_level=True)
+
+    parsed = xml_io.loads(ET.tostring(root, encoding="unicode"))
+
+    assert isinstance(parsed, MultiLanguageString)
+    assert len(parsed.SingleLanguageStrings) == 1
+    assert parsed.SingleLanguageStrings[0].Language == "en-US"
+    assert parsed.SingleLanguageStrings[0].Value == "compressor"
+
+
 def test_nested_ids_preserved_through_roundtrip():
     """Top-level id is dropped by the wire format, but nested ids must survive."""
     em = _build_minimal_plant()
