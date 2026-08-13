@@ -231,8 +231,24 @@ so the reconciler / DexpiBuilder can map each record cleanly:
       final control element, e.g. FIC-101 → LV-101). Otherwise leave blank
       for the default instrumentation loop.
 - kind="opc" (off-page connector):
-    - direction: one of {in, out}
-    - target_sheet: optional string, if the OPC annotates its destination
+    - Put the complete literal wording printed beside the connector in the
+      top-level `source_quote`. Do not translate, normalise, or complete it.
+    - attributes.service: the service name only, normalised conservatively
+      (for example "compressed_air", "nitrogen", "cws"). Omit it if the
+      printed service cannot be read confidently.
+    - attributes.direction: one of {in, out}. Determine it from the connector
+      arrow and explicit 自/from or 至/to wording; omit it when they disagree.
+    - attributes.source_equipment / destination_equipment: exact equipment
+      tag only when explicitly printed in the OPC wording. Never infer it from
+      process knowledge or a nearby unrelated equipment label.
+    - attributes.drawing_ref: exact drawing/sheet reference printed inside or
+      immediately beside the connector (for example "DW02-0003").
+    - attributes.line_id: exact line number only when visibly carried by the
+      line attached to this OPC. Omit rather than borrowing a nearby line tag.
+    - attributes.target_sheet: retained for compatibility; prefer
+      drawing_ref and source/destination_equipment when the drawing provides
+      those more precise fields.
+    - Omit every uncertain attribute. Do not emit null, unknown, or a guess.
     - LABEL CONVENTION (mandatory): the `label` field must end with the
       direction word `inlet` (when direction=in) or `outlet` (when
       direction=out). Format: "<service identifier> <inlet|outlet>".

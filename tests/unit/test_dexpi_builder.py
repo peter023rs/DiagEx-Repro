@@ -516,6 +516,36 @@ def test_note_node_lands_in_metadata_custom_attrs():
     assert result.stats.get("note_count") == 1
 
 
+def test_opc_evidence_attributes_survive_dexpi_build():
+    node = _node(
+        "opc-1",
+        "opc",
+        "Compressed Air inlet",
+        {
+            "service": "compressed_air",
+            "direction": "in",
+            "source_equipment": "2401-V-002",
+            "drawing_ref": "DW02-0003",
+            "attribute_evidence": {"source_equipment": "printed_text"},
+        },
+    )
+    node.source_quote = "压缩空气自2401-V-002"
+    result = build_dexpi(ReconciledGraph(source_path="t.pdf", nodes=[node]))
+    segment_items = [
+        item
+        for system in result.model.conceptual_model.PipingNetworkSystems
+        for segment in system.Segments
+        for item in segment.Items
+    ]
+    opc = next(item for item in segment_items if type(item).__name__ == "FlowInPipeOffPageConnector")
+    attrs = {attr.name: attr.value for attr in opc.customAttributes}
+    assert attrs["agent_service"] == "compressed_air"
+    assert attrs["agent_source_equipment"] == "2401-V-002"
+    assert attrs["agent_drawing_ref"] == "DW02-0003"
+    assert attrs["agent_attribute_evidence"] == '{"source_equipment":"printed_text"}'
+    assert attrs["agent_raw_text"] == "压缩空气自2401-V-002"
+
+
 def test_edges_with_line_id_group_into_distinct_piping_network_systems():
     """Edges carrying distinct ``line_id`` attrs produce one PipingNetworkSystem per id."""
     nodes = [

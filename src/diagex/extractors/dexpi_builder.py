@@ -15,6 +15,7 @@ matching the spec.
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -177,7 +178,11 @@ def _custom_string_attr(name: str, value: Any) -> cu.CustomStringAttribute | Non
     """Build a ``CustomStringAttribute``, returning None if the value is empty."""
     if value is None:
         return None
-    text = str(value).strip()
+    text = (
+        json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        if isinstance(value, (dict, list, tuple))
+        else str(value).strip()
+    )
     if not text:
         return None
     try:
@@ -382,6 +387,10 @@ def _build_opc(node: ReconciledNode, issues: list[str]) -> Any:
     cls = pp.FlowOutPipeOffPageConnector if direction == "out" else pp.FlowInPipeOffPageConnector
     obj = cls()
     _attach_custom_attrs(obj, node.attributes, issues)
+    if node.source_quote and "raw_text" not in node.attributes:
+        ca = _custom_string_attr("agent_raw_text", node.source_quote)
+        if ca is not None:
+            obj.customAttributes.append(ca)
     ca = _custom_string_attr("agent_opc_label", node.label)
     if ca is not None:
         obj.customAttributes.append(ca)

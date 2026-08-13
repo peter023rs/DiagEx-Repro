@@ -76,6 +76,7 @@ h2 { font-size: 15px; margin: 0; }.badge { color: var(--muted); font-size: 12px;
 .field { display: block; margin: 10px 0; font-size: 12px; color: var(--muted); }
 .field input, .field select, .field textarea { width: 100%; margin-top: 4px; padding: 7px; color: var(--ink); border: 1px solid var(--line); border-radius: 5px; background: white; }
 .field textarea { min-height: 90px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+.field textarea.evidence { min-height: 54px; resize: none; background: #f8fafc; color: var(--ink); }
 .geometry { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }.geometry .field { min-width: 0; }.geometry input { padding: 6px 3px; }
 .actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }.actions button { flex: 1; }
 .conflict-json { white-space: pre-wrap; word-break: break-word; font: 11px ui-monospace, monospace; background: #f8fafc; padding: 8px; border-radius: 5px; }

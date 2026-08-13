@@ -224,7 +224,9 @@ TOOL_SCHEMAS: list[dict[str, Any]] = [
                         "measured_variable "
                         "(flow/pressure/level/temperature/analysis/hand/other), "
                         "loop_number (numeric suffix of the tag, as string), direction "
-                        "(in/out, for kind=opc), target_sheet (string, for kind=opc)."
+                        "(in/out, for kind=opc), service, source_equipment, "
+                        "destination_equipment, drawing_ref, line_id, and target_sheet "
+                        "(strings for kind=opc; omit unless directly supported by the drawing)."
                     ),
                 },
                 "source_quote": {"type": "string"},

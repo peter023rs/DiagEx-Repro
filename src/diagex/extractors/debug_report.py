@@ -402,7 +402,7 @@ def _node_notes(n: ReconciledNode) -> str:
         alts = ", ".join(f"\"{a}\"" for a in n.alternate_readings[:3])
         bits.append(f"alt: {alts}")
     # Pull a quote out of source annotations if available (stored on attributes).
-    quote = str(n.attributes.get("source_quote", "") or "").strip()
+    quote = str(n.source_quote or n.attributes.get("source_quote", "") or "").strip()
     if quote:
         truncated = quote if len(quote) <= 48 else quote[:45] + "..."
         bits.append(f'"{truncated}"')

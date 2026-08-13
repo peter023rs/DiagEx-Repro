@@ -19,7 +19,7 @@ const I18N = {
     entity: "entity", connection: "connection", conflict: "conflict", graphConflict: "Graph conflict",
     modelConfidence: "model confidence", review: "review", label: "Label", kind: "Kind",
     equipmentClass: "Equipment class", valveType: "Valve type", instrumentFunction: "Instrument function",
-    attributesJson: "Attributes (JSON)", from: "From", to: "To", lineType: "Line type",
+    sourceText: "Printed source text", attributesJson: "Attributes (JSON)", from: "From", to: "To", lineType: "Line type",
     polylineJson: "Polyline points (JSON)", saveChanges: "Save changes", approve: "Approve", reject: "Reject",
     resolved: "Resolved", waiveReason: "Waive with reason", rejectReason: "Reason for rejection (optional)",
     resolveReason: "How was this resolved? (optional)", conflictWaiveReason: "Reason for waiving this conflict",
@@ -52,7 +52,7 @@ const I18N = {
     entity: "实体", connection: "连接", conflict: "冲突", graphConflict: "图结构冲突",
     modelConfidence: "模型置信度", review: "复核状态", label: "标签", kind: "种类",
     equipmentClass: "设备类别", valveType: "阀门类型", instrumentFunction: "仪表功能",
-    attributesJson: "属性（JSON）", from: "起点", to: "终点", lineType: "线型",
+    sourceText: "图纸原文", attributesJson: "属性（JSON）", from: "起点", to: "终点", lineType: "线型",
     polylineJson: "折线坐标（JSON）", saveChanges: "保存修改", approve: "批准", reject: "拒绝",
     resolved: "已解决", waiveReason: "填写理由并豁免", rejectReason: "拒绝理由（可选）",
     resolveReason: "如何解决此问题？（可选）", conflictWaiveReason: "请输入豁免此冲突的理由",
@@ -315,6 +315,7 @@ function renderInspector() {
       ${selectField(t("valveType"), "nodeValveType", (node.attributes || {}).valve_type || "", ["", ...app.state.taxonomy.valve_types])}
       ${selectField(t("instrumentFunction"), "nodeInstrumentFunction", (node.attributes || {}).instrument_function || "", ["", ...app.state.taxonomy.instrument_functions])}
       <div class="geometry">${inputField("X", "nodeX", b.x, "number")}${inputField("Y", "nodeY", b.y, "number")}${inputField("W", "nodeW", b.w, "number")}${inputField("H", "nodeH", b.h, "number")}</div>
+      ${node.source_quote ? `<label class="field">${t("sourceText")}<textarea class="evidence" readonly>${escapeHtml(node.source_quote)}</textarea></label>` : ""}
       <label class="field">${t("attributesJson")}<textarea id="nodeAttrs">${escapeHtml(JSON.stringify(node.attributes || {}, null, 2))}</textarea></label>
       <div class="actions"><button id="saveNode">${t("saveChanges")}</button><button id="approveNode" class="primary">${t("approve")}</button><button id="rejectNode" class="danger">${t("reject")}</button></div>`;
     el("saveNode").onclick = async () => { try { const attrs=JSON.parse(el("nodeAttrs").value); const assign=(key,value)=>value?attrs[key]=value:delete attrs[key]; assign("equipment_class",el("nodeEquipmentClass").value); assign("valve_type",el("nodeValveType").value); assign("instrument_function",el("nodeInstrumentFunction").value); await submit("node", id, "modify", { label: el("nodeLabel").value, kind: el("nodeKind").value, bbox_global: { x:+el("nodeX").value, y:+el("nodeY").value, w:+el("nodeW").value, h:+el("nodeH").value }, attributes: attrs }); } catch (error) { toast(error.message, true); } };

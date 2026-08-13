@@ -176,6 +176,11 @@ class ReconciledNode(BaseModel):
     page_index: int
     attributes: dict[str, Any] = Field(default_factory=dict)
     confidence: Confidence
+    # Literal text read from the drawing.  Keep this separate from ``label``
+    # (which may be normalised for matching) so downstream review can tell
+    # evidence from interpretation.  Optional for backwards compatibility
+    # with existing graph.json files.
+    source_quote: str | None = None
     alternate_readings: list[str] = Field(default_factory=list)
     source_annotation_ids: list[AnnotationId] = Field(default_factory=list)
 

@@ -160,6 +160,7 @@ class _NodeCluster:
     page_index: int
     attributes: dict[str, Any] = field(default_factory=dict)
     confidence: Confidence = "low"
+    source_quote: str | None = None
     alternate_readings: list[str] = field(default_factory=list)
     source_annotation_ids: list[str] = field(default_factory=list)
 
@@ -198,6 +199,7 @@ def reconcile(
                 page_index=page_idx,
                 attributes=cl.attributes,
                 confidence=cl.confidence,
+                source_quote=cl.source_quote,
                 alternate_readings=cl.alternate_readings,
                 source_annotation_ids=cl.source_annotation_ids,
             )
@@ -214,6 +216,12 @@ def reconcile(
         edge = _build_edge(grp, node_index_by_page, strat, conflicts)
         if edge is not None:
             edges.append(edge)
+
+    # Preserve literal OPC evidence and attach only uniquely supported nearby
+    # references.  This deliberately runs after edge assembly so a line_id can
+    # be inherited from an edge that is actually connected to the OPC; spatial
+    # proximity alone is not sufficient evidence for a line identity.
+    _enrich_opcs(nodes, edges)
 
     # Cross-sheet OPC reconciliation.
     dangling_opcs, cross_edges = _cross_sheet_opcs(nodes, conflicts)
@@ -286,6 +294,7 @@ def _merge_into_page(
             page_index=anno.page_index,
             attributes=dict(anno.attributes or {}),
             confidence=anno.confidence,
+            source_quote=anno.source_quote,
             alternate_readings=[],
             source_annotation_ids=[anno.id],
         )
@@ -307,6 +316,8 @@ def _absorb_into_cluster(cl: _NodeCluster, anno: Annotation, *, reason: str) -> 
     # Merge attributes shallow; existing keys win.
     for k, v in (anno.attributes or {}).items():
         cl.attributes.setdefault(k, v)
+    if not cl.source_quote and anno.source_quote:
+        cl.source_quote = anno.source_quote
 
 
 def _flag_ocr_flips(
@@ -797,6 +808,171 @@ def _ordered_polyline(
 # ---------------------------------------------------------------------------
 
 
+_OPC_DIRECTION_SUFFIX_RE = re.compile(r"\s+(?:inlet|outlet)\s*$", re.IGNORECASE)
+_DRAWING_REF_RE = re.compile(r"\b(?:DWG?|PID)[A-Z0-9]*[-_]\d{3,}\b", re.IGNORECASE)
+_EQUIPMENT_TAG_RE = re.compile(
+    r"(?<![A-Z0-9])\d{3,5}-[A-Z]{1,5}-\d{2,6}[A-Z]?(?:/[A-Z0-9]+)?(?![A-Z0-9])",
+    re.IGNORECASE,
+)
+
+
+def _opc_service(node: ReconciledNode) -> str:
+    explicit = str(node.attributes.get("service") or "").strip()
+    if explicit:
+        return explicit.casefold()
+    base = _OPC_DIRECTION_SUFFIX_RE.sub("", node.label or "").strip()
+    if not base:
+        return ""
+    # ``\w`` preserves non-Latin service names while still producing stable
+    # underscore-separated identifiers for English labels.
+    return re.sub(r"[^\w]+", "_", base.casefold(), flags=re.UNICODE).strip("_")
+
+
+def _opc_direction_from_label(label: str) -> str | None:
+    folded = (label or "").strip().casefold()
+    if folded.endswith(" inlet"):
+        return "in"
+    if folded.endswith(" outlet"):
+        return "out"
+    return None
+
+
+def _direction_from_literal(text: str) -> str | None:
+    folded = f" {text.casefold()} "
+    incoming = "自" in text or bool(re.search(r"\bfrom\b", folded))
+    outgoing = "至" in text or "去" in text or bool(re.search(r"\bto\b", folded))
+    if incoming == outgoing:
+        return None
+    return "in" if incoming else "out"
+
+
+def _box_gap(a: BBox, b: BBox) -> tuple[int, int]:
+    dx = max(0, max(a.x, b.x) - min(a.x2, b.x2))
+    dy = max(0, max(a.y, b.y) - min(a.y2, b.y2))
+    return dx, dy
+
+
+def _nearby_opc_text(opc: ReconciledNode, nodes: list[ReconciledNode]) -> list[ReconciledNode]:
+    candidates: list[tuple[int, ReconciledNode]] = []
+    for node in nodes:
+        if node.id == opc.id or node.page_index != opc.page_index or node.kind not in {"text", "note"}:
+            continue
+        dx, dy = _box_gap(opc.bbox_global, node.bbox_global)
+        # OPC annotations are usually short and their description/reference is
+        # immediately above or inside the glyph.  Keep the window deliberately
+        # tight to avoid borrowing labels from a neighbouring process line.
+        if dx <= 120 and dy <= 140:
+            candidates.append((dx + dy, node))
+    return [node for _, node in sorted(candidates, key=lambda item: (item[0], item[1].id))]
+
+
+def _one_distinct(values: list[str]) -> str | None:
+    distinct: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        clean = value.strip()
+        folded = clean.casefold()
+        if clean and folded not in seen:
+            seen.add(folded)
+            distinct.append(clean)
+    return distinct[0] if len(distinct) == 1 else None
+
+
+def _enrich_opcs(nodes: list[ReconciledNode], edges: list[ReconciledEdge]) -> None:
+    """Add evidence-backed OPC identity without overwriting model fields.
+
+    Ambiguous nearby text is intentionally ignored.  ``attribute_evidence``
+    records whether a field was printed, normalised from the label, or copied
+    from an edge that is actually connected in the graph.
+    """
+    connected: dict[str, list[ReconciledEdge]] = defaultdict(list)
+    for edge in edges:
+        connected[edge.from_node].append(edge)
+        connected[edge.to_node].append(edge)
+
+    for opc in (node for node in nodes if node.kind == "opc"):
+        attrs = opc.attributes
+        evidence_raw = attrs.get("attribute_evidence")
+        evidence: dict[str, str] = dict(evidence_raw) if isinstance(evidence_raw, dict) else {}
+        nearby = _nearby_opc_text(opc, nodes)
+
+        literal = (opc.source_quote or str(attrs.get("raw_text") or "")).strip()
+        if not literal:
+            literal_candidates = [
+                node.label for node in nearby if _direction_from_literal(node.label or "") is not None
+            ]
+            literal = _one_distinct(literal_candidates) or ""
+            if literal:
+                opc.source_quote = literal
+                evidence.setdefault("raw_text", "unique_nearby_text")
+        if literal:
+            attrs.setdefault("raw_text", literal)
+            evidence.setdefault("raw_text", "printed_text")
+
+        if not attrs.get("service"):
+            service = _opc_service(opc)
+            if service:
+                attrs["service"] = service
+                evidence.setdefault("service", "normalised_label")
+
+        literal_direction = _direction_from_literal(literal) if literal else None
+        label_direction = _opc_direction_from_label(opc.label)
+        current_direction = str(attrs.get("direction") or "").strip().lower()
+        direction_signals = {
+            value for value in (literal_direction, label_direction, current_direction)
+            if value in {"in", "out"}
+        }
+        if len(direction_signals) > 1:
+            # Contradictory label/text/model signals are not safe enough for
+            # automatic matching. Preserve the candidates for review but do
+            # not select a direction.
+            attrs.pop("direction", None)
+            attrs["direction_candidates"] = sorted(direction_signals)
+            evidence["direction"] = "conflicting_evidence"
+        elif current_direction not in {"in", "out"}:
+            # Explicit printed wording wins.  A label-only fallback is retained
+            # for legacy nodes because the extraction prompt mandates this
+            # suffix, but its provenance remains visible.
+            chosen_direction = literal_direction or label_direction
+            if chosen_direction:
+                attrs["direction"] = chosen_direction
+                evidence.setdefault(
+                    "direction", "printed_direction_word" if literal_direction else "normalised_label"
+                )
+
+        if literal:
+            tags = _EQUIPMENT_TAG_RE.findall(literal)
+            tag = _one_distinct(tags)
+            if tag:
+                direction = str(attrs.get("direction") or "").lower()
+                key = "source_equipment" if direction == "in" else (
+                    "destination_equipment" if direction == "out" else ""
+                )
+                if key and not attrs.get(key):
+                    attrs[key] = tag
+                    evidence.setdefault(key, "printed_text")
+
+        reference_texts = [literal, *(node.label for node in nearby)]
+        drawing_refs = [match for text in reference_texts for match in _DRAWING_REF_RE.findall(text or "")]
+        drawing_ref = _one_distinct(drawing_refs)
+        if drawing_ref and not attrs.get("drawing_ref"):
+            attrs["drawing_ref"] = drawing_ref
+            evidence.setdefault("drawing_ref", "unique_nearby_text")
+
+        connected_line_ids = [
+            str(edge.attributes.get("line_id") or "")
+            for edge in connected.get(opc.id, [])
+            if edge.attributes.get("line_id")
+        ]
+        line_id = _one_distinct(connected_line_ids)
+        if line_id and not attrs.get("line_id"):
+            attrs["line_id"] = line_id
+            evidence.setdefault("line_id", "connected_edge")
+
+        if evidence:
+            attrs["attribute_evidence"] = evidence
+
+
 def _cross_sheet_opcs(
     nodes: list[ReconciledNode],
     conflicts: list[dict[str, Any]],
@@ -804,7 +980,7 @@ def _cross_sheet_opcs(
     opcs = [n for n in nodes if n.kind == "opc"]
     buckets: dict[str, list[ReconciledNode]] = defaultdict(list)
     for n in opcs:
-        key = normalise_label(n.label)
+        key = normalise_label(_opc_service(n))
         if not key:
             continue
         buckets[key].append(n)
@@ -812,45 +988,141 @@ def _cross_sheet_opcs(
     edges: list[ReconciledEdge] = []
     dangling: list[dict[str, Any]] = []
 
-    for key, group in buckets.items():
-        if len(group) == 1:
-            dangling.append(
-                {
-                    "opc_label": group[0].label,
-                    "normalised": key,
-                    "node_id": group[0].id,
-                    "page_index": group[0].page_index,
-                }
+    def mark_dangling(node: ReconciledNode, key: str, reason: str) -> None:
+        dangling.append(
+            {
+                "opc_label": node.label,
+                "normalised": key,
+                "node_id": node.id,
+                "page_index": node.page_index,
+                "direction": node.attributes.get("direction"),
+                "drawing_ref": node.attributes.get("drawing_ref"),
+                "line_id": node.attributes.get("line_id"),
+                "reason": reason,
+            }
+        )
+
+    def stitch(outlet: ReconciledNode, inlet: ReconciledNode) -> None:
+        edges.append(
+            ReconciledEdge(
+                id=_new_entity_id("x"),
+                from_node=outlet.id,
+                to_node=inlet.id,
+                line_type=None,
+                polyline_global=[],
+                cross_sheet=True,
+                confidence=_best_confidence([outlet.confidence, inlet.confidence]),
+                source_annotation_ids=[*outlet.source_annotation_ids, *inlet.source_annotation_ids],
+                attributes={"service": _opc_service(outlet)},
             )
+        )
+
+    def strong_ids(node: ReconciledNode) -> set[str]:
+        # Only exact drawing and line references are strong enough for automatic
+        # many-to-many pairing. Equipment tags describe process endpoints and
+        # are not guaranteed to be repeated verbatim at both OPC ends.
+        values = [node.attributes.get("drawing_ref"), node.attributes.get("line_id")]
+        return {normalise_label(str(value)) for value in values if value}
+
+    for key, group in buckets.items():
+        inlets: list[ReconciledNode] = []
+        outlets: list[ReconciledNode] = []
+        unknown: list[ReconciledNode] = []
+        for node in group:
+            direction = str(node.attributes.get("direction") or _opc_direction_from_label(node.label) or "")
+            if direction == "in":
+                inlets.append(node)
+            elif direction == "out":
+                outlets.append(node)
+            else:
+                unknown.append(node)
+
+        for node in unknown:
+            mark_dangling(node, key, "missing_direction")
+
+        if not inlets or not outlets:
+            # Repeated utility inlets/outlets are normal. They are distinct
+            # occurrences, not evidence that one OCR reading must be false.
+            for node in [*inlets, *outlets]:
+                mark_dangling(node, key, "no_complementary_direction")
             continue
-        if len(group) > 2:
+
+        if len(inlets) == len(outlets) == 1:
+            inlet, outlet = inlets[0], outlets[0]
+            shared = strong_ids(inlet) & strong_ids(outlet)
+            inlet_ids, outlet_ids = strong_ids(inlet), strong_ids(outlet)
+            if shared:
+                stitch(outlet, inlet)
+            elif inlet_ids and outlet_ids:
+                conflicts.append(
+                    {
+                        "type": "opc_identity_mismatch",
+                        "normalised": key,
+                        "node_ids": [outlet.id, inlet.id],
+                        "page_indices": sorted({outlet.page_index, inlet.page_index}),
+                        "reason": "explicit drawing/line references disagree",
+                    }
+                )
+                mark_dangling(outlet, key, "identity_mismatch")
+                mark_dangling(inlet, key, "identity_mismatch")
+            else:
+                conflicts.append(
+                    {
+                        "type": "ambiguous_opc",
+                        "normalised": key,
+                        "node_ids": [outlet.id, inlet.id],
+                        "page_indices": sorted({outlet.page_index, inlet.page_index}),
+                        "reason": "complementary connectors lack a shared drawing/line reference",
+                    }
+                )
+                mark_dangling(outlet, key, "unverified_complementary_match")
+                mark_dangling(inlet, key, "unverified_complementary_match")
+            continue
+
+        # With several candidates, pair only exact one-to-one matches on a
+        # printed drawing reference or a connected line ID.
+        candidates: list[tuple[ReconciledNode, ReconciledNode]] = []
+        for outlet in outlets:
+            for inlet in inlets:
+                if strong_ids(outlet) & strong_ids(inlet):
+                    candidates.append((outlet, inlet))
+        matched_out: set[str] = set()
+        matched_in: set[str] = set()
+        for outlet, inlet in candidates:
+            outlet_matches = [pair for pair in candidates if pair[0].id == outlet.id]
+            inlet_matches = [pair for pair in candidates if pair[1].id == inlet.id]
+            if len(outlet_matches) == len(inlet_matches) == 1:
+                stitch(outlet, inlet)
+                matched_out.add(outlet.id)
+                matched_in.add(inlet.id)
+
+        remaining = [
+            *[node for node in outlets if node.id not in matched_out],
+            *[node for node in inlets if node.id not in matched_in],
+        ]
+        remaining_directions = {
+            str(node.attributes.get("direction") or _opc_direction_from_label(node.label) or "")
+            for node in remaining
+        }
+        if {"in", "out"}.issubset(remaining_directions):
             conflicts.append(
                 {
                     "type": "ambiguous_opc",
                     "normalised": key,
-                    "node_ids": [n.id for n in group],
-                    "page_indices": sorted({n.page_index for n in group}),
+                    "node_ids": [node.id for node in remaining],
+                    "page_indices": sorted({node.page_index for node in remaining}),
+                    "reason": "multiple complementary connectors lack a unique shared reference",
                 }
             )
-            continue
-        # Exactly two matches -> stitch cross-sheet edge.
-        a, b = group
-        edges.append(
-            ReconciledEdge(
-                id=_new_entity_id("x"),
-                from_node=a.id,
-                to_node=b.id,
-                line_type=None,
-                polyline_global=[],
-                cross_sheet=True,
-                confidence=_best_confidence([a.confidence, b.confidence]),
-                source_annotation_ids=[*a.source_annotation_ids, *b.source_annotation_ids],
-            )
-        )
+            reason = "ambiguous_complementary_match"
+        else:
+            reason = "no_complementary_direction"
+        for node in remaining:
+            mark_dangling(node, key, reason)
 
     # Also surface OPCs that had no normalisation key as dangling.
     for n in opcs:
-        if not normalise_label(n.label):
+        if not normalise_label(_opc_service(n)):
             dangling.append(
                 {
                     "opc_label": n.label,
