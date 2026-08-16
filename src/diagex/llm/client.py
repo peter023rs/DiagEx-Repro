@@ -22,6 +22,9 @@ import random
 import sys
 import time
 from collections.abc import Callable
+from datetime import UTC, datetime
+from email.utils import parsedate_to_datetime
+from math import isfinite
 from typing import Any
 
 import anthropic
@@ -40,6 +43,12 @@ class LLMClient:
         # extractor snapshots it before/after a run so the per-extractor row
         # in results.csv carries the retries that actually ate wall-clock.
         self.retries_total: int = 0
+        # Provider-wide 429 state must outlive an individual messages_create()
+        # call. The extraction tail issues many small, independent requests;
+        # resetting backoff for each one otherwise creates a retry storm.
+        self._rate_limit_cooldown_s: float = 0.0
+        self._rate_limit_not_before: float = 0.0
+        self._rate_limit_successes: int = 0
 
     def reset_retry_counter(self) -> None:
         self.retries_total = 0
@@ -138,6 +147,91 @@ class LLMClient:
         return random.uniform(0, delay)
 
     @staticmethod
+    def _retry_after_seconds(exc: anthropic.APIStatusError) -> float | None:
+        """Return the server-requested retry delay, if it supplied a valid one.
+
+        HTTP permits either a number of seconds or an absolute HTTP date.  The
+        latter is uncommon on model APIs, but supporting it keeps this helper
+        standards-compliant.  A Retry-After value is deliberately not capped by
+        ``retry_max_s``: shortening it would immediately violate the provider's
+        instruction and commonly cause another 429.
+        """
+        response = getattr(exc, "response", None)
+        headers = getattr(response, "headers", None)
+        if headers is None:
+            return None
+        raw = headers.get("retry-after")
+        if raw is None:
+            return None
+
+        value = str(raw).strip()
+        try:
+            seconds = float(value)
+        except ValueError:
+            try:
+                retry_at = parsedate_to_datetime(value)
+                if retry_at.tzinfo is None:
+                    retry_at = retry_at.replace(tzinfo=UTC)
+                seconds = (retry_at - datetime.now(UTC)).total_seconds()
+            except (TypeError, ValueError, OverflowError):
+                return None
+
+        if not isfinite(seconds) or seconds < 0:
+            return None
+        return seconds
+
+    def _record_rate_limit(self, retry_after: float | None) -> float:
+        """Advance and persist the shared cooldown after an HTTP 429."""
+        requested = (
+            retry_after
+            if retry_after is not None
+            else max(0.0, self.budgets.rate_limit_fallback_s)
+        )
+        previous = self._rate_limit_cooldown_s
+        escalated = min(
+            self.budgets.retry_max_s,
+            previous * self.budgets.retry_factor,
+        )
+        # Never shorten an existing server-requested delay merely because the
+        # normal local retry cap is lower.
+        cooldown = max(requested, previous, escalated)
+        self._rate_limit_cooldown_s = cooldown
+        self._rate_limit_successes = 0
+        self._rate_limit_not_before = max(
+            self._rate_limit_not_before,
+            time.monotonic() + cooldown,
+        )
+        return cooldown
+
+    def _wait_for_rate_limit_cooldown(self) -> None:
+        """Pace a new request according to 429 state from earlier requests."""
+        remaining = self._rate_limit_not_before - time.monotonic()
+        if remaining <= 0:
+            return
+        print(
+            f"[diagex.llm] rate-limit cooldown; next request in {remaining:.1f}s",
+            file=sys.stderr,
+        )
+        time.sleep(remaining)
+
+    def _record_success_after_rate_limit(self) -> None:
+        """Clear shared 429 state only after several consecutive successes."""
+        if self._rate_limit_cooldown_s <= 0:
+            return
+        self._rate_limit_successes += 1
+        required = max(1, self.budgets.rate_limit_successes_to_reset)
+        if self._rate_limit_successes >= required:
+            self._rate_limit_cooldown_s = 0.0
+            self._rate_limit_not_before = 0.0
+            self._rate_limit_successes = 0
+            return
+
+        # Pace the next independent request. This is intentionally scheduled
+        # after the successful response, not after its start, because short
+        # cleanup calls are what previously formed the end-of-run burst.
+        self._rate_limit_not_before = time.monotonic() + self._rate_limit_cooldown_s
+
+    @staticmethod
     def _stamp_cache(blocks: list[dict[str, Any]] | None) -> list[dict[str, Any]] | None:
         """Attach cache_control={type:ephemeral} to the final block of a list.
 
@@ -209,14 +303,24 @@ class LLMClient:
         }
         if tools_payload is not None:
             kwargs["tools"] = tools_payload
-        if thinking is not None:
+        effective_thinking = thinking
+        if self.config.reasoning_mode == "enabled":
+            effective_thinking = {"type": "adaptive", "display": "summarized"}
+        elif self.config.reasoning_mode == "disabled":
+            effective_thinking = {"type": "disabled"}
+
+        if effective_thinking is not None:
             # ``display`` is an Anthropic-specific presentation option. Kimi K3
             # accepts adaptive/disabled thinking plus output_config.effort, but
             # rejects unknown thinking members with HTTP 400.
             kwargs["thinking"] = (
-                {key: value for key, value in thinking.items() if key != "display"}
+                {
+                    key: value
+                    for key, value in effective_thinking.items()
+                    if key != "display"
+                }
                 if self.config.transport == "kimi"
-                else thinking
+                else effective_thinking
             )
         if output_config is not None:
             kwargs["output_config"] = output_config
@@ -224,20 +328,29 @@ class LLMClient:
         # Stream for long outputs. High `max_tokens` + adaptive thinking can exceed the
         # SDK's 10-minute non-streaming timeout; `.stream(...).get_final_message()` returns
         # the same Message object but keeps the connection alive via chunked transfer.
+        self._wait_for_rate_limit_cooldown()
         last_exc: Exception | None = None
         for attempt in range(self.budgets.retry_attempts):
+            retry_after: float | None = None
+            rate_limit_cooldown: float | None = None
             try:
                 with self._client.messages.stream(**kwargs) as stream:
                     if on_stream_delta is not None:
                         for event in stream:
                             self._forward_stream_delta(event, on_stream_delta)
-                    return stream.get_final_message()
+                    message = stream.get_final_message()
+                    self._record_success_after_rate_limit()
+                    return message
             except anthropic.APIStatusError as exc:
                 status = getattr(exc, "status_code", None)
                 # 4xx (except 429) = validation/auth/policy → surface immediately.
                 if status is not None and 400 <= status < 500 and status != 429:
                     raise
                 last_exc = exc
+                if status in {429, 503}:
+                    retry_after = self._retry_after_seconds(exc)
+                if status == 429:
+                    rate_limit_cooldown = self._record_rate_limit(retry_after)
             except anthropic.APIConnectionError as exc:
                 # Transient network fault; same backoff ladder as 5xx.
                 last_exc = exc
@@ -247,9 +360,23 @@ class LLMClient:
 
             self.retries_total += 1
             delay = self._sleep_for_attempt(attempt)
+            delay = max(
+                delay,
+                retry_after or 0.0,
+                rate_limit_cooldown or 0.0,
+            )
+            notes: list[str] = []
+            if retry_after is not None:
+                notes.append(f"Retry-After={retry_after:.1f}s")
+            if rate_limit_cooldown is not None and (
+                retry_after is None or rate_limit_cooldown > retry_after
+            ):
+                notes.append(f"rate-limit cooldown={rate_limit_cooldown:.1f}s")
+            retry_note = f"; {'; '.join(notes)}" if notes else ""
             print(
                 f"[diagex.llm] transient failure ({type(last_exc).__name__}); "
-                f"retry {attempt + 1}/{self.budgets.retry_attempts} in {delay:.1f}s",
+                f"retry {attempt + 1}/{self.budgets.retry_attempts} in {delay:.1f}s"
+                f"{retry_note}",
                 file=sys.stderr,
             )
             time.sleep(delay)

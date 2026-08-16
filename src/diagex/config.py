@@ -19,6 +19,7 @@ load_dotenv()
 
 
 EffortLevel = Literal["low", "medium", "high", "xhigh"]
+ReasoningMode = Literal["auto", "enabled", "disabled"]
 
 
 @dataclass(frozen=True)
@@ -93,6 +94,11 @@ class RuntimeBudgets:
     retry_factor: float = 2.0
     retry_max_s: float = 60.0
     retry_attempts: int = 6
+    # Some OpenRouter providers omit Retry-After on 429 responses. Keep a
+    # conservative client-wide cooldown in that case so the next independent
+    # cleanup/arbitration request does not immediately hit the same limit.
+    rate_limit_fallback_s: float = 30.0
+    rate_limit_successes_to_reset: int = 3
 
 
 @dataclass
@@ -104,6 +110,10 @@ class LLMConfig:
     """
 
     model: str = "claude-opus-4-7"
+    # Global override for model thinking. ``auto`` preserves each caller's
+    # existing effort-based choice; enabled/disabled applies to every call,
+    # including legend extraction and arbitration.
+    reasoning_mode: ReasoningMode = "auto"
     # OpenRouter and Kimi expose Anthropic-compatible Messages endpoints, so all
     # transports retain the runtime's native image/tool/thinking block shape.
     transport: Literal["anthropic", "azure", "openrouter", "kimi"] = "anthropic"
@@ -123,6 +133,28 @@ class LLMConfig:
     def from_env(cls) -> LLMConfig:
         """Select a provider explicitly, retaining the historical auto-detection."""
         provider = os.environ.get("DIAGEX_LLM_PROVIDER", "").strip().lower()
+        reasoning_raw = os.environ.get("DIAGEX_REASONING", "auto").strip().lower()
+        reasoning_aliases: dict[str, ReasoningMode] = {
+            "": "auto",
+            "auto": "auto",
+            "on": "enabled",
+            "true": "enabled",
+            "1": "enabled",
+            "enabled": "enabled",
+            "reasoning": "enabled",
+            "off": "disabled",
+            "false": "disabled",
+            "0": "disabled",
+            "disabled": "disabled",
+            "non-reasoning": "disabled",
+            "non_reasoning": "disabled",
+        }
+        if reasoning_raw not in reasoning_aliases:
+            raise ValueError(
+                "DIAGEX_REASONING must be one of: auto, enabled, disabled "
+                "(on/off and true/false are also accepted)"
+            )
+        reasoning_mode = reasoning_aliases[reasoning_raw]
         azure_endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
         azure_key = os.environ.get("AZURE_OPENAI_API_KEY")
         azure_deployment = os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME")
@@ -152,6 +184,7 @@ class LLMConfig:
             return cls(
                 transport="kimi",
                 model=model,
+                reasoning_mode=reasoning_mode,
                 kimi_api_key=kimi_key,
                 kimi_base_url=os.environ.get(
                     "KIMI_BASE_URL", "https://api.kimi.com/coding/v1"
@@ -174,6 +207,7 @@ class LLMConfig:
             return cls(
                 transport="openrouter",
                 model=model,
+                reasoning_mode=reasoning_mode,
                 openrouter_api_key=openrouter_key,
                 openrouter_base_url=os.environ.get(
                     "OPENROUTER_BASE_URL", "https://openrouter.ai/api"
@@ -188,6 +222,7 @@ class LLMConfig:
             return cls(
                 transport="azure",
                 model=azure_deployment,
+                reasoning_mode=reasoning_mode,
                 azure_endpoint=azure_endpoint,
                 azure_api_key=azure_key,
                 azure_deployment=azure_deployment,
@@ -195,6 +230,7 @@ class LLMConfig:
             )
         return cls(
             transport="anthropic",
+            reasoning_mode=reasoning_mode,
             anthropic_api_key=anthropic_key,
         )
 

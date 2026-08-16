@@ -145,6 +145,11 @@ def _safe_stem(path: Path) -> str:
     return stem or "diagram"
 
 
+def _safe_model_name(model: str) -> str:
+    value = _STEM_SAFE.sub("-", model.lower()).strip("-")
+    return value[:80] or "model"
+
+
 def _new_run_id() -> str:
     return "r-" + secrets.token_hex(2)
 
@@ -157,7 +162,7 @@ def _prepare_run_dir(cfg: Config, stem: str) -> tuple[Path, str]:
     runs_root = cfg.runs_dir / stem
     runs_root.mkdir(parents=True, exist_ok=True)
     run_id = _new_run_id()
-    run_dir = runs_root / f"{_timestamp()}_{run_id}"
+    run_dir = runs_root / f"{_timestamp()}_{_safe_model_name(cfg.llm.model)}_{run_id}"
     run_dir.mkdir(parents=True, exist_ok=False)
     (run_dir / "tiles").mkdir(exist_ok=True)
     return run_dir, run_id

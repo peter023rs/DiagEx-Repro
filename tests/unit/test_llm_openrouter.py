@@ -5,9 +5,11 @@ from __future__ import annotations
 from types import SimpleNamespace
 from typing import Any
 
+import anthropic
+import httpx
 import pytest
 
-from diagex.config import LLMConfig
+from diagex.config import LLMConfig, RuntimeBudgets
 from diagex.llm.client import LLMClient
 
 
@@ -15,6 +17,7 @@ def _clear_provider_env(monkeypatch: pytest.MonkeyPatch) -> None:
     for name in (
         "DIAGEX_LLM_PROVIDER",
         "DIAGEX_MODEL",
+        "DIAGEX_REASONING",
         "OPENROUTER_MODEL",
         "OPENROUTER_API_KEY",
         "OPENROUTER_BASE_URL",
@@ -61,6 +64,41 @@ def test_openrouter_requires_an_explicit_model(monkeypatch: pytest.MonkeyPatch) 
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
 
     with pytest.raises(ValueError, match="requires a model slug"):
+        LLMConfig.from_env()
+
+
+@pytest.mark.parametrize(
+    ("env_value", "expected"),
+    [
+        ("auto", "auto"),
+        ("enabled", "enabled"),
+        ("on", "enabled"),
+        ("disabled", "disabled"),
+        ("false", "disabled"),
+    ],
+)
+def test_reasoning_mode_is_read_from_environment(
+    monkeypatch: pytest.MonkeyPatch,
+    env_value: str,
+    expected: str,
+) -> None:
+    _clear_provider_env(monkeypatch)
+    monkeypatch.setenv("DIAGEX_LLM_PROVIDER", "openrouter")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    monkeypatch.setenv("DIAGEX_MODEL", "vendor/vision-model")
+    monkeypatch.setenv("DIAGEX_REASONING", env_value)
+
+    assert LLMConfig.from_env().reasoning_mode == expected
+
+
+def test_invalid_reasoning_mode_fails_fast(monkeypatch: pytest.MonkeyPatch) -> None:
+    _clear_provider_env(monkeypatch)
+    monkeypatch.setenv("DIAGEX_LLM_PROVIDER", "openrouter")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    monkeypatch.setenv("DIAGEX_MODEL", "vendor/vision-model")
+    monkeypatch.setenv("DIAGEX_REASONING", "sometimes")
+
+    with pytest.raises(ValueError, match="DIAGEX_REASONING"):
         LLMConfig.from_env()
 
 
@@ -158,3 +196,331 @@ def test_openrouter_preserves_native_images_tools_and_thinking(
     assert captured["tools"][0]["name"] == "get_overview"
     assert captured["thinking"] == {"type": "adaptive", "display": "summarized"}
     assert captured["output_config"] == {"effort": "medium"}
+
+
+@pytest.mark.parametrize(
+    ("reasoning_mode", "expected_thinking"),
+    [
+        ("enabled", {"type": "adaptive", "display": "summarized"}),
+        ("disabled", {"type": "disabled"}),
+    ],
+)
+def test_reasoning_mode_overrides_caller_thinking(
+    monkeypatch: pytest.MonkeyPatch,
+    reasoning_mode: str,
+    expected_thinking: dict[str, str],
+) -> None:
+    captured: dict[str, Any] = {}
+    expected = SimpleNamespace(content=[], usage=None, stop_reason="end_turn")
+
+    class FakeStream:
+        def __enter__(self) -> FakeStream:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            return None
+
+        def get_final_message(self) -> SimpleNamespace:
+            return expected
+
+    class FakeMessages:
+        def stream(self, **kwargs: Any) -> FakeStream:
+            captured.update(kwargs)
+            return FakeStream()
+
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=FakeMessages())),
+    )
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="vendor/vision-model",
+            openrouter_api_key="test-key",
+            reasoning_mode=reasoning_mode,  # type: ignore[arg-type]
+        )
+    )
+
+    client.messages_create(
+        system="system",
+        messages=[],
+        max_tokens=32,
+        thinking={"type": "disabled" if reasoning_mode == "enabled" else "adaptive"},
+    )
+
+    assert captured["thinking"] == expected_thinking
+
+
+def test_openrouter_honors_retry_after_on_rate_limit(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    expected = SimpleNamespace(content=[], usage=None, stop_reason="end_turn")
+    sleeps: list[float] = []
+
+    response = httpx.Response(
+        429,
+        headers={"Retry-After": "30"},
+        request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
+    )
+    rate_limit = anthropic.RateLimitError(
+        "rate limited", response=response, body=None
+    )
+
+    class FakeStream:
+        def __enter__(self) -> FakeStream:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            return None
+
+        def get_final_message(self) -> SimpleNamespace:
+            return expected
+
+    class FakeMessages:
+        calls = 0
+
+        def stream(self, **kwargs: Any) -> FakeStream:
+            self.calls += 1
+            if self.calls == 1:
+                raise rate_limit
+            return FakeStream()
+
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=FakeMessages())),
+    )
+    monkeypatch.setattr(LLMClient, "_sleep_for_attempt", lambda self, attempt: 2.0)
+    monkeypatch.setattr("diagex.llm.client.time.sleep", sleeps.append)
+
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="vendor/vision-model",
+            openrouter_api_key="test-key",
+        ),
+        budgets=RuntimeBudgets(retry_attempts=2),
+    )
+
+    result = client.messages_create(
+        system="system", messages=[], max_tokens=32
+    )
+
+    assert result is expected
+    assert sleeps == [30.0]
+    assert client.retries_total == 1
+
+
+def test_retry_after_does_not_shorten_exponential_backoff(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    response = httpx.Response(
+        503,
+        headers={"Retry-After": "1"},
+        request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
+    )
+    error = anthropic.APIStatusError("unavailable", response=response, body=None)
+    sleeps: list[float] = []
+
+    class FakeMessages:
+        def stream(self, **kwargs: Any) -> Any:
+            raise error
+
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=FakeMessages())),
+    )
+    monkeypatch.setattr(LLMClient, "_sleep_for_attempt", lambda self, attempt: 5.0)
+    monkeypatch.setattr("diagex.llm.client.time.sleep", sleeps.append)
+
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="vendor/vision-model",
+            openrouter_api_key="test-key",
+        ),
+        budgets=RuntimeBudgets(retry_attempts=2),
+    )
+
+    with pytest.raises(anthropic.APIStatusError):
+        client.messages_create(system="system", messages=[], max_tokens=32)
+
+    assert sleeps == [5.0]
+
+
+def test_rate_limit_without_retry_after_uses_conservative_fallback(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    expected = SimpleNamespace(content=[], usage=None, stop_reason="end_turn")
+    sleeps: list[float] = []
+    response = httpx.Response(
+        429,
+        request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
+    )
+    rate_limit = anthropic.RateLimitError(
+        "rate limited", response=response, body=None
+    )
+
+    class FakeStream:
+        def __enter__(self) -> FakeStream:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            return None
+
+        def get_final_message(self) -> SimpleNamespace:
+            return expected
+
+    class FakeMessages:
+        calls = 0
+
+        def stream(self, **kwargs: Any) -> FakeStream:
+            self.calls += 1
+            if self.calls == 1:
+                raise rate_limit
+            return FakeStream()
+
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=FakeMessages())),
+    )
+    monkeypatch.setattr(LLMClient, "_sleep_for_attempt", lambda self, attempt: 1.0)
+    monkeypatch.setattr("diagex.llm.client.time.sleep", sleeps.append)
+
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="vendor/vision-model",
+            openrouter_api_key="test-key",
+        ),
+        budgets=RuntimeBudgets(retry_attempts=2),
+    )
+
+    assert client.messages_create(system="system", messages=[], max_tokens=32) is expected
+    assert sleeps == [30.0]
+
+
+def test_rate_limit_cooldown_persists_until_three_successes(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    expected = SimpleNamespace(content=[], usage=None, stop_reason="end_turn")
+    response = httpx.Response(
+        429,
+        request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
+    )
+    rate_limit = anthropic.RateLimitError(
+        "rate limited", response=response, body=None
+    )
+
+    class Clock:
+        now = 0.0
+        sleeps: list[float] = []
+
+        @classmethod
+        def monotonic(cls) -> float:
+            return cls.now
+
+        @classmethod
+        def sleep(cls, seconds: float) -> None:
+            cls.sleeps.append(seconds)
+            cls.now += seconds
+
+    class FakeStream:
+        def __enter__(self) -> FakeStream:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            return None
+
+        def get_final_message(self) -> SimpleNamespace:
+            return expected
+
+    class FakeMessages:
+        calls = 0
+
+        def stream(self, **kwargs: Any) -> FakeStream:
+            self.calls += 1
+            if self.calls == 1:
+                raise rate_limit
+            return FakeStream()
+
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=FakeMessages())),
+    )
+    monkeypatch.setattr(LLMClient, "_sleep_for_attempt", lambda self, attempt: 1.0)
+    monkeypatch.setattr("diagex.llm.client.time.monotonic", Clock.monotonic)
+    monkeypatch.setattr("diagex.llm.client.time.sleep", Clock.sleep)
+
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="vendor/vision-model",
+            openrouter_api_key="test-key",
+        ),
+        budgets=RuntimeBudgets(retry_attempts=2),
+    )
+
+    # The first call sleeps after its 429 and then succeeds. The next two calls
+    # are paced; after the third consecutive success, the fourth starts at once.
+    for _ in range(4):
+        assert client.messages_create(system="system", messages=[], max_tokens=32) is expected
+
+    assert Clock.sleeps == [30.0, 30.0, 30.0]
+
+
+def test_repeated_rate_limits_escalate_shared_cooldown(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    expected = SimpleNamespace(content=[], usage=None, stop_reason="end_turn")
+    response = httpx.Response(
+        429,
+        request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
+    )
+    rate_limit = anthropic.RateLimitError(
+        "rate limited", response=response, body=None
+    )
+    sleeps: list[float] = []
+
+    class FakeStream:
+        def __enter__(self) -> FakeStream:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            return None
+
+        def get_final_message(self) -> SimpleNamespace:
+            return expected
+
+    class FakeMessages:
+        calls = 0
+
+        def stream(self, **kwargs: Any) -> FakeStream:
+            self.calls += 1
+            if self.calls <= 2:
+                raise rate_limit
+            return FakeStream()
+
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=FakeMessages())),
+    )
+    monkeypatch.setattr(LLMClient, "_sleep_for_attempt", lambda self, attempt: 1.0)
+    monkeypatch.setattr("diagex.llm.client.time.sleep", sleeps.append)
+
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="vendor/vision-model",
+            openrouter_api_key="test-key",
+        ),
+        budgets=RuntimeBudgets(retry_attempts=3),
+    )
+
+    assert client.messages_create(system="system", messages=[], max_tokens=32) is expected
+    assert sleeps == [30.0, 60.0]

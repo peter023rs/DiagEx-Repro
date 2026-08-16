@@ -64,6 +64,8 @@ OpenRouter is supported through its Anthropic Messages-compatible endpoint:
 export DIAGEX_LLM_PROVIDER=openrouter
 export OPENROUTER_API_KEY=...
 export DIAGEX_MODEL=provider/model-slug
+# auto follows --effort; enabled/disabled force all model calls
+export DIAGEX_REASONING=auto
 
 diagex extract-pid path/to/drawing.pdf --effort medium
 ```
@@ -71,6 +73,11 @@ diagex extract-pid path/to/drawing.pdf --effort medium
 Choose a model that supports both image input and tool calling. `OPENROUTER_MODEL`
 is accepted as an alias for `DIAGEX_MODEL`. Optional attribution settings are
 `OPENROUTER_HTTP_REFERER` and `OPENROUTER_APP_TITLE`.
+
+`DIAGEX_REASONING` accepts `auto`, `enabled`, or `disabled` (`on`/`off` and
+`true`/`false` are aliases). `auto` retains the existing effort-based behavior;
+the other values globally force reasoning or non-reasoning for page extraction,
+legend work, edge cleanup, and arbitration.
 
 Kimi Code K3 is also supported with the Kimi Code Console key:
 
@@ -86,6 +93,9 @@ diagex extract-pid path/to/drawing.pdf --effort medium
 DiagEx accepts Kimi's OpenAI-style `/coding/v1` setting above, but uses Kimi's
 Anthropic-compatible `/coding/v1/messages` endpoint internally so image and tool
 blocks do not need conversion. `KIMI_MODEL` is accepted as a model-name alias.
+
+New run directories include the sanitized model name after the timestamp, for
+example `runs/2401/2026-08-16T10-30-00_qwen-qwen3.7-flash_r-ab12/`.
 
 Live results are non-deterministic; expect ±0.02 macro-F1 around the
 published numbers per the evaluation plan §8.1.
