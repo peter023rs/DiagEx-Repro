@@ -350,6 +350,60 @@ def test_retry_after_does_not_shorten_exponential_backoff(
     assert sleeps == [5.0]
 
 
+def test_connection_retry_log_includes_underlying_transport_error(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    expected = SimpleNamespace(content=[], usage=None, stop_reason="end_turn")
+    request = httpx.Request("POST", "https://openrouter.ai/api/v1/messages")
+    connection_error = anthropic.APIConnectionError(request=request)
+    connection_error.__cause__ = httpx.RemoteProtocolError(
+        "peer closed connection without sending complete message body"
+    )
+
+    class FakeStream:
+        def __enter__(self) -> FakeStream:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            return None
+
+        def get_final_message(self) -> SimpleNamespace:
+            return expected
+
+    class FakeMessages:
+        calls = 0
+
+        def stream(self, **kwargs: Any) -> FakeStream:
+            self.calls += 1
+            if self.calls == 1:
+                raise connection_error
+            return FakeStream()
+
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=FakeMessages())),
+    )
+    monkeypatch.setattr(LLMClient, "_sleep_for_attempt", lambda self, attempt: 1.0)
+    monkeypatch.setattr("diagex.llm.client.time.sleep", lambda _seconds: None)
+
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="vendor/vision-model",
+            openrouter_api_key="test-key",
+        ),
+        budgets=RuntimeBudgets(retry_attempts=2),
+    )
+
+    assert client.messages_create(system="system", messages=[], max_tokens=32) is expected
+    retry_log = capsys.readouterr().err
+    assert "APIConnectionError: Connection error." in retry_log
+    assert "RemoteProtocolError: peer closed connection" in retry_log
+    assert "retry 1/2 in 1.0s" in retry_log
+
+
 def test_rate_limit_without_retry_after_uses_conservative_fallback(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

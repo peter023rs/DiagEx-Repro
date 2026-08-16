@@ -7,13 +7,13 @@ coordinates. Agent sees only the view; math stays here.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Any
 
 from PIL import Image
 
 from diagex.vision.models import BBox, DiagramPage, Tile, TileId
-
 
 # Anthropic API many-image-batch limit (any side; per-image).
 # Larger crops fail with "image dimensions exceed max allowed size for
@@ -117,6 +117,56 @@ class ViewProvider:
             tile_id=tile_id,
         )
         return img, info
+
+    def resolve_tile_id(self, requested_id: str) -> TileId | None:
+        """Resolve a model-supplied tile identifier without guessing.
+
+        Canonical IDs returned by :meth:`list_tiles` always win.  Some models
+        rewrite opaque IDs such as ``p0-r0-c0`` into row/column (``0_0`` or
+        ``tile_0_0``) or bbox-origin (``x0_y0``) notation.  Accept those forms
+        only when every supported interpretation points to the same tile.
+        Ambiguous and unknown values deliberately remain unresolved.
+        """
+        raw = str(requested_id)
+        if raw in self._tiles_by_id:
+            return raw
+
+        value = raw.strip()
+        if value in self._tiles_by_id:
+            return value
+
+        candidates: set[TileId] = set()
+
+        # Explicit bbox-origin form, e.g. x2444_y0.
+        origin_match = re.fullmatch(r"x(\d+)[_,-]?y(\d+)", value, re.IGNORECASE)
+        if origin_match:
+            x, y = (int(part) for part in origin_match.groups())
+            candidates.update(
+                tile.id for tile in self.tiles
+                if tile.bbox.x == x and tile.bbox.y == y
+            )
+        else:
+            # Gemini has emitted 0_0, 0,0, tile_0_0, and bbox origins such as
+            # 2444_0.  Evaluate both possible meanings and accept only a
+            # unique result.
+            pair_match = re.fullmatch(
+                r"(?:tile[_-]?)?(\d+)\s*[_,]\s*(\d+)",
+                value,
+                re.IGNORECASE,
+            )
+            if pair_match:
+                first, second = (int(part) for part in pair_match.groups())
+                row_col_id = f"p{self.page.page_index}-r{first}-c{second}"
+                if row_col_id in self._tiles_by_id:
+                    candidates.add(row_col_id)
+                candidates.update(
+                    tile.id for tile in self.tiles
+                    if tile.bbox.x == first and tile.bbox.y == second
+                )
+
+        if len(candidates) == 1:
+            return next(iter(candidates))
+        return None
 
     def get_region(self, x: int, y: int, w: int, h: int) -> tuple[Image.Image, ViewInfo]:
         if self.page.image is None:

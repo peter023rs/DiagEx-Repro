@@ -132,7 +132,11 @@ TOOL_SCHEMAS: list[dict[str, Any]] = [
     },
     {
         "name": "get_tile",
-        "description": "Return one tile at native resolution. Identify tiles with ids from list_tiles.",
+        "description": (
+            "Return one tile at native resolution. You MUST copy the exact opaque tile_id "
+            "verbatim from list_tiles (for example, 'p0-r0-c0'); do not rewrite it as "
+            "coordinates, row/column pairs, or another naming scheme."
+        ),
         "input_schema": {
             "type": "object",
             "properties": {"tile_id": {"type": "string"}},
@@ -322,19 +326,40 @@ def dispatch(
 
         if name == "get_tile":
             args = _GetTileIn.model_validate(raw_input)
-            # Enforce per-tile image-fetch cap (spec §6.3).
-            count = state.tile_fetch_counts.get(args.tile_id, 0)
-            if count >= 3:
+            canonical_id = view_provider.resolve_tile_id(args.tile_id)
+            if canonical_id is None:
+                valid_ids = [str(item["id"]) for item in view_provider.list_tiles()]
+                rendered_ids = ", ".join(valid_ids) if valid_ids else "(none available)"
                 return ToolResult(
-                    content=[{"type": "text", "text": f"get_tile denied: tile {args.tile_id} already fetched {count} times."}],
+                    content=[{
+                        "type": "text",
+                        "text": (
+                            f"get_tile failed: unknown or ambiguous tile_id {args.tile_id!r}. "
+                            "Copy one exact tile_id verbatim from list_tiles. "
+                            f"Valid tile_ids: {rendered_ids}"
+                        ),
+                    }],
                     is_error=True,
                 )
-            img, view_info = view_provider.get_tile(args.tile_id)
-            state.tile_fetch_counts[args.tile_id] = count + 1
-            tag = f"tile:{args.tile_id}"
+            # Enforce per-tile image-fetch cap (spec §6.3).
+            count = state.tile_fetch_counts.get(canonical_id, 0)
+            if count >= 3:
+                return ToolResult(
+                    content=[{"type": "text", "text": f"get_tile denied: tile {canonical_id} already fetched {count} times."}],
+                    is_error=True,
+                )
+            img, view_info = view_provider.get_tile(canonical_id)
+            state.tile_fetch_counts[canonical_id] = count + 1
+            tag = f"tile:{canonical_id}"
             _register_view(state, tag, view_info)
+            resolution_note = ""
+            if args.tile_id != canonical_id:
+                resolution_note = (
+                    f"requested_tile_id={args.tile_id!r} resolved to canonical "
+                    f"tile_id={canonical_id!r}; "
+                )
             content: list[dict[str, Any]] = [
-                {"type": "text", "text": f"view_tag={tag}; view_size={view_info.view_size}; "
+                {"type": "text", "text": f"{resolution_note}view_tag={tag}; view_size={view_info.view_size}; "
                                           f"page_bbox={view_info.page_bbox.model_dump()}"},
             ]
             # Cross-tile stitch hints: surface previously-recorded line endpoints

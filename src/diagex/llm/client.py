@@ -147,6 +147,30 @@ class LLMClient:
         return random.uniform(0, delay)
 
     @staticmethod
+    def _exception_detail(exc: BaseException, *, max_chars: int = 700) -> str:
+        """Render a bounded, single-line exception chain for retry diagnostics.
+
+        Anthropic's ``APIConnectionError`` often has the generic message
+        ``Connection error.`` while the useful transport diagnosis (timeout,
+        reset, incomplete chunked body, and so on) lives in ``__cause__``.
+        Keep both without dumping request headers or an unbounded response body.
+        """
+        parts: list[str] = []
+        seen: set[int] = set()
+        current: BaseException | None = exc
+        while current is not None and id(current) not in seen and len(parts) < 5:
+            seen.add(id(current))
+            message = " ".join(str(current).split())
+            name = type(current).__name__
+            parts.append(f"{name}: {message}" if message else name)
+            current = current.__cause__ or current.__context__
+
+        rendered = " <- caused by ".join(parts)
+        if len(rendered) <= max_chars:
+            return rendered
+        return rendered[: max(0, max_chars - 1)].rstrip() + "…"
+
+    @staticmethod
     def _retry_after_seconds(exc: anthropic.APIStatusError) -> float | None:
         """Return the server-requested retry delay, if it supplied a valid one.
 
@@ -373,8 +397,9 @@ class LLMClient:
             ):
                 notes.append(f"rate-limit cooldown={rate_limit_cooldown:.1f}s")
             retry_note = f"; {'; '.join(notes)}" if notes else ""
+            error_detail = self._exception_detail(last_exc)
             print(
-                f"[diagex.llm] transient failure ({type(last_exc).__name__}); "
+                f"[diagex.llm] transient failure ({error_detail}); "
                 f"retry {attempt + 1}/{self.budgets.retry_attempts} in {delay:.1f}s"
                 f"{retry_note}",
                 file=sys.stderr,
