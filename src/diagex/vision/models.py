@@ -183,6 +183,11 @@ class ReconciledNode(BaseModel):
     source_quote: str | None = None
     alternate_readings: list[str] = Field(default_factory=list)
     source_annotation_ids: list[AnnotationId] = Field(default_factory=list)
+    # Evidence-v2 provenance.  Optional defaults keep legacy graph.json and
+    # review sessions loadable without migration.
+    source_evidence_ids: list[str] = Field(default_factory=list)
+    system_confidence: float | None = None
+    system_confidence_level: Confidence | None = None
 
 
 class ReconciledEdge(BaseModel):
@@ -194,6 +199,9 @@ class ReconciledEdge(BaseModel):
     cross_sheet: bool = False
     confidence: Confidence
     source_annotation_ids: list[AnnotationId] = Field(default_factory=list)
+    source_evidence_ids: list[str] = Field(default_factory=list)
+    system_confidence: float | None = None
+    system_confidence_level: Confidence | None = None
     attributes: dict[str, Any] = Field(default_factory=dict)
 
     @field_validator("from_node", "to_node")

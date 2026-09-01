@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any
 
 from diagex.dexpi import json_io
+from diagex.dexpi._generated.enums import SignalConveyingTypeClassification
 from diagex.dexpi.model import customization as cu
 from diagex.dexpi.model import dexpiModel as dm
 from diagex.dexpi.model import equipment as eq
@@ -415,6 +416,7 @@ def build_dexpi(graph: ReconciledGraph) -> BuildResult:
         "valve_count": 0,
         "instrument_count": 0,
         "segment_count": 0,
+        "signal_count": 0,
         "unclassified_count": 0,
         "dropped_edges": 0,
         "opc_count": 0,
@@ -468,12 +470,19 @@ def build_dexpi(graph: ReconciledGraph) -> BuildResult:
 
     # Edge pass --------------------------------------------------------------
     systems_by_line: dict[str, pp.PipingNetworkSystem] = {}
+    owned_valve_nodes: set[str] = set()
     default_segment_count = 0
     cross_sheet_count = 0
 
     edges_sorted = sorted(graph.edges, key=lambda e: e.id)
 
     for edge in edges_sorted:
+        if edge.attributes.get("provisional_review_only"):
+            issues.append(
+                f"edge {edge.id!r}: provisional review-only relationship retained in "
+                "graph.json but omitted from DEXPI"
+            )
+            continue
         if not edge.from_node or not edge.to_node:
             stats["dropped_edges"] += 1
             issues.append(f"edge {edge.id!r}: missing endpoint; dropped")
@@ -491,7 +500,7 @@ def build_dexpi(graph: ReconciledGraph) -> BuildResult:
 
         line_type = edge.line_type
         if line_type in _SIGNAL_LINE_TYPES:
-            _attach_signal_edge(edge, dexpi_for_node, issues, stats)
+            _attach_signal_edge(edge, dexpi_for_node, issues, stats, plant)
             continue
 
         line_number = _line_number_for_edge(edge)
@@ -500,11 +509,38 @@ def build_dexpi(graph: ReconciledGraph) -> BuildResult:
             network = pp.PipingNetworkSystem(LineNumber=line_number)
             _apply_line_metadata(network, edge)
             systems_by_line[line_number] = network
-        segment = _build_piping_segment(edge, dexpi_for_node, valve_nodes)
+        segment = _build_piping_segment(
+            edge,
+            dexpi_for_node,
+            valve_nodes,
+            owned_valve_nodes=owned_valve_nodes,
+        )
         network.Segments.append(segment)
         stats["segment_count"] += 1
         if line_number == _DEFAULT_LINE_NUMBER:
             default_segment_count += 1
+
+    # A valve referenced only by an instrument signal is not encountered by a
+    # process segment, but OperatedValveReference is still a reference rather
+    # than ownership.  Park such valves in one fallback segment so their XML ID
+    # is present and resolvable without inventing a process edge.
+    unowned_valves = sorted(valve_nodes - owned_valve_nodes)
+    if unowned_valves:
+        host_system = systems_by_line.get(_DEFAULT_LINE_NUMBER)
+        if host_system is None:
+            host_system = pp.PipingNetworkSystem(LineNumber=_DEFAULT_LINE_NUMBER)
+            systems_by_line[_DEFAULT_LINE_NUMBER] = host_system
+        if not host_system.Segments:
+            host_system.Segments.append(pp.PipingNetworkSegment())
+            stats["segment_count"] += 1
+        host_segment = host_system.Segments[0]
+        for node_id in unowned_valves:
+            host_segment.Items.append(dexpi_for_node[node_id])
+            owned_valve_nodes.add(node_id)
+        issues.append(
+            f"{len(unowned_valves)} signal-only or unconnected operated valve(s) "
+            f"placed in PipingNetworkSystem {_DEFAULT_LINE_NUMBER!r} for DEXPI ownership"
+        )
 
     # Park OPC objects: DEXPI 2.0 has no top-level slot for free-standing
     # off-page connectors, so we dock them on the fallback L-000 system's
@@ -560,6 +596,8 @@ def _build_piping_segment(
     edge: ReconciledEdge,
     dexpi_for_node: dict[str, Any],
     valve_nodes: set[str],
+    *,
+    owned_valve_nodes: set[str] | None = None,
 ) -> pp.PipingNetworkSegment:
     """Create a PipingNetworkSegment for one reconciled process edge."""
     segment = pp.PipingNetworkSegment()
@@ -570,10 +608,42 @@ def _build_piping_segment(
         lt = _custom_string_attr("agent_line_type", edge.line_type)
         if lt is not None:
             segment.customAttributes.append(lt)
+    source = _piping_endpoint(dexpi_for_node[edge.from_node], as_source=True)
+    target = _piping_endpoint(dexpi_for_node[edge.to_node], as_source=False)
+    if source is not None:
+        segment.SourceItem = source
+    if target is not None:
+        segment.TargetItem = target
+
+    # Items is a composition (ownership), whereas SourceItem/TargetItem are
+    # references. A valve connected to two graph edges must therefore be owned
+    # by exactly one segment and referenced by every incident segment. Emitting
+    # it under both segments creates duplicate XML IDs and an invalid DEXPI
+    # document.
+    owned = owned_valve_nodes if owned_valve_nodes is not None else set()
     for endpoint_id in (edge.from_node, edge.to_node):
-        if endpoint_id in valve_nodes:
+        if endpoint_id in valve_nodes and endpoint_id not in owned:
             segment.Items.append(dexpi_for_node[endpoint_id])
+            owned.add(endpoint_id)
     return segment
+
+
+def _piping_endpoint(obj: Any, *, as_source: bool) -> Any | None:
+    """Return a DEXPI-connectable endpoint, adding an equipment nozzle.
+
+    Process equipment itself is not a ``PipingSourceItem``/``PipingTargetItem``
+    in DEXPI; its nozzle is. Each graph incidence therefore receives one owned
+    nozzle, which the network segment references. Inline piping components are
+    already valid endpoint items and need no adapter.
+    """
+    endpoint_type = pp.PipingSourceItem if as_source else pp.PipingTargetItem
+    if isinstance(obj, endpoint_type):
+        return obj
+    if isinstance(obj, eq.ProcessEquipment):
+        nozzle = pp.Nozzle()
+        obj.Nozzles.append(nozzle)
+        return nozzle
+    return None
 
 
 def _attach_signal_edge(
@@ -581,22 +651,73 @@ def _attach_signal_edge(
     dexpi_for_node: dict[str, Any],
     issues: list[str],
     stats: dict[str, int],
+    plant_model: pp.PlantModel,
 ) -> None:
-    """Hook a signal-line edge onto its instrument endpoint, if any."""
+    """Serialize only signal relationships with valid DEXPI endpoints."""
     source = dexpi_for_node.get(edge.from_node)
     target = dexpi_for_node.get(edge.to_node)
-    host: inst.ProcessInstrumentationFunction | None = None
-    for cand in (source, target):
-        if isinstance(cand, inst.ProcessInstrumentationFunction):
-            host = cand
-            break
-    if host is None:
+    host: inst.ProcessInstrumentationFunction | None
+    signal_source: Any | None = None
+    signal_target: Any | None = None
+
+    if isinstance(source, inst.ProcessInstrumentationFunction) and isinstance(
+        target, inst.ProcessInstrumentationFunction
+    ):
+        host = source
+        signal_source = source
+        signal_target = target
+    else:
+        instrument = next(
+            (
+                value
+                for value in (source, target)
+                if isinstance(value, inst.ProcessInstrumentationFunction)
+            ),
+            None,
+        )
+        valve = next(
+            (value for value in (source, target) if isinstance(value, pp.OperatedValve)),
+            None,
+        )
+        if instrument is not None and valve is not None:
+            valve_reference = inst.OperatedValveReference(Valve=valve)
+            system = inst.ActuatingSystem(OperatedValveReference=valve_reference)
+            actuating = inst.ActuatingFunction(Systems=system)
+            plant_model.ActuatingSystems.append(system)
+            instrument.ActuatingFunctions.append(actuating)
+            host = instrument
+            if source is instrument:
+                signal_source = instrument
+                signal_target = actuating
+            else:
+                signal_source = actuating
+                signal_target = instrument
+        else:
+            host = None
+
+    if host is None or signal_source is None or signal_target is None:
         stats["dropped_edges"] += 1
         issues.append(
-            f"edge {edge.id!r}: signal line without instrument endpoint; dropped"
+            f"edge {edge.id!r}: unsupported DEXPI signal endpoint combination; "
+            "retained in graph.json but omitted from DEXPI"
         )
         return
-    scf = inst.SignalConveyingFunction()
+    scf_cls = (
+        inst.MeasuringLineFunction
+        if edge.line_type == "instrument_capillary"
+        else inst.SignalLineFunction
+    )
+    signal_types = {
+        "signal_electric": SignalConveyingTypeClassification.ElectricalSignalConveying,
+        "signal_pneumatic": SignalConveyingTypeClassification.PneumaticSignalConveying,
+        "instrument_capillary": SignalConveyingTypeClassification.CapillarySignalConveying,
+        "electrical_power": SignalConveyingTypeClassification.ElectricalSignalConveying,
+    }
+    scf = scf_cls(
+        Source=signal_source,
+        Target=signal_target,
+        SignalConveyingType=signal_types.get(edge.line_type or ""),
+    )
     ca = _custom_string_attr("agent_edge_id", edge.id)
     if ca is not None:
         scf.customAttributes.append(ca)
@@ -604,6 +725,7 @@ def _attach_signal_edge(
     if lt is not None:
         scf.customAttributes.append(lt)
     host.SignalConveyingFunctions.append(scf)
+    stats["signal_count"] = stats.get("signal_count", 0) + 1
 
 
 def _record_cross_sheet_edge(

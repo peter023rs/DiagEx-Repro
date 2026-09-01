@@ -161,3 +161,19 @@ def test_live_reporter_renders_streaming_reasoning_preview() -> None:
 
     assert "reasoning" in output
     assert "Looking closely at the valves" in output
+
+
+def test_live_reporter_renders_streaming_reasoning_during_named_phase() -> None:
+    reporter = LiveProgressReporter(
+        Console(file=StringIO(), force_terminal=True, width=120), effort="medium"
+    )
+    reporter.on_phase_start(name="v2 page relationship solving", total_items=3)
+    reporter.on_phase_item_start(item=1, total_items=3, label="crossing ambiguity")
+    reporter.on_stream_delta(kind="thinking", text="Checking whether the lines join")
+
+    stream = StringIO()
+    Console(file=stream, force_terminal=False, width=120).print(reporter._render())
+    output = stream.getvalue()
+
+    assert "reasoning" in output
+    assert "Checking whether the lines join" in output

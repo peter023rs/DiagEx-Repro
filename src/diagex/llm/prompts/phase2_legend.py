@@ -19,7 +19,6 @@ from diagex.dexpi_schema import (
     render_legend_valve_list,
 )
 
-
 # Stable — computed at module load from the DEXPI registry so the cache key
 # is deterministic for a given registry state. Adding a class regenerates
 # this string exactly once per process.
@@ -36,6 +35,10 @@ Your approach:
    entries. Skip title blocks, revision tables, and page borders.
 3. For each legible entry -- symbol glyph with a printed label -- emit one
    annotate call:
+     - Annotate immediately after viewing the image that contains the glyph.
+       Always set view_tag to the exact view_tag returned with that image.
+       Never reuse overview, tile, or region coordinates with a different
+       view_tag. bbox is in pixels of that named view, not page coordinates.
      - kind: one of "equipment", "instrument", "line", "connection"
        * Use "instrument" for ISA-style bubbles (FI, FIC, PT, LSH, ...).
        * Use "equipment" for pumps, tanks, vessels, heat exchangers, valves

@@ -129,6 +129,57 @@ def _parse_legend_region(spec: str) -> tuple[int, int, int, int, int]:
     )
 
 
+@app.command("inspect-pid-evidence")
+def inspect_pid_evidence(
+    diagram: Path = typer.Argument(
+        ..., exists=True, readable=True, help="P&ID PDF or image to inspect."
+    ),
+    symbol_standard: str = typer.Option(
+        "isa-5.1",
+        "--symbol-standard",
+        help="Built-in symbol library: isa-5.1 | iso-10628 | sama | none.",
+    ),
+    legend_key: Optional[str] = typer.Option(
+        None,
+        "--legend-key",
+        help="Optional shared cache key for this project's automatically detected legend.",
+    ),
+    out_dir: Optional[Path] = typer.Option(
+        None,
+        "--out-dir",
+        help="Override the runs root; a new inspection run directory is created beneath it.",
+    ),
+) -> None:
+    """Inspect native PDF text, tags, and automatically detected legend pages only."""
+    if symbol_standard not in _VALID_SYMBOL_STANDARDS:
+        console.print(
+            f"[red]Unknown --symbol-standard '{symbol_standard}'. "
+            f"Pick one of {sorted(_VALID_SYMBOL_STANDARDS)}.[/red]"
+        )
+        raise typer.Exit(2)
+
+    cfg = load_config()
+    if out_dir is not None:
+        cfg.runs_dir = out_dir
+
+    from diagex.extractors.pid_inspect import run_pid_evidence_inspection
+
+    try:
+        result = run_pid_evidence_inspection(
+            diagram=diagram,
+            symbol_standard=symbol_standard,  # type: ignore[arg-type]
+            legend_key=legend_key,
+            config=cfg,
+            console=console,
+        )
+    except Exception as exc:
+        console.print(f"[red]inspect-pid-evidence failed:[/red] {exc}")
+        raise typer.Exit(1)
+
+    console.print(result.to_text())
+    sys.exit(0)
+
+
 @app.command("extract-pid")
 def extract_pid(
     diagram: Path = typer.Argument(..., exists=True, readable=True, help="P&ID PDF or image."),
@@ -159,6 +210,11 @@ def extract_pid(
     effort: str = typer.Option(
         "medium", "--effort",
         help="Reasoning depth: low|medium|high|xhigh (independent of page step limit).",
+    ),
+    engine: Optional[str] = typer.Option(
+        None,
+        "--engine",
+        help="Extraction engine: legacy | evidence-v2 (default: DIAGEX_PID_ENGINE or legacy).",
     ),
     max_steps: Optional[int] = typer.Option(
         None,
@@ -212,6 +268,14 @@ def extract_pid(
     parsed_region = _parse_legend_region(legend_region) if legend_region else None
 
     cfg = load_config()
+    if engine is not None:
+        normalised_engine = engine.strip().lower().replace("_", "-")
+        if normalised_engine not in {"legacy", "evidence-v2"}:
+            console.print(
+                f"[red]Unknown --engine '{engine}'. Pick legacy or evidence-v2.[/red]"
+            )
+            raise typer.Exit(2)
+        cfg.pid.engine = normalised_engine  # type: ignore[assignment]
     if out_dir is not None:
         cfg.runs_dir = out_dir
     if no_arbitrate_low_confidence:
@@ -231,6 +295,7 @@ def extract_pid(
             legend_key=legend_key,
             effort=effort,                     # type: ignore[arg-type]
             max_steps=max_steps,
+            engine=cfg.pid.engine,
             config=cfg,
             persist=not no_persist,
             out_path=out,

@@ -10,7 +10,7 @@ import httpx
 import pytest
 
 from diagex.config import LLMConfig, RuntimeBudgets
-from diagex.llm.client import LLMClient
+from diagex.llm.client import LLMClient, is_non_retryable_api_error
 
 
 def _clear_provider_env(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -32,6 +32,28 @@ def _clear_provider_env(monkeypatch: pytest.MonkeyPatch) -> None:
         "AZURE_OPENAI_DEPLOYMENT_NAME",
     ):
         monkeypatch.delenv(name, raising=False)
+
+
+@pytest.mark.parametrize("status", [400, 401, 403, 404, 422])
+def test_non_retryable_api_error_classification(status: int) -> None:
+    response = httpx.Response(
+        status,
+        request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
+    )
+    error = anthropic.APIStatusError("fatal", response=response, body=None)
+
+    assert is_non_retryable_api_error(error)
+
+
+@pytest.mark.parametrize("status", [429, 500, 503])
+def test_retryable_api_error_classification(status: int) -> None:
+    response = httpx.Response(
+        status,
+        request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
+    )
+    error = anthropic.APIStatusError("retryable", response=response, body=None)
+
+    assert not is_non_retryable_api_error(error)
 
 
 def test_openrouter_config_from_explicit_provider(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -185,6 +207,7 @@ def test_openrouter_preserves_native_images_tools_and_thinking(
         system=[{"type": "text", "text": "system"}],
         messages=[{"role": "user", "content": [image]}],
         tools=[tool],
+        tool_choice={"type": "tool", "name": "get_overview"},
         max_tokens=2048,
         thinking={"type": "adaptive", "display": "summarized"},
         output_config={"effort": "medium"},
@@ -194,6 +217,7 @@ def test_openrouter_preserves_native_images_tools_and_thinking(
     assert captured["model"] == "vendor/vision-model"
     assert captured["messages"][0]["content"][0] is image
     assert captured["tools"][0]["name"] == "get_overview"
+    assert captured["tool_choice"] == {"type": "tool", "name": "get_overview"}
     assert captured["thinking"] == {"type": "adaptive", "display": "summarized"}
     assert captured["output_config"] == {"effort": "medium"}
 
@@ -252,6 +276,52 @@ def test_reasoning_mode_overrides_caller_thinking(
     assert captured["thinking"] == expected_thinking
 
 
+def test_per_call_reasoning_override_supports_structured_recovery(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: dict[str, Any] = {}
+    expected = SimpleNamespace(content=[], usage=None, stop_reason="end_turn")
+
+    class FakeStream:
+        def __enter__(self) -> FakeStream:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            return None
+
+        def get_final_message(self) -> SimpleNamespace:
+            return expected
+
+    class FakeMessages:
+        def stream(self, **kwargs: Any) -> FakeStream:
+            captured.update(kwargs)
+            return FakeStream()
+
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=FakeMessages())),
+    )
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="deepseek/reasoner",
+            openrouter_api_key="test-key",
+            reasoning_mode="enabled",
+        )
+    )
+
+    client.messages_create(
+        system="system",
+        messages=[],
+        max_tokens=32,
+        thinking={"type": "adaptive"},
+        reasoning_mode_override="disabled",
+    )
+
+    assert captured["thinking"] == {"type": "disabled"}
+
+
 def test_openrouter_honors_retry_after_on_rate_limit(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -263,9 +333,7 @@ def test_openrouter_honors_retry_after_on_rate_limit(
         headers={"Retry-After": "30"},
         request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
     )
-    rate_limit = anthropic.RateLimitError(
-        "rate limited", response=response, body=None
-    )
+    rate_limit = anthropic.RateLimitError("rate limited", response=response, body=None)
 
     class FakeStream:
         def __enter__(self) -> FakeStream:
@@ -303,9 +371,7 @@ def test_openrouter_honors_retry_after_on_rate_limit(
         budgets=RuntimeBudgets(retry_attempts=2),
     )
 
-    result = client.messages_create(
-        system="system", messages=[], max_tokens=32
-    )
+    result = client.messages_create(system="system", messages=[], max_tokens=32)
 
     assert result is expected
     assert sleeps == [30.0]
@@ -404,6 +470,61 @@ def test_connection_retry_log_includes_underlying_transport_error(
     assert "retry 1/2 in 1.0s" in retry_log
 
 
+def test_raw_stream_protocol_error_is_retried(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    expected = SimpleNamespace(content=[], usage=None, stop_reason="end_turn")
+
+    class FakeStream:
+        def __init__(self, fail: bool) -> None:
+            self.fail = fail
+
+        def __enter__(self) -> FakeStream:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            return None
+
+        def get_final_message(self) -> SimpleNamespace:
+            if self.fail:
+                raise httpx.RemoteProtocolError(
+                    "peer closed connection without sending complete message body"
+                )
+            return expected
+
+    class FakeMessages:
+        calls = 0
+
+        def stream(self, **kwargs: Any) -> FakeStream:
+            self.calls += 1
+            return FakeStream(fail=self.calls == 1)
+
+    messages = FakeMessages()
+    monkeypatch.setattr(
+        LLMClient,
+        "_build_client",
+        staticmethod(lambda _config: SimpleNamespace(messages=messages)),
+    )
+    monkeypatch.setattr(LLMClient, "_sleep_for_attempt", lambda self, attempt: 1.0)
+    monkeypatch.setattr("diagex.llm.client.time.sleep", lambda _seconds: None)
+    client = LLMClient(
+        LLMConfig(
+            transport="openrouter",
+            model="vendor/vision-model",
+            openrouter_api_key="test-key",
+        ),
+        budgets=RuntimeBudgets(retry_attempts=2),
+    )
+
+    assert client.messages_create(system="system", messages=[], max_tokens=32) is expected
+    assert messages.calls == 2
+    assert client.retries_total == 1
+    retry_log = capsys.readouterr().err
+    assert "RemoteProtocolError: peer closed connection" in retry_log
+    assert "retry 1/2 in 1.0s" in retry_log
+
+
 def test_rate_limit_without_retry_after_uses_conservative_fallback(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -413,9 +534,7 @@ def test_rate_limit_without_retry_after_uses_conservative_fallback(
         429,
         request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
     )
-    rate_limit = anthropic.RateLimitError(
-        "rate limited", response=response, body=None
-    )
+    rate_limit = anthropic.RateLimitError("rate limited", response=response, body=None)
 
     class FakeStream:
         def __enter__(self) -> FakeStream:
@@ -465,9 +584,7 @@ def test_rate_limit_cooldown_persists_until_three_successes(
         429,
         request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
     )
-    rate_limit = anthropic.RateLimitError(
-        "rate limited", response=response, body=None
-    )
+    rate_limit = anthropic.RateLimitError("rate limited", response=response, body=None)
 
     class Clock:
         now = 0.0
@@ -535,9 +652,7 @@ def test_repeated_rate_limits_escalate_shared_cooldown(
         429,
         request=httpx.Request("POST", "https://openrouter.ai/api/v1/messages"),
     )
-    rate_limit = anthropic.RateLimitError(
-        "rate limited", response=response, body=None
-    )
+    rate_limit = anthropic.RateLimitError("rate limited", response=response, body=None)
     sleeps: list[float] = []
 
     class FakeStream:

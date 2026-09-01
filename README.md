@@ -75,9 +75,101 @@ is accepted as an alias for `DIAGEX_MODEL`. Optional attribution settings are
 `OPENROUTER_HTTP_REFERER` and `OPENROUTER_APP_TITLE`.
 
 `DIAGEX_REASONING` accepts `auto`, `enabled`, or `disabled` (`on`/`off` and
-`true`/`false` are aliases). `auto` retains the existing effort-based behavior;
-the other values globally force reasoning or non-reasoning for page extraction,
-legend work, edge cleanup, and arbitration.
+`true`/`false` are aliases). `auto` retains the existing effort-based behavior.
+In evidence-v2, object and line perception remain non-thinking regardless of
+this setting; `DIAGEX_REASONING` controls the separate semantic relationship
+solver. Legacy extraction continues to apply it to its model-driven stages.
+
+### Evidence-first extraction (opt in)
+
+The staged evidence-first engine is available alongside the paper-compatible
+legacy agent:
+
+```bash
+export DIAGEX_PID_ENGINE=evidence-v2
+# Optional: use a fast vision model and a stronger page-relationship solver.
+export DIAGEX_VISION_MODEL=qwen/qwen3.7-flash
+export DIAGEX_REASONING_MODEL=qwen/qwen3.8-max
+
+diagex extract-pid path/to/drawing.pdf --effort medium
+# Equivalent one-run override:
+diagex extract-pid path/to/drawing.pdf --engine evidence-v2
+```
+
+To inspect only native PDF text, printed tags, and automatically detected
+legend pages, without running object perception, topology, relationship
+solving, or DEXPI export:
+
+```bash
+diagex inspect-pid-evidence path/to/drawing.pdf
+```
+
+The command scans every page deterministically so it can classify page roles,
+then sends only the detected legend pages to the vision model. Vector-PDF
+abbreviation tables such as `通用缩写` and `仪表类型缩写` are reconstructed from
+positioned native text and merged into the same project legend used by a full
+evidence-v2 run. It writes a human-readable `legend.learned.md`, a compact
+`legend.learned.json`, the full image-bearing `legend.json`,
+`legend.abbreviations.json`, and a self-contained `legend.review.html` with
+source-row crops, filters, editable normalized fields, approve/reject state,
+and reviewed-JSON download. Per-page native evidence and
+`evidence/native-text-inventory.json` are also retained beneath the inspection
+run directory.
+Because engineering-object perception is intentionally skipped, tag inventory
+items are candidates rather than node assignments.
+
+Evidence-v2 extracts positioned PDF text and vector paths before making
+stateless, low-thinking calls over a deterministic overlapping crop grid. It
+fuses the objects once, then runs a bounded contextual-symbol check only for
+small unclassified glyphs next to valve bodies. That check compares an
+annotated page overview and high-resolution local crops with the saved
+project-legend symbol images. A high-confidence, directly attached composite
+can be represented as one valve with an `actuation` attribute; unsupported or
+ambiguous merges remain review conflicts. Line topology is reconstructed only
+after this correction, preventing actuator strokes from becoming process
+connections. Native PDF tag text and project-legend abbreviations then
+deterministically enrich or correct unambiguous node kinds; conflicting
+specific object evidence is preserved as a review conflict rather than being
+overwritten. For vector
+PDFs it keeps visual line style separate from engineering meaning: explicit PDF
+dash metadata is preserved, and regularly spaced collinear fragments are
+grouped into dashed/dotted/dash-dot evidence when CAD exports encode every mark
+as an independent solid stroke. A bounded non-thinking visual pass then reports
+only route visibility, endpoint contact, stroke style, visible arrows, and
+project-legend matches. Deterministic endpoint rules reject unsupported signal
+combinations and calculate evidence-based edge confidence. Finally, the
+text-only relationship solver divides ambiguous candidates into bounded groups.
+Each group uses a thinking call without tools to produce a compact engineering
+memo, followed by a low-effort call that serializes that same memo into the
+strict graph schema. Models that permit reasoning to be disabled use the more
+reliable non-thinking serializer; reasoning-mandatory models such as GLM-5.3
+keep reasoning enabled at low effort and use that same model. Provider aliases
+that newly require reasoning recover once from the explicit validation error.
+This avoids introducing a separate serializer model while retaining the
+DeepSeek-compatible split between extended reasoning and forced tool selection.
+Set `DIAGEX_REASONING_MODEL` explicitly when the reasoning model differs from
+the vision model; the selected models are recorded in `result.json`.
+Scanned PDFs use an optional OpenCV fallback, installed with
+`pip install -e '.[vision]'`; raster dash-pattern inference is not yet enabled.
+
+Each run writes `evidence/page-XXXX.json`,
+`evidence/native-text-inventory.json` (assigned, excluded, ambiguous, and
+unresolved printed tag candidates),
+`checkpoints/contextual/page-XXXX.json`,
+`checkpoints/line_evidence/page-XXXX.json`,
+`checkpoints/page_graph/page-XXXX.json`, `checkpoints/manifest.json`, and
+`quality.report.json` in addition to the existing graph and DEXPI artifacts. An
+interrupted matching run resumes missing crops or page solves automatically;
+source, configuration, model, and checkpoint schema hashes prevent incompatible
+runs from being reused. The default remains `legacy` until evidence-v2 clears
+the evaluation gates.
+
+For a live Phase 2 A/B run on the existing ground-truth fixtures:
+
+```bash
+python eval/run_paper_eval.py --phase 2 \
+  --conditions baseline,evidence-v2 --out /tmp/diagex-v2-ab
+```
 
 Kimi Code K3 is also supported with the Kimi Code Console key:
 

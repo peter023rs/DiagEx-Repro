@@ -450,6 +450,7 @@ def _run_phase2_live(
         symbol_standard=pkw.pop("symbol_standard", "isa-5.1"),
         no_legend=bool(pkw.pop("no_legend", False)),
         effort=pkw.pop("effort", "xhigh"),
+        engine=pkw.pop("engine", None),
         config=cfg,
         persist=True,
         console=console,
@@ -465,7 +466,10 @@ def _run_phase2_live(
         wall_clock_s=extractor_wall if extractor_wall > 0 else wall,
         input_tokens=int(cs.get("input_tokens", 0)),
         output_tokens=int(cs.get("output_tokens", 0)),
-        dexpi_validates=not bool(result.validation_issues),
+        dexpi_validates=(
+            not bool(result.validation_issues)
+            and result.quality_status not in {"error"}
+        ),
         cache_read_tokens=int(cs.get("cache_read_tokens", 0)),
         cache_write_tokens=int(cs.get("cache_write_tokens", 0)),
         image_tokens=int(cs.get("image_tokens", 0)),

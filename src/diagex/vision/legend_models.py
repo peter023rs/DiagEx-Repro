@@ -2,8 +2,9 @@
 
 A `LegendEntry` is the atomic unit — one symbol with its label, class, and
 optional image bytes. A `LegendPack` is the serialised collection that the
-legend cache reads/writes to disk, keyed on a `source_hash` so edits to the
-legend input force re-extraction.
+legend cache reads/writes to disk, keyed on the source plus an extractor
+fingerprint so input, model, prompt-contract, and schema changes can force
+re-extraction.
 """
 
 from __future__ import annotations
@@ -19,9 +20,10 @@ from diagex.dexpi_schema import (
     INSTRUMENT_FUNCTION_KEYS,
     VALVE_TYPE_KEYS,
 )
-
+from diagex.vision.models import BBox, SourceView
 
 SymbolStandard = Literal["isa-5.1", "iso-10628", "sama", "none"]
+LEGEND_CACHE_SCHEMA_VERSION = "0.2.0"
 
 
 # DEXPI subset (spec §7.2.1) — the vocabulary the DexpiBuilder maps into.
@@ -51,6 +53,23 @@ class LegendEntry(BaseModel):
     image_b64: str | None = None                 # optional PNG bytes, base64; None means text-only
     attributes: dict[str, str] = Field(default_factory=dict)
     source: Literal["built_in", "legend_extracted", "customer_override"] = "built_in"
+    # Audit data for project-extracted thumbnails.  These fields intentionally
+    # survive cache serialization so a human can trace an image back to the
+    # page coordinates that produced it and future code can recrop it.
+    source_page_index: int | None = None
+    source_bbox: BBox | None = None
+    source_label_bbox: BBox | None = None
+    source_view: SourceView | None = None
+    crop_method: Literal["model_bbox", "native_text_paths"] | None = None
+    crop_quality: Literal[
+        "accepted",
+        "recovered",
+        "omitted_abbreviation",
+        "rejected_blank",
+        "rejected_text_overlap",
+        "rejected_duplicate",
+        "unavailable",
+    ] | None = None
 
     def image_bytes(self) -> bytes | None:
         if not self.image_b64:
@@ -63,14 +82,17 @@ class LegendPack(BaseModel):
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    schema_version: str = "0.1.0"
+    schema_version: str = LEGEND_CACHE_SCHEMA_VERSION
     source_hash: str = ""                        # sha256 of the source bytes (§7.2.2)
+    # Includes the extraction implementation, prompt contract, and model.
+    # A matching source PDF alone is not sufficient to trust old crops.
+    extractor_fingerprint: str = ""
     source_ref: str = ""                         # "<stem>#pages=1,2" or "file:legend.pdf"
     standard: SymbolStandard = "isa-5.1"
     entries: list[LegendEntry] = Field(default_factory=list)
     notes: str = ""
 
-    def merge(self, other: "LegendPack") -> "LegendPack":
+    def merge(self, other: LegendPack) -> LegendPack:
         """Return a new pack: `self` wins on label collisions (§7.2.2 built_in * extracted).
 
         Per spec: when built-in and extracted disagree, extracted wins. Callers
@@ -87,6 +109,7 @@ class LegendPack(BaseModel):
         return LegendPack(
             schema_version=self.schema_version,
             source_hash=self.source_hash,
+            extractor_fingerprint=self.extractor_fingerprint,
             source_ref=self.source_ref,
             standard=self.standard,
             entries=merged,

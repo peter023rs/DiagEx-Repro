@@ -20,6 +20,25 @@ load_dotenv()
 
 EffortLevel = Literal["low", "medium", "high", "xhigh"]
 ReasoningMode = Literal["auto", "enabled", "disabled"]
+PidEngine = Literal["legacy", "evidence-v2"]
+
+
+def _pid_engine_from_env() -> PidEngine:
+    raw = os.environ.get("DIAGEX_PID_ENGINE", "legacy").strip().lower()
+    aliases = {
+        "": "legacy",
+        "legacy": "legacy",
+        "v1": "legacy",
+        "evidence-v2": "evidence-v2",
+        "evidence_v2": "evidence-v2",
+        "v2": "evidence-v2",
+    }
+    try:
+        return aliases[raw]  # type: ignore[return-value]
+    except KeyError as exc:
+        raise ValueError(
+            "DIAGEX_PID_ENGINE must be one of: legacy, evidence-v2"
+        ) from exc
 
 
 @dataclass(frozen=True)
@@ -110,6 +129,11 @@ class LLMConfig:
     """
 
     model: str = "claude-opus-4-7"
+    # Evidence-v2 can use a fast perception model and reserve a stronger model
+    # for the small ambiguity queue.  ``None`` retains the historical single-
+    # model behaviour.
+    vision_model: str | None = None
+    reasoning_model: str | None = None
     # Global override for model thinking. ``auto`` preserves each caller's
     # existing effort-based choice; enabled/disabled applies to every call,
     # including legend extraction and arbitration.
@@ -133,6 +157,8 @@ class LLMConfig:
     def from_env(cls) -> LLMConfig:
         """Select a provider explicitly, retaining the historical auto-detection."""
         provider = os.environ.get("DIAGEX_LLM_PROVIDER", "").strip().lower()
+        vision_model = os.environ.get("DIAGEX_VISION_MODEL", "").strip() or None
+        reasoning_model = os.environ.get("DIAGEX_REASONING_MODEL", "").strip() or None
         reasoning_raw = os.environ.get("DIAGEX_REASONING", "auto").strip().lower()
         reasoning_aliases: dict[str, ReasoningMode] = {
             "": "auto",
@@ -184,6 +210,8 @@ class LLMConfig:
             return cls(
                 transport="kimi",
                 model=model,
+                vision_model=vision_model,
+                reasoning_model=reasoning_model,
                 reasoning_mode=reasoning_mode,
                 kimi_api_key=kimi_key,
                 kimi_base_url=os.environ.get(
@@ -207,6 +235,8 @@ class LLMConfig:
             return cls(
                 transport="openrouter",
                 model=model,
+                vision_model=vision_model,
+                reasoning_model=reasoning_model,
                 reasoning_mode=reasoning_mode,
                 openrouter_api_key=openrouter_key,
                 openrouter_base_url=os.environ.get(
@@ -222,6 +252,8 @@ class LLMConfig:
             return cls(
                 transport="azure",
                 model=azure_deployment,
+                vision_model=vision_model,
+                reasoning_model=reasoning_model,
                 reasoning_mode=reasoning_mode,
                 azure_endpoint=azure_endpoint,
                 azure_api_key=azure_key,
@@ -230,6 +262,8 @@ class LLMConfig:
             )
         return cls(
             transport="anthropic",
+            vision_model=vision_model,
+            reasoning_model=reasoning_model,
             reasoning_mode=reasoning_mode,
             anthropic_api_key=anthropic_key,
         )
@@ -242,6 +276,9 @@ class PidConfig:
     Budgets here shape the cached system prompt and the agent's per-tile effort.
     `legend_*` values encode spec §7.2.2's token-budget fallback.
     """
+
+    # The evidence-first engine remains opt-in until it clears the eval gates.
+    engine: PidEngine = field(default_factory=_pid_engine_from_env)
 
     # Few-shot legend block (inside the cached system prompt).
     legend_few_shot_tokens: int = 6000           # ≈ §12.1.2 30 symbols / 6k tokens

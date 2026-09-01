@@ -176,3 +176,57 @@ def tile(page: DiagramPage, strategy: TileStrategy | None = None) -> list[Tile]:
             )
         )
     return tiles
+
+
+def ownership_core(current: Tile, tiles: list[Tile]) -> BBox:
+    """Return the non-overlapping region owned by ``current``.
+
+    Tiles retain their overlap for visual context, but a detected object's
+    centre belongs to exactly one core.  Splitting every overlap at its
+    midpoint prevents adjacent perception calls from emitting the same object
+    without removing useful neighbouring context from either image.
+    """
+    same_page = [item for item in tiles if item.page_index == current.page_index]
+    left = current.bbox.x
+    top = current.bbox.y
+    right = current.bbox.x2
+    bottom = current.bbox.y2
+
+    row_peers = [
+        item
+        for item in same_page
+        if item.id != current.id
+        and item.bbox.y == current.bbox.y
+        and item.bbox.h == current.bbox.h
+    ]
+    col_peers = [
+        item
+        for item in same_page
+        if item.id != current.id
+        and item.bbox.x == current.bbox.x
+        and item.bbox.w == current.bbox.w
+    ]
+
+    left_peers = [item for item in row_peers if item.bbox.x < current.bbox.x]
+    if left_peers:
+        neighbor = max(left_peers, key=lambda item: item.bbox.x)
+        left = int(round((current.bbox.x + neighbor.bbox.x2) / 2))
+    right_peers = [item for item in row_peers if item.bbox.x > current.bbox.x]
+    if right_peers:
+        neighbor = min(right_peers, key=lambda item: item.bbox.x)
+        right = int(round((current.bbox.x2 + neighbor.bbox.x) / 2))
+    top_peers = [item for item in col_peers if item.bbox.y < current.bbox.y]
+    if top_peers:
+        neighbor = max(top_peers, key=lambda item: item.bbox.y)
+        top = int(round((current.bbox.y + neighbor.bbox.y2) / 2))
+    bottom_peers = [item for item in col_peers if item.bbox.y > current.bbox.y]
+    if bottom_peers:
+        neighbor = min(bottom_peers, key=lambda item: item.bbox.y)
+        bottom = int(round((current.bbox.y2 + neighbor.bbox.y) / 2))
+
+    return BBox(
+        x=left,
+        y=top,
+        w=max(1, right - left),
+        h=max(1, bottom - top),
+    )

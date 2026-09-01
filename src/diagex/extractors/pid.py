@@ -20,7 +20,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional
 
-from diagex.config import Config, EffortLevel, PidConfig, load_config
+from diagex.config import Config, EffortLevel, PidConfig, PidEngine, load_config
 from diagex.llm.cost import (
     format_elapsed,
     format_tokens_millions,
@@ -41,6 +41,7 @@ try:  # pragma: no cover - import shape depends on parallel work
         LegendResolution,
         resolve_legend,
     )
+
     _LEGEND_IMPORT_ERROR: Exception | None = None
 except Exception as _exc:  # noqa: BLE001 - surface the real cause at call time
     LegendResolution = None  # type: ignore[assignment,misc]
@@ -68,11 +69,13 @@ class PidExtractionResult:
     cost_summary: dict = field(default_factory=dict)
     run_dir: Optional[Path] = None
     run_id: str = ""
+    engine: str = "legacy"
+    quality_status: str = ""
 
     def to_text(self) -> str:
         lines: list[str] = []
         lines.append(f"P&ID: {self.diagram_stem}")
-        lines.append(f"effort: {self.effort}   model: {self.model}")
+        lines.append(f"effort: {self.effort}   model: {self.model}   engine: {self.engine}")
         s = self.dexpi_stats or {}
         lines.append(
             "stats: "
@@ -89,15 +92,13 @@ class PidExtractionResult:
             lines.append(f"validation: {len(self.validation_issues)} issue(s)")
         if self.dexpi_issues:
             lines.append(f"build issues: {len(self.dexpi_issues)}")
+        if self.quality_status:
+            lines.append(f"quality: {self.quality_status}")
         partial_pages = sorted(
-            page + 1
-            for page, status in self.graph.per_page_status.items()
-            if status == "partial"
+            page + 1 for page, status in self.graph.per_page_status.items() if status == "partial"
         )
         if partial_pages:
-            lines.append(
-                "partial pages: " + ", ".join(str(page) for page in partial_pages)
-            )
+            lines.append("partial pages: " + ", ".join(str(page) for page in partial_pages))
         lines.append(
             "tokens: "
             f"{format_tokens_millions(total_tokens_from_summary(self.cost_summary))} "
@@ -117,6 +118,8 @@ class PidExtractionResult:
                 "diagram_stem": self.diagram_stem,
                 "effort": self.effort,
                 "model": self.model,
+                "engine": self.engine,
+                "quality_status": self.quality_status or None,
                 "run_id": self.run_id,
                 "run_dir": str(self.run_dir) if self.run_dir else None,
                 "dexpi_json_path": str(self.dexpi_json_path) if self.dexpi_json_path else None,
@@ -197,9 +200,7 @@ def _coerce_status(s: str) -> str:
     return "error"
 
 
-def _page_step_limit(
-    *, tile_count: int, cfg: PidConfig, explicit_max_steps: int | None
-) -> int:
+def _page_step_limit(*, tile_count: int, cfg: PidConfig, explicit_max_steps: int | None) -> int:
     if explicit_max_steps is not None:
         return max(1, int(explicit_max_steps))
     dynamic = max(0, int(tile_count)) + max(0, int(cfg.page_step_buffer))
@@ -225,19 +226,41 @@ def run_pid_extract(
     legend_key: Optional[str] = None,
     effort: EffortLevel = "medium",
     max_steps: int | None = None,
+    engine: PidEngine | None = None,
     config: Optional[Config] = None,
     persist: bool = True,
     out_path: Optional[Path] = None,
     confidence_report_path: Optional[Path] = None,
     console: Console | None = None,
 ) -> PidExtractionResult:
+    cfg = config or load_config()
+    selected_engine = engine or cfg.pid.engine
+    if selected_engine == "evidence-v2":
+        from diagex.extractors.pid_evidence import run_pid_evidence_extract
+
+        return run_pid_evidence_extract(
+            diagram=diagram,
+            symbol_standard=symbol_standard,
+            legend_path=legend_path,
+            legend_pages=legend_pages,
+            legend_region=legend_region,
+            no_legend=no_legend,
+            legend_key=legend_key,
+            effort=effort,
+            config=cfg,
+            persist=persist,
+            out_path=out_path,
+            confidence_report_path=confidence_report_path,
+            console=console,
+        )
+
     # Defer heavy imports so `--help` paths in the CLI don't pay for them.
     from rich.console import Console as _RichConsole
 
     from diagex.agent.runtime import ReactRuntime, RunConfig
     from diagex.agent.state import AgentState, aggregate_tool_call_counts
     from diagex.agent.tools import build_phase2_tools
-    from diagex.llm.client import LLMClient
+    from diagex.llm.client import LLMClient, is_non_retryable_api_error
     from diagex.llm.cost import CostTracker
     from diagex.llm.prompts.phase2_pid import build_pid_system_prompt
     from diagex.ui.progress import make_reporter
@@ -254,7 +277,6 @@ def run_pid_extract(
             f"({_LEGEND_IMPORT_ERROR!r}). Phase 2 cannot proceed without it."
         )
 
-    cfg = config or load_config()
     stem = _safe_stem(diagram)
     _t_run_start = time.perf_counter()
 
@@ -305,14 +327,14 @@ def run_pid_extract(
                 runs_dir_for_stem=runs_root,
                 reporter=legend_reporter,
             )
-            legend_reporter.on_phase_end(
-                detail=str(getattr(resolution, "source", "resolved"))
-            )
+            legend_reporter.on_phase_end(detail=str(getattr(resolution, "source", "resolved")))
         legend_pack = getattr(resolution, "pack", None)
         legend_budget = getattr(resolution, "budget", None)
         legend_source_tag = str(getattr(resolution, "source", "") or "")
         legend_entry_count = len(legend_pack.entries) if legend_pack else 0
     except Exception as exc:  # noqa: BLE001 - legend is best-effort; fall back
+        if is_non_retryable_api_error(exc):
+            raise
         legend_source_tag = f"fallback_builtin(error={exc!r})"
         # Tiny synthetic pack so downstream code has an object to serialise.
         legend_pack = LegendPack(
@@ -413,6 +435,8 @@ def run_pid_extract(
             )
         except Exception as exc:  # noqa: BLE001
             state.push_transcript("error", {"text": f"page {page.page_index}: {exc!r}"})
+            if is_non_retryable_api_error(exc):
+                raise
             per_page_status[page.page_index] = "error"
 
         all_annotations.extend(state.annotations.all())
@@ -455,9 +479,9 @@ def run_pid_extract(
                     k: _coerce_status(v) for k, v in per_page_status.items()
                 }
         except Exception as exc:  # noqa: BLE001 - edge-resolve is best-effort
-            graph.conflicts.append(
-                {"type": "edge_resolve_error", "detail": repr(exc)}
-            )
+            if is_non_retryable_api_error(exc):
+                raise
+            graph.conflicts.append({"type": "edge_resolve_error", "detail": repr(exc)})
 
     # --- 7b. LLM-arbitrated reconciliation (spec §5.5) -------------------------
     arbitration_records: list = []
@@ -488,9 +512,9 @@ def run_pid_extract(
                 log_path=arb_log_path,
             )
         except Exception as exc:  # noqa: BLE001 - arbitration is best-effort
-            graph.conflicts.append(
-                {"type": "arbitration_error", "detail": repr(exc)}
-            )
+            if is_non_retryable_api_error(exc):
+                raise
+            graph.conflicts.append({"type": "arbitration_error", "detail": repr(exc)})
 
     # --- 7c. Low-confidence second pass ----------------------------------------
     # Re-asks the model on every medium/low-confidence equipment/instrument
@@ -511,6 +535,8 @@ def run_pid_extract(
             )
             arbitration_records.extend(low_conf_records)
         except Exception as exc:  # noqa: BLE001 - arbitration is best-effort
+            if is_non_retryable_api_error(exc):
+                raise
             graph.conflicts.append(
                 {"type": "arbitration_low_confidence_error", "detail": repr(exc)}
             )
@@ -629,6 +655,7 @@ def run_pid_extract(
         cost_summary=cost_summary,
         run_dir=run_dir,
         run_id=run_id,
+        engine="legacy",
     )
 
 
@@ -677,6 +704,7 @@ def _write_run_artefacts(
     states: list,
     per_page_status: dict[int, str],
     confidence_report_path: Path | None,
+    engine: str = "legacy",
 ) -> None:
     # graph.json — full reconciled graph.
     (run_dir / "graph.json").write_text(graph.model_dump_json(indent=2), encoding="utf-8")
@@ -723,12 +751,14 @@ def _write_run_artefacts(
     render_metadata = {
         "run_id": run_id,
         "model": model,
+        "engine": engine,
         "effort": effort,
         "total_tokens": total_tokens_from_summary(cost_summary),
         "timestamp": run_dir.name.split("_", 1)[0],
     }
     try:
         from diagex.extractors.dexpi_svg import write_svg as _write_dexpi_svg
+
         _write_dexpi_svg(
             graph,
             run_dir / "pid.svg",
@@ -742,6 +772,7 @@ def _write_run_artefacts(
     # stencils (mxgraph.pid*). Editable in diagrams.net for review / cleanup.
     try:
         from diagex.extractors.dexpi_drawio import write_drawio as _write_drawio
+
         _write_drawio(
             graph,
             run_dir / "pid.drawio",
@@ -754,6 +785,7 @@ def _write_run_artefacts(
     # debug_report.md — scan-friendly textual dump for side-by-side PDF inspection.
     try:
         from diagex.extractors.debug_report import write_debug_report as _write_debug
+
         _write_debug(
             graph,
             run_dir / "debug_report.md",
@@ -797,6 +829,7 @@ def _write_run_artefacts(
         "diagram_stem": stem,
         "effort": effort,
         "model": model,
+        "engine": engine,
         "stats": dexpi_stats,
         "dexpi_issues": dexpi_issues,
         "validation_issues": validation_issues,
@@ -814,7 +847,11 @@ def _write_run_artefacts(
     (run_dir / "result.json").write_text(json.dumps(result_obj, indent=2), encoding="utf-8")
 
     # confidence_report.html — printable, self-contained digest.
-    report_target = Path(confidence_report_path) if confidence_report_path else (run_dir / "confidence_report.html")
+    report_target = (
+        Path(confidence_report_path)
+        if confidence_report_path
+        else (run_dir / "confidence_report.html")
+    )
     _write_confidence_report(
         report_target,
         stem=stem,
@@ -967,7 +1004,13 @@ def _write_confidence_report(
         for c in conflicts:
             t = str(c.get("type", "other"))
             by_type.setdefault(t, []).append(c)
-        for t in ("iou_grey_zone", "ocr_flip_candidate", "unstitched_line_endpoint", "ambiguous_opc", "other"):
+        for t in (
+            "iou_grey_zone",
+            "ocr_flip_candidate",
+            "unstitched_line_endpoint",
+            "ambiguous_opc",
+            "other",
+        ):
             rows = by_type.get(t)
             if not rows:
                 continue
@@ -979,16 +1022,23 @@ def _write_confidence_report(
                 if isinstance(arb, dict):
                     verdict = arb.get("verdict") or arb.get("status") or "?"
                     arb_badge = f" <strong>[arbitration: {_h(verdict)}]</strong>"
-                parts.append(
-                    f"<li>{arb_badge}<pre>{_h(json.dumps(c, sort_keys=True))}</pre></li>"
-                )
+                parts.append(f"<li>{arb_badge}<pre>{_h(json.dumps(c, sort_keys=True))}</pre></li>")
             if len(rows) > 10:
                 parts.append(f"<li class='empty'>… {len(rows) - 10} more omitted</li>")
             parts.append("</ul>")
         # Any unrecognised types.
-        unknown = {k: v for k, v in by_type.items()
-                   if k not in {"iou_grey_zone", "ocr_flip_candidate", "unstitched_line_endpoint",
-                                "ambiguous_opc", "other"}}
+        unknown = {
+            k: v
+            for k, v in by_type.items()
+            if k
+            not in {
+                "iou_grey_zone",
+                "ocr_flip_candidate",
+                "unstitched_line_endpoint",
+                "ambiguous_opc",
+                "other",
+            }
+        }
         for t, rows in unknown.items():
             parts.append(f"<h3>{_h(t)} <span class='section-count'>({len(rows)})</span></h3>")
             parts.append("<ul>")

@@ -20,7 +20,7 @@ from rich.console import Console
 from diagex.agent.runtime import ReactRuntime, RunConfig
 from diagex.agent.state import AgentState, aggregate_tool_call_counts
 from diagex.config import Config, EffortLevel, load_config
-from diagex.llm.client import LLMClient
+from diagex.llm.client import LLMClient, is_non_retryable_api_error
 from diagex.llm.cost import (
     CostTracker,
     format_tokens_millions,
@@ -56,7 +56,7 @@ class QueryResult:
     answers: list[PageAnswer]
     graph: ReconciledGraph
     cost_summary: dict[str, Any]
-    run_dir: Path | None              # None when --no-persist
+    run_dir: Path | None  # None when --no-persist
     run_id: str
 
     def to_text(self) -> str:
@@ -78,25 +78,28 @@ class QueryResult:
         return "\n".join(lines)
 
     def to_json(self) -> str:
-        return json.dumps({
-            "question": self.question,
-            "diagram_stem": self.diagram_stem,
-            "effort": self.effort,
-            "model": self.model,
-            "run_id": self.run_id,
-            "run_dir": str(self.run_dir) if self.run_dir else None,
-            "answers": [
-                {
-                    "page_index": a.page_index,
-                    "answer": a.answer,
-                    "confidence": a.confidence,
-                    "supporting_annotation_ids": a.supporting_annotation_ids,
-                }
-                for a in self.answers
-            ],
-            "cost": self.cost_summary,
-            "graph": json.loads(self.graph.model_dump_json()),
-        }, indent=2)
+        return json.dumps(
+            {
+                "question": self.question,
+                "diagram_stem": self.diagram_stem,
+                "effort": self.effort,
+                "model": self.model,
+                "run_id": self.run_id,
+                "run_dir": str(self.run_dir) if self.run_dir else None,
+                "answers": [
+                    {
+                        "page_index": a.page_index,
+                        "answer": a.answer,
+                        "confidence": a.confidence,
+                        "supporting_annotation_ids": a.supporting_annotation_ids,
+                    }
+                    for a in self.answers
+                ],
+                "cost": self.cost_summary,
+                "graph": json.loads(self.graph.model_dump_json()),
+            },
+            indent=2,
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -225,11 +228,14 @@ def run_query(
             if page.page_index < lo_hi[0] or page.page_index > lo_hi[1]:
                 continue
 
-        tiles = tile(page, AspectAwareStrategy(
-            max_tokens_per_tile=cfg.tiling.max_tokens_per_tile,
-            overlap_frac=cfg.tiling.overlap_frac,
-            token_per_pixel=cfg.tiling.token_per_pixel,
-        ))
+        tiles = tile(
+            page,
+            AspectAwareStrategy(
+                max_tokens_per_tile=cfg.tiling.max_tokens_per_tile,
+                overlap_frac=cfg.tiling.overlap_frac,
+                token_per_pixel=cfg.tiling.token_per_pixel,
+            ),
+        )
         vp = ViewProvider(page, tiles)
         state = AgentState(question=question, page=page)
 
@@ -243,19 +249,25 @@ def run_query(
             per_page_status[page.page_index] = (
                 "partial"
                 if state.completion_status == "partial"
-                else "ok" if state.final_answer else "error"
+                else "ok"
+                if state.final_answer
+                else "error"
             )
         except Exception as exc:
             state.final_answer = f"error during extraction: {exc}"
             state.final_confidence = "low"
+            if is_non_retryable_api_error(exc):
+                raise
             per_page_status[page.page_index] = "error"
 
-        answers.append(PageAnswer(
-            page_index=page.page_index,
-            answer=state.final_answer or "(no answer produced)",
-            confidence=state.final_confidence or "low",
-            supporting_annotation_ids=[a.id for a in state.annotations.all()],
-        ))
+        answers.append(
+            PageAnswer(
+                page_index=page.page_index,
+                answer=state.final_answer or "(no answer produced)",
+                confidence=state.final_confidence or "low",
+                supporting_annotation_ids=[a.id for a in state.annotations.all()],
+            )
+        )
         all_annotations.extend(state.annotations.all())
         per_page_states.append(state)
 
@@ -316,6 +328,7 @@ def _cost_accepts_pricing() -> bool:
     """CostTracker may or may not accept a `pricing=` kwarg depending on impl."""
     try:
         import inspect
+
         sig = inspect.signature(CostTracker.__init__)
         return "pricing" in sig.parameters
     except Exception:
@@ -394,12 +407,17 @@ def _write_run_artefacts(
     with (run_dir / "transcript.jsonl").open("w", encoding="utf-8") as f:
         for st in states:
             for ts in st.transcript:
-                f.write(json.dumps({
-                    "page_index": st.page.page_index,
-                    "step": ts.step,
-                    "kind": ts.kind,
-                    "payload": ts.payload,
-                }) + "\n")
+                f.write(
+                    json.dumps(
+                        {
+                            "page_index": st.page.page_index,
+                            "step": ts.step,
+                            "kind": ts.kind,
+                            "payload": ts.payload,
+                        }
+                    )
+                    + "\n"
+                )
 
     # Index line — append-only history per diagram stem.
     first_snippet = answers[0].answer if answers else ""

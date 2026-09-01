@@ -50,6 +50,11 @@
     <section class="compare-panel">
       <div class="compare-toolbar">
         <strong data-i18n="comparisonView">Comparison view</strong>
+        <select id="workspaceView" aria-label="Workspace view" data-i18n-aria-label="workspaceView">
+          <option value="comparison" data-i18n="comparisonView">Comparison view</option>
+          <option value="inventory" data-i18n="nodeInventory">Node inventory</option>
+          <option value="evidence" data-i18n="missingCandidates">Potential missing objects</option>
+        </select>
         <select id="layoutMode" aria-label="Comparison layout" data-i18n-aria-label="comparisonLayout">
           <option value="side-by-side" data-i18n="sideBySide">Side by side</option>
           <option value="stacked" data-i18n="stacked">Stacked</option>
@@ -78,6 +83,46 @@
           </div>
         </div>
       </div>
+      <section id="inventoryView" class="data-view hidden">
+        <div id="inventorySummary" class="coverage-cards"></div>
+        <div class="data-filters">
+          <input id="inventorySearch" type="search" placeholder="Search tag, ID, or source text" data-i18n-placeholder="inventorySearch">
+          <select id="inventoryPage"><option value="all" data-i18n="allPages">All pages</option></select>
+          <select id="inventoryKind"><option value="all" data-i18n="allTypes">All types</option></select>
+          <select id="inventoryStatus">
+            <option value="all" data-i18n="allItems">All items</option>
+            <option value="unreviewed" data-i18n="needsReview">Needs review</option>
+            <option value="isolated" data-i18n="isolated">Isolated</option>
+            <option value="unclassified" data-i18n="reasonUnclassified">Unclassified</option>
+            <option value="duplicate" data-i18n="duplicateTag">Duplicate tag</option>
+          </select>
+        </div>
+        <div class="data-table-wrap"><table class="data-table"><thead><tr>
+          <th data-i18n="page">Page</th><th data-i18n="label">Label</th><th data-i18n="kind">Kind</th>
+          <th data-i18n="subtype">Subtype</th><th data-i18n="connections">Connections</th>
+          <th data-i18n="sourceText">Printed source text</th><th data-i18n="review">Review</th><th></th>
+        </tr></thead><tbody id="inventoryRows"></tbody></table></div>
+      </section>
+      <section id="evidenceView" class="data-view hidden">
+        <div id="evidenceSummary" class="coverage-cards"></div>
+        <div class="data-filters">
+          <input id="evidenceSearch" type="search" placeholder="Search printed text" data-i18n-placeholder="evidenceSearch">
+          <select id="evidencePage"><option value="all" data-i18n="allPages">All pages</option></select>
+          <select id="evidenceStatus">
+            <option value="blocking" data-i18n="unresolvedTags">Unresolved tag candidates</option>
+            <option value="unreviewed" data-i18n="needsReview">Needs review</option>
+            <option value="all" data-i18n="allItems">All items</option>
+            <option value="linked" data-i18n="linked">Linked</option>
+            <option value="dismissed" data-i18n="dismissed">Dismissed</option>
+          </select>
+          <select id="evidenceKind"><option value="all" data-i18n="allTypes">All types</option></select>
+        </div>
+        <div class="data-table-wrap"><table class="data-table"><thead><tr>
+          <th data-i18n="page">Page</th><th data-i18n="printedText">Printed text</th>
+          <th data-i18n="candidateType">Candidate type</th><th data-i18n="disposition">Disposition</th>
+          <th data-i18n="nearbyEntities">Nearby entities</th><th></th>
+        </tr></thead><tbody id="evidenceRows"></tbody></table></div>
+      </section>
     </section>
 
     <aside class="inspector-panel">

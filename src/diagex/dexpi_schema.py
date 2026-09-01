@@ -791,6 +791,15 @@ _INSTRUMENT_INDEX: dict[str, InstrumentSpec] = {s.key: s for s in INSTRUMENT_REG
 
 EQUIPMENT_CLASS_KEYS: tuple[str, ...] = tuple(s.key for s in EQUIPMENT_REGISTRY)
 VALVE_TYPE_KEYS: tuple[str, ...] = tuple(s.key for s in VALVE_REGISTRY)
+ACTUATION_TYPE_KEYS: tuple[str, ...] = (
+    "manual",
+    "solenoid",
+    "electric_motor",
+    "pneumatic",
+    "hydraulic",
+    "spring",
+    "other",
+)
 INSTRUMENT_FUNCTION_KEYS: tuple[str, ...] = tuple(s.key for s in INSTRUMENT_REGISTRY)
 
 

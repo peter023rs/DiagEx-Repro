@@ -378,7 +378,18 @@ class LiveProgressReporter(NullReporter):
                 f"item {counter} ({item_elapsed})  ·  total {phase_elapsed}",
                 style="bold cyan",
             )
-            return Panel(headline, title=f"DiagEx · {self.effort}")
+            active_lines: list[Text] = []
+            if self._stream_text:
+                label = "reasoning" if self._stream_kind == "thinking" else "model"
+                style = "dim magenta" if self._stream_kind == "thinking" else "magenta"
+                active_lines.append(
+                    Text.assemble(
+                        (label, style), "  ", _one_line(self._stream_text, limit=300)
+                    )
+                )
+            return Panel(
+                Group(headline, *active_lines), title=f"DiagEx · {self.effort}"
+            )
 
         step_elapsed = (
             _format_elapsed(now - self._step_started_at)
@@ -444,6 +455,8 @@ class LiveProgressReporter(NullReporter):
         self._phase_started_at = time.monotonic()
         self._phase_item_started_at = None
         self._phase_detail = "preparing"
+        self._stream_kind = ""
+        self._stream_text = ""
         total = f" · {total_items} items" if total_items is not None else ""
         self._event("phase", f"{name}{total}", style="bold cyan")
 
@@ -455,6 +468,8 @@ class LiveProgressReporter(NullReporter):
             self._phase_total = total_items
         self._phase_item_started_at = time.monotonic()
         self._phase_detail = label or "running"
+        self._stream_kind = ""
+        self._stream_text = ""
         counter = f"{item}/{self._phase_total}" if self._phase_total else str(item)
         suffix = f" · {label}" if label else ""
         self._event(self._phase_name or "progress", counter + suffix, style="cyan")
@@ -471,6 +486,8 @@ class LiveProgressReporter(NullReporter):
             message += f" · {detail}"
         self._phase_detail = "failed" if is_error else "complete"
         self._phase_item_started_at = None
+        self._stream_kind = ""
+        self._stream_text = ""
         self._event(
             label,
             message,

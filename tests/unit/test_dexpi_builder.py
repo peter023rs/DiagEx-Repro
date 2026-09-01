@@ -1,7 +1,9 @@
 """Unit tests for the Phase 2 DexpiBuilder (spec §7.2)."""
 
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
+from diagex.dexpi import xml_io
 from diagex.extractors.dexpi_builder import build_dexpi, serialize_model, validate_model
 from diagex.vision.models import BBox, ReconciledEdge, ReconciledGraph, ReconciledNode
 
@@ -127,6 +129,37 @@ def test_control_valve_falls_back_to_operated_valve():
     assert "OperatedValve" in found
 
 
+def test_valve_shared_by_two_segments_has_one_xml_owner_and_endpoint_refs():
+    graph = ReconciledGraph(
+        source_path="t.pdf",
+        nodes=[
+            _node("t1", "equipment", "T-1", {"equipment_class": "tank"}),
+            _node(
+                "v1",
+                "equipment",
+                "V-1",
+                {"equipment_class": "valve", "valve_type": "gate"},
+            ),
+            _node("t2", "equipment", "T-2", {"equipment_class": "tank"}),
+        ],
+        edges=[_edge("e1", "t1", "v1"), _edge("e2", "v1", "t2")],
+    )
+    result = build_dexpi(graph)
+    segments = [
+        segment
+        for network in result.model.conceptual_model.PipingNetworkSystems
+        for segment in network.Segments
+    ]
+    valve = next(item for segment in segments for item in segment.Items)
+    assert sum(valve in segment.Items for segment in segments) == 1
+    assert any(segment.TargetItem is valve for segment in segments)
+    assert any(segment.SourceItem is valve for segment in segments)
+
+    root = ET.fromstring(xml_io.dumps(result.model))
+    assert len(root.findall(f".//Object[@id='{valve.id}']")) == 1
+    assert len(root.findall(f".//References[@objects='#{valve.id}']")) == 2
+
+
 def test_opc_direction_flips_class():
     g_out = ReconciledGraph(
         source_path="t.pdf",
@@ -185,6 +218,102 @@ def test_validate_model_is_empty_on_minimal_graph(tmp_path: Path):
     written = serialize_model(result.model, tmp_path, "pid.dexpi")
     assert written.exists()
     assert written.name == "pid.dexpi.json"
+
+
+def test_instrument_signal_has_valid_source_and_target() -> None:
+    graph = ReconciledGraph(
+        source_path="t.pdf",
+        nodes=[
+            _node("i1", "instrument", "FT-101", {"loop_number": "101"}),
+            _node("i2", "instrument", "FIC-101", {"loop_number": "101"}),
+        ],
+        edges=[_edge("s1", "i1", "i2", "signal_electric")],
+    )
+
+    result = build_dexpi(graph)
+    functions = result.model.conceptual_model.ProcessInstrumentationFunctions
+    signal = functions[0].SignalConveyingFunctions[0]
+    assert signal.Source is functions[0]
+    assert signal.Target is functions[1]
+    assert signal.SignalConveyingType.value == "ElectricalSignalConveying"
+    assert result.stats["signal_count"] == 1
+    assert validate_model(result.model) == []
+    assert validate_model(xml_io.loads(xml_io.dumps(result.model))) == []
+
+
+def test_instrument_to_valve_signal_uses_actuating_function() -> None:
+    graph = ReconciledGraph(
+        source_path="t.pdf",
+        nodes=[
+            _node("tank", "equipment", "T-1", {"equipment_class": "tank"}),
+            _node(
+                "valve",
+                "equipment",
+                "FCV-101",
+                {"equipment_class": "valve", "valve_type": "control"},
+            ),
+            _node("controller", "instrument", "FIC-101", {"loop_number": "101"}),
+        ],
+        edges=[
+            _edge("p1", "tank", "valve", "process"),
+            _edge("s1", "controller", "valve", "signal_pneumatic"),
+        ],
+    )
+
+    result = build_dexpi(graph)
+    controller = result.model.conceptual_model.ProcessInstrumentationFunctions[0]
+    actuating = controller.ActuatingFunctions[0]
+    signal = controller.SignalConveyingFunctions[0]
+    assert signal.Source is controller
+    assert signal.Target is actuating
+    assert signal.SignalConveyingType.value == "PneumaticSignalConveying"
+    assert actuating.Systems.operated_valve_reference.Valve is not None
+    assert validate_model(result.model) == []
+    assert validate_model(xml_io.loads(xml_io.dumps(result.model))) == []
+
+
+def test_signal_only_operated_valve_is_owned_and_xml_reference_resolves() -> None:
+    graph = ReconciledGraph(
+        source_path="t.pdf",
+        nodes=[
+            _node(
+                "valve",
+                "equipment",
+                "FCV-101",
+                {"equipment_class": "valve", "valve_type": "control"},
+            ),
+            _node("controller", "instrument", "FIC-101", {"loop_number": "101"}),
+        ],
+        edges=[_edge("s1", "controller", "valve", "signal_pneumatic")],
+    )
+
+    result = build_dexpi(graph)
+    round_tripped = xml_io.loads(xml_io.dumps(result.model))
+
+    assert validate_model(result.model) == []
+    assert validate_model(round_tripped) == []
+    assert any("signal-only or unconnected operated valve" in issue for issue in result.issues)
+
+
+def test_provisional_review_edge_is_not_asserted_in_dexpi() -> None:
+    graph = ReconciledGraph(
+        source_path="t.pdf",
+        nodes=[
+            _node("left", "equipment", "T-1", {"equipment_class": "tank"}),
+            _node("right", "equipment", "P-1", {"equipment_class": "pump"}),
+        ],
+        edges=[
+            _edge("draft", "left", "right").model_copy(
+                update={"attributes": {"provisional_review_only": True}}
+            )
+        ],
+    )
+
+    result = build_dexpi(graph)
+
+    assert result.stats["segment_count"] == 0
+    assert result.stats["dropped_edges"] == 0
+    assert any("provisional review-only" in issue for issue in result.issues)
 
 
 def test_build_is_deterministic_in_stats():

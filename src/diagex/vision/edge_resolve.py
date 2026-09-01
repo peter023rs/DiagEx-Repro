@@ -32,6 +32,7 @@ from PIL import Image
 from diagex.agent.runtime import ReactRuntime, RunConfig
 from diagex.agent.state import AgentState
 from diagex.agent.tools import TOOL_SCHEMAS
+from diagex.llm.client import is_non_retryable_api_error
 from diagex.llm.prompts.edge_resolve import build_edge_resolve_system_prompt
 from diagex.ui.progress import NullReporter
 from diagex.vision.models import Annotation, BBox, DiagramPage
@@ -46,12 +47,14 @@ from diagex.vision.views import ViewInfo, ViewProvider
 @dataclass
 class EdgeResolveConfig:
     max_edge_resolves_per_page: int = 15
-    focus_window_px: int = 400          # half-size of the page-coord crop centred on the endpoint
+    focus_window_px: int = 400  # half-size of the page-coord crop centred on the endpoint
     max_steps_per_edge: int = 5
-    overview_max_dim: int = 1400        # downsample cap for the focused overview
-    include_unsnapped_edges: bool = True  # also resolve edges with snap_note containing "unsnappable"
-    dedup_target_radius_px: int = 50    # collapse near-coincident targets on the same page
-    anchor_tol_px: int = 60             # max distance from a new annotation's endpoint to the target
+    overview_max_dim: int = 1400  # downsample cap for the focused overview
+    include_unsnapped_edges: bool = (
+        True  # also resolve edges with snap_note containing "unsnappable"
+    )
+    dedup_target_radius_px: int = 50  # collapse near-coincident targets on the same page
+    anchor_tol_px: int = 60  # max distance from a new annotation's endpoint to the target
     max_tokens_per_step: int = 4000
 
 
@@ -65,9 +68,9 @@ class EdgeResolveRecord:
     target_index: int
     page_index: int
     endpoint_xy: tuple[int, int]
-    source_kind: str               # "unstitched_conflict" | "unsnapped_edge"
-    source_ref: str                # opaque pointer back to the originating conflict / edge
-    verdict: str                   # "continued" | "terminates" | "uncertain" | "skipped" | "error"
+    source_kind: str  # "unstitched_conflict" | "unsnapped_edge"
+    source_ref: str  # opaque pointer back to the originating conflict / edge
+    verdict: str  # "continued" | "terminates" | "uncertain" | "skipped" | "error"
     steps: int = 0
     new_annotation_ids: list[str] = field(default_factory=list)
     detail: str = ""
@@ -96,8 +99,8 @@ class _Target:
     x: int
     y: int
     line_type: Optional[str]
-    source_kind: str               # "unstitched_conflict" | "unsnapped_edge"
-    source_ref: str                # conflict index / edge id, for audit
+    source_kind: str  # "unstitched_conflict" | "unsnapped_edge"
+    source_ref: str  # conflict index / edge id, for audit
 
 
 def _collect_targets(graph: Any, cfg: EdgeResolveConfig) -> list[_Target]:
@@ -390,6 +393,8 @@ def resolve_dangling_edges(
                         detail=repr(exc),
                     )
                 )
+                if is_non_retryable_api_error(exc):
+                    raise
                 continue
 
             verdict = _normalise_verdict(state.final_answer)

@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from diagex.dexpi_schema import (
+    ACTUATION_TYPE_KEYS,
     EQUIPMENT_CLASS_KEYS,
     INSTRUMENT_CLASS_KEYS,
     INSTRUMENT_FUNCTION_KEYS,
@@ -27,8 +28,17 @@ from diagex.dexpi_schema import (
 )
 from diagex.vision.models import ReconciledEdge, ReconciledGraph, ReconciledNode
 
-SCHEMA_VERSION = "1.0.0"
+SCHEMA_VERSION = "1.1.0"
 REVIEW_STATES = {"unreviewed", "approved", "modified", "rejected", "waived", "resolved"}
+EVIDENCE_STATES = {"unreviewed", "linked", "dismissed"}
+EVIDENCE_DISPOSITIONS = {
+    "line_number",
+    "drawing_reference",
+    "note",
+    "dimension",
+    "non_object",
+    "other",
+}
 PAGE_ROLES = {"pid", "legend", "cover", "notes", "other"}
 LINE_TYPES = {
     "process",
@@ -39,6 +49,17 @@ LINE_TYPES = {
     "other",
 }
 KINDS = {"equipment", "instrument", "line", "connection", "text", "note", "opc"}
+
+_DRAWING_REFERENCE_RE = re.compile(r"^(?:DW|DWG|SH|SHT)[A-Z0-9]*[- ]?\d", re.IGNORECASE)
+_LINE_NUMBER_RE = re.compile(
+    r"^(?:\d{1,3}[\"”']?[- ])?[A-Z]{1,5}-\d{3,}(?:-[A-Z0-9]+){1,}$",
+    re.IGNORECASE,
+)
+_EQUIPMENT_TAG_RE = re.compile(
+    r"^\d{3,6}[- ]?[A-Z]{1,4}[- ]?\d{1,5}[A-Z]?$", re.IGNORECASE
+)
+_INSTRUMENT_TAG_RE = re.compile(r"^[A-Z]{1,5}[- ]?\d{2,6}[A-Z]?$", re.IGNORECASE)
+_TAG_EXCLUDED_PREFIXES = {"DN", "PN", "SCH", "CL", "NO", "REV", "PAGE"}
 
 
 class ReviewError(RuntimeError):
@@ -135,6 +156,185 @@ def _load_page_manifest(graph_path: Path) -> dict[str, Any] | None:
     return value if isinstance(value, dict) and isinstance(value.get("pages"), list) else None
 
 
+def _tag_key(value: Any) -> str:
+    return re.sub(r"[^A-Z0-9]+", "", str(value or "").upper())
+
+
+def _text_candidate_kind(text: str) -> tuple[str, bool] | None:
+    """Classify conservative native-text candidates without plant rules.
+
+    Engineering tags are completeness-gating.  Drawing references and line
+    numbers are retained as useful context, but do not block completion.
+    """
+
+    compact = " ".join(str(text).strip().split())
+    key = _tag_key(compact)
+    if not compact or len(key) < 3 or len(key) > 32:
+        return None
+    if _DRAWING_REFERENCE_RE.fullmatch(compact):
+        return "drawing_reference", False
+    if _LINE_NUMBER_RE.fullmatch(compact):
+        return "line_number", False
+    prefix = re.match(r"^[A-Z]+", key)
+    if prefix and prefix.group(0) in _TAG_EXCLUDED_PREFIXES:
+        return None
+    if _EQUIPMENT_TAG_RE.fullmatch(compact):
+        return "equipment_tag", True
+    if _INSTRUMENT_TAG_RE.fullmatch(compact):
+        return "instrument_tag", True
+    return None
+
+
+def _bbox_union(spans: list[dict[str, Any]]) -> dict[str, int]:
+    boxes = [span["bbox"] for span in spans]
+    x1 = min(int(box["x"]) for box in boxes)
+    y1 = min(int(box["y"]) for box in boxes)
+    x2 = max(int(box["x"]) + int(box["w"]) for box in boxes)
+    y2 = max(int(box["y"]) + int(box["h"]) for box in boxes)
+    return {"x": x1, "y": y1, "w": max(1, x2 - x1), "h": max(1, y2 - y1)}
+
+
+def _candidate_span_groups(spans: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    groups: list[list[dict[str, Any]]] = [[span] for span in spans]
+    by_line: dict[tuple[int, int], list[dict[str, Any]]] = {}
+    for span in spans:
+        key = (int(span.get("block_index", -1)), int(span.get("line_index", -1)))
+        by_line.setdefault(key, []).append(span)
+    for line in by_line.values():
+        ordered = sorted(line, key=lambda item: int(item.get("word_index", 0)))
+        for size in (2, 3):
+            for start in range(0, len(ordered) - size + 1):
+                window = ordered[start : start + size]
+                reasonable = all(
+                    int(right["bbox"]["x"])
+                    - (int(left["bbox"]["x"]) + int(left["bbox"]["w"]))
+                    <= max(int(left["bbox"]["h"]), int(right["bbox"]["h"])) * 3
+                    for left, right in zip(window, window[1:], strict=False)
+                )
+                if reasonable:
+                    groups.append(window)
+    return groups
+
+
+def _node_text_keys(node: ReconciledNode) -> set[str]:
+    attrs = node.attributes or {}
+    values: list[Any] = [node.label, attrs.get("canonical_tag")]
+    values.extend(attrs.get("raw_text_candidates") or [])
+    values.extend(node.alternate_readings or [])
+    return {key for value in values if (key := _tag_key(value))}
+
+
+def _load_evidence_candidates(
+    graph_path: Path, graph: ReconciledGraph
+) -> list[dict[str, Any]]:
+    evidence_dir = graph_path.parent / "evidence"
+    if not evidence_dir.is_dir():
+        return []
+    inventory_path = evidence_dir / "native-text-inventory.json"
+    if inventory_path.is_file():
+        try:
+            inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            inventory = None
+        if isinstance(inventory, dict) and isinstance(inventory.get("items"), list):
+            return [
+                {
+                    "id": str(item["id"]),
+                    "source_ids": list(item.get("source_ids") or []),
+                    "text": str(item.get("text") or ""),
+                    "normalised_text": str(item.get("normalised_text") or ""),
+                    "page_index": int(item.get("page_index", -1)),
+                    "bbox_global": copy.deepcopy(item.get("bbox_global") or {}),
+                    "candidate_kind": str(item.get("candidate_kind") or "unknown_tag"),
+                    "blocking": bool(item.get("blocking")),
+                    "matched_node_ids": list(item.get("matched_node_ids") or []),
+                    "match_method": item.get("match_method"),
+                    "extraction_status": item.get("status"),
+                    "extraction_reason": item.get("reason"),
+                    "expected_kind": item.get("expected_kind"),
+                    "tag_semantics": copy.deepcopy(item.get("tag_semantics")),
+                }
+                for item in inventory["items"]
+                if isinstance(item, dict)
+                and item.get("id")
+                and int(item.get("page_index", -1)) >= 0
+                and isinstance(item.get("bbox_global"), dict)
+            ]
+    nodes_by_page: dict[int, list[ReconciledNode]] = {}
+    for node in graph.nodes:
+        nodes_by_page.setdefault(node.page_index, []).append(node)
+    candidates: list[dict[str, Any]] = []
+    seen: set[tuple[int, str, int, int]] = set()
+    for page_path in sorted(evidence_dir.glob("page-*.json")):
+        try:
+            page = json.loads(page_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        page_index = int(page.get("page_index", -1))
+        if page_index < 0 or page.get("role") not in {"pid", "other"}:
+            continue
+        spans = [
+            span
+            for span in page.get("text_spans") or []
+            if isinstance(span, dict)
+            and isinstance(span.get("bbox"), dict)
+            and str(span.get("text") or "").strip()
+        ]
+        for group in _candidate_span_groups(spans):
+            text = " ".join(str(span["text"]).strip() for span in group)
+            classified = _text_candidate_kind(text)
+            if classified is None:
+                continue
+            candidate_kind, blocking = classified
+            bbox = _bbox_union(group)
+            key = _tag_key(text)
+            dedupe = (page_index, key, bbox["x"] // 8, bbox["y"] // 8)
+            if dedupe in seen:
+                continue
+            seen.add(dedupe)
+            source_ids = [str(span.get("id")) for span in group if span.get("id")]
+            referenced: list[str] = []
+            exact: list[str] = []
+            for node in nodes_by_page.get(page_index, []):
+                attrs = node.attributes or {}
+                node_sources = {
+                    *node.source_evidence_ids,
+                    *node.source_annotation_ids,
+                    *(attrs.get("source_text_ids") or []),
+                }
+                if node_sources.intersection(source_ids):
+                    referenced.append(node.id)
+                elif key in _node_text_keys(node):
+                    exact.append(node.id)
+            matched = referenced or exact
+            candidate_id = f"t-{_canonical_hash([page_index, source_ids, key], 12)}"
+            candidates.append(
+                {
+                    "id": candidate_id,
+                    "source_ids": source_ids,
+                    "text": text,
+                    "normalised_text": key,
+                    "page_index": page_index,
+                    "bbox_global": bbox,
+                    "candidate_kind": candidate_kind,
+                    "blocking": blocking,
+                    "matched_node_ids": matched,
+                    "match_method": (
+                        "source_reference" if referenced else "exact_label" if exact else None
+                    ),
+                }
+            )
+    candidates.sort(
+        key=lambda item: (
+            item["page_index"],
+            item["bbox_global"]["y"],
+            item["bbox_global"]["x"],
+            item["id"],
+        )
+    )
+    return candidates
+
+
 def _conflict_records(graph: ReconciledGraph) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for index, conflict in enumerate(graph.conflicts):
@@ -147,7 +347,123 @@ def _conflict_records(graph: ReconciledGraph) -> list[dict[str, Any]]:
     return records
 
 
+def _conflict_candidates(graph: dict[str, Any], conflict: dict[str, Any]) -> dict[str, Any]:
+    """Return compact, explicit choices referenced by a graph conflict.
+
+    The persisted review state remains unchanged.  These candidates are a
+    presentation aid derived from the current reviewed graph each time state
+    is sent to the browser, so edits and rejected objects are reflected on
+    reload.
+    """
+
+    node_ids: list[str] = []
+    edge_ids: list[str] = []
+
+    def add_id(items: list[str], value: Any) -> None:
+        if isinstance(value, str) and value and value not in items:
+            items.append(value)
+
+    add_id(node_ids, conflict.get("node_id"))
+    for value in conflict.get("node_ids") or []:
+        add_id(node_ids, value)
+    add_id(edge_ids, conflict.get("edge_id"))
+    for value in conflict.get("edge_ids") or []:
+        add_id(edge_ids, value)
+
+    pairs: list[dict[str, Any]] = []
+    for pair in conflict.get("candidate_pairs") or []:
+        if not isinstance(pair, dict):
+            continue
+        pairs.append(copy.deepcopy(pair))
+        for value in pair.get("node_ids") or []:
+            add_id(node_ids, value)
+
+    edge_by_id = {
+        str(edge.get("id")): edge
+        for edge in graph.get("edges") or []
+        if isinstance(edge, dict) and edge.get("id")
+    }
+    for edge_id in edge_ids:
+        edge = edge_by_id.get(edge_id)
+        if edge:
+            add_id(node_ids, edge.get("from_node"))
+            add_id(node_ids, edge.get("to_node"))
+
+    node_by_id = {
+        str(node.get("id")): node
+        for node in graph.get("nodes") or []
+        if isinstance(node, dict) and node.get("id")
+    }
+    nodes = []
+    for node_id in node_ids:
+        node = node_by_id.get(node_id)
+        if node is None:
+            continue
+        nodes.append(
+            {
+                "id": node_id,
+                "label": node.get("label") or node_id,
+                "kind": node.get("kind"),
+                "page_index": node.get("page_index"),
+                "bbox_global": copy.deepcopy(node.get("bbox_global")),
+                "confidence": node.get("confidence"),
+            }
+        )
+
+    edges = []
+    for edge_id in edge_ids:
+        edge = edge_by_id.get(edge_id)
+        if edge is None:
+            continue
+        edges.append(
+            {
+                "id": edge_id,
+                "from_node": edge.get("from_node"),
+                "to_node": edge.get("to_node"),
+                "line_type": edge.get("line_type"),
+                "polyline_global": copy.deepcopy(edge.get("polyline_global") or []),
+                "confidence": edge.get("confidence"),
+            }
+        )
+
+    labels = [
+        str(value)
+        for value in conflict.get("labels") or []
+        if isinstance(value, (str, int, float)) and str(value).strip()
+    ]
+    kinds_value = conflict.get("kinds") or {}
+    kinds = (
+        [str(value) for value in kinds_value]
+        if isinstance(kinds_value, list)
+        else [str(value) for value in kinds_value]
+        if isinstance(kinds_value, dict)
+        else []
+    )
+    decisions = ["crossing", "junction"] if conflict.get("type") == "crossing_or_junction" else []
+    return {
+        "nodes": nodes,
+        "edges": edges,
+        "labels": labels,
+        "kinds": kinds,
+        "pairs": pairs,
+        "decisions": decisions,
+    }
+
+
 def _initial_state(graph: ReconciledGraph, session: dict[str, Any]) -> dict[str, Any]:
+    evidence_reviews: dict[str, dict[str, Any]] = {}
+    for candidate in session.get("evidence_candidates") or []:
+        matches = candidate.get("matched_node_ids") or []
+        evidence_reviews[candidate["id"]] = {
+            "status": "linked" if len(matches) == 1 else "unreviewed",
+            "linked_node_id": matches[0] if len(matches) == 1 else None,
+            "disposition": None,
+            "reason": (
+                f"automatically linked by {candidate.get('match_method')}"
+                if len(matches) == 1
+                else None
+            ),
+        }
     return {
         "schema_version": SCHEMA_VERSION,
         "revision": 0,
@@ -163,10 +479,21 @@ def _initial_state(graph: ReconciledGraph, session: dict[str, Any]) -> dict[str,
         },
         "node_reviews": {node.id: "unreviewed" for node in graph.nodes},
         "edge_reviews": {edge.id: "unreviewed" for edge in graph.edges},
+        "evidence_reviews": evidence_reviews,
         "conflict_reviews": {
             item["id"]: {
-                "status": "unreviewed",
-                "reason": None,
+                "status": (
+                    "resolved"
+                    if item["conflict"].get("status") == "resolved"
+                    else "waived"
+                    if item["conflict"].get("status") == "waived"
+                    else "unreviewed"
+                ),
+                "reason": (
+                    item["conflict"].get("reason")
+                    if item["conflict"].get("status") in {"resolved", "waived"}
+                    else None
+                ),
                 "conflict": item["conflict"],
             }
             for item in session["conflicts"]
@@ -180,7 +507,24 @@ def _find_object(items: list[dict[str, Any]], object_id: str) -> dict[str, Any] 
     return next((item for item in items if item.get("id") == object_id), None)
 
 
-def _replace_object(items: list[dict[str, Any]], object_id: str, value: dict[str, Any] | None) -> None:
+def _confirm_provisional_edge(edge: dict[str, Any]) -> None:
+    """Turn a review-only draft edge into an explicitly human-confirmed edge."""
+
+    attributes = dict(edge.get("attributes") or {})
+    for key in (
+        "provisional_review_only",
+        "requires_human_review",
+        "review_conflict_type",
+        "review_reason",
+    ):
+        attributes.pop(key, None)
+    attributes["human_review_confirmed"] = True
+    edge["attributes"] = attributes
+
+
+def _replace_object(
+    items: list[dict[str, Any]], object_id: str, value: dict[str, Any] | None
+) -> None:
     position = next((i for i, item in enumerate(items) if item.get("id") == object_id), None)
     if value is None:
         if position is not None:
@@ -207,6 +551,8 @@ def _target_snapshot(state: dict[str, Any], target_type: str, target_id: str) ->
         return copy.deepcopy(state["page_reviews"].get(target_id))
     if target_type == "conflict":
         return copy.deepcopy(state["conflict_reviews"].get(target_id))
+    if target_type == "evidence":
+        return copy.deepcopy(state["evidence_reviews"].get(target_id))
     raise ValueError(f"unknown review target type: {target_type}")
 
 
@@ -236,6 +582,12 @@ def _apply_snapshot(state: dict[str, Any], target_type: str, target_id: str, val
             state["conflict_reviews"].pop(target_id, None)
         else:
             state["conflict_reviews"][target_id] = copy.deepcopy(value)
+        return
+    if target_type == "evidence":
+        if value is None:
+            state["evidence_reviews"].pop(target_id, None)
+        else:
+            state["evidence_reviews"][target_id] = copy.deepcopy(value)
         return
     raise ValueError(f"unknown review target type: {target_type}")
 
@@ -306,8 +658,14 @@ class ReviewStore:
                 raise ReviewConflictError(
                     f"this single-reviewer session belongs to {session.get('rater')!r}, not {rater!r}"
                 )
-            pages = prepare_page_assets(self.source_path, self.out_dir / "pages", cached=session.get("pages"))
+            pages = prepare_page_assets(
+                self.source_path, self.out_dir / "pages", cached=session.get("pages")
+            )
             session["pages"] = pages
+            if "evidence_candidates" not in session:
+                session["evidence_candidates"] = _load_evidence_candidates(
+                    self.graph_path, graph
+                )
         else:
             pages = prepare_page_assets(
                 self.source_path,
@@ -325,6 +683,7 @@ class ReviewStore:
                 "pages": pages,
                 "conflicts": _conflict_records(graph),
                 "build_issues": _load_build_issues(self.graph_path),
+                "evidence_candidates": _load_evidence_candidates(self.graph_path, graph),
             }
         self.session = session
         _atomic_json(self.session_path, self.session)
@@ -418,6 +777,40 @@ class ReviewStore:
             after["status"] = "resolved" if operation == "resolve" else "waived"
             after["reason"] = reason
             return after
+        if target_type == "evidence":
+            if before is None:
+                raise KeyError(f"unknown evidence candidate {target_id}")
+            if operation == "link":
+                node_id = str(payload.get("node_id") or "")
+                node = _find_object(self.state["graph"]["nodes"], node_id)
+                if node is None or self.state["node_reviews"].get(node_id) == "rejected":
+                    raise ValueError("evidence must link to an active node")
+                return {
+                    "status": "linked",
+                    "linked_node_id": node_id,
+                    "disposition": None,
+                    "reason": reason,
+                }
+            if operation == "dismiss":
+                disposition = str(payload.get("disposition") or "")
+                if disposition not in EVIDENCE_DISPOSITIONS:
+                    raise ValueError(
+                        f"evidence disposition must be one of {sorted(EVIDENCE_DISPOSITIONS)}"
+                    )
+                return {
+                    "status": "dismissed",
+                    "linked_node_id": None,
+                    "disposition": disposition,
+                    "reason": reason,
+                }
+            if operation == "reopen":
+                return {
+                    "status": "unreviewed",
+                    "linked_node_id": None,
+                    "disposition": None,
+                    "reason": reason,
+                }
+            raise ValueError("evidence supports link, dismiss, or reopen")
         if target_type not in {"node", "edge"}:
             raise ValueError(f"unknown target type: {target_type}")
         model_cls = ReconciledNode if target_type == "node" else ReconciledEdge
@@ -430,7 +823,10 @@ class ReviewStore:
         if before is None or before.get("object") is None:
             raise KeyError(f"unknown {target_type} {target_id}")
         if operation == "approve":
-            return {"object": copy.deepcopy(before["object"]), "status": "approved"}
+            obj = copy.deepcopy(before["object"])
+            if target_type == "edge":
+                _confirm_provisional_edge(obj)
+            return {"object": obj, "status": "approved"}
         if operation == "reject":
             return {"object": copy.deepcopy(before["object"]), "status": "rejected"}
         if operation == "modify":
@@ -438,6 +834,8 @@ class ReviewStore:
             candidate.update(payload)
             candidate["id"] = target_id
             obj = model_cls.model_validate(candidate).model_dump(mode="json")
+            if target_type == "edge":
+                _confirm_provisional_edge(obj)
             return {"object": obj, "status": "modified"}
         raise ValueError(f"unsupported {target_type} operation: {operation}")
 
@@ -481,10 +879,13 @@ class ReviewStore:
             return {"event": event, "state": self.public_state()}
 
     def _undo(self, request: dict[str, Any]) -> dict[str, Any]:
-        undone = {int(event["undo_of"]) for event in self.events if event.get("undo_of") is not None}
+        undone = {
+            int(event["undo_of"]) for event in self.events if event.get("undo_of") is not None
+        }
         candidate = next(
             (
-                event for event in reversed(self.events)
+                event
+                for event in reversed(self.events)
                 if event.get("operation") != "undo" and int(event["revision"]) not in undone
             ),
             None,
@@ -525,7 +926,8 @@ class ReviewStore:
         }
         raw["nodes"] = [node for node in raw["nodes"] if node["id"] in active_nodes]
         raw["edges"] = [
-            edge for edge in raw["edges"]
+            edge
+            for edge in raw["edges"]
             if self.state["edge_reviews"].get(edge["id"]) != "rejected"
         ]
         raw["conflicts"] = [
@@ -540,26 +942,48 @@ class ReviewStore:
 
     def completion(self) -> dict[str, Any]:
         unreviewed_pages = [
-            page_id for page_id, review in self.state["page_reviews"].items()
-            if review.get("status") not in {"approved", "waived"} or review.get("role") not in PAGE_ROLES
+            page_id
+            for page_id, review in self.state["page_reviews"].items()
+            if review.get("status") not in {"approved", "waived"}
+            or review.get("role") not in PAGE_ROLES
         ]
         unreviewed_nodes = [
-            object_id for object_id, status in self.state["node_reviews"].items()
+            object_id
+            for object_id, status in self.state["node_reviews"].items()
             if status == "unreviewed"
         ]
         unreviewed_edges = [
-            object_id for object_id, status in self.state["edge_reviews"].items()
+            object_id
+            for object_id, status in self.state["edge_reviews"].items()
             if status == "unreviewed"
         ]
         unresolved_conflicts = [
-            conflict_id for conflict_id, review in self.state["conflict_reviews"].items()
+            conflict_id
+            for conflict_id, review in self.state["conflict_reviews"].items()
             if review.get("status") not in {"resolved", "waived"}
         ]
         graph = self.reviewed_graph()
         node_ids = {node.id for node in graph.nodes}
         dangling_edges = [
-            edge.id for edge in graph.edges
+            edge.id
+            for edge in graph.edges
             if edge.from_node not in node_ids or edge.to_node not in node_ids
+        ]
+        candidates = {
+            item["id"]: item for item in self.session.get("evidence_candidates") or []
+        }
+        unreviewed_evidence = [
+            candidate_id
+            for candidate_id, candidate in candidates.items()
+            if candidate.get("blocking")
+            and self.state["evidence_reviews"].get(candidate_id, {}).get("status")
+            == "unreviewed"
+        ]
+        invalid_evidence_links = [
+            candidate_id
+            for candidate_id, review in self.state["evidence_reviews"].items()
+            if review.get("status") == "linked"
+            and review.get("linked_node_id") not in node_ids
         ]
         details = {
             "unreviewed_pages": unreviewed_pages,
@@ -567,18 +991,135 @@ class ReviewStore:
             "unreviewed_edges": unreviewed_edges,
             "unresolved_conflicts": unresolved_conflicts,
             "dangling_edges": dangling_edges,
+            "unreviewed_evidence": unreviewed_evidence,
+            "invalid_evidence_links": invalid_evidence_links,
         }
         details["complete"] = not any(details[key] for key in details if key != "complete")
         return details
+
+    def _inventory(self) -> dict[str, Any]:
+        graph = self.state["graph"]
+        active_nodes = [
+            node
+            for node in graph["nodes"]
+            if self.state["node_reviews"].get(node["id"]) != "rejected"
+        ]
+        node_by_id = {node["id"]: node for node in active_nodes}
+        degrees = {node_id: 0 for node_id in node_by_id}
+        for edge in graph["edges"]:
+            if self.state["edge_reviews"].get(edge["id"]) == "rejected":
+                continue
+            if edge.get("from_node") in degrees:
+                degrees[edge["from_node"]] += 1
+            if edge.get("to_node") in degrees:
+                degrees[edge["to_node"]] += 1
+
+        pages: dict[str, dict[str, Any]] = {
+            str(page["page_index"]): {
+                "page_index": int(page["page_index"]),
+                "nodes": 0,
+                "reviewed_nodes": 0,
+                "isolated_nodes": 0,
+                "tag_candidates": 0,
+                "unresolved_tag_candidates": 0,
+                "page_review": copy.deepcopy(
+                    self.state["page_reviews"].get(str(page["page_index"]))
+                ),
+            }
+            for page in self.session["pages"]
+        }
+        for node in active_nodes:
+            row = pages.setdefault(str(node["page_index"]), {"page_index": node["page_index"]})
+            row["nodes"] = row.get("nodes", 0) + 1
+            if self.state["node_reviews"].get(node["id"]) != "unreviewed":
+                row["reviewed_nodes"] = row.get("reviewed_nodes", 0) + 1
+            if degrees.get(node["id"], 0) == 0:
+                row["isolated_nodes"] = row.get("isolated_nodes", 0) + 1
+
+        evidence: list[dict[str, Any]] = []
+        for candidate in self.session.get("evidence_candidates") or []:
+            item = copy.deepcopy(candidate)
+            review = copy.deepcopy(
+                self.state["evidence_reviews"].get(
+                    item["id"],
+                    {
+                        "status": "unreviewed",
+                        "linked_node_id": None,
+                        "disposition": None,
+                        "reason": None,
+                    },
+                )
+            )
+            item["review"] = review
+            cx = item["bbox_global"]["x"] + item["bbox_global"]["w"] / 2
+            cy = item["bbox_global"]["y"] + item["bbox_global"]["h"] / 2
+            nearby = sorted(
+                (
+                    (
+                        (node["bbox_global"]["x"] + node["bbox_global"]["w"] / 2 - cx)
+                        ** 2
+                        + (
+                            node["bbox_global"]["y"]
+                            + node["bbox_global"]["h"] / 2
+                            - cy
+                        )
+                        ** 2,
+                        node["id"],
+                    )
+                    for node in active_nodes
+                    if node["page_index"] == item["page_index"]
+                ),
+                key=lambda value: (value[0], value[1]),
+            )
+            item["nearby_node_ids"] = [node_id for _, node_id in nearby[:6]]
+            evidence.append(item)
+            row = pages.setdefault(
+                str(item["page_index"]), {"page_index": item["page_index"]}
+            )
+            if item.get("blocking"):
+                row["tag_candidates"] = row.get("tag_candidates", 0) + 1
+                if review.get("status") == "unreviewed":
+                    row["unresolved_tag_candidates"] = (
+                        row.get("unresolved_tag_candidates", 0) + 1
+                    )
+
+        counts: dict[str, int] = {
+            "nodes": len(active_nodes),
+            "reviewed_nodes": sum(
+                1
+                for node in active_nodes
+                if self.state["node_reviews"].get(node["id"]) != "unreviewed"
+            ),
+            "isolated_nodes": sum(1 for value in degrees.values() if value == 0),
+            "evidence_candidates": len(evidence),
+            "blocking_tag_candidates": sum(
+                1 for item in evidence if item.get("blocking")
+            ),
+            "unresolved_tag_candidates": sum(
+                1
+                for item in evidence
+                if item.get("blocking")
+                and item["review"].get("status") == "unreviewed"
+            ),
+        }
+        return {
+            "counts": counts,
+            "degrees": degrees,
+            "pages": [pages[key] for key in sorted(pages, key=int)],
+            "evidence": evidence,
+        }
 
     def _queue(self) -> list[dict[str, Any]]:
         graph = self.state["graph"]
         conflict_text = json.dumps(self.session.get("conflicts") or [], ensure_ascii=False)
         issue_targets = {
-            item.get("target_id") for item in self.session.get("build_issues") or [] if item.get("target_id")
+            item.get("target_id")
+            for item in self.session.get("build_issues") or []
+            if item.get("target_id")
         }
         partial_pages = {
-            int(page) for page, status in (graph.get("per_page_status") or {}).items()
+            int(page)
+            for page, status in (graph.get("per_page_status") or {}).items()
             if status in {"partial", "error", "cost_exhausted"}
         }
         node_by_id = {node["id"]: node for node in graph["nodes"]}
@@ -596,7 +1137,11 @@ class ReviewStore:
             attrs = node.get("attributes") or {}
             if node.get("kind") == "equipment" and not attrs.get("equipment_class"):
                 reasons.append("unclassified")
-            tier = 0 if any(reason in {"partial page", "graph conflict"} for reason in reasons) else (1 if reasons else 2)
+            tier = (
+                0
+                if any(reason in {"partial page", "graph conflict"} for reason in reasons)
+                else (1 if reasons else 2)
+            )
             box = node["bbox_global"]
             rows.append(
                 {
@@ -624,8 +1169,14 @@ class ReviewStore:
                 reasons.append(f"{edge['confidence']} confidence")
             if edge["from_node"] not in node_by_id or edge["to_node"] not in node_by_id:
                 reasons.append("dangling endpoint")
-            tier = 0 if any(reason in {"partial page", "graph conflict"} for reason in reasons) else (1 if reasons else 2)
-            label = (edge.get("attributes") or {}).get("line_id") or f"{edge['from_node']} → {edge['to_node']}"
+            tier = (
+                0
+                if any(reason in {"partial page", "graph conflict"} for reason in reasons)
+                else (1 if reasons else 2)
+            )
+            label = (edge.get("attributes") or {}).get(
+                "line_id"
+            ) or f"{edge['from_node']} → {edge['to_node']}"
             rows.append(
                 {
                     "target_type": "edge",
@@ -643,6 +1194,11 @@ class ReviewStore:
 
     def public_state(self) -> dict[str, Any]:
         with self._lock:
+            conflict_reviews = copy.deepcopy(self.state["conflict_reviews"])
+            for review in conflict_reviews.values():
+                review["candidates"] = _conflict_candidates(
+                    self.state["graph"], review.get("conflict") or {}
+                )
             return {
                 "session": self.session,
                 "revision": self.state["revision"],
@@ -651,19 +1207,22 @@ class ReviewStore:
                     "pages": self.state["page_reviews"],
                     "nodes": self.state["node_reviews"],
                     "edges": self.state["edge_reviews"],
-                    "conflicts": self.state["conflict_reviews"],
+                    "conflicts": conflict_reviews,
                 },
                 "warnings": self.state.get("warnings") or [],
                 "completion": self.completion(),
                 "queue": self._queue(),
+                "inventory": self._inventory(),
                 "taxonomy": {
                     "kinds": sorted(KINDS),
                     "line_types": sorted(LINE_TYPES),
                     "page_roles": sorted(PAGE_ROLES),
                     "equipment_classes": list(EQUIPMENT_CLASS_KEYS),
                     "valve_types": list(VALVE_TYPE_KEYS),
+                    "actuation_types": list(ACTUATION_TYPE_KEYS),
                     "instrument_functions": list(INSTRUMENT_FUNCTION_KEYS),
                     "instrument_classes": list(INSTRUMENT_CLASS_KEYS),
+                    "evidence_dispositions": sorted(EVIDENCE_DISPOSITIONS),
                 },
             }
 
@@ -682,7 +1241,10 @@ class ReviewStore:
             roundtrip_errors = validate_model(build.model)
             semantic = dexpi_validate.semantic_validate(build.model)
             semantic_rows = [asdict(issue) for issue in semantic]
-            errors = [*roundtrip_errors, *[row for row in semantic_rows if row["severity"] == "error"]]
+            errors = [
+                *roundtrip_errors,
+                *[row for row in semantic_rows if row["severity"] == "error"],
+            ]
             report: dict[str, Any] = {
                 "schema_version": SCHEMA_VERSION,
                 "finished": False,
@@ -696,7 +1258,11 @@ class ReviewStore:
                     "nodes": _status_counts(self.state["node_reviews"]),
                     "edges": _status_counts(self.state["edge_reviews"]),
                     "conflicts": _status_counts(self.state["conflict_reviews"], nested=True),
+                    "evidence": _status_counts(
+                        self.state["evidence_reviews"], nested=True
+                    ),
                 },
+                "inventory": self._inventory()["counts"],
                 "graph_counts": {"nodes": len(graph.nodes), "edges": len(graph.edges)},
                 "dexpi_stats": build.stats,
                 "build_issues": build.issues,

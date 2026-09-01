@@ -18,18 +18,78 @@ the behaviour is configurable and re-projectable from config.
 
 from __future__ import annotations
 
+import json
 import random
+import re
 import sys
 import time
 from collections.abc import Callable
 from datetime import UTC, datetime
 from email.utils import parsedate_to_datetime
 from math import isfinite
-from typing import Any
+from typing import Any, Literal
 
 import anthropic
+import httpx
 
 from diagex.config import LLMConfig, RuntimeBudgets
+
+
+def is_non_retryable_api_error(exc: BaseException) -> bool:
+    """True for provider HTTP failures that another item cannot repair.
+
+    The transport retries 429 and server/connection failures internally. Other
+    4xx responses represent invalid credentials, policy/routing restrictions,
+    unsupported parameters, or missing models. Continuing a batch after one of
+    those failures only repeats the same deterministic error.
+    """
+    if not isinstance(exc, anthropic.APIStatusError):
+        return False
+    status = getattr(exc, "status_code", None)
+    return isinstance(status, int) and 400 <= status < 500 and status != 429
+
+
+_MALFORMED_TOOL_JSON_RE = re.compile(
+    r"(?:key must be a string at line \d+ column \d+|"
+    r"expected\s+[`'\"]?.+?[`'\"]?\s+at line \d+ column \d+|"
+    r"expecting\s+.+?delimiter:\s*line \d+ column \d+|"
+    r"unterminated string[^\n]*line \d+ column \d+|"
+    r"invalid json[^\n]*(?:tool|input)|"
+    r"(?:tool|input)[^\n]*invalid json)",
+    re.IGNORECASE,
+)
+
+_REASONING_REQUIRED_MODEL_RE = re.compile(
+    r"(?:^|/)glm-5\.3(?:$|[-:])",
+    re.IGNORECASE,
+)
+
+
+def is_malformed_tool_json_error(exc: ValueError) -> bool:
+    """Recognise provider/SDK failures while decoding tool arguments."""
+
+    return isinstance(exc, json.JSONDecodeError) or bool(_MALFORMED_TOOL_JSON_RE.search(str(exc)))
+
+
+def model_requires_reasoning(model: str | None) -> bool:
+    """Return whether a known endpoint rejects requests with reasoning disabled.
+
+    Keep this deliberately narrow.  A runtime error check complements the small
+    registry so newly introduced provider aliases can recover without silently
+    treating every reasoning-capable model as reasoning-mandatory.
+    """
+
+    normalised = str(model or "").strip().lstrip("~")
+    return bool(_REASONING_REQUIRED_MODEL_RE.search(normalised))
+
+
+def is_reasoning_required_error(exc: BaseException) -> bool:
+    """Recognise provider validation errors that require reasoning to stay on."""
+
+    detail = str(exc).casefold()
+    mandatory = "reasoning is mandatory" in detail or "thinking is mandatory" in detail
+    cannot_disable = "cannot be disabled" in detail or "must be enabled" in detail
+    return mandatory and cannot_disable
 
 
 class LLMClient:
@@ -84,8 +144,7 @@ class LLMClient:
         if config.transport == "openrouter":
             if not config.openrouter_api_key:
                 raise ValueError(
-                    "OpenRouter transport requires openrouter_api_key; "
-                    "set OPENROUTER_API_KEY."
+                    "OpenRouter transport requires openrouter_api_key; set OPENROUTER_API_KEY."
                 )
             headers = {"X-OpenRouter-Title": config.openrouter_app_title}
             if config.openrouter_http_referer:
@@ -99,9 +158,7 @@ class LLMClient:
 
         if config.transport == "kimi":
             if not config.kimi_api_key:
-                raise ValueError(
-                    "Kimi transport requires kimi_api_key; set KIMI_API_KEY."
-                )
+                raise ValueError("Kimi transport requires kimi_api_key; set KIMI_API_KEY.")
             return anthropic.Anthropic(
                 base_url=LLMClient._kimi_anthropic_base_url(config.kimi_base_url),
                 api_key=config.kimi_api_key,
@@ -142,7 +199,7 @@ class LLMClient:
         base = self.budgets.retry_base_s
         factor = self.budgets.retry_factor
         cap = self.budgets.retry_max_s
-        delay = min(cap, base * (factor ** attempt))
+        delay = min(cap, base * (factor**attempt))
         # Full jitter: sample in [0, delay] so coincident clients decorrelate.
         return random.uniform(0, delay)
 
@@ -207,9 +264,7 @@ class LLMClient:
     def _record_rate_limit(self, retry_after: float | None) -> float:
         """Advance and persist the shared cooldown after an HTTP 429."""
         requested = (
-            retry_after
-            if retry_after is not None
-            else max(0.0, self.budgets.rate_limit_fallback_s)
+            retry_after if retry_after is not None else max(0.0, self.budgets.rate_limit_fallback_s)
         )
         previous = self._rate_limit_cooldown_s
         escalated = min(
@@ -277,8 +332,10 @@ class LLMClient:
         system: str | list[dict[str, Any]],
         messages: list[dict[str, Any]],
         tools: list[dict[str, Any]] | None = None,
+        tool_choice: dict[str, Any] | None = None,
         max_tokens: int,
         thinking: dict[str, Any] | None = None,
+        reasoning_mode_override: Literal["enabled", "disabled"] | None = None,
         output_config: dict[str, Any] | None = None,
         extra_cache_breakpoints: list[dict[str, Any]] | None = None,
         on_stream_delta: Callable[[str, str], None] | None = None,
@@ -292,6 +349,9 @@ class LLMClient:
         `thinking` on Opus 4.7 must be `{"type": "adaptive"}` or `{"type": "disabled"}`
         — the legacy `{"type": "enabled", "budget_tokens": N}` shape is rejected.
         `output_config={"effort": "low|medium|high|xhigh|max"}` controls thinking depth.
+        ``reasoning_mode_override`` is reserved for bounded recovery calls that
+        must produce structured output after a thinking-only response exhausted
+        its token budget; normal calls continue to follow ``DIAGEX_REASONING``.
 
         Opus 4.7 also rejects `temperature` / `top_p` / `top_k`, so we never send them.
         """
@@ -327,10 +387,15 @@ class LLMClient:
         }
         if tools_payload is not None:
             kwargs["tools"] = tools_payload
+        if tool_choice is not None:
+            if tools_payload is None:
+                raise ValueError("tool_choice requires at least one tool")
+            kwargs["tool_choice"] = tool_choice
         effective_thinking = thinking
-        if self.config.reasoning_mode == "enabled":
+        reasoning_mode = reasoning_mode_override or self.config.reasoning_mode
+        if reasoning_mode == "enabled":
             effective_thinking = {"type": "adaptive", "display": "summarized"}
-        elif self.config.reasoning_mode == "disabled":
+        elif reasoning_mode == "disabled":
             effective_thinking = {"type": "disabled"}
 
         if effective_thinking is not None:
@@ -338,11 +403,7 @@ class LLMClient:
             # accepts adaptive/disabled thinking plus output_config.effort, but
             # rejects unknown thinking members with HTTP 400.
             kwargs["thinking"] = (
-                {
-                    key: value
-                    for key, value in effective_thinking.items()
-                    if key != "display"
-                }
+                {key: value for key, value in effective_thinking.items() if key != "display"}
                 if self.config.transport == "kimi"
                 else effective_thinking
             )
@@ -368,7 +429,7 @@ class LLMClient:
             except anthropic.APIStatusError as exc:
                 status = getattr(exc, "status_code", None)
                 # 4xx (except 429) = validation/auth/policy → surface immediately.
-                if status is not None and 400 <= status < 500 and status != 429:
+                if is_non_retryable_api_error(exc):
                     raise
                 last_exc = exc
                 if status in {429, 503}:
@@ -377,6 +438,11 @@ class LLMClient:
                     rate_limit_cooldown = self._record_rate_limit(retry_after)
             except anthropic.APIConnectionError as exc:
                 # Transient network fault; same backoff ladder as 5xx.
+                last_exc = exc
+            except httpx.TransportError as exc:
+                # A streamed response can fail while events are being consumed,
+                # outside the SDK's APIConnectionError wrapper. Incomplete
+                # chunked reads and raw protocol resets are still transient.
                 last_exc = exc
 
             if attempt == self.budgets.retry_attempts - 1:
@@ -411,26 +477,16 @@ class LLMClient:
         raise last_exc
 
     @staticmethod
-    def _forward_stream_delta(
-        event: Any, callback: Callable[[str, str], None]
-    ) -> None:
+    def _forward_stream_delta(event: Any, callback: Callable[[str, str], None]) -> None:
         """Forward visible text/reasoning deltas without coupling UI to the SDK."""
-        event_type = (
-            event.get("type") if isinstance(event, dict) else getattr(event, "type", None)
-        )
+        event_type = event.get("type") if isinstance(event, dict) else getattr(event, "type", None)
         if event_type != "content_block_delta":
             return
 
-        delta = (
-            event.get("delta") if isinstance(event, dict) else getattr(event, "delta", None)
-        )
+        delta = event.get("delta") if isinstance(event, dict) else getattr(event, "delta", None)
         if delta is None:
             return
-        delta_type = (
-            delta.get("type")
-            if isinstance(delta, dict)
-            else getattr(delta, "type", None)
-        )
+        delta_type = delta.get("type") if isinstance(delta, dict) else getattr(delta, "type", None)
         if delta_type in {"thinking_delta", "reasoning_delta"}:
             kind = "thinking"
             field_names = ("thinking", "reasoning", "text")

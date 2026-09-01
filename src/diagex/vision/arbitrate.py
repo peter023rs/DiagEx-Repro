@@ -34,7 +34,7 @@ from typing import Any, Iterable, Optional
 
 from PIL import Image
 
-from diagex.llm.client import LLMClient
+from diagex.llm.client import LLMClient, is_non_retryable_api_error
 from diagex.llm.cost import CostTracker
 from diagex.vision.encode import encode_image_block
 from diagex.vision.models import BBox, ReconciledGraph, ReconciledNode
@@ -48,14 +48,14 @@ from diagex.vision.models import BBox, ReconciledGraph, ReconciledNode
 @dataclass
 class ArbitrationConfig:
     max_arbitrations_per_run: int = 25
-    crop_pad_px: int = 40              # padding around the bbox so context is visible
-    crop_max_dim: int = 768            # long side of the crop sent to the LLM
+    crop_pad_px: int = 40  # padding around the bbox so context is visible
+    crop_max_dim: int = 768  # long side of the crop sent to the LLM
 
     # Low-confidence second pass (see arbitrate_low_confidence).
     low_conf_max: int = 200
     low_conf_crop_pad_px: int = 60
     low_conf_crop_max_dim: int = 400
-    low_conf_reject_abort_frac: float = 0.5     # if >50% of calls REJECT, abort the pass
+    low_conf_reject_abort_frac: float = 0.5  # if >50% of calls REJECT, abort the pass
 
 
 # ---------------------------------------------------------------------------
@@ -123,6 +123,8 @@ def arbitrate_conflicts(
             conflict["arbitration"] = {"status": skip.status, "detail": skip.detail}
             continue
         except Exception as exc:  # noqa: BLE001 - arbitration is best-effort
+            if is_non_retryable_api_error(exc):
+                raise
             conflict["arbitration"] = {"status": "error", "detail": repr(exc)}
             continue
 
@@ -422,7 +424,8 @@ def arbitrate_low_confidence(
     records: list[ArbitrationRecord] = []
 
     candidates = [
-        n for n in graph.nodes
+        n
+        for n in graph.nodes
         if n.kind in ("equipment", "instrument")
         and n.confidence in ("medium", "low")
         and "arbitration" not in (n.attributes or {})
@@ -463,14 +466,24 @@ def arbitrate_low_confidence(
             continue
 
         crop = _crop_with_pad(
-            img, node.bbox_global, cfg.low_conf_crop_pad_px, cfg.low_conf_crop_max_dim,
+            img,
+            node.bbox_global,
+            cfg.low_conf_crop_pad_px,
+            cfg.low_conf_crop_max_dim,
         )
         prompt = _build_low_conf_prompt(node)
         try:
             text, usage = _ask_low_conf(
-                client, cost_tracker, prompt, [crop], idx, node.page_index,
+                client,
+                cost_tracker,
+                prompt,
+                [crop],
+                idx,
+                node.page_index,
             )
         except Exception as exc:  # noqa: BLE001 - arbitration is best-effort
+            if is_non_retryable_api_error(exc):
+                raise
             attrs = dict(node.attributes or {})
             attrs["arbitration"] = "error"
             attrs["arbitration_error"] = repr(exc)
@@ -784,9 +797,7 @@ def _extract_text(resp: Any) -> str:
     for b in content:
         t = getattr(b, "type", None) if not isinstance(b, dict) else b.get("type")
         if t == "text":
-            out.append(
-                getattr(b, "text", "") if not isinstance(b, dict) else (b.get("text") or "")
-            )
+            out.append(getattr(b, "text", "") if not isinstance(b, dict) else (b.get("text") or ""))
     return "\n".join(out).strip()
 
 

@@ -14,8 +14,9 @@ Resolution order (first matching rule wins):
 Caching: extracted packs are persisted under either
     runs/<stem>/legend.cache.json   (per-diagram)         OR
     legends/<key>.json              (shared, --legend-key <key>)
-The cache is keyed on `source_hash` (sha256 of the input bytes). A hash
-mismatch forces re-extraction.
+The cache requires both `source_hash` (sha256 of the input bytes) and an
+extractor fingerprint covering the schema, model, and crop contract. A
+mismatch in either forces re-extraction.
 
 The extracted pack is cached *before* merge with built-ins so the built-in
 library can evolve without invalidating every customer cache.
@@ -32,28 +33,36 @@ from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
 
-from PIL import Image
+from PIL import Image, ImageStat
 from pydantic import ValidationError
 
 from diagex.agent.runtime import ReactRuntime, RunConfig
 from diagex.agent.state import AgentState
 from diagex.agent.tools import build_phase2_tools
 from diagex.config import EFFORT_PROFILES, Config, PidConfig
-from diagex.llm.client import LLMClient
+from diagex.llm.client import LLMClient, is_non_retryable_api_error
 from diagex.llm.cost import CostTracker
 from diagex.llm.prompts.phase2_legend import build_legend_system_prompt
 from diagex.ui.progress import NullReporter, ProgressReporter
 from diagex.vision.encode import encode_image_block
+from diagex.vision.evidence import PageEvidence, PathEvidence, TextEvidence
 from diagex.vision.legend_models import (
+    LEGEND_CACHE_SCHEMA_VERSION,
     LegendBudget,
     LegendEntry,
     LegendPack,
     SymbolStandard,
 )
+from diagex.vision.legend_tables import (
+    AbbreviationInventory,
+    extract_abbreviation_tables,
+)
 from diagex.vision.loader import iter_pages
 from diagex.vision.models import BBox, DiagramPage, DiagramSource
 from diagex.vision.tiling import AspectAwareStrategy, tile
 from diagex.vision.views import ViewProvider
+
+LEGEND_EXTRACTOR_VERSION = "2.1.0"
 
 # ---------------------------------------------------------------------------
 # Result container
@@ -64,11 +73,93 @@ from diagex.vision.views import ViewProvider
 class LegendResolution:
     """Outcome of `resolve_legend`: merged pack + budget split + provenance."""
 
-    pack: LegendPack                   # merged (extracted ∪ built-in)
-    budget: LegendBudget               # pack split into few_shot + lookup_only
-    source: str                        # "explicit_file" | "explicit_pages" | "explicit_region"
-                                       #  | "auto_detected" | "no_legend" | "cache_hit" | "built_in_only"
-    cache_path: Optional[Path]         # where the *extracted* pack was persisted
+    pack: LegendPack  # merged (extracted ∪ built-in)
+    budget: LegendBudget  # pack split into few_shot + lookup_only
+    source: str  # "explicit_file" | "explicit_pages" | "explicit_region"
+    #  | "auto_detected" | "no_legend" | "cache_hit" | "built_in_only"
+    cache_path: Optional[Path]  # where the *extracted* pack was persisted
+
+
+@dataclass
+class EvidenceLegendResolution:
+    """Shared evidence-v2 page routing plus the ordinary legend result."""
+
+    resolution: LegendResolution
+    detected_page_indices: list[int]
+    effective_page_indices: list[int] | None
+    used_builtin_only: bool
+    abbreviation_inventory: AbbreviationInventory
+
+
+def resolve_evidence_legend(
+    *,
+    source: DiagramSource,
+    pages: list[PageEvidence],
+    symbol_standard: SymbolStandard,
+    cfg: Config,
+    client: LLMClient,
+    cost_tracker: CostTracker,
+    legend_path: Path | None = None,
+    legend_pages: list[int] | None = None,
+    legend_region: tuple[int, int, int, int, int] | None = None,
+    no_legend: bool = False,
+    legend_key: str | None = None,
+    runs_dir_for_stem: Path | None = None,
+    reporter: ProgressReporter | None = None,
+) -> EvidenceLegendResolution:
+    """Resolve a legend using the exact page-routing policy shared by evidence-v2.
+
+    If the caller did not provide an explicit selector, deterministic page
+    inspection supplies all pages classified as legends.  If none were found,
+    evidence-v2 deliberately uses the built-in pack rather than spending model
+    calls on unrelated pages.
+    """
+
+    detected = [page.page_index for page in pages if page.role == "legend"]
+    effective_pages = legend_pages
+    effective_no_legend = no_legend
+    if legend_path is None and legend_pages is None and legend_region is None and not no_legend:
+        if detected:
+            effective_pages = detected
+        else:
+            effective_no_legend = True
+
+    resolution = resolve_legend(
+        source=source,
+        symbol_standard=symbol_standard,
+        cfg=cfg,
+        client=client,
+        cost_tracker=cost_tracker,
+        legend_path=legend_path,
+        legend_pages=effective_pages,
+        legend_region=legend_region,
+        no_legend=effective_no_legend,
+        legend_key=legend_key,
+        runs_dir_for_stem=runs_dir_for_stem,
+        reporter=reporter,
+        evidence_pages=pages,
+    )
+    # Native vector text is the source of truth for abbreviation tables.  Add
+    # the reconstructed rows after ordinary legend resolution (including a
+    # cache hit) so inspection and full extraction cannot diverge.  These
+    # entries intentionally win over model and built-in definitions.
+    abbreviation_inventory = extract_abbreviation_tables(pages)
+    if abbreviation_inventory.rows:
+        abbreviation_pack = abbreviation_inventory.to_legend_pack(base=resolution.pack)
+        merged = abbreviation_pack.merge(resolution.pack)
+        resolution = LegendResolution(
+            pack=merged,
+            budget=apply_budget(merged, cfg.pid),
+            source=resolution.source,
+            cache_path=resolution.cache_path,
+        )
+    return EvidenceLegendResolution(
+        resolution=resolution,
+        detected_page_indices=detected,
+        effective_page_indices=effective_pages,
+        used_builtin_only=effective_no_legend and not abbreviation_inventory.rows,
+        abbreviation_inventory=abbreviation_inventory,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -110,7 +201,9 @@ def compute_source_hash(
     """sha256 hex over the legend input bytes. Exactly one kwarg must be set."""
     provided = [x is not None for x in (path, page_bytes, region_bytes)]
     if sum(provided) != 1:
-        raise ValueError("compute_source_hash: pass exactly one of path / page_bytes / region_bytes")
+        raise ValueError(
+            "compute_source_hash: pass exactly one of path / page_bytes / region_bytes"
+        )
 
     h = hashlib.sha256()
     if path is not None:
@@ -140,9 +233,10 @@ def apply_budget(pack: LegendPack, cfg_pid: PidConfig) -> LegendBudget:
 
     Priority (entries earlier in the list are admitted first):
       1. source in {"legend_extracted", "customer_override"} — customer-specific wins.
-      2. standard == pack.standard (the requested symbol_standard).
-      3. kind in {"instrument", "valve", "equipment"} before {"line", "connector", "other"}.
-      4. Remaining entries in file order (stable, deterministic).
+      2. For project entries, image-bearing symbols before text-only rows.
+      3. standard == pack.standard (the requested symbol_standard).
+      4. kind in {"instrument", "valve", "equipment"} before {"line", "connector", "other"}.
+      5. Remaining entries in file order (stable, deterministic).
 
     Token estimate: ~40 tokens for label+description text; +300 when image_b64
     is set. v0 built-ins are text-only so the 40-token figure dominates.
@@ -155,12 +249,22 @@ def apply_budget(pack: LegendPack, cfg_pid: PidConfig) -> LegendBudget:
     kind_rank = {"instrument": 0, "valve": 0, "equipment": 0, "line": 1, "connector": 1, "other": 2}
 
     # Decorate with (priority, original_index) then sort — stable on ties.
-    decorated: list[tuple[tuple[int, int, int], int, LegendEntry]] = []
+    decorated: list[tuple[tuple[int, int, int, int], int, LegendEntry]] = []
     for i, e in enumerate(pack.entries):
         p1 = 0 if e.source in ("legend_extracted", "customer_override") else 1
+        # Native abbreviation rows are valuable to deterministic tag
+        # normalisation and lookup, but should never crowd project symbol
+        # thumbnails out of the visual few-shot block.
+        p_visual = (
+            0
+            if e.image_b64
+            else 2
+            if e.attributes.get("legend_kind") == "abbreviation"
+            else 1
+        )
         p2 = 0 if (e.standard == target_standard) else 1
         p3 = kind_rank.get(e.kind, 2)
-        decorated.append(((p1, p2, p3), i, e))
+        decorated.append(((p1, p_visual, p2, p3), i, e))
 
     # Sorting on (priority_tuple, original_index) is stable and deterministic.
     decorated.sort(key=lambda t: (t[0], t[1]))
@@ -212,8 +316,24 @@ def _cache_path_for(
     return None
 
 
-def _load_cached(path: Optional[Path], expected_hash: str) -> Optional[LegendPack]:
-    """Return the cached pack iff its source_hash matches; else None."""
+def _legend_extractor_fingerprint(cfg: Config, client: LLMClient) -> str:
+    """Fingerprint every input that can change cached legend semantics."""
+    payload = {
+        "version": LEGEND_EXTRACTOR_VERSION,
+        "model": client.config.model,
+        "reasoning_mode": client.config.reasoning_mode,
+        "thumbnail_max_dim": cfg.pid.legend_thumb_max_dim,
+    }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def _load_cached(
+    path: Optional[Path],
+    expected_hash: str,
+    expected_fingerprint: str,
+) -> Optional[LegendPack]:
+    """Return a cache only when its source and extraction contract match."""
     if path is None or not path.exists():
         return None
     try:
@@ -222,7 +342,11 @@ def _load_cached(path: Optional[Path], expected_hash: str) -> Optional[LegendPac
     except (json.JSONDecodeError, ValidationError, OSError):
         # Corrupt or schema-shifted cache -> treat as miss; will be overwritten.
         return None
-    if pack.source_hash != expected_hash:
+    if (
+        pack.schema_version != LEGEND_CACHE_SCHEMA_VERSION
+        or pack.source_hash != expected_hash
+        or pack.extractor_fingerprint != expected_fingerprint
+    ):
         return None
     return pack
 
@@ -287,6 +411,253 @@ def _thumbnail_b64(img: Image.Image, max_dim: int) -> str:
     buf = io.BytesIO()
     thumb.save(buf, format="PNG")
     return base64.standard_b64encode(buf.getvalue()).decode("ascii")
+
+
+def validate_legend_image_bytes(data: bytes) -> str | None:
+    """Return a rejection reason for blank/corrupt legend thumbnails."""
+    try:
+        with Image.open(io.BytesIO(data)) as opened:
+            gray = opened.convert("L")
+            if gray.width < 2 or gray.height < 2:
+                return "image_too_small"
+            extrema = ImageStat.Stat(gray).extrema[0]
+            if extrema[0] >= 245:
+                return "blank_image"
+            histogram = gray.histogram()
+            pixel_count = gray.width * gray.height
+            dark_fraction = sum(histogram[:235]) / pixel_count
+            if dark_fraction > 0.97:
+                return "solid_dark_image"
+            # Permit sparse line-style legend samples, but require several
+            # genuinely dark pixels so antialiasing noise is not accepted.
+            if sum(histogram[:220]) < 3:
+                return "blank_image"
+    except Exception as exc:  # noqa: BLE001 - diagnostic boundary
+        return f"invalid_image:{exc!r}"
+    return None
+
+
+def _image_rejection_reason(image: Image.Image) -> str | None:
+    buf = io.BytesIO()
+    image.save(buf, format="PNG")
+    return validate_legend_image_bytes(buf.getvalue())
+
+
+def _normalise_legend_text(value: str) -> str:
+    return "".join(character.casefold() for character in value if character.isalnum())
+
+
+def _intersection_area(a: BBox, b: BBox) -> int:
+    return max(0, min(a.x2, b.x2) - max(a.x, b.x)) * max(
+        0, min(a.y2, b.y2) - max(a.y, b.y)
+    )
+
+
+def _bbox_distance(a: BBox, b: BBox) -> tuple[int, int]:
+    dx = max(0, a.x - b.x2, b.x - a.x2)
+    dy = max(0, a.y - b.y2, b.y - a.y2)
+    return dx, dy
+
+
+def _matching_label_span(label: str, evidence: PageEvidence) -> TextEvidence | None:
+    target = _normalise_legend_text(label)
+    if not target:
+        return None
+    exact = [
+        span
+        for span in evidence.text_spans
+        if _normalise_legend_text(span.text) == target
+    ]
+    if not exact:
+        return None
+    # Duplicate labels can occur in notes. Prefer the occurrence with nearby
+    # compact vector geometry, which is the likely legend row.
+    def score(span: TextEvidence) -> tuple[int, int, int]:
+        height = max(1, span.bbox.h)
+        nearby = sum(
+            1
+            for path in evidence.paths
+            if _bbox_distance(span.bbox, path.bbox)[0] <= height * 14
+            and _bbox_distance(span.bbox, path.bbox)[1] <= height * 3
+            and path.bbox.w <= height * 14
+            and path.bbox.h <= height * 10
+        )
+        return (-nearby, span.bbox.y, span.bbox.x)
+
+    return min(exact, key=score)
+
+
+def _cluster_path_boxes(paths: list[PathEvidence], gap: int) -> list[list[BBox]]:
+    clusters: list[list[BBox]] = []
+    for path in paths:
+        box = path.bbox
+        touching: list[int] = []
+        for index, cluster in enumerate(clusters):
+            if any(
+                _bbox_distance(box, existing)[0] <= gap
+                and _bbox_distance(box, existing)[1] <= gap
+                for existing in cluster
+            ):
+                touching.append(index)
+        if not touching:
+            clusters.append([box])
+            continue
+        first = touching[0]
+        clusters[first].append(box)
+        for index in reversed(touching[1:]):
+            clusters[first].extend(clusters.pop(index))
+    return clusters
+
+
+def _union_boxes(boxes: list[BBox]) -> BBox:
+    x0 = min(box.x for box in boxes)
+    y0 = min(box.y for box in boxes)
+    x1 = max(box.x2 for box in boxes)
+    y1 = max(box.y2 for box in boxes)
+    return BBox(x=x0, y=y0, w=max(1, x1 - x0), h=max(1, y1 - y0))
+
+
+def _native_symbol_bbox(label: TextEvidence, evidence: PageEvidence) -> BBox | None:
+    """Find compact vector geometry immediately beside a native legend label."""
+    height = max(8, label.bbox.h)
+    row_top = label.bbox.y - 3 * height
+    row_bottom = label.bbox.y2 + 3 * height
+    candidates = [
+        path
+        for path in evidence.paths
+        if path.bbox.y2 >= row_top
+        and path.bbox.y <= row_bottom
+        and path.bbox.w <= 14 * height
+        and path.bbox.h <= 10 * height
+        and (
+            0 <= label.bbox.x - path.bbox.x2 <= 14 * height
+            or 0 <= path.bbox.x - label.bbox.x2 <= 14 * height
+        )
+    ]
+    if not candidates:
+        return None
+
+    clusters = _cluster_path_boxes(candidates, gap=max(3, height // 2))
+    ranked: list[tuple[float, BBox]] = []
+    for cluster in clusters:
+        box = _union_boxes(cluster)
+        dx, dy = _bbox_distance(box, label.bbox)
+        if _intersection_area(box, label.bbox):
+            continue
+        centre_delta = abs((box.y + box.h / 2) - (label.bbox.y + label.bbox.h / 2))
+        tiny_penalty = 5.0 if box.w < height // 3 and box.h < height // 3 else 0.0
+        # Nearby, vertically aligned, multi-primitive clusters are most likely
+        # the symbol cell rather than a table border or an unrelated glyph.
+        score = dx / height + centre_delta / height + dy / height
+        score += tiny_penalty - min(len(cluster), 12) * 0.12
+        ranked.append((score, box))
+    if not ranked:
+        return None
+    box = min(ranked, key=lambda item: item[0])[1]
+    padding = max(3, height // 3)
+    return BBox(
+        x=max(0, box.x - padding),
+        y=max(0, box.y - padding),
+        w=min(evidence.width, box.x2 + padding) - max(0, box.x - padding),
+        h=min(evidence.height, box.y2 + padding) - max(0, box.y - padding),
+    )
+
+
+def _model_crop_is_suspicious(
+    bbox: BBox,
+    label_span: TextEvidence | None,
+    evidence: PageEvidence | None,
+) -> str | None:
+    if evidence is None:
+        return None
+    if label_span is not None:
+        height = max(8, label_span.bbox.h)
+        dx, dy = _bbox_distance(bbox, label_span.bbox)
+        if dx > 20 * height or dy > 4 * height:
+            return "bbox_far_from_label"
+    for span in evidence.text_spans:
+        if _intersection_area(bbox, span.bbox) == 0:
+            continue
+        text = span.text.strip()
+        if any("\u4e00" <= character <= "\u9fff" for character in text) or len(text) > 2:
+            return "bbox_overlaps_printed_text"
+    return None
+
+
+def _select_legend_crop(
+    *,
+    page: DiagramPage,
+    evidence: PageEvidence | None,
+    label: str,
+    model_bbox: BBox,
+) -> tuple[Image.Image | None, BBox | None, BBox | None, str | None, str]:
+    """Select a trustworthy model crop or recover one from native PDF evidence."""
+    if page.image is None:
+        return None, None, None, None, "unavailable"
+    label_span = _matching_label_span(label, evidence) if evidence is not None else None
+    model_reason = _model_crop_is_suspicious(model_bbox, label_span, evidence)
+
+    # On a vector PDF, the exact native label plus adjacent drawing paths is
+    # better evidence than a model-predicted rectangle.  Prefer reconstructing
+    # that symbol cell even when the model crop happens to pass a coarse blank
+    # check; this avoids accepted but clipped strokes and table borders.
+    if evidence is not None and label_span is not None and evidence.paths:
+        recovered_bbox = _native_symbol_bbox(label_span, evidence)
+        if recovered_bbox is not None:
+            recovered = page.image.crop(
+                (recovered_bbox.x, recovered_bbox.y, recovered_bbox.x2, recovered_bbox.y2)
+            )
+            if _image_rejection_reason(recovered) is None:
+                return (
+                    recovered,
+                    recovered_bbox,
+                    label_span.bbox,
+                    "native_text_paths",
+                    "recovered",
+                )
+    if (
+        model_bbox.w > 0
+        and model_bbox.h > 0
+        and model_bbox.x < page.width
+        and model_bbox.y < page.height
+        and model_bbox.x2 > 0
+        and model_bbox.y2 > 0
+    ):
+        model_crop = page.image.crop(
+            (
+                max(0, model_bbox.x),
+                max(0, model_bbox.y),
+                min(page.width, model_bbox.x2),
+                min(page.height, model_bbox.y2),
+            )
+        )
+        image_reason = _image_rejection_reason(model_crop)
+        if model_reason is None and image_reason is None:
+            return (
+                model_crop,
+                model_bbox,
+                label_span.bbox if label_span else None,
+                "model_bbox",
+                "accepted",
+            )
+
+    if evidence is not None and label_span is not None:
+        recovered_bbox = _native_symbol_bbox(label_span, evidence)
+        if recovered_bbox is not None:
+            recovered = page.image.crop(
+                (recovered_bbox.x, recovered_bbox.y, recovered_bbox.x2, recovered_bbox.y2)
+            )
+            if _image_rejection_reason(recovered) is None:
+                return (
+                    recovered,
+                    recovered_bbox,
+                    label_span.bbox,
+                    "native_text_paths",
+                    "recovered",
+                )
+
+    rejected = "rejected_text_overlap" if model_reason else "rejected_blank"
+    return None, model_bbox, label_span.bbox if label_span else None, None, rejected
 
 
 # ---------------------------------------------------------------------------
@@ -374,9 +745,7 @@ def _extract_text(resp: Any) -> str:
     for b in content:
         t = getattr(b, "type", None) if not isinstance(b, dict) else b.get("type")
         if t == "text":
-            out.append(
-                getattr(b, "text", "") if not isinstance(b, dict) else (b.get("text") or "")
-            )
+            out.append(getattr(b, "text", "") if not isinstance(b, dict) else (b.get("text") or ""))
     return "\n".join(out)
 
 
@@ -429,6 +798,7 @@ def _extract_from_page(
     client: LLMClient,
     cost_tracker: CostTracker,
     cfg: Config,
+    page_evidence: PageEvidence | None = None,
 ) -> list[LegendEntry]:
     """Run a ReAct extraction pass over one page (optionally cropped) and
     harvest LegendEntry rows from the agent's annotations.
@@ -502,6 +872,7 @@ def _extract_from_page(
             page=page,
             origin=origin,
             cfg_pid=cfg.pid,
+            page_evidence=page_evidence,
         )
         if entry is not None:
             entries.append(entry)
@@ -514,6 +885,7 @@ def _annotation_to_entry(
     page: DiagramPage,
     origin: tuple[int, int],
     cfg_pid: PidConfig,
+    page_evidence: PageEvidence | None = None,
 ) -> Optional[LegendEntry]:
     """Convert a legend-pass Annotation into a LegendEntry.
 
@@ -551,14 +923,27 @@ def _annotation_to_entry(
         h=bbox.h,
     )
     image_b64: str | None = None
-    if page.image is not None and page_bbox.w > 0 and page_bbox.h > 0:
+    source_bbox: BBox | None = page_bbox
+    source_label_bbox: BBox | None = None
+    crop_method: str | None = None
+    crop_quality = "unavailable"
+    if legend_kind == "abbreviation":
+        crop_quality = "omitted_abbreviation"
+    else:
         try:
-            crop = page.image.crop(
-                (page_bbox.x, page_bbox.y, page_bbox.x2, page_bbox.y2)
+            crop, source_bbox, source_label_bbox, crop_method, crop_quality = (
+                _select_legend_crop(
+                    page=page,
+                    evidence=page_evidence,
+                    label=label,
+                    model_bbox=page_bbox,
+                )
             )
-            image_b64 = _thumbnail_b64(crop, cfg_pid.legend_thumb_max_dim)
+            if crop is not None:
+                image_b64 = _thumbnail_b64(crop, cfg_pid.legend_thumb_max_dim)
         except Exception:
             image_b64 = None
+            crop_quality = "unavailable"
 
     # Normalise the kind into the LegendEntry Literal set. The Annotation's
     # kind set is broader (includes text / note / opc); fold those into
@@ -584,6 +969,12 @@ def _annotation_to_entry(
             image_b64=image_b64,
             attributes={k: str(v) for k, v in attrs.items()},
             source="legend_extracted",
+            source_page_index=page.page_index,
+            source_bbox=source_bbox,
+            source_label_bbox=source_label_bbox,
+            source_view=annotation.source_view,
+            crop_method=crop_method,
+            crop_quality=crop_quality,
         )
     except ValidationError:
         return None
@@ -618,6 +1009,7 @@ def resolve_legend(
     legend_key: Optional[str] = None,
     runs_dir_for_stem: Optional[Path] = None,
     reporter: ProgressReporter | None = None,
+    evidence_pages: list[PageEvidence] | None = None,
 ) -> LegendResolution:
     """Resolve, extract, cache, merge, and budget-split the legend.
 
@@ -646,6 +1038,10 @@ def resolve_legend(
         cfg_pid=cfg.pid,
         runs_dir_for_stem=runs_dir_for_stem,
     )
+    evidence_by_page = {
+        page.page_index: page for page in (evidence_pages or [])
+    }
+    extractor_fingerprint = _legend_extractor_fingerprint(cfg, client)
 
     # --- rule 4: --no-legend -------------------------------------------------
     if no_legend:
@@ -672,6 +1068,7 @@ def resolve_legend(
             client=client,
             cost_tracker=cost_tracker,
             cache_path=cache_path,
+            extractor_fingerprint=extractor_fingerprint,
         )
 
     # --- rule 2: --legend-pages ---------------------------------------------
@@ -685,6 +1082,8 @@ def resolve_legend(
             client=client,
             cost_tracker=cost_tracker,
             cache_path=cache_path,
+            evidence_by_page=evidence_by_page,
+            extractor_fingerprint=extractor_fingerprint,
         )
 
     # --- rule 3: --legend-region --------------------------------------------
@@ -698,6 +1097,8 @@ def resolve_legend(
             client=client,
             cost_tracker=cost_tracker,
             cache_path=cache_path,
+            evidence_by_page=evidence_by_page,
+            extractor_fingerprint=extractor_fingerprint,
         )
 
     # --- rule 5 (default): auto-detect --------------------------------------
@@ -710,6 +1111,8 @@ def resolve_legend(
         cost_tracker=cost_tracker,
         cache_path=cache_path,
         reporter=progress,
+        evidence_by_page=evidence_by_page,
+        extractor_fingerprint=extractor_fingerprint,
     )
 
 
@@ -735,6 +1138,7 @@ def _finalise(
     merged = LegendPack(
         schema_version=merged.schema_version,
         source_hash=merged.source_hash,
+        extractor_fingerprint=merged.extractor_fingerprint,
         source_ref=merged.source_ref,
         standard=symbol_standard,
         entries=merged.entries,
@@ -758,12 +1162,13 @@ def _resolve_from_explicit_path(
     client: LLMClient,
     cost_tracker: CostTracker,
     cache_path: Optional[Path],
+    extractor_fingerprint: str,
 ) -> LegendResolution:
     if not legend_path.exists():
         raise FileNotFoundError(f"--legend file not found: {legend_path}")
     src_hash = compute_source_hash(path=legend_path)
 
-    cached = _load_cached(cache_path, src_hash)
+    cached = _load_cached(cache_path, src_hash, extractor_fingerprint)
     if cached is not None:
         return _finalise(
             extracted=cached,
@@ -790,12 +1195,15 @@ def _resolve_from_explicit_path(
                 cfg=cfg,
             )
         except Exception as exc:
+            if is_non_retryable_api_error(exc):
+                raise
             notes = f"extraction failed on page {page.page_index}: {exc}".strip()
             continue
         all_entries.extend(entries)
 
     extracted = LegendPack(
         source_hash=src_hash,
+        extractor_fingerprint=extractor_fingerprint,
         source_ref=f"file:{legend_path.name}",
         standard=symbol_standard,
         entries=_dedupe(all_entries),
@@ -823,6 +1231,8 @@ def _resolve_from_pages(
     client: LLMClient,
     cost_tracker: CostTracker,
     cache_path: Optional[Path],
+    evidence_by_page: dict[int, PageEvidence],
+    extractor_fingerprint: str,
 ) -> LegendResolution:
     pages = _iter_legend_pages(source, page_indices)
     if not pages:
@@ -832,7 +1242,7 @@ def _resolve_from_pages(
     page_pngs = [_page_png_bytes(p) for p in pages]
     src_hash = compute_source_hash(page_bytes=page_pngs)
 
-    cached = _load_cached(cache_path, src_hash)
+    cached = _load_cached(cache_path, src_hash, extractor_fingerprint)
     if cached is not None:
         return _finalise(
             extracted=cached,
@@ -853,14 +1263,18 @@ def _resolve_from_pages(
                 client=client,
                 cost_tracker=cost_tracker,
                 cfg=cfg,
+                page_evidence=evidence_by_page.get(page.page_index),
             )
         except Exception as exc:
+            if is_non_retryable_api_error(exc):
+                raise
             notes = f"extraction failed on page {page.page_index}: {exc}".strip()
             continue
         all_entries.extend(entries)
 
     extracted = LegendPack(
         source_hash=src_hash,
+        extractor_fingerprint=extractor_fingerprint,
         source_ref=f"{source.path.stem}#pages={','.join(str(i) for i in page_indices)}",
         standard=symbol_standard,
         entries=_dedupe(all_entries),
@@ -886,6 +1300,8 @@ def _resolve_from_region(
     client: LLMClient,
     cost_tracker: CostTracker,
     cache_path: Optional[Path],
+    evidence_by_page: dict[int, PageEvidence],
+    extractor_fingerprint: str,
 ) -> LegendResolution:
     page_idx, x, y, w, h = region
     pages = _iter_legend_pages(source, [page_idx])
@@ -898,7 +1314,7 @@ def _resolve_from_region(
     crop.save(buf, format="PNG")
     src_hash = compute_source_hash(region_bytes=buf.getvalue())
 
-    cached = _load_cached(cache_path, src_hash)
+    cached = _load_cached(cache_path, src_hash, extractor_fingerprint)
     if cached is not None:
         return _finalise(
             extracted=cached,
@@ -916,14 +1332,18 @@ def _resolve_from_region(
             client=client,
             cost_tracker=cost_tracker,
             cfg=cfg,
+            page_evidence=evidence_by_page.get(page.page_index),
         )
         notes = ""
     except Exception as exc:
+        if is_non_retryable_api_error(exc):
+            raise
         entries = []
         notes = f"extraction failed: {exc}"
 
     extracted = LegendPack(
         source_hash=src_hash,
+        extractor_fingerprint=extractor_fingerprint,
         source_ref=f"{source.path.stem}#region=p{page_idx}:{x},{y},{w},{h}",
         standard=symbol_standard,
         entries=_dedupe(entries),
@@ -949,6 +1369,8 @@ def _resolve_auto(
     cost_tracker: CostTracker,
     cache_path: Optional[Path],
     reporter: ProgressReporter,
+    evidence_by_page: dict[int, PageEvidence],
+    extractor_fingerprint: str,
 ) -> LegendResolution:
     """Default path: classify each page, extract detected legends, merge."""
     detected: list[tuple[DiagramPage, Optional[tuple[int, int, int, int]]]] = []
@@ -972,17 +1394,15 @@ def _resolve_auto(
             )
         except Exception as exc:  # preserve best-effort legend detection
             reporter.on_phase_item_end(detail=str(exc), is_error=True)
+            if is_non_retryable_api_error(exc):
+                raise
             continue
-        reporter.on_phase_item_end(
-            detail="legend detected" if is_legend else "not a legend"
-        )
+        reporter.on_phase_item_end(detail="legend detected" if is_legend else "not a legend")
         if is_legend:
             detected.append((page, bbox))
             detected_page_bytes.append(_page_png_bytes(page))
 
-    reporter.on_phase_end(
-        detail=f"{len(detected)} legend page(s) detected"
-    )
+    reporter.on_phase_end(detail=f"{len(detected)} legend page(s) detected")
 
     if not detected:
         merged = LegendPack(
@@ -1008,7 +1428,7 @@ def _resolve_auto(
         h.update(marker)
     src_hash = h.hexdigest()
 
-    cached = _load_cached(cache_path, src_hash)
+    cached = _load_cached(cache_path, src_hash, extractor_fingerprint)
     if cached is not None:
         return _finalise(
             extracted=cached,
@@ -1035,10 +1455,13 @@ def _resolve_auto(
                 client=client,
                 cost_tracker=cost_tracker,
                 cfg=cfg,
+                page_evidence=evidence_by_page.get(page.page_index),
             )
         except Exception as exc:
             notes_parts.append(f"page {page.page_index}: {exc}")
             reporter.on_phase_item_end(detail=str(exc), is_error=True)
+            if is_non_retryable_api_error(exc):
+                raise
             continue
         all_entries.extend(entries)
         reporter.on_phase_item_end(detail=f"{len(entries)} entries")
@@ -1047,6 +1470,7 @@ def _resolve_auto(
 
     extracted = LegendPack(
         source_hash=src_hash,
+        extractor_fingerprint=extractor_fingerprint,
         source_ref=f"{source.path.stem}#auto-detected",
         standard=symbol_standard,
         entries=_dedupe(all_entries),
@@ -1068,7 +1492,7 @@ def _resolve_auto(
 
 
 def _dedupe(entries: list[LegendEntry]) -> list[LegendEntry]:
-    """Dedupe on case-folded label, preserving first occurrence order."""
+    """Dedupe labels and conservatively sanitize cached visual evidence."""
     seen: set[str] = set()
     out: list[LegendEntry] = []
     for e in entries:
@@ -1077,4 +1501,54 @@ def _dedupe(entries: list[LegendEntry]) -> list[LegendEntry]:
             continue
         seen.add(key)
         out.append(e)
-    return out
+
+    sanitized: list[LegendEntry] = []
+    hashes: dict[str, list[int]] = {}
+    for entry in out:
+        updated = entry
+        issue: str | None = None
+        if entry.attributes.get("legend_kind") == "abbreviation" and entry.image_b64:
+            issue = "abbreviation_has_no_symbol_image"
+            updated = entry.model_copy(
+                update={"image_b64": None, "crop_quality": "omitted_abbreviation"}
+            )
+        elif entry.image_b64:
+            try:
+                raw = entry.image_bytes()
+                issue = validate_legend_image_bytes(raw or b"")
+            except Exception as exc:  # noqa: BLE001 - malformed model/cache image
+                issue = f"invalid_image:{exc!r}"
+            if issue:
+                attrs = dict(entry.attributes)
+                attrs["legend_image_issue"] = issue
+                updated = entry.model_copy(
+                    update={
+                        "image_b64": None,
+                        "attributes": attrs,
+                        "crop_quality": "rejected_blank",
+                    }
+                )
+        sanitized.append(updated)
+        if updated.image_b64:
+            digest = hashlib.sha256(updated.image_bytes() or b"").hexdigest()
+            hashes.setdefault(digest, []).append(len(sanitized) - 1)
+
+    # Identical pixels assigned to different labels usually indicate a stale
+    # coordinate frame or whitespace crop.  Omit the visual evidence for all
+    # members instead of arbitrarily trusting the first label.
+    for indices in hashes.values():
+        labels = {sanitized[index].label.casefold() for index in indices}
+        if len(indices) < 2 or len(labels) < 2:
+            continue
+        for index in indices:
+            entry = sanitized[index]
+            attrs = dict(entry.attributes)
+            attrs["legend_image_issue"] = "duplicate_pixels_for_different_labels"
+            sanitized[index] = entry.model_copy(
+                update={
+                    "image_b64": None,
+                    "attributes": attrs,
+                    "crop_quality": "rejected_duplicate",
+                }
+            )
+    return sanitized

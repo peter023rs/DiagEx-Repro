@@ -44,6 +44,9 @@ codegen = [
 validate = [
     "xmlschema>=3.4.0",
 ]
+vision = [
+    "opencv-python-headless>=4.10.0",
+]
 
 [project.scripts]
 diagex = "diagex.cli:app"

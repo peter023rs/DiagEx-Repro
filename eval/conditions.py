@@ -74,6 +74,13 @@ ABLATION_NO_LEGEND = Condition(
     pid_kwargs={"no_legend": True},
 )
 
+EVIDENCE_V2 = Condition(
+    name="evidence-v2",
+    description="Opt-in evidence-first Phase 2 engine for A/B comparison with "
+                "the paper-compatible legacy baseline.",
+    pid_kwargs={"engine": "evidence-v2"},
+)
+
 
 # Cross-model anchor (plan §6, item 2) ---------------------------------------
 #
@@ -121,6 +128,7 @@ ALL_CONDITIONS: dict[str, Condition] = {
         BASELINE,
         ABLATION_NO_TILE,
         ABLATION_NO_LEGEND,
+        EVIDENCE_V2,
         GPT41_SINGLESHOT,
         LEGACY_OVERLAP_HIGH,
         LEGACY_EFFORT_LOW,
