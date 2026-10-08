@@ -28,8 +28,7 @@ from diagex.vision.symbol_candidates import (
     symbol_candidates,
 )
 from diagex.vision.views import ViewInfo
-from tests.unit.test_native_scene import body, rectangle
-from tests.unit.test_port_topology import page, path
+from tests.unit.detection_fixtures import body, page, path, rectangle
 
 
 def circle(name, x, y, radius=18):
@@ -372,9 +371,9 @@ def test_public_fixture_reviewed_valve_bodies_exclude_actuators_and_tag_labels(
 ):
     # Bounds independently inspected on source PDF glyphs. Existing broad
     # fixture annotations include labels and actuators, so are not body truth.
-    from scripts.evaluate_symbol_perception import fixture
+    from tests.unit.detection_fixtures import public_candidates
 
-    _, cs = fixture(fixture_name)
+    cs = public_candidates(fixture_name)
     x, y, w, h = expected
     assert any(
         c["shape"] == "valve_body" and BBox(**c["bbox"]).iou(BBox(x=x, y=y, w=w, h=h)) > 0.9
@@ -467,7 +466,7 @@ def test_one_targeted_retry_preserves_good_detections_and_never_loops(repair):
         def messages_create(self, **kwargs):
             calls.append(kwargs)
             payload = json.loads(kwargs["messages"][0]["content"][1]["text"].split("\n")[-1])
-            assert len([b for b in kwargs["messages"][0]["content"] if b["type"] == "image"]) == (2 if len(calls) == 1 else 4)
+            assert len([b for b in kwargs["messages"][0]["content"] if b["type"] == "image"]) == (2 if len(calls) == 1 else 3)
             if len(calls) == 1:
                 objects = [
                     {"kind": "instrument", "candidate_id": cs[0].id, "printed_tag": "PI-1"},

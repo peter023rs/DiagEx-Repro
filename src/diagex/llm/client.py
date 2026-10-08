@@ -55,6 +55,16 @@ def is_non_retryable_api_error(exc: BaseException) -> bool:
     return isinstance(status, int) and 400 <= status < 500 and status != 429
 
 
+def provider_image_limit(exc: BaseException) -> int | None:
+    """Recognize an explicit image-count rejection, never unrelated HTTP errors."""
+    if not isinstance(exc, anthropic.APIStatusError) or exc.status_code not in {400, 413, 422}:
+        return None
+    match = re.search(r"Too many images in request:\s*(\d+)\s*>\s*(\d+)", str(exc), re.IGNORECASE)
+    if match and 0 < int(match[2]) < int(match[1]):
+        return int(match[2])
+    return None
+
+
 _MALFORMED_TOOL_JSON_RE = re.compile(
     r"(?:key must be a string at line \d+ column \d+|"
     r"expected\s+[`'\"]?.+?[`'\"]?\s+at line \d+ column \d+|"
@@ -403,10 +413,21 @@ class LLMClient:
             "system": system_blocks,
             "messages": messages,
         }
+        if self.config.transport == "openrouter":
+            routing = {}
+            if self.config.openrouter_provider_order:
+                routing["order"] = self.config.openrouter_provider_order
+            if self.config.openrouter_provider_ignore:
+                routing["ignore"] = self.config.openrouter_provider_ignore
+            if not self.config.openrouter_allow_fallbacks:
+                routing["allow_fallbacks"] = False
+            if routing:
+                kwargs["extra_body"] = {"provider": routing}
         if self.spending and self.config.transport == "openrouter":
             price = self.spending.prices.get(self.config.model)
             if price:
                 kwargs["extra_body"] = {"provider": {
+                    **kwargs.get("extra_body", {}).get("provider", {}),
                     "only": price["provider_tags"], "require_parameters": True,
                     "max_price": {"prompt": price["input_per_token"] * 1_000_000,
                                   "completion": price["output_per_token"] * 1_000_000},
@@ -423,6 +444,18 @@ class LLMClient:
             effective_thinking = {"type": "adaptive", "display": "summarized"}
         elif reasoning_mode == "disabled":
             effective_thinking = {"type": "disabled"}
+
+        # GLM 5.3 requires reasoning, including for the detector's fast pass.
+        if self.config.transport == "openrouter" and model_requires_reasoning(self.config.model):
+            if effective_thinking is None or effective_thinking.get("type") == "disabled":
+                effective_thinking = {"type": "adaptive"}
+            if output_config:
+                output_config = {**output_config, "effort": {
+                    "medium": "high", "xhigh": "max",
+                }.get(output_config.get("effort"), output_config.get("effort"))}
+        if self.config.transport == "openrouter" and self.config.model == "qwen/qwen3-vl-235b-a22b-instruct":
+            effective_thinking = None
+            output_config = None
 
         if effective_thinking is not None:
             # ``display`` is an Anthropic-specific presentation option. Kimi K3

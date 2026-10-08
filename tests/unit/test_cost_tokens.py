@@ -4,14 +4,13 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-from diagex.extractors.pid import PidExtractionResult
+from diagex.detection.result import DetectionResult
 from diagex.llm.cost import (
     CostTracker,
     format_elapsed,
     format_tokens_millions,
     total_tokens_from_summary,
 )
-from diagex.vision.models import ReconciledGraph
 
 
 def test_cost_tracker_total_tokens_includes_cache_categories() -> None:
@@ -50,12 +49,10 @@ def test_format_elapsed_uses_compact_clock_format() -> None:
 
 
 def test_pid_console_summary_places_elapsed_time_next_to_tokens() -> None:
-    result = PidExtractionResult(
+    result = DetectionResult(
         diagram_stem="drawing",
         effort="medium",
         model="model",
-        graph=ReconciledGraph(source_path="drawing"),
-        dexpi_json_path=None,
         cost_summary={
             "total_tokens": 12_017_000,
             "input_tokens": 9_535_000,

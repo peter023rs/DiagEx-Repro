@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from types import SimpleNamespace
 
+import anthropic
+import httpx
 import pytest
 from PIL import Image, ImageDraw
 
@@ -15,8 +17,7 @@ from diagex.vision.evidence import TextEvidence
 from diagex.vision.legend_models import LegendEntry, LegendPack
 from diagex.vision.legend_rows import native_legend_rows
 from diagex.vision.models import BBox, DiagramPage
-from tests.unit.test_native_scene import rectangle
-from tests.unit.test_port_topology import page, path
+from tests.unit.detection_fixtures import page, path, rectangle
 
 
 def fixture(count=2, *, left=False):
@@ -100,7 +101,7 @@ class Client:
         ]
         for item in inputs:
             self.row_order.setdefault(item["row_id"], len(self.row_order))
-        assert len(inputs) <= 12
+        assert len(inputs) <= 4
         assert len(kwargs["messages"][0]["content"]) == 2 * len(inputs)
         assert kwargs["thinking"] == {"type": "disabled"}
         rows = []
@@ -159,7 +160,7 @@ def extract(count=2, mode="accept"):
 
 def test_native_classifier_uses_bounded_batches_and_cannot_replace_source_identity():
     entries, coverage, client, p = extract(25)
-    assert len(client.calls) == 3
+    assert len(client.calls) == 7
     assert len(entries) == len(coverage) == 25
     assert all(
         e.label == "Full definition" and e.source_bbox.w > 30 and e.source_row_id for e in entries
@@ -173,9 +174,33 @@ def test_native_classifier_uses_bounded_batches_and_cannot_replace_source_identi
     assert len(LegendPack(entries=entries[:1]).merge(LegendPack(entries=entries)).entries) == 25
 
 
+@pytest.mark.parametrize("limit", [4, 2, 1])
+def test_provider_image_limit_preserves_every_native_legend_row(limit):
+    rendered, evidence = fixture(12)
+
+    class LimitedClient(Client):
+        def messages_create(self, **kwargs):
+            count = sum(b["type"] == "image" for b in kwargs["messages"][0]["content"])
+            if count > limit:
+                raise anthropic.BadRequestError(
+                    f"Too many images in request: {count} > {limit}",
+                    response=httpx.Response(400, request=httpx.Request("POST", "https://test.invalid")),
+                    body=None,
+                )
+            return super().messages_create(**kwargs)
+
+    client, coverage = LimitedClient(), []
+    entries = _extract_from_page(page=rendered, region=None, page_evidence=evidence,
+                                 client=client, cost_tracker=CostTracker(), cfg=Config(), coverage=coverage)
+    assert [e.source_row_id for e in entries] == [r.id for r in native_legend_rows(evidence)]
+    assert len(entries) == len(coverage) == 12
+    assert all(c.status == "complete" for c in coverage)
+    assert len(client.calls) == (12 + limit - 1) // limit
+
+
 def test_missing_malformed_and_conflicting_classifications_remain_reviewable():
     entries, coverage, client, _ = extract(5, "mixed")
-    assert len(client.calls) == 2 and len(entries) == 4
+    assert len(client.calls) == 3 and len(entries) == 4
     assert [e.attributes["row_status"] for e in entries] == [
         "uncertain",
         "uncertain",
@@ -249,12 +274,12 @@ def test_rejected_definition_gets_one_second_review_and_completed_rows_are_reuse
 
 def test_failed_batch_preserves_other_batches_without_navigation_or_retry():
     entries, coverage, client, _ = extract(25, "failure")
-    assert len(client.calls) == 3 and len(entries) == 25
-    assert sum(c.status == "partial" for c in coverage) == 12
-    assert all("batch unavailable" in c.reason for c in coverage[12:24])
+    assert len(client.calls) == 7 and len(entries) == 25
+    assert sum(c.status == "partial" for c in coverage) == 4
+    assert all("batch unavailable" in c.reason for c in coverage[4:8])
 
 
-@pytest.mark.parametrize("mode,count,expected_pending", [("failure", 25, 12), ("mixed", 5, 3)])
+@pytest.mark.parametrize("mode,count,expected_pending", [("failure", 25, 4), ("mixed", 5, 3)])
 def test_resume_reclassifies_only_unresolved_source_rows(mode, count, expected_pending):
     entries, old_coverage, _, _ = extract(count, mode)
     prior = LegendPack(entries=entries, coverage=old_coverage)
@@ -313,8 +338,8 @@ def test_legend_circuit_stops_failed_batches_across_pages_without_losing_rows():
     )
     assert client.calls == 3 and state.stop_reason
     assert len(entries) == len(coverage) == 60
-    assert sum(c.failure_kind == "transport" for c in coverage) == 36
-    assert sum(c.failure_kind == "not_inspected" for c in coverage) == 24
+    assert sum(c.failure_kind == "transport" for c in coverage) == 12
+    assert sum(c.failure_kind == "not_inspected" for c in coverage) == 48
     _extract_from_page(
         page=rendered,
         region=None,

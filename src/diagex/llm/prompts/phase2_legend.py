@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from diagex.dexpi_schema import (
+from diagex.detection.taxonomy import (
     render_legend_equipment_list,
     render_legend_instrument_list,
     render_legend_valve_list,

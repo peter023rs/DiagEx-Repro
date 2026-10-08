@@ -17,6 +17,7 @@ from typing import Any
 
 from PIL import Image
 
+from diagex.vision.contact_sheet import contact_sheet
 from diagex.vision.encode import encode_image_block
 from diagex.vision.legend_models import normalise_legend_role
 from diagex.vision.symbol_candidates import SymbolCandidate
@@ -231,4 +232,8 @@ def select_legend_context(
         c.id: [g[1]["legend_entry_id"] for g in selected if c.shape in g[2]] for c in candidates
     }
     abbreviations.sort(key=lambda item: (item["label"], item["legend_entry_id"]))
-    return [*(g[1] for g in selected), *abbreviations[:MAX_ABBREVIATIONS]], blocks, candidate_refs
+    return (
+        [*(g[1] for g in selected), *abbreviations[:MAX_ABBREVIATIONS]],
+        contact_sheet(blocks, title="Legend references", columns=3),
+        candidate_refs,
+    )

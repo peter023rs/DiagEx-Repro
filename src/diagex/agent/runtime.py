@@ -16,10 +16,28 @@ from typing import Any
 from diagex.agent.state import AgentState
 from diagex.agent.tools import TOOL_SCHEMAS, ToolResult, dispatch
 from diagex.config import EFFORT_PROFILES, EffortLevel, RuntimeBudgets
-from diagex.llm.client import LLMClient
+from diagex.llm.client import LLMClient, provider_image_limit
 from diagex.llm.cost import CostTracker
 from diagex.ui.progress import NullReporter, ProgressReporter
 from diagex.vision.views import ViewProvider
+
+
+def _bound_tool_images(messages: list[dict], limit: int) -> None:
+    """Expire older view bytes, retaining their metadata and annotation history."""
+    images = []
+    for message in messages:
+        for result in message["content"]:
+            if result.get("type") != "tool_result" or not isinstance(result.get("content"), list):
+                continue
+            for index, block in enumerate(result["content"]):
+                if block.get("type") == "image":
+                    images.append((result["content"], index))
+    for content, index in images[:-limit]:
+        content[index] = {"type": "text", "text": (
+            "Image omitted to respect the provider image-count limit. Its view metadata "
+            "and existing annotations remain valid. Fetch this view again before making "
+            "new visual judgments about it. Request at most one new image per turn."
+        )}
 
 
 @dataclass
@@ -116,23 +134,33 @@ class ReactRuntime:
 
         seen_successful_actions: set[tuple[str, str]] = set()
         no_progress_steps = 0
+        image_limit = 4
 
         while not state.done and state.steps < max_steps:
             state.steps += 1
             step_made_progress = False
             self.reporter.on_step_start(step=state.steps)
             t0 = time.time()
-            resp = self.client.messages_create(
-                system=self.system_blocks,
-                messages=messages,
-                tools=self.tools_override if self.tools_override is not None else TOOL_SCHEMAS,
-                max_tokens=max_tokens,
-                thinking=thinking,
-                output_config=output_config,
-                on_stream_delta=lambda kind, text: self.reporter.on_stream_delta(
-                    kind=kind, text=text
-                ),
-            )
+            while True:
+                _bound_tool_images(messages, image_limit)
+                try:
+                    resp = self.client.messages_create(
+                        system=self.system_blocks,
+                        messages=messages,
+                        tools=self.tools_override if self.tools_override is not None else TOOL_SCHEMAS,
+                        max_tokens=max_tokens,
+                        thinking=thinking,
+                        output_config=output_config,
+                        on_stream_delta=lambda kind, text: self.reporter.on_stream_delta(
+                            kind=kind, text=text
+                        ),
+                    )
+                    break
+                except Exception as exc:
+                    limit = provider_image_limit(exc)
+                    if limit is None or limit >= image_limit:
+                        raise
+                    image_limit = limit
             self.cost.record(resp, step=state.steps, page_index=state.page.page_index)
             self.reporter.on_token_update(total_tokens=self.cost.total_tokens())
             state.push_transcript("llm_response", {

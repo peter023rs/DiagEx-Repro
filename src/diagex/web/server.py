@@ -2,7 +2,7 @@
 
 The workbench deliberately keeps provider credentials in process memory.  It
 persists uploaded source files and redacted run metadata so a completed run can
-be opened in the existing human-review application after a browser refresh.
+be opened in the read-only results viewer after a browser refresh.
 """
 
 from __future__ import annotations
@@ -30,8 +30,8 @@ from urllib.parse import parse_qs, unquote, urlencode, urlsplit
 from rich.console import Console
 
 from diagex.config import Config, LLMConfig
+from diagex.detection.artifacts import DetectionStore
 from diagex.extractors.evidence_checkpoint import atomic_write_json
-from diagex.review.detection import DetectionReviewStore, ReviewConflict
 
 STATIC_DIR = Path(__file__).with_name("static")
 MAX_UPLOAD_BYTES = 500 * 1024 * 1024
@@ -197,7 +197,7 @@ class WorkbenchConflictError(WorkbenchError):
 
 
 class Workbench:
-    """Own uploads, extraction jobs, and child review servers for one process."""
+    """Own uploads, detection jobs, and immutable result access for one process."""
 
     def __init__(
         self,
@@ -212,11 +212,9 @@ class Workbench:
         self.uploads_dir = self.storage_dir / "uploads"
         self.uploads_dir.mkdir(parents=True, exist_ok=True)
         self.runner = runner
-        self.detection_stores: dict[str, DetectionReviewStore] = {}
-        self.detection_images: dict[tuple[str, int], bytes] = {}
+        self.detection_images: dict[tuple[str, int, str], bytes] = {}
         self.uploads: dict[str, UploadedDiagram] = {}
         self.jobs: dict[str, ExtractionJob] = {}
-        self.review_servers: dict[str, tuple[ThreadingHTTPServer, threading.Thread, str]] = {}
         self._source_hash_cache: dict[Path, tuple[int, int, str]] = {}
         self._lock = threading.RLock()
 
@@ -234,6 +232,9 @@ class Workbench:
             "vision_model": profile["vision_model"],
             "reasoning_model": profile["reasoning_model"],
             "reasoning_mode": llm.reasoning_mode,
+            "openrouter_provider_order": list(llm.openrouter_provider_order),
+            "openrouter_provider_ignore": list(llm.openrouter_provider_ignore),
+            "openrouter_allow_fallbacks": llm.openrouter_allow_fallbacks,
             "engine": profile["engine"],
             "effort": "medium",
             "configured_keys": {
@@ -277,6 +278,22 @@ class Workbench:
                         )
                     handle.write(chunk)
                     remaining -= len(chunk)
+            try:
+                if suffix == ".pdf":
+                    import fitz
+
+                    with fitz.open(path) as document:
+                        if document.needs_pass or not document.page_count:
+                            raise ValueError("PDF must have readable, unencrypted pages")
+                else:
+                    from PIL import Image
+
+                    with Image.open(path) as image:
+                        image.verify()
+            except Exception as exc:
+                raise WorkbenchError(
+                    "Cannot read this drawing. Upload a valid, unencrypted PDF or image."
+                ) from exc
         except Exception:
             if path.exists():
                 path.unlink()
@@ -295,56 +312,45 @@ class Workbench:
 
     def start_extraction(self, body: dict[str, Any]) -> ExtractionJob:
         upload_id = str(body.get("upload_id") or "")
-        reviewed = None
-        if body.get("reviewed_run"):
-            review_store = self.detection_store(str(body["reviewed_run"]))
-            reviewed = review_store.snapshot(body.get("reviewed_revision"), draft=bool(body.get("draft", False)))
-            source, verified = self._resolve_run_source(review_store.run_dir)
-            if source is None or not verified:
-                raise WorkbenchError("Attach the original P&ID before building the graph")
-            upload = UploadedDiagram(
-                id="reviewed",
-                filename=source.name,
-                path=source,
-                content_type="",
-                size=source.stat().st_size,
-                created_at=_utc_now(),
+        if any(
+            key in body
+            for key in (
+                "reviewed_run",
+                "reviewed_revision",
+                "draft",
+                "process_overview",
+                "engineering_rules",
+                "raster_proposals",
+                "raster_symbol_mode",
             )
+        ):
+            raise WorkbenchError("Only machine symbol detection is supported")
+        if (
+            body.get("engine", "evidence-v2") != "evidence-v2"
+            or body.get("stop_after", "detection") != "detection"
+        ):
+            raise WorkbenchError("Only evidence-v2 detection is supported")
         with self._lock:
-            if reviewed is None:
-                upload = self.uploads.get(upload_id)
+            upload = self.uploads.get(upload_id)
             if upload is None:
                 raise WorkbenchError("select and upload a P&ID first")
             if any(job.status not in _TERMINAL_JOB_STATES for job in self.jobs.values()):
-                raise WorkbenchConflictError("another extraction is already running")
+                raise WorkbenchConflictError("another detection is already running")
 
         config, redacted = self._config_for_request(body)
-        from diagex.vision.process_context import context_document
-        config.process_context = [context_document(body[key], source="workbench:" + key, kind=key)
-                                  for key in ("process_overview", "engineering_rules") if body.get(key)]
-        redacted["process_context"] = config.process_context
+        config.process_context = []
+        config.raster_proposals = None
+        config.raster_symbol_mode = "baseline"
+        config.raster_ink_filter = False
         fresh = bool(body.get("fresh", False))
         effort = str(body.get("effort") or "medium").strip().lower()
         if effort not in {"low", "medium", "high", "xhigh"}:
             raise WorkbenchError("effort must be low, medium, high, or xhigh")
-        engine = str(body.get("engine") or "evidence-v2").strip().lower().replace("_", "-")
-        if config.llm.production_open_weight and engine != "evidence-v2":
-            raise WorkbenchError("The open-weight production profile requires evidence-v2")
-        if engine not in {"legacy", "evidence-v2"}:
-            raise WorkbenchError("engine must be legacy or evidence-v2")
-        stop_after = str(body.get("stop_after") or "graph")
-        if stop_after not in {"graph", "detection"}:
-            raise WorkbenchError("Unknown workflow stage")
-        if (stop_after == "detection" or reviewed is not None) and engine != "evidence-v2":
-            raise WorkbenchError("Legend and symbol review requires Evidence v2")
-        if reviewed is not None:
-            fresh, stop_after = True, "graph"
-        redacted["stop_after"] = stop_after
-        if reviewed is not None:
-            redacted["reviewed_run"] = reviewed["source_run"]
-            redacted["reviewed_revision"] = reviewed["revision"]
-        config.pid.engine = engine  # type: ignore[assignment]
-        redacted.update({"fresh": fresh, "effort": effort, "engine": engine})
+        engine = "evidence-v2"
+        config.pid.engine = engine
+        redacted.update(
+            {"fresh": fresh, "effort": effort, "engine": engine, "stop_after": "detection"}
+        )
 
         job = ExtractionJob(
             id="j-" + uuid.uuid4().hex[:12],
@@ -359,7 +365,7 @@ class Workbench:
             self.jobs[job.id] = job
         thread = threading.Thread(
             target=self._run_extraction,
-            args=(job, config, effort, engine, fresh, reviewed),
+            args=(job, config, effort, engine, fresh),
             name=f"diagex-{job.id}",
             daemon=True,
         )
@@ -372,10 +378,25 @@ class Workbench:
         policy = body.get("model_policy") or "evaluation"
         if policy not in {*MODEL_PROFILES, "evaluation"}:
             raise WorkbenchError("unknown model profile")
-        production = policy == "production-open-weight"
         profile = MODEL_PROFILES.get(policy)
         if profile:
-            body = {**body, **profile}
+            # Explicit model/provider edits take precedence over preset defaults.
+            # Treat an edited preset as custom so its escalation model and policy
+            # cannot silently replace the user's selection later in the pipeline.
+            requested_vision = str(body.get("vision_model", body.get("model", profile["vision_model"])) or "").strip()
+            default_reasoning = profile["escalation_model"] if requested_vision == profile["vision_model"] else requested_vision
+            requested_reasoning = str(body.get("reasoning_model", default_reasoning) or requested_vision).strip()
+            requested_provider = str(body.get("provider", profile["provider"]) or "").strip().lower()
+            if (
+                requested_vision != profile["vision_model"]
+                or requested_reasoning != profile["escalation_model"]
+                or requested_provider != profile["provider"]
+            ):
+                body = {**body, "vision_model": requested_vision, "reasoning_model": requested_reasoning, "provider": requested_provider}
+                policy, profile = "evaluation", None
+        production = policy == "production-open-weight"
+        if profile:
+            body = {**body, **profile, "reasoning_model": profile["escalation_model"]}
         provider = str(body.get("provider") or self.config.llm.transport).strip().lower()
         if provider not in {"openrouter", "kimi", "anthropic", "azure"}:
             raise WorkbenchError("unknown LLM provider")
@@ -388,6 +409,9 @@ class Workbench:
         reasoning_mode = str(body.get("reasoning_mode") or "auto").strip().lower()
         if reasoning_mode not in {"auto", "enabled", "disabled"}:
             raise WorkbenchError("reasoning must be auto, enabled, or disabled")
+        symbol_standard = str(body.get("symbol_standard") or "isa-5.1")
+        if symbol_standard not in {"isa-5.1", "iso-10628", "sama", "none"}:
+            raise WorkbenchError("unknown symbol reference standard")
         api_key = str(body.get("api_key") or "").strip()
         base_url = str(body.get("base_url") or "").strip().rstrip("/")
 
@@ -403,6 +427,22 @@ class Workbench:
             production_open_weight=False,
         )
         if provider == "openrouter":
+            for field_name in ("openrouter_provider_order", "openrouter_provider_ignore"):
+                values = body.get(field_name, getattr(llm, field_name))
+                if not isinstance(values, list) or any(
+                    not isinstance(value, str) or not re.fullmatch(r"[A-Za-z0-9_./-]+", value)
+                    for value in values
+                ):
+                    raise WorkbenchError("OpenRouter providers must be a list of provider slugs")
+                setattr(llm, field_name, list(dict.fromkeys(values)))
+            fallbacks = body.get("openrouter_allow_fallbacks", llm.openrouter_allow_fallbacks)
+            if not isinstance(fallbacks, bool):
+                raise WorkbenchError("OpenRouter allow_fallbacks must be true or false")
+            llm.openrouter_allow_fallbacks = fallbacks
+            if set(llm.openrouter_provider_order) & set(llm.openrouter_provider_ignore):
+                raise WorkbenchError("An OpenRouter provider cannot be both preferred and excluded")
+            if not fallbacks and not llm.openrouter_provider_order:
+                raise WorkbenchError("Choose at least one provider before disabling fallbacks")
             llm.openrouter_api_key = api_key or cfg.llm.openrouter_api_key
             llm.openrouter_base_url = base_url or "https://openrouter.ai/api"
             if not llm.openrouter_api_key:
@@ -425,7 +465,9 @@ class Workbench:
         cfg.llm = llm
         if production:
             from diagex.llm.model_policy import apply_production_profile
+
             apply_production_profile(cfg)
+            cfg.llm.reasoning_model = reasoning_model
         elif profile:
             cfg.pid.engine = profile["engine"]
             cfg.symbol_perception = replace(cfg.symbol_perception, workflow="fixed")
@@ -437,6 +479,12 @@ class Workbench:
             "reasoning_model": reasoning_model,
             "reasoning_mode": reasoning_mode,
             "api_key_source": "entered" if api_key else "environment",
+            "symbol_standard": symbol_standard,
+            **({
+                "openrouter_provider_order": llm.openrouter_provider_order,
+                "openrouter_provider_ignore": llm.openrouter_provider_ignore,
+                "openrouter_allow_fallbacks": llm.openrouter_allow_fallbacks,
+            } if provider == "openrouter" else {}),
         }
 
     def _run_extraction(
@@ -446,7 +494,6 @@ class Workbench:
         effort: str,
         engine: str,
         fresh: bool,
-        reviewed_inputs: dict | None = None,
     ) -> None:
         job.status = "running"
         job.started_at = _utc_now()
@@ -457,27 +504,21 @@ class Workbench:
         try:
             runner = self.runner
             if runner is None:
-                from diagex.extractors.pid import run_pid_extract
+                from diagex.extractors.symbol_detection import run_symbol_detection
 
-                runner = run_pid_extract
+                runner = run_symbol_detection
             result = runner(
                 diagram=job.source_path,
-                symbol_standard="isa-5.1",
+                symbol_standard=job.settings.get("symbol_standard", "isa-5.1"),
                 legend_path=None,
                 legend_pages=None,
                 legend_region=None,
                 no_legend=False,
                 legend_key=None,
                 effort=effort,
-                max_steps=None,
-                engine=engine,
                 config=config,
                 persist=True,
                 fresh=fresh,
-                stop_after=job.settings.get("stop_after", "graph"),
-                reviewed_inputs=reviewed_inputs,
-                out_path=None,
-                confidence_report_path=None,
                 console=console,
             )
             writer.flush()
@@ -524,17 +565,17 @@ class Workbench:
     def _public_result(result: Any) -> dict[str, Any]:
         cost = dict(result.cost_summary or {})
         return {
-            "workflow_stage": getattr(result, "workflow_stage", "graph"),
+            "workflow_stage": "detection",
             "diagram_stem": result.diagram_stem,
             "run_id": result.run_id,
             "engine": result.engine,
             "model": result.model,
             "effort": result.effort,
             "quality_status": result.quality_status or None,
-            "dexpi_json_path": str(result.dexpi_json_path) if result.dexpi_json_path else None,
-            "stats": dict(result.dexpi_stats or {}),
-            "build_issue_count": len(result.dexpi_issues or []),
-            "validation_issue_count": len(result.validation_issues or []),
+            "stats": {
+                "observation_count": result.observation_count,
+                "candidate_count": result.candidate_count,
+            },
             "legend": {
                 "source": result.legend_source,
                 "entry_count": result.legend_entry_count,
@@ -542,6 +583,7 @@ class Workbench:
             "tokens": int(cost.get("total_tokens", 0) or 0),
             "elapsed_s": float(cost.get("wall_clock_s", 0.0) or 0.0),
             "retries": int(cost.get("retries", 0) or 0),
+            "estimated_cost_usd": cost.get("total_usd"),
         }
 
     def job(self, job_id: str) -> ExtractionJob:
@@ -567,7 +609,7 @@ class Workbench:
         for path in (
             run_dir / "detection.json",
             run_dir / "checkpoints" / "manifest.json",
-            run_dir / "review" / "session.json",
+            run_dir / "source.json",
             run_dir / "workbench.json",
         ):
             value = str(_read_json_object(path).get("source_sha256") or "").strip().lower()
@@ -580,7 +622,7 @@ class Workbench:
     ) -> list[Path]:
         root = Path(self.config.runs_dir).expanduser().resolve()
         raw_candidates: list[str | Path] = []
-        for path in (run_dir / "workbench.json", run_dir / "review" / "session.json"):
+        for path in (run_dir / "workbench.json", run_dir / "source.json"):
             source = _read_json_object(path).get("source_path")
             if source:
                 raw_candidates.append(str(source))
@@ -685,9 +727,9 @@ class Workbench:
                         "has_graph": graph_path.is_file(),
                         "has_detection": (run_dir / "detection.json").is_file(),
                         "workflow_stage": result.get("workflow_stage", "graph"),
-                        "review_started": (run_dir / "review" / "session.json").is_file(),
-                        "node_count": len(graph.get("nodes") or []),
-                        "edge_count": len(graph.get("edges") or []),
+                        "observation_count": len(
+                            _read_json_object(run_dir / "detection.json").get("detections", [])
+                        ),
                     }
                 )
             except (OSError, ValueError, TypeError):
@@ -696,112 +738,104 @@ class Workbench:
                 break
         return records
 
-    def launch_review(
-        self,
-        *,
-        rater: str,
-        job_id: str | None = None,
-        run_dir: str | None = None,
-        upload_id: str | None = None,
-        kind: str = "graph",
-    ) -> str:
-        reviewer = rater.strip()
-        if not reviewer:
-            raise WorkbenchError("enter the reviewer name")
-        target: Path | None = None
-        source_path: Path | None = None
-        if job_id:
-            job = self.job(job_id)
-            if job.status not in {"succeeded", "paused"} or job.run_dir is None:
-                raise WorkbenchConflictError("the extraction must finish before review")
-            target = job.run_dir
-            source_path = job.source_path
-        elif run_dir:
-            target = Path(run_dir).expanduser().resolve()
-        if target is None:
-            raise WorkbenchError("select an extraction run")
-        runs_root = Path(self.config.runs_dir).expanduser().resolve()
-        target = target.resolve()
-        if not target.is_relative_to(runs_root):
-            raise WorkbenchError("the selected run is outside the configured runs directory")
-        if kind not in {"graph", "detection"}:
-            raise WorkbenchError("Unknown review type")
-        artifact = target / ("detection.json" if kind == "detection" else "graph.json")
-        if not artifact.is_file():
-            raise WorkbenchError(
-                f"The selected run has no {artifact.name}; run the corresponding extraction first"
-            )
-
+    def open_detection(self, *, job_id=None, run_dir=None, upload_id=None) -> str:
+        job = self.job(job_id) if job_id else None
+        if job is not None:
+            run_dir = str(job.run_dir) if job.run_dir else None
+        if not run_dir:
+            raise WorkbenchError("Select a detection run")
+        target = self._detection_target(run_dir)
         if upload_id:
-            with self._lock:
-                upload = self.uploads.get(upload_id)
+            upload = self.uploads.get(upload_id)
             if upload is None:
-                raise WorkbenchError("the selected source upload is unavailable")
-            source_path = upload.path
-        elif source_path is None:
-            source_path, _verified = self._resolve_run_source(target)
-        if source_path is None or not source_path.is_file():
-            raise WorkbenchError("attach the original P&ID before opening this run")
+                raise WorkbenchError("The selected source upload is unavailable")
+            expected = self._expected_source_hash(target)
+            digest = self._source_hash(upload.path)
+            if not expected or digest != expected:
+                raise WorkbenchError("The selected P&ID does not match this run's source hash")
+            self._persist_source_link(target, upload.path, digest)
+        return "/detections?" + urlencode({"run_dir": str(target)})
 
-        source_sha = self._source_hash(source_path)
-        expected_sha = self._expected_source_hash(target)
-        if expected_sha is not None and source_sha != expected_sha:
-            raise WorkbenchError("the selected P&ID does not match this run's source hash")
-        self._persist_source_link(target, source_path, source_sha)
-
-        if kind == "detection":
-            self.detection_store(str(target))
-            return "/detection-review?" + urlencode({"run_dir": str(target), "rater": reviewer})
-
-        key = str(target.resolve())
-        existing = self.review_servers.get(key)
-        if existing is not None and existing[1].is_alive():
-            return existing[2]
-
-        from diagex.review.core import ReviewStore
-        from diagex.review.server import make_handler as make_review_handler
-
-        store = ReviewStore.open(target, source_path=source_path, rater=reviewer)
-        server = ThreadingHTTPServer(("127.0.0.1", 0), make_review_handler(store))
-        thread = threading.Thread(
-            target=server.serve_forever,
-            kwargs={"poll_interval": 0.25},
-            name=f"diagex-review-{target.name}",
-            daemon=True,
-        )
-        thread.start()
-        url = f"http://127.0.0.1:{int(server.server_address[1])}/"
-        self.review_servers[key] = (server, thread, url)
-        return url
-
-    def detection_store(self, run_dir: str) -> DetectionReviewStore:
+    def _detection_target(self, run_dir: str) -> Path:
         target = Path(run_dir).expanduser().resolve()
         root = Path(self.config.runs_dir).expanduser().resolve()
         if not target.is_relative_to(root) or not (target / "detection.json").is_file():
-            raise WorkbenchError("Select a completed legend and symbol detection run")
-        source, verified = self._resolve_run_source(target)
+            raise WorkbenchError("Select a saved symbol detection run")
+        if not (target / "detection.json").resolve().is_relative_to(root):
+            raise WorkbenchError("Detection bundle is outside the runs directory")
+        return target
+
+    def detection_store(self, run_dir: str) -> DetectionStore:
+        return DetectionStore(self._detection_target(run_dir))
+
+    def _detection_source(self, run_dir: Path) -> Path:
+        source, verified = self._resolve_run_source(run_dir)
         if source is None or not verified:
-            raise WorkbenchError("Attach the original P&ID before reviewing detections")
-        with self._lock:
-            key = str(target)
-            if key not in self.detection_stores:
-                self.detection_stores[key] = DetectionReviewStore(target)
-            return self.detection_stores[key]
+            raise WorkbenchError(
+                "Attach the original P&ID from the workbench to view source images"
+            )
+        return source
+
+    def _detection_raster(self, store: DetectionStore, page: dict):
+        """Use the exact processed scan frame; vector PDFs retain native rerendering."""
+        import fitz
+        from PIL import Image
+
+        source = self._detection_source(store.run_dir)
+        frame = store.run_dir / "evidence" / f"page-{page['page_index'] + 1:04d}.png"
+        if frame.is_file():
+            if not frame.resolve().is_relative_to(store.run_dir):
+                raise WorkbenchError("Invalid source frame path")
+            with Image.open(frame) as image:
+                if image.size != (page["width"], page["height"]):
+                    raise WorkbenchError(
+                        "Saved source frame dimensions do not match the detection bundle"
+                    )
+                return image.convert("RGB")
+        evidence = _read_json_object(frame.with_suffix(".json"))
+        rotation = float(evidence.get("rotation_deg", 0))
+        if source.suffix.lower() == ".pdf" and not evidence.get("is_scanned") and not rotation:
+            return None
+        size = (page["width"], page["height"])
+        if source.suffix.lower() == ".pdf":
+            with fitz.open(source) as document:
+                native = document[page["page_index"]]
+                pix = native.get_pixmap(
+                    matrix=fitz.Matrix(size[0] / native.rect.width, size[1] / native.rect.height),
+                    alpha=False,
+                )
+                image = Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB").resize(size)
+        else:
+            with Image.open(source) as original:
+                image = original.convert("RGB").resize(size)
+        if rotation:
+            image = image.rotate(
+                rotation, resample=Image.Resampling.BICUBIC, fillcolor="white", expand=False
+            )
+        return image
 
     def detection_page(self, run_dir: str, index: int) -> bytes:
         import fitz
-        from PIL import Image
 
         store = self.detection_store(run_dir)
         page = next((p for p in store.bundle["pages"] if p["page_index"] == index), None)
         if page is None:
             raise WorkbenchError("Unknown page")
-        cache_key = (str(store.run_dir), index)
+        self._detection_source(store.run_dir)
+        cache_key = (str(store.run_dir), index, store.bundle["source_sha256"])
         if cache_key in self.detection_images:
             return self.detection_images[cache_key]
-        source, _ = self._resolve_run_source(store.run_dir)
+        source = self._detection_source(store.run_dir)
         scale = min(1.0, 2400 / max(page["width"], page["height"]))
         size = (max(1, round(page["width"] * scale)), max(1, round(page["height"] * scale)))
+        raster = self._detection_raster(store, page)
+        if raster is not None:
+            raster = raster.resize(size)
+            output = io.BytesIO()
+            raster.save(output, format="PNG")
+            data = output.getvalue()
+            self.detection_images[cache_key] = data
+            return data
         if source.suffix.lower() == ".pdf":
             with fitz.open(source) as document:
                 native = document[index]
@@ -812,19 +846,9 @@ class Workbench:
                 data = pix.tobytes("png")
                 self.detection_images[cache_key] = data
                 return data
-        with Image.open(source) as original:
-            original.seek(index)
-            image = original.convert("RGB")
-            image = image.resize(size)
-            output = io.BytesIO()
-            image.save(output, format="PNG")
-            data = output.getvalue()
-            self.detection_images[cache_key] = data
-            return data
 
     def detection_crop(self, run_dir: str, index: int, bounds: list[int]) -> bytes:
         import fitz
-        from PIL import Image
 
         store = self.detection_store(run_dir)
         page = next((p for p in store.bundle["pages"] if p["page_index"] == index), None)
@@ -838,7 +862,14 @@ class Workbench:
             or y + height > page["height"]
         ):
             raise WorkbenchError("Crop must be inside its source page")
-        source, _ = self._resolve_run_source(store.run_dir)
+        source = self._detection_source(store.run_dir)
+        raster = self._detection_raster(store, page)
+        if raster is not None:
+            crop = raster.crop((x, y, x + width, y + height))
+            crop.thumbnail((1200, 1200))
+            output = io.BytesIO()
+            crop.save(output, format="PNG")
+            return output.getvalue()
         if source.suffix.lower() == ".pdf":
             with fitz.open(source) as document:
                 native = document[index]
@@ -848,23 +879,9 @@ class Workbench:
                 scale = min(128.0, 1200 / max(clip.width, clip.height))
                 pix = native.get_pixmap(matrix=fitz.Matrix(scale, scale), clip=clip, alpha=False)
                 return pix.tobytes("png")
-        with Image.open(source) as original:
-            original.seek(index)
-            sx, sy = original.width / page["width"], original.height / page["height"]
-            crop = original.convert("RGB").crop(
-                (round(x * sx), round(y * sy), round((x + width) * sx), round((y + height) * sy))
-            )
-            crop.thumbnail((1200, 1200))
-            output = io.BytesIO()
-            crop.save(output, format="PNG")
-            return output.getvalue()
 
     def close(self) -> None:
-        for server, thread, _url in list(self.review_servers.values()):
-            server.shutdown()
-            server.server_close()
-            thread.join(timeout=5)
-        self.review_servers.clear()
+        self.detection_images.clear()
 
 
 def make_handler(workbench: Workbench) -> type[BaseHTTPRequestHandler]:
@@ -886,7 +903,7 @@ def make_handler(workbench: Workbench) -> type[BaseHTTPRequestHandler]:
             self.send_header(
                 "Content-Security-Policy",
                 "default-src 'self'; img-src 'self' data:; style-src 'self'; "
-                "script-src 'self'; connect-src 'self'",
+                "script-src 'self'; connect-src 'self' https://openrouter.ai/api/v1/models",
             )
             self.end_headers()
 
@@ -931,8 +948,6 @@ def make_handler(workbench: Workbench) -> type[BaseHTTPRequestHandler]:
         def do_GET(self) -> None:  # noqa: N802
             try:
                 self._handle_get()
-            except ReviewConflict as exc:
-                self._send_json({"error": str(exc)}, HTTPStatus.CONFLICT)
             except (WorkbenchError, ValueError) as exc:
                 self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)
             except Exception as exc:  # noqa: BLE001
@@ -943,16 +958,52 @@ def make_handler(workbench: Workbench) -> type[BaseHTTPRequestHandler]:
 
         def _handle_get(self) -> None:
             route = self._route()
+            if route == "/symbols":
+                self._send_file(STATIC_DIR / "symbols.html", "text/html; charset=utf-8")
+                return
+            if route == "/api/symbols":
+                from diagex.symbol_library import browse
+
+                self._send_json(browse(workbench.config.symbol_database_dir))
+                return
+            if route == "/api/symbol-image":
+                from diagex.symbol_library import symbol_image
+
+                data = symbol_image(workbench.config.symbol_database_dir,
+                                    (self._query().get("id") or [""])[0])
+                if data is None:
+                    self._send_json({"error": "symbol image not found"}, HTTPStatus.NOT_FOUND)
+                else:
+                    self._headers(HTTPStatus.OK, "image/png", len(data))
+                    self.wfile.write(data)
+                return
             if route in {"/", "/index.html"}:
                 self._send_file(STATIC_DIR / "index.html", "text/html; charset=utf-8")
                 return
-            if route == "/detection-review":
+            if route in {"/detections", "/detection-review"}:
                 self._send_file(STATIC_DIR / "detection.html", "text/html; charset=utf-8")
                 return
-            if route in {"/api/detection-review", "/api/detection-page", "/api/detection-crop"}:
+            if route in {
+                "/api/detections",
+                "/api/detection-download",
+                "/api/detection-page",
+                "/api/detection-crop",
+            }:
                 run_dir = (self._query().get("run_dir") or [""])[0]
-                if route == "/api/detection-review":
-                    self._send_json(workbench.detection_store(run_dir).public())
+                if route == "/api/detections":
+                    store = workbench.detection_store(run_dir)
+                    _, verified = workbench._resolve_run_source(store.run_dir)
+                    self._send_json({**store.public(), "source_available": bool(verified)})
+                elif route == "/api/detection-download":
+                    kind = (self._query().get("kind") or ["detection"])[0]
+                    data = workbench.detection_store(run_dir).download(kind)
+                    self.send_response(HTTPStatus.OK)
+                    self.send_header("Content-Type", "application/json")
+                    self.send_header("Content-Disposition", f'attachment; filename="{kind}.json"')
+                    self.send_header("Content-Length", str(len(data)))
+                    self.send_header("Cache-Control", "no-store")
+                    self.end_headers()
+                    self.wfile.write(data)
                 else:
                     index = int((self._query().get("page") or ["0"])[0])
                     if route == "/api/detection-crop":
@@ -1021,22 +1072,16 @@ def make_handler(workbench: Workbench) -> type[BaseHTTPRequestHandler]:
                     job = workbench.start_extraction(body)
                     self._send_json({"job": job.public()}, HTTPStatus.ACCEPTED)
                     return
-                if route == "/api/detection-review/actions":
-                    store = workbench.detection_store(str(body.get("run_dir") or ""))
-                    self._send_json(store.apply(body))
-                    return
-                if route == "/api/reviews":
-                    url = workbench.launch_review(
-                        kind=str(body.get("kind") or "graph"),
-                        rater=str(body.get("rater") or ""),
-                        job_id=str(body.get("job_id") or "") or None,
-                        run_dir=str(body.get("run_dir") or "") or None,
-                        upload_id=str(body.get("upload_id") or "") or None,
+                if route == "/api/detection-source":
+                    url = workbench.open_detection(
+                        job_id=body.get("job_id"),
+                        run_dir=body.get("run_dir"),
+                        upload_id=body.get("upload_id"),
                     )
                     self._send_json({"url": url})
                     return
                 self._send_json({"error": "not found"}, HTTPStatus.NOT_FOUND)
-            except (WorkbenchConflictError, ReviewConflict) as exc:
+            except WorkbenchConflictError as exc:
                 self._send_json({"error": str(exc)}, HTTPStatus.CONFLICT)
             except (WorkbenchError, ValueError, KeyError, json.JSONDecodeError) as exc:
                 self._send_json({"error": str(exc)}, HTTPStatus.BAD_REQUEST)

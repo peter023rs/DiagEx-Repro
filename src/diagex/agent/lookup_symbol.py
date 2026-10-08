@@ -14,7 +14,6 @@ from diagex.agent.state import AgentState
 from diagex.agent.tools import ToolResult
 from diagex.vision.legend_models import LegendEntry
 
-
 LOOKUP_SYMBOL_SCHEMA: dict[str, Any] = {
     "name": "lookup_symbol",
     "description": (

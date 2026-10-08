@@ -15,7 +15,7 @@ from diagex.vision.legend_context import MAX_LEGEND_IMAGES, SHAPES, select_legen
 from diagex.vision.models import BBox, Tile
 from diagex.vision.perception import perceive_tile
 from diagex.vision.symbol_candidates import SymbolCandidate
-from tests.unit.test_port_topology import page
+from tests.unit.detection_fixtures import page
 from tests.unit.test_symbol_perception import view
 
 
@@ -69,12 +69,14 @@ def test_graphical_families_and_images_survive_large_abbreviation_prefix():
     cs = [candidate(shape) for shape in SHAPES]
     selected, images, refs = select_legend_context(entries, cs, ["PI"])
     assert len(selected) == 33  # 32 graphical + the exactly matching PI abbreviation
-    assert sum(b["type"] == "image" for b in images) == MAX_LEGEND_IMAGES
+    assert sum(b["type"] == "image" for b in images) == 1
     assert {
         e["label"] for e in selected if e.get("attributes", {}).get("legend_kind") == "abbreviation"
     } == {"PI"}
     assert all(refs[c.id] for c in cs)
     imaged = {e["legend_entry_id"] for e in selected if e.get("has_reference_image")}
+    assert len(imaged) == MAX_LEGEND_IMAGES
+    assert all(identity in images[0]["text"] for identity in imaged)
     assert all(set(refs[c.id]) & imaged for c in cs)
     assert all("image_b64" not in e for e in selected)
     assert select_legend_context(list(reversed(entries)), cs, ["PI"]) == (selected, images, refs)

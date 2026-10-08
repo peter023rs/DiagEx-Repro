@@ -15,15 +15,24 @@ from PIL import Image, ImageDraw
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from diagex.config import SymbolPerceptionConfig
+from diagex.detection.taxonomy import EQUIPMENT_REGISTRY
 from diagex.llm.client import LLMClient, is_malformed_tool_json_error, is_non_retryable_api_error
 from diagex.llm.cost import CostTracker
 from diagex.ui.progress import ProgressReporter
+from diagex.vision.contact_sheet import contact_sheet
 from diagex.vision.encode import encode_image_block
 from diagex.vision.evidence import PageEvidence, stable_evidence_id, text_spans_intersecting
 from diagex.vision.legend_context import select_legend_context
 from diagex.vision.models import BBox, Confidence, Tile
 from diagex.vision.symbol_candidates import SymbolCandidate, symbol_candidates
 from diagex.vision.views import ViewInfo
+
+# A response-only revision allows retrying old validation failures without
+# invalidating successful perception or native geometry checkpoints.
+RESPONSE_CONTRACT_VERSION = 1
+_EQUIPMENT_SUBTYPE_FIELDS = tuple(
+    spec.subtype_hint_attr for spec in EQUIPMENT_REGISTRY if spec.subtype_hint_attr
+)
 
 # Wire decisions encode rejection evidence directly, so a symbol row cannot
 # acquire a contradictory rejection basis merely by filling an optional field.
@@ -73,6 +82,20 @@ class PerceivedObject(BaseModel):
     printed_tag: str | None = None
     canonical_tag: str | None = None
     equipment_class: str | None = None
+    heat_exchanger_type: str | None = None
+    pump_type: str | None = None
+    compressor_type: str | None = None
+    reactor_type: str | None = None
+    filter_type: str | None = None
+    separator_type: str | None = None
+    cooling_tower_type: str | None = None
+    fan_blower_type: str | None = None
+    turbine_type: str | None = None
+    centrifuge_type: str | None = None
+    dryer_type: str | None = None
+    weigher_type: str | None = None
+    mixer_type: str | None = None
+    transport_type: str | None = None
     valve_type: str | None = None
     actuation: (
         Literal[
@@ -135,6 +158,7 @@ class PerceivedObject(BaseModel):
         data.setdefault("printed_tag", legacy_raw or legacy_label)
         data.setdefault("canonical_tag", legacy_label or legacy_raw)
         aliases = {
+            **{name: name for name in _EQUIPMENT_SUBTYPE_FIELDS},
             "equipment_class": "equipment_class",
             "valve_type": "valve_type",
             "actuation": "actuation",
@@ -155,6 +179,7 @@ class PerceivedObject(BaseModel):
         return data
 
     @field_validator(
+        *_EQUIPMENT_SUBTYPE_FIELDS,
         "printed_tag",
         "canonical_tag",
         "equipment_class",
@@ -186,6 +211,7 @@ class PerceivedObject(BaseModel):
     def graph_attributes(self) -> dict[str, Any]:
         values = dict(self.attributes)
         typed = {
+            **{name: getattr(self, name) for name in _EQUIPMENT_SUBTYPE_FIELDS},
             "equipment_class": self.equipment_class,
             "valve_type": self.valve_type,
             "actuation": self.actuation,
@@ -462,9 +488,13 @@ are evidence, not entities. A package title belongs to the package, not its
 nearest component. Pipe labels, line numbers, notes, borders, dimensions and
 leader arrows alone are not physical symbols.
 Images labelled Legend reference are definitions, never objects in this view.
+Entries with reference_symbol_id come from the symbol database. Their reference_status
+and reference_source identify provenance, not verified detections. Machine-extracted
+and unverified starter definitions can be wrong. The current drawing's own legend
+and source ink take precedence; preserve uncertainty when references disagree.
 Use their complete printed definitions. Installation conventions alone do not
-establish an instrument's variable/function. The first image is source ink;
-blue C markers in the second image are guides, not source symbols.
+establish an instrument's variable/function. The first image is source ink.
+When supplied, blue C markers in a candidate guide image are guides, not source symbols.
 
 Return {"candidate_results":[],"proposals":[]} only if there are no supplied
 candidates and no visible symbols to propose.
@@ -575,7 +605,7 @@ def _candidate_detail_blocks(candidates, image, view_info):
         scale = min(4, 768 / max(crop.size))
         crop = crop.resize((max(1, round(crop.width*scale)), max(1, round(crop.height*scale))), Image.Resampling.LANCZOS)
         blocks += [{"type": "text", "text": f"Enlarged source detail for {candidate.id} ({candidate.shape}). The target is the central native glyph; surrounding ink is context. This image does not introduce any new candidate or coordinates."}, encode_image_block(crop)]
-    return blocks
+    return contact_sheet(blocks, title="Enlarged candidate details")
 
 
 def _perceive_tile(
@@ -705,16 +735,17 @@ def _perceive_tile(
                         "text": (
                             "Inspect this high-resolution detail view and submit the structured "
                             "object list."
-                            " The first image is original source ink. The second is the same"
-                            " view with candidate guides; use the first to verify actual outlines."
-                            " Blue C markers and boxes are generated candidate guides, not source ink."
-                            f"{recovery_instruction}\n{prompt_json}"
+                            " The first image is original source ink and owns all detection coordinates."
+                            + (" The second is the same view with candidate guides; blue C markers"
+                               " and boxes are guides, not source ink."
+                               if owned_candidates and not (adaptive and attempt == 2) else "")
+                            + f"{recovery_instruction}\n{prompt_json}"
                         ),
                     },
-                    *([encode_image_block(marked_image)] if owned_candidates else []),
+                    *([encode_image_block(marked_image)] if owned_candidates and not (adaptive and attempt == 2) else []),
                     *(_candidate_detail_blocks([c for c in owned_candidates if c.id in retry_ids], view_image, view_info) if attempt == 2 else []),
                     *legend_images,
-                    *([{"type": "text", "text": "Whole-page overview for context only. Report coordinates in the first detail image, never this overview."}, encode_image_block(overview_image)] if adaptive and overview_image is not None else []),
+                    *([{"type": "text", "text": "Whole-page overview for context only. Report coordinates in the first detail image, never this overview."}, encode_image_block(overview_image)] if adaptive and attempt == 1 and overview_image is not None else []),
                     *(_wider_source_blocks([c for c in owned_candidates if c.id in retry_ids], region_provider) if adaptive and attempt == 2 and region_provider is not None else []),
                 ],
             }
@@ -936,7 +967,7 @@ def _wider_source_blocks(candidates, provider):
         pad = max(100, b.w, b.h)
         image, info = provider(b.x-pad, b.y-pad, b.w+2*pad, b.h+2*pad)
         blocks.extend([{"type": "text", "text": f"Additional source region around {c.id}; page rectangle {info.page_bbox.model_dump()}. This is newly retrieved neighboring context, not new candidate geometry."}, encode_image_block(image)])
-    return blocks
+    return contact_sheet(blocks, title="Additional source regions")
 
 
 def perceive_tile(**kwargs) -> PerceptionOutcome:

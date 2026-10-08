@@ -53,3 +53,28 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 button.primary { background: #2160df; color: white; border-color: #2160df; }
 @media(max-width: 1100px) { .review-layout { grid-template-columns: 180px minmax(250px, 1fr) 245px; } .app-header { flex-wrap: wrap; } }
 @media(max-width: 760px) { .review-layout { grid-template-columns: 1fr; height: auto; } #viewport { height: 60vh; flex: auto; } #items { max-height: 210px; } .app-header p { max-width: 85vw; } }
+
+.download { font-size:13px; padding:8px 12px; border:1px solid #ccd7e3; border-radius:8px; background:white; }
+#comparison { display:grid; grid-template-columns:minmax(0,1fr); flex:1; min-height:0; overflow:hidden; }
+#comparison.side { grid-template-columns:repeat(2,minmax(0,1fr)); }
+#comparison.stacked { grid-template-rows:repeat(2,minmax(0,1fr)); }
+#sourceViewport { overflow:auto; padding:16px; background:#dfe5eb; min-width:0; min-height:0; touch-action:none; }
+#comparison.overlay #sourceViewport { display:none; }
+#sourceDrawing { display:block; background:white; max-width:none; }
+#viewport { min-width:0; touch-action:none; }
+.review-layout > * { min-width:0; }
+.review-layout.hide-list { grid-template-columns:minmax(0,1fr) 290px; }
+.review-layout.hide-inspector { grid-template-columns:235px minmax(0,1fr); }
+.review-layout.hide-list.hide-inspector { grid-template-columns:minmax(0,1fr); }
+.hide-list #items, .hide-inspector #inspector { display:none; }
+#inspector dt { color:#51667c; font-size:12px; margin-top:12px; }
+#inspector dd { margin:4px 0; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; }
+#inspector pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:12px; }
+#items, #inspector { overflow-wrap:anywhere; }
+@media(max-width:760px) {
+ .review-layout, .review-layout.hide-list, .review-layout.hide-inspector { grid-template-columns:minmax(0,1fr); }
+ .drawing-area { height:70vh; min-height:450px; } #viewport { height:auto; min-height:0; }
+ .header-actions { max-width:100%; } .app-header { padding:14px 16px; }
+ .review-toolbar { padding:10px 16px; } .review-toolbar label { max-width:100%; }
+ .review-toolbar select, .review-toolbar input { max-width:100%; }
+}

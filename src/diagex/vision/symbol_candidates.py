@@ -17,7 +17,7 @@ from diagex.vision.evidence import PageEvidence, stable_evidence_id
 from diagex.vision.models import BBox
 from diagex.vision.vector_geometry import NativeSymbol, native_symbols, path_vertices, segment_key
 
-SYMBOL_PERCEPTION_VERSION = "2.3.0"
+SYMBOL_PERCEPTION_VERSION = "2.4.0"
 _INSTRUMENT_TEXT = re.compile(r"(?:[PTFLAY][A-Z]{0,4}|I|M)(?:[- ]?\d+)?")
 PERCEPTION_DEPENDENT_STAGES = (
     "perception",

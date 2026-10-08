@@ -20,7 +20,7 @@ from PIL import Image
 from pydantic import BaseModel, Field, ValidationError
 
 from diagex.agent.state import AgentState, RegionFetch
-from diagex.dexpi_schema import (
+from diagex.detection.taxonomy import (
     render_equipment_slash_list,
     render_instrument_class_slash_list,
     render_instrument_slash_list,
@@ -28,8 +28,7 @@ from diagex.dexpi_schema import (
 )
 from diagex.vision.annotations import make_annotation
 from diagex.vision.encode import encode_image_block
-from diagex.vision.models import Annotation, BBox, Kind, Point
-from diagex.vision.reconcile import LINE_STITCH_RADIUS_PX
+from diagex.vision.models import LINE_STITCH_RADIUS_PX, Annotation, BBox, Kind, Point
 from diagex.vision.views import ViewInfo, ViewProvider
 
 

@@ -5,13 +5,13 @@ build-backend = "hatchling.build"
 [project]
 name = "diagex"
 version = "0.1.0"
-description = "Pure LLM-vision extraction pipeline for industrial schematics (P&IDs, logic diagrams, SLDs)."
+description = "Evidence-v2 P&ID legend and symbol detection with a read-only local workbench."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
 authors = [{ name = "Heiko Koziolek", email = "heiko.koziolek@gmail.com" }]
 dependencies = [
-    "anthropic>=0.40.0",
+    "anthropic>=0.125,<0.126",
     "pymupdf>=1.24.0",
     "Pillow>=10.0.0",
     "numpy>=1.26.0",
@@ -19,14 +19,8 @@ dependencies = [
     "typer>=0.12.0",
     "rich>=13.7.0",
     "python-dotenv>=1.0.0",
-    "pyyaml>=6.0",
-    "openai>=1.40.0",
-    # Eval-harness runtime deps (eval/aggregate, eval/qa_analysis,
-    # eval/figures/*, scripts/rerender_eval_artifacts.py). Needed to
-    # re-derive paper tables/figures and to run the unit suite.
-    "pandas>=2.0",
-    "matplotlib>=3.7",
-    "openpyxl>=3.1",
+    "httpx>=0.27,<1",
+
 ]
 
 [project.optional-dependencies]
@@ -35,28 +29,28 @@ dev = [
     "pytest-vcr>=1.0.2",
     "ruff>=0.4.0",
 ]
-codegen = [
-    # Used only by `python -m diagex.dexpi.codegen.regenerate`. Requires
-    # Python 3.12+ (per the package's own pin). The diagex runtime stays
-    # compatible with Python 3.11+.
-    "dexpi.specificator==1.0.0",
-]
-validate = [
-    "xmlschema>=3.4.0",
-]
-vision = [
-    "opencv-python-headless>=4.10.0",
-]
 
 [project.scripts]
 diagex = "diagex.cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/diagex"]
+exclude = ["src/diagex/dexpi/**", "src/diagex/review/**", "src/diagex/workflows/**", "src/diagex/extractors/pid.py", "**/__pycache__/**"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/diagex/assets/symbols" = "diagex/assets/symbols"
+
+[tool.hatch.build.targets.sdist]
+include = ["src/diagex", "tests", "README.md", "LICENSE", "NOTICE", "pyproject.toml"]
+exclude = ["src/diagex/dexpi/**", "src/diagex/review/**", "src/diagex/workflows/**", "src/diagex/extractors/pid.py", "**/__pycache__/**", "tests/unit/test_run_module_seams.py"]
+
+[tool.hatch.build.targets.sdist.force-include]
+"src/diagex/assets/symbols" = "src/diagex/assets/symbols"
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+extend-exclude = ["src/diagex/dexpi", "src/diagex/workflows", "eval", "scripts", "paper", "results", "graphify-out"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
@@ -65,5 +59,4 @@ ignore = ["E501"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
-# Make eval/ importable from tests/unit/test_eval_*.py without a PYTHONPATH dance.
 pythonpath = ["."]

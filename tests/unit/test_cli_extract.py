@@ -19,11 +19,11 @@ def test_extract_pid_fresh_is_forwarded_to_engine(
         return SimpleNamespace(to_text=lambda: "done")
 
     monkeypatch.setattr("diagex.cli.load_config", Config)
-    monkeypatch.setattr("diagex.extractors.pid.run_pid_extract", fake_run_pid_extract)
+    monkeypatch.setattr("diagex.extractors.symbol_detection.run_symbol_detection", fake_run_pid_extract)
 
     result = CliRunner().invoke(
         app,
-        ["extract-pid", str(diagram), "--engine", "evidence-v2", "--fresh"],
+        ["detect", str(diagram), "--fresh"],
     )
 
     assert result.exit_code == 0
@@ -31,10 +31,9 @@ def test_extract_pid_fresh_is_forwarded_to_engine(
 
 
 def test_extract_pid_help_describes_fresh_option() -> None:
-    result = CliRunner().invoke(app, ["extract-pid", "--help"])
+    result = CliRunner().invoke(app, ["detect", "--help"])
     normalised_help = " ".join(result.stdout.replace("│", " ").split())
 
     assert result.exit_code == 0
     assert "--fresh" in result.stdout
-    assert "checkpoint" in normalised_help
-    assert "legend caches remain available" in normalised_help
+    assert "Detect symbols" in normalised_help

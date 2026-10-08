@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Symbol library | DiagEx</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/symbols.css">
+  <script src="/static/symbols.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand"><span class="brand-mark">D</span><strong>DiagEx</strong></div>
+    <div class="header-actions"><a href="/" data-t="back">Back to detection</a>
+      <select id="language" aria-label="Language"><option value="en">English</option><option value="zh-CN">中文</option></select>
+    </div>
+  </header>
+  <main class="shell library-shell">
+    <section class="intro">
+      <div><span class="eyebrow" data-t="eyebrow">DRAWING REFERENCES</span>
+        <h1 data-t="title">Symbol library</h1>
+        <p data-t="intro">Original legend crops, names, and traceable sources for symbol detection.</p>
+      </div>
+      <div class="privacy-note"><strong data-t="priority">Your drawing's legend comes first</strong>
+        <span data-t="trust">Machine extractions and starter definitions are reference material, pending verification. References from other drawings are not applied automatically.</span>
+      </div>
+    </section>
+    <details class="card standards"><summary data-t="coverage">Standards and coverage</summary><div id="standards"></div></details>
+    <section class="library-toolbar" aria-label="Search and filter">
+      <label><span data-t="search">Search names, classes, or sources</span><input id="search" type="search" placeholder="e.g. pump, FT, 填料塔, S00952"></label>
+      <label><span data-t="source">Source</span><select id="source"><option value="" data-t="allSources">All sources</option><option value="project" data-t="project">Project legends</option><option value="projectmaterials-pid-symbols">ProjectMaterials / pid-symbols.pdf</option><option value="isa-5.1">ISA-5.1</option><option value="iec-60617">IEC 60617</option><option value="iso-10628">ISO 10628</option><option value="sama">SAMA</option></select></label>
+      <label><span data-t="type">Show</span><select id="type"><option value="images" data-t="images">Symbols with images</option><option value="all" data-t="all">All definitions</option><option value="abbreviation" data-t="abbreviations">Abbreviations</option><option value="uncertain" data-t="uncertain">Uncertain / rejected</option></select></label>
+    </section>
+    <p id="count" role="status"></p>
+    <div class="library-layout">
+      <section><div id="grid" class="symbol-grid"></div><button id="more" class="quiet" hidden data-t="more">Show more</button></section>
+      <aside id="detail" class="card symbol-detail"><p data-t="choose">Select a symbol to inspect its source and definition.</p></aside>
+    </div>
+  </main>
+</body>
+</html>

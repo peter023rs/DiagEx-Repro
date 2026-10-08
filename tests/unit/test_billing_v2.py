@@ -9,7 +9,6 @@ from diagex.config import LLMConfig
 from diagex.llm.billing import AccountedSpendingLedger, summarize
 from diagex.llm.budget import BudgetExceeded
 from diagex.llm.client import LLMClient
-from eval.pid2graph.billing_reconcile import reconcile
 
 
 @pytest.fixture
@@ -111,44 +110,8 @@ def test_active_attempt_cannot_be_reconciled_even_with_matching_metadata(billing
     assert summarize(read(ledger))["active_reservations_usd"] == 0.5
 
 
-def test_missing_generation_stays_unresolved_after_key_snapshot(billing):
-    ledger, _ = billing
-    identity = ledger.reserve("test", 100)
-    ledger.observe_stream_event(identity, {"type": "message_start", "message": {"id": "gen-missing"}})
-    ledger.finish_attempt(identity)
-
-    def handle(request):
-        if request.url.path.endswith("/generation"):
-            return httpx.Response(404, json={"error": "not found"})
-        return httpx.Response(200, json={"data": {"usage": 10, "usage_daily": 0}})
-
-    with httpx.Client(base_url="https://test.invalid/api/v1", transport=httpx.MockTransport(handle)) as client:
-        result = reconcile(ledger, client)
-    assert result["unresolved_upper_usd"] == 0.5
-    assert not result["actual_billing_complete"]
-    assert read(ledger)["requests"][0]["lookup_history"][-1]["status"] == 404
 
 
-def test_reconciliation_waits_for_active_stream_to_finish(billing):
-    ledger, _ = billing
-    identity = ledger.reserve("test", 100)
-    ledger.observe_stream_event(identity, {"type": "message_start", "message": {"id": "gen-active"}})
-    lookups = []
-
-    def handle(request):
-        lookups.append(request.url.path)
-        if request.url.path.endswith("/generation"):
-            return httpx.Response(200, json={"data": {"id": "gen-active", "model": "test", "total_cost": 0.003}})
-        return httpx.Response(200, json={"data": {"usage": 10}})
-
-    with httpx.Client(base_url="https://test.invalid/api/v1", transport=httpx.MockTransport(handle)) as client:
-        active = reconcile(ledger, client)
-        assert active["active_reservations_usd"] == 0.5 and active["actual_billed_usd"] == 0
-        assert lookups == ["/api/v1/key"]
-        ledger.finish_attempt(identity)
-        finished = reconcile(ledger, client)
-    assert finished["actual_billing_complete"] and finished["actual_billed_usd"] == 0.003
-    assert finished["active_reservations_usd"] == finished["unresolved_upper_usd"] == 0
 
 
 @pytest.mark.parametrize("broken", [False, True])

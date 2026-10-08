@@ -14,7 +14,7 @@ import fitz
 import pytest
 
 from diagex.config import Config, LLMConfig
-from diagex.vision.models import BBox, ReconciledGraph, ReconciledNode
+from diagex.vision.models import ReconciledGraph
 from diagex.web.server import Workbench, WorkbenchError, make_handler
 
 
@@ -42,27 +42,45 @@ def _pdf_bytes() -> bytes:
     return payload
 
 
-def test_web_default_and_request_use_deepseek_in_every_role(tmp_path: Path) -> None:
+def test_web_default_and_request_use_glm_in_every_role(tmp_path: Path) -> None:
     from diagex.llm.model_policy import apply_production_profile
-    from diagex.web.model_profiles import DEEPSEEK_FLASH_MODEL
+    from diagex.web.model_profiles import VISION_MODELS
 
     original = apply_production_profile(_config(tmp_path))
     workbench = Workbench(original, storage_dir=tmp_path / "web")
     public = workbench.public_config()
-    assert public["model_policy"] == "deepseek-flash"
-    assert public["vision_model"] == public["reasoning_model"] == DEEPSEEK_FLASH_MODEL
-    cfg, settings = workbench._config_for_request({
-        "model_policy": public["model_policy"],
-        "vision_model": "stale/vision",
-        "reasoning_model": "stale/reasoning",
-    })
-    assert {cfg.llm.model, cfg.llm.vision_model, cfg.llm.reasoning_model,
-            cfg.llm.escalation_model} == {DEEPSEEK_FLASH_MODEL}
+    assert public["model_policy"] == "glm"
+    assert public["vision_model"] == public["reasoning_model"] == VISION_MODELS["glm"]
+    cfg, settings = workbench._config_for_request(
+        {
+            "model_policy": public["model_policy"],
+        }
+    )
+    assert {
+        cfg.llm.model,
+        cfg.llm.vision_model,
+        cfg.llm.reasoning_model,
+        cfg.llm.escalation_model,
+    } == {VISION_MODELS["glm"]}
     assert cfg.llm.production_open_weight is False
     assert cfg.llm.transport == "openrouter"
     assert cfg.symbol_perception.workflow == "fixed"
-    assert settings["model_policy"] == "deepseek-flash"
+    assert settings["model_policy"] == "glm"
     assert original.llm.production_open_weight is True
+
+
+@pytest.mark.parametrize("preset", ["glm", "mimo", "kimi", "qwen_vl", "deepseek-flash", "production-open-weight", "evaluation"])
+@pytest.mark.parametrize("reasoning", ["", "custom/reinspection"])
+def test_explicit_openrouter_models_override_presets(tmp_path, preset, reasoning):
+    workbench = Workbench(_config(tmp_path), storage_dir=tmp_path / "web")
+    cfg, settings = workbench._config_for_request({
+        "model_policy": preset, "provider": "openrouter", "vision_model": "custom/vision",
+        "reasoning_model": reasoning,
+    })
+    assert cfg.llm.vision_model == cfg.llm.model == "custom/vision"
+    assert cfg.llm.reasoning_model == cfg.llm.escalation_model == (reasoning or "custom/vision")
+    assert cfg.llm.production_open_weight is False
+    assert settings["model_policy"] == "evaluation"
 
 
 def test_web_qwen_is_opt_in_and_custom_does_not_inherit_it(tmp_path: Path) -> None:
@@ -73,10 +91,14 @@ def test_web_qwen_is_opt_in_and_custom_does_not_inherit_it(tmp_path: Path) -> No
     assert qwen.llm.production_open_weight is True
     assert qwen.llm.vision_model == FAST_MODEL
     assert qwen.llm.escalation_model == ESCALATION_MODEL
-    custom, _ = workbench._config_for_request({
-        "model_policy": "evaluation", "vision_model": "custom/vision",
-        "reasoning_model": "custom/reasoning",
-    })
+    assert qwen.llm.reasoning_model == ESCALATION_MODEL
+    custom, _ = workbench._config_for_request(
+        {
+            "model_policy": "evaluation",
+            "vision_model": "custom/vision",
+            "reasoning_model": "custom/reasoning",
+        }
+    )
     assert custom.llm.vision_model == "custom/vision"
     assert custom.llm.reasoning_model == custom.llm.escalation_model == "custom/reasoning"
     assert custom.llm.production_open_weight is False
@@ -132,7 +154,8 @@ def test_fresh_extraction_uses_memory_key_and_persists_only_redacted_settings(
             effort="high",
             quality_status="partial",
             run_dir=run_dir,
-            dexpi_json_path=run_dir / "pid.dexpi.json",
+            observation_count=5,
+            candidate_count=2,
             dexpi_stats={"equipment_count": 2, "instrument_count": 3},
             dexpi_issues=["review"],
             validation_issues=[],
@@ -141,9 +164,7 @@ def test_fresh_extraction_uses_memory_key_and_persists_only_redacted_settings(
             cost_summary={"total_tokens": 1234, "wall_clock_s": 2.5, "retries": 1},
         )
 
-    workbench = Workbench(
-        _config(tmp_path), storage_dir=tmp_path / "web", runner=fake_runner
-    )
+    workbench = Workbench(_config(tmp_path), storage_dir=tmp_path / "web", runner=fake_runner)
     payload = _pdf_bytes()
     upload = workbench.save_upload(
         filename="drawing.pdf",
@@ -178,229 +199,131 @@ def test_fresh_extraction_uses_memory_key_and_persists_only_redacted_settings(
     assert "one-run-secret" not in json.dumps(manifest)
 
 
-def test_review_cannot_open_a_directory_outside_configured_runs(tmp_path: Path) -> None:
-    workbench = Workbench(_config(tmp_path), storage_dir=tmp_path / "web")
-    source_path = tmp_path / "source.pdf"
-    source_path.write_bytes(_pdf_bytes())
-    outside = tmp_path / "outside"
-    outside.mkdir()
-    (outside / "workbench.json").write_text(
-        json.dumps({"source_path": str(source_path)}), encoding="utf-8"
-    )
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"engine": "legacy"},
+        {"stop_after": "graph"},
+        {"reviewed_run": "run"},
+        {"draft": True},
+        {"raster_proposals": {}},
+    ],
+)
+def test_graph_and_experimental_payloads_are_rejected(tmp_path, payload):
+    workbench = Workbench(_config(tmp_path))
+    with pytest.raises(WorkbenchError, match="Only"):
+        workbench.start_extraction(payload)
 
-    with pytest.raises(WorkbenchError, match="outside the configured runs directory"):
-        workbench.launch_review(rater="Engineer", run_dir=str(outside))
 
+def test_http_upload_job_view_and_download(tmp_path):
+    from urllib.parse import urlencode
 
-def test_cli_run_can_attach_a_hash_verified_source_and_reopen(tmp_path: Path) -> None:
-    workbench = Workbench(_config(tmp_path), storage_dir=tmp_path / "web")
-    run_dir = tmp_path / "runs" / "drawing" / "run-existing"
-    run_dir.mkdir(parents=True)
-    graph = ReconciledGraph(source_path="original.pdf")
-    (run_dir / "graph.json").write_text(graph.model_dump_json(), encoding="utf-8")
-    (run_dir / "result.json").write_text(
-        json.dumps(
-            {
-                "run_id": "r-existing",
-                "model": "vision=test; reasoning=test",
-                "engine": "evidence-v2",
-                "quality_status": "partial",
-            }
-        ),
-        encoding="utf-8",
-    )
-    source = _pdf_bytes()
-    source_sha = hashlib.sha256(source).hexdigest()
-    checkpoint_dir = run_dir / "checkpoints"
-    checkpoint_dir.mkdir()
-    (checkpoint_dir / "manifest.json").write_text(
-        json.dumps({"source_sha256": source_sha}), encoding="utf-8"
-    )
+    from diagex.detection.artifacts import write_detection_bundle
+    from diagex.detection.result import DetectionResult
+    from diagex.vision.evidence import PageEvidence
+    from diagex.vision.legend_models import LegendPack
 
-    discovered = workbench.recent_runs()
-    assert discovered[0]["run_id"] == "r-existing"
-    assert discovered[0]["source_available"] is False
+    source = Path("tests/p-ids-public/two-tanks.pdf").read_bytes()
+    run = tmp_path / "runs" / "two-tanks" / "test-run"
+    captured = []
 
-    wrong = workbench.save_upload(
-        filename="original.pdf",
-        content_type="application/pdf",
-        source=io.BytesIO(b"not the original"),
-        length=len(b"not the original"),
-    )
-    with pytest.raises(WorkbenchError, match="does not match this run's source hash"):
-        workbench.launch_review(
-            rater="Engineer", run_dir=str(run_dir), upload_id=wrong.id
+    def runner(**kwargs):
+        captured.append(kwargs)
+        run.mkdir(parents=True)
+        page = PageEvidence(
+            page_index=0,
+            source_ref="two-tanks",
+            width=160,
+            height=100,
+            dpi=72,
+            effective_dpi=72,
+            is_scanned=False,
+            role="pid",
         )
-
-    upload = workbench.save_upload(
-        filename="original.pdf",
-        content_type="application/pdf",
-        source=io.BytesIO(source),
-        length=len(source),
-    )
-    url = workbench.launch_review(
-        rater="Engineer", run_dir=str(run_dir), upload_id=upload.id
-    )
-
-    assert url.startswith("http://127.0.0.1:")
-    manifest = json.loads((run_dir / "workbench.json").read_text(encoding="utf-8"))
-    assert manifest["source_path"] == str(upload.path.resolve())
-    assert manifest["source_sha256"] == source_sha
-    rediscovered = workbench.recent_runs()
-    assert rediscovered[0]["source_available"] is True
-    assert rediscovered[0]["source_verified"] is True
-    workbench.close()
-
-
-def _request(
-    connection: http.client.HTTPConnection,
-    method: str,
-    path: str,
-    body: bytes | None = None,
-    content_type: str | None = None,
-) -> tuple[int, str | None, bytes]:
-    headers: dict[str, str] = {}
-    if content_type:
-        headers["Content-Type"] = content_type
-    connection.request(method, path, body=body, headers=headers)
-    response = connection.getresponse()
-    return response.status, response.getheader("Content-Type"), response.read()
-
-
-def test_http_dashboard_upload_job_and_review_handoff(tmp_path: Path) -> None:
-    run_dir = tmp_path / "runs" / "drawing" / "run-1"
-
-    def fake_runner(**kwargs: object) -> object:
-        run_dir.mkdir(parents=True)
-        graph = ReconciledGraph(
-            source_path="drawing.pdf",
-            nodes=[
-                ReconciledNode(
-                    id="n-a",
-                    kind="equipment",
-                    label="V-1",
-                    bbox_global=BBox(x=10, y=10, w=20, h=20),
-                    page_index=0,
-                    attributes={"equipment_class": "vessel"},
-                    confidence="high",
-                )
-            ],
+        write_detection_bundle(
+            run,
+            source_hash=hashlib.sha256(source).hexdigest(),
+            pages=[page],
+            detections=[],
+            legend_pack=LegendPack(),
+            per_page_status={0: "ok"},
+            candidates=[],
+            reviews=[],
         )
-        (run_dir / "graph.json").write_text(graph.model_dump_json(), encoding="utf-8")
-        (run_dir / "result.json").write_text(
-            json.dumps(
-                {
-                    "run_id": "r-test",
-                    "model": "vision=test; reasoning=test",
-                    "engine": "evidence-v2",
-                    "quality_status": "partial",
-                }
-            ),
-            encoding="utf-8",
-        )
-        return SimpleNamespace(
-            diagram_stem="drawing",
-            run_id="r-test",
-            engine="evidence-v2",
-            model="vision=test; reasoning=test",
-            effort="medium",
-            quality_status="partial",
-            run_dir=run_dir,
-            dexpi_json_path=None,
-            dexpi_stats={},
-            dexpi_issues=[],
-            validation_issues=[],
-            legend_source="no_legend",
-            legend_entry_count=0,
-            cost_summary={"total_tokens": 10, "wall_clock_s": 0.1},
-        )
+        return DetectionResult(diagram_stem="two-tanks", model="fake", effort="medium", run_dir=run)
 
-    workbench = Workbench(
-        _config(tmp_path), storage_dir=tmp_path / "web", runner=fake_runner
-    )
+    workbench = Workbench(_config(tmp_path), runner=runner)
     server = ThreadingHTTPServer(("127.0.0.1", 0), make_handler(workbench))
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    connection = http.client.HTTPConnection(
-        "127.0.0.1", server.server_address[1], timeout=10
-    )
-    review_connection: http.client.HTTPConnection | None = None
-    try:
-        status, content_type, body = _request(connection, "GET", "/")
-        assert status == 200
-        assert content_type.startswith("text/html")
-        assert b'id="startButton"' in body
-        assert b'id="reviewButton"' in body
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    conn = http.client.HTTPConnection("127.0.0.1", server.server_port, timeout=10)
 
-        status, content_type, body = _request(connection, "GET", "/static/app.js")
-        assert status == 200
-        assert "javascript" in content_type
-        assert "开始全新运行".encode() in body
-
-        status, _, body = _request(connection, "GET", "/api/config")
-        assert status == 200
-        assert b"environment-secret" not in body
-
-        source = _pdf_bytes()
-        status, _, body = _request(
-            connection,
-            "POST",
-            "/api/uploads?filename=drawing.pdf",
-            source,
-            "application/pdf",
+    def request(method, path, body=None):
+        conn.request(
+            method,
+            path,
+            body if isinstance(body, bytes) else json.dumps(body) if body is not None else None,
+            {"Content-Type": "application/json"},
         )
+        response = conn.getresponse()
+        return response.status, response.read()
+
+    try:
+        status, body = request("GET", "/")
+        assert status == 200 and b'id="startButton"' in body and b'id="reviewButton"' not in body
+        status, body = request("POST", "/api/uploads?filename=two-tanks.pdf", source)
         assert status == 201
         upload_id = json.loads(body)["upload"]["id"]
-
-        request_body = json.dumps(
-            {
-                "upload_id": upload_id,
-                "provider": "openrouter",
-                "api_key": "browser-secret",
-                "vision_model": "test/vision",
-                "reasoning_model": "test/reasoner",
-                "reasoning_mode": "enabled",
-                "engine": "evidence-v2",
-                "fresh": True,
-            }
-        ).encode()
-        status, _, body = _request(
-            connection, "POST", "/api/extractions", request_body, "application/json"
+        status, body = request(
+            "POST", "/api/extractions", {"upload_id": upload_id, "vision_model": "fake", "symbol_standard": "iso-10628"}
         )
         assert status == 202
-        assert b"browser-secret" not in body
-        job_id = json.loads(body)["job"]["id"]
-        _wait_for_job(workbench, job_id)
-
-        status, _, body = _request(connection, "GET", f"/api/jobs/{job_id}?after=0")
-        assert status == 200
-        job_state = json.loads(body)
-        assert job_state["status"] == "succeeded"
-        assert b"browser-secret" not in body
-
-        review_body = json.dumps({"job_id": job_id, "rater": "Engineer"}).encode()
-        status, _, body = _request(
-            connection, "POST", "/api/reviews", review_body, "application/json"
+        job = _wait_for_job(workbench, json.loads(body)["job"]["id"])
+        assert job.status == "succeeded", job.error
+        assert captured[0]["config"].pid.engine == "evidence-v2"
+        assert captured[0]["symbol_standard"] == "iso-10628"
+        assert "reviewed_inputs" not in captured[0]
+        before = (run / "detection.json").read_bytes()
+        query = urlencode({"run_dir": str(run)})
+        for path in (
+            "/detections?",
+            "/api/detections?",
+            "/api/detection-download?kind=detection&",
+            "/api/detection-download?kind=legend&",
+            "/api/detection-page?",
+        ):
+            status, body = request("GET", path + query)
+            assert status == 200, body
+            if "kind=detection" in path:
+                assert body == before
+        for path in ("/api/reviews", "/api/detection-review/actions"):
+            assert request("POST", path, {})[0] == 404
+        assert (
+            request("POST", "/api/extractions", {"upload_id": upload_id, "stop_after": "graph"})[0]
+            == 400
         )
-        assert status == 200
-        review_url = json.loads(body)["url"]
-        review_parts = review_url.removeprefix("http://").split(":")
-        review_connection = http.client.HTTPConnection(
-            review_parts[0], int(review_parts[1].rstrip("/")), timeout=10
-        )
-        review_connection.request("GET", "/api/state")
-        review_response = review_connection.getresponse()
-        assert review_response.status == 200
-        review_state = json.loads(review_response.read())
-        assert review_state["inventory"]["counts"]["nodes"] == 1
-
-        status, _, _ = _request(connection, "GET", "/static/../server.py")
-        assert status in {400, 404}
+        assert request("GET", "/api/detection-download?kind=../../.env&" + query)[0] == 400
+        assert request("GET", "/api/detection-crop?box=-1,0,10,10&" + query)[0] == 400
+        assert (run / "detection.json").read_bytes() == before
+        assert not (run / "review").exists()
+        assert len(captured) == 1
     finally:
-        if review_connection is not None:
-            review_connection.close()
-        connection.close()
+        conn.close()
         server.shutdown()
         server.server_close()
-        thread.join(timeout=5)
         workbench.close()
+
+
+@pytest.mark.parametrize(
+    "filename,data", [("bad.pdf", b"not PDF"), ("bad.png", b"not PNG"), ("empty.pdf", b"")]
+)
+def test_invalid_upload_does_not_start_a_job_or_leave_a_file(tmp_path, filename, data):
+    workbench = Workbench(_config(tmp_path))
+    with pytest.raises(WorkbenchError):
+        workbench.save_upload(
+            filename=filename,
+            content_type="application/octet-stream",
+            source=io.BytesIO(data),
+            length=len(data),
+        )
+    assert not workbench.jobs
+    assert list(workbench.uploads_dir.iterdir()) == []

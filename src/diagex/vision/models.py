@@ -244,3 +244,6 @@ class ReconciledGraph(BaseModel):
     ] = Field(
         default_factory=dict
     )
+
+
+LINE_STITCH_RADIUS_PX = 20

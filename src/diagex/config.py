@@ -20,25 +20,14 @@ load_dotenv()
 
 EffortLevel = Literal["low", "medium", "high", "xhigh"]
 ReasoningMode = Literal["auto", "enabled", "disabled"]
-PidEngine = Literal["legacy", "evidence-v2"]
+PidEngine = Literal["evidence-v2"]
 
 
 def _pid_engine_from_env() -> PidEngine:
-    raw = os.environ.get("DIAGEX_PID_ENGINE", "legacy").strip().lower()
-    aliases = {
-        "": "legacy",
-        "legacy": "legacy",
-        "v1": "legacy",
-        "evidence-v2": "evidence-v2",
-        "evidence_v2": "evidence-v2",
-        "v2": "evidence-v2",
-    }
-    try:
-        return aliases[raw]  # type: ignore[return-value]
-    except KeyError as exc:
-        raise ValueError(
-            "DIAGEX_PID_ENGINE must be one of: legacy, evidence-v2"
-        ) from exc
+    raw = os.environ.get("DIAGEX_PID_ENGINE", "evidence-v2").strip().lower()
+    if raw not in {"", "evidence-v2", "evidence_v2", "v2"}:
+        raise ValueError("This fork only supports DIAGEX_PID_ENGINE=evidence-v2")
+    return "evidence-v2"
 
 
 @dataclass(frozen=True)
@@ -51,16 +40,24 @@ class EffortProfile:
     """
 
     max_steps: int
-    api_effort: str                    # "low" | "medium" | "high" | "xhigh" | "max"
-    adaptive_thinking: bool            # False for `low`, True otherwise
+    api_effort: str  # "low" | "medium" | "high" | "xhigh" | "max"
+    adaptive_thinking: bool  # False for `low`, True otherwise
     max_output_tokens: int
 
 
 EFFORT_PROFILES: dict[EffortLevel, EffortProfile] = {
-    "low":    EffortProfile(max_steps=6,  api_effort="low",    adaptive_thinking=False, max_output_tokens=2048),
-    "medium": EffortProfile(max_steps=20, api_effort="medium", adaptive_thinking=True,  max_output_tokens=16000),
-    "high":   EffortProfile(max_steps=40, api_effort="high",   adaptive_thinking=True,  max_output_tokens=32000),
-    "xhigh":  EffortProfile(max_steps=60, api_effort="xhigh",  adaptive_thinking=True,  max_output_tokens=64000),
+    "low": EffortProfile(
+        max_steps=6, api_effort="low", adaptive_thinking=False, max_output_tokens=2048
+    ),
+    "medium": EffortProfile(
+        max_steps=20, api_effort="medium", adaptive_thinking=True, max_output_tokens=16000
+    ),
+    "high": EffortProfile(
+        max_steps=40, api_effort="high", adaptive_thinking=True, max_output_tokens=32000
+    ),
+    "xhigh": EffortProfile(
+        max_steps=60, api_effort="xhigh", adaptive_thinking=True, max_output_tokens=64000
+    ),
 }
 
 
@@ -81,8 +78,8 @@ class PricingConfig:
         cache_write_tokens: int = 0,
     ) -> float:
         return (
-            input_tokens      * self.input_per_mtok      / 1_000_000
-            + output_tokens     * self.output_per_mtok     / 1_000_000
+            input_tokens * self.input_per_mtok / 1_000_000
+            + output_tokens * self.output_per_mtok / 1_000_000
             + cache_read_tokens * self.cache_read_per_mtok / 1_000_000
             + cache_write_tokens * self.cache_write_per_mtok / 1_000_000
         )
@@ -92,9 +89,9 @@ class PricingConfig:
 class TilingConfig:
     max_tokens_per_tile: int = 2200
     overlap_frac: float = 0.20
-    token_per_pixel: float = 1.0 / 750.0    # Opus 4.7 ~ w*h/750
-    max_page_dim_px: int = 6000             # rendering budget (spec §5.1)
-    target_dpi: int = 300                   # clamped by max_page_dim_px
+    token_per_pixel: float = 1.0 / 750.0  # Opus 4.7 ~ w*h/750
+    max_page_dim_px: int = 6000  # rendering budget (spec §5.1)
+    target_dpi: int = 300  # clamped by max_page_dim_px
 
 
 @dataclass
@@ -149,11 +146,23 @@ class LLMConfig:
     # model behaviour.
     vision_model: str | None = None
     reasoning_model: str | None = None
-    escalation_model: str | None = field(default_factory=lambda: os.environ.get("DIAGEX_ESCALATION_MODEL") or None)
-    production_open_weight: bool = field(default_factory=lambda: os.environ.get("DIAGEX_MODEL_POLICY", "evaluation") == "production-open-weight")
-    spending_ledger: str | None = field(default_factory=lambda: os.environ.get("DIAGEX_SPENDING_LEDGER") or None)
-    verified_prices: str | None = field(default_factory=lambda: os.environ.get("DIAGEX_VERIFIED_PRICES") or None)
-    spending_category: str = field(default_factory=lambda: os.environ.get("DIAGEX_SPENDING_CATEGORY", "graph"))
+    escalation_model: str | None = field(
+        default_factory=lambda: os.environ.get("DIAGEX_ESCALATION_MODEL") or None
+    )
+    production_open_weight: bool = field(
+        default_factory=lambda: (
+            os.environ.get("DIAGEX_MODEL_POLICY", "evaluation") == "production-open-weight"
+        )
+    )
+    spending_ledger: str | None = field(
+        default_factory=lambda: os.environ.get("DIAGEX_SPENDING_LEDGER") or None
+    )
+    verified_prices: str | None = field(
+        default_factory=lambda: os.environ.get("DIAGEX_VERIFIED_PRICES") or None
+    )
+    spending_category: str = field(
+        default_factory=lambda: os.environ.get("DIAGEX_SPENDING_CATEGORY", "detection")
+    )
     # Global override for model thinking. ``auto`` preserves each caller's
     # existing effort-based choice; enabled/disabled applies to every call,
     # including legend extraction and arbitration.
@@ -170,6 +179,9 @@ class LLMConfig:
     openrouter_base_url: str = "https://openrouter.ai/api"
     openrouter_http_referer: str | None = None
     openrouter_app_title: str = "DiagEx"
+    openrouter_provider_order: list[str] = field(default_factory=list)
+    openrouter_provider_ignore: list[str] = field(default_factory=list)
+    openrouter_allow_fallbacks: bool = True
     kimi_api_key: str | None = None
     kimi_base_url: str = "https://api.kimi.com/coding/v1"
 
@@ -224,9 +236,7 @@ class LLMConfig:
         if use_kimi:
             model = os.environ.get("DIAGEX_MODEL") or os.environ.get("KIMI_MODEL")
             if not model:
-                raise ValueError(
-                    "Kimi requires a model ID; set DIAGEX_MODEL (for example, k3)."
-                )
+                raise ValueError("Kimi requires a model ID; set DIAGEX_MODEL (for example, k3).")
             return cls(
                 transport="kimi",
                 model=model,
@@ -291,17 +301,17 @@ class LLMConfig:
 
 @dataclass
 class PidConfig:
-    """Phase 2 knobs: legend budget, few-shot cap, confidence report, DEXPI subset (spec §7.2).
+    """Legend budget, few-shot context and cache settings.
 
     Budgets here shape the cached system prompt and the agent's per-tile effort.
     `legend_*` values encode spec §7.2.2's token-budget fallback.
     """
 
-    # The evidence-first engine remains opt-in until it clears the eval gates.
+    # The only supported extraction engine in the detection fork.
     engine: PidEngine = field(default_factory=_pid_engine_from_env)
 
     # Few-shot legend block (inside the cached system prompt).
-    legend_few_shot_tokens: int = 6000           # ≈ §12.1.2 30 symbols / 6k tokens
+    legend_few_shot_tokens: int = 6000  # ≈ §12.1.2 30 symbols / 6k tokens
     legend_few_shot_max_entries: int = 30
 
     # Drawn-image-sidecar size (so the cache block is not dominated by one ornate glyph).
@@ -309,42 +319,6 @@ class PidConfig:
 
     # Shared-cache root for --legend-key runs; see §7.2.2.
     legends_dir: Path = field(default_factory=lambda: Path("legends"))
-
-    # Confidence report: write an HTML digest alongside the DEXPI JSON.
-    write_confidence_report: bool = True
-
-    # Page-agent safety ceiling. Reasoning effort remains independent: dense
-    # pages receive one step per planned tile plus a buffer, clamped here.
-    page_min_steps: int = 20
-    page_step_buffer: int = 15
-    page_max_steps: int = 60
-    page_min_tile_coverage: float = 1.0
-    page_no_progress_steps: int = 4
-
-    # LLM-arbitrated reconciliation (spec §5.5 final paragraph).
-    # Enabled by default for P&IDs; capped per spec [DECISION] default 25.
-    arbitrate_conflicts: bool = True
-    max_arbitrations_per_run: int = 25
-
-    # Second arbitration pass: re-crop every medium/low-confidence entity and
-    # ask the model to confirm, revise, or reject the detection. Drastically
-    # reduces run-to-run entity-count variance on accessory-heavy drawings
-    # (DEXPI C01, grit-washer, OPEN100-3) without affecting the high-confidence
-    # core. Typical cost: ~$0.005 per entity examined.
-    arbitrate_low_confidence: bool = True
-    arb_low_conf_max: int = 200                 # hard cap on entities examined per run
-    arb_low_conf_crop_pad_px: int = 60          # larger than the main pass — tiny accessory symbols need context
-    arb_low_conf_crop_max_dim: int = 400        # long side sent to the model; ~100 image tokens
-
-    # Adaptive zoom-in pass for dangling / unsnapped edges. Runs between the
-    # first reconcile and the arbitration pass; emits new line annotations that
-    # feed back into reconcile so the resulting graph picks up missed
-    # connectivity. Budget is per page (not per run) because dangling edges
-    # scale with diagram density.
-    resolve_dangling_edges: bool = True
-    max_edge_resolves_per_page: int = 15
-    edge_resolve_focus_window_px: int = 400
-    edge_resolve_max_steps_per_edge: int = 5
 
 
 @dataclass
@@ -357,6 +331,7 @@ class Config:
     symbol_perception: SymbolPerceptionConfig = field(default_factory=SymbolPerceptionConfig)
     pid: PidConfig = field(default_factory=PidConfig)
     runs_dir: Path = field(default_factory=lambda: Path("runs"))
+    symbol_database_dir: Path | None = None
     process_context: list[dict] = field(default_factory=list)
     raster_proposals: dict | None = None
     raster_ink_filter: bool = False
@@ -364,12 +339,17 @@ class Config:
 
 
 def load_config(*, production_open_weight: bool = False) -> Config:
+    database = Path(os.environ.get("DIAGEX_SYMBOL_DATABASE", "symbol_database"))
     if not production_open_weight:
-        return Config()
+        return Config(symbol_database_dir=database)
     from diagex.llm.model_policy import FAST_MODEL, apply_production_profile
+
     llm = LLMConfig(
-        transport="openrouter", model=FAST_MODEL,
+        transport="openrouter",
+        model=FAST_MODEL,
         openrouter_api_key=os.environ.get("OPENROUTER_API_KEY"),
-        openrouter_base_url=os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api").rstrip("/"),
+        openrouter_base_url=os.environ.get(
+            "OPENROUTER_BASE_URL", "https://openrouter.ai/api"
+        ).rstrip("/"),
     )
-    return apply_production_profile(Config(llm=llm))
+    return apply_production_profile(Config(llm=llm, symbol_database_dir=database))

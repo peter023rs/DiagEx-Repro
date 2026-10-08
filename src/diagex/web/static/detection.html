@@ -3,41 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Legend & symbol review · DiagEx</title>
+  <title>Symbol detection results · DiagEx</title>
   <link rel="stylesheet" href="/static/styles.css">
   <link rel="stylesheet" href="/static/detection.css">
 </head>
 <body>
   <header class="app-header">
-    <div><a href="/" data-i18n="workbench">← Workbench</a><h1 data-i18n="title">Legend & symbol review</h1><p id="runName"></p></div>
+    <div><a href="/" data-i18n="workbench">← Workbench</a><h1 data-i18n="title">Symbol detection results</h1><p id="runName"></p></div>
     <div class="header-actions">
-      <label><span data-i18n="reviewer">Reviewer</span><input id="rater" autocomplete="name"></label>
       <select id="languageSwitch" aria-label="Language"><option value="en">English</option><option value="zh-CN">中文</option></select>
-      <button id="reload" data-i18n="reload">Reload</button><button id="undo" data-i18n="undo">Undo last edit</button><button id="buildDraft">Build draft with exceptions…</button><button id="build" class="primary" data-i18n="build">Build graph…</button>
+      <button id="reload" data-i18n="reload">Reload</button><a id="downloadDetection" class="download" data-i18n="downloadDetection">Download detections</a><a id="downloadLegend" class="download" data-i18n="downloadLegend">Download legend</a>
     </div>
   </header>
   <div id="error" role="alert" class="message error hidden"></div>
   <p id="summary" class="review-summary" aria-live="polite"></p>
   <nav class="review-toolbar">
-    <button id="legendTab" data-i18n="legendTab">1. Legend review</button><button id="symbolTab" data-i18n="symbolTab">2. Symbol review</button>
+    <button id="legendTab" data-i18n="legendTab">Legend</button><button id="symbolTab" data-i18n="symbolTab">Symbol observations</button><button id="candidateTab" data-i18n="candidateTab">Candidates & diagnostics</button><button id="textTab" data-i18n="textTab">Source text</button>
     <label><span data-i18n="page">Page</span><select id="page"></select></label>
-    <label><span data-i18n="status">Status</span><select id="filter"><option value="pending" data-i18n="pending">Needs review</option><option value="all" data-i18n="all">All</option><option value="confirmed" data-i18n="confirmed">Confirmed</option><option value="rejected" data-i18n="rejected">Rejected</option></select></label>
+    <label><span data-i18n="status">Status</span><select id="filter"><option value="all" data-i18n="all">All</option><option value="high" data-i18n="high">High</option><option value="medium" data-i18n="medium">Medium</option><option value="low" data-i18n="low">Low</option><option value="uncertain" data-i18n="uncertain">Uncertain</option><option value="non_symbol" data-i18n="non_symbol">Non-symbol</option></select></label>
     <label id="legendTypeField"><span data-i18n="legendType">Legend content</span><select id="legendType"><option value="all" data-i18n="all">All</option><option value="drawing" data-i18n="drawingLegend">Drawing symbols</option><option value="text" data-i18n="textLegend">Text definitions</option><option value="library" data-i18n="libraryLegend">Reference library</option></select></label>
-    <label><span data-i18n="find">Find</span><input id="search" placeholder="Tag, class or review reason"></label>
-    <button id="bulk">Confirm displayed legend entries</button><button id="rejectCandidates" data-i18n="rejectCandidates">Reject displayed candidates</button>
+    <label><span data-i18n="find">Find</span><input id="search" placeholder="Tag, class, ID or diagnostic reason"></label>
+    <label><span data-i18n="kind">Type</span><select id="kindFilter"><option value="all" data-i18n="all">All</option><option value="equipment" data-i18n="equipment">Equipment</option><option value="instrument" data-i18n="instrument">Instrument</option><option value="opc" data-i18n="opc">Off-page connector</option></select></label>
+    <label><span data-i18n="layout">Layout</span><select id="layout"><option value="overlay" data-i18n="overlay">Overlay</option><option value="side" data-i18n="side">Side by side</option><option value="stacked" data-i18n="stacked">Stacked</option></select></label>
+    <label><span data-i18n="background">Background</span><select id="background"><option value="full" data-i18n="full">Full</option><option value="dim" data-i18n="dim">Dimmed</option><option value="hidden" data-i18n="hidden">Hidden</option></select></label>
+    <button id="toggleList" data-i18n="toggleList" aria-pressed="true">Result list</button><button id="toggleInspector" data-i18n="toggleInspector" aria-pressed="true">Inspector</button>
   </nav>
   <main class="review-layout">
-    <aside id="items" aria-label="Review items"></aside>
+    <aside id="items" aria-label="Detection results"></aside>
     <section class="drawing-area">
       <div class="drawing-tools">
         <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">+</button>
         <button id="fit" data-i18n="fit">Fit page</button><button id="focus" data-i18n="focus">Focus selected</button>
         <label><input id="autoFocus" type="checkbox" checked><span data-i18n="autoFocus">Focus on selection</span></label>
-        <button id="add">Add missing symbol</button>
-        <label id="coverageLabel"><input id="coverage" type="checkbox"><span data-i18n="coverage">I checked this page for missed symbols</span></label>
       </div>
       <div class="selection-bar"><span class="selection-swatch"></span><span id="selectionLabel" aria-live="polite"></span></div>
-      <div id="viewport"><svg id="drawing" xmlns="http://www.w3.org/2000/svg" aria-label="Source P&ID and review boxes"></svg></div>
+      <div id="comparison" class="overlay"><div id="sourceViewport" aria-label="Original drawing"><svg id="sourceDrawing" xmlns="http://www.w3.org/2000/svg"></svg></div><div id="viewport"><svg id="drawing" xmlns="http://www.w3.org/2000/svg" aria-label="Source P&ID and detection boxes"></svg></div></div>
     </section>
     <aside id="inspector"></aside>
   </main>

@@ -8,7 +8,8 @@ within 4 px of any view boundary.
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from diagex.vision.models import Annotation, AnnotationId, BBox, Kind, Point
 from diagex.vision.views import ViewInfo, project_point, project_to_global

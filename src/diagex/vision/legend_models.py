@@ -15,7 +15,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from diagex.dexpi_schema import (
+from diagex.detection.taxonomy import (
     EQUIPMENT_CLASS_KEYS,
     EQUIPMENT_CLASS_ROUTER_VALVE_KEY,
     INSTRUMENT_FUNCTION_KEYS,
@@ -60,7 +60,7 @@ def normalise_legend_role(entry: dict) -> dict:
 
 
 # DEXPI subset (spec §7.2.1) — the vocabulary the DexpiBuilder maps into.
-# Sourced from :mod:`diagex.dexpi_schema` so the registry is the single source
+# Sourced from :mod:`diagex.detection.taxonomy` so the registry is the single source
 # of truth; legend validation stays consistent with the phase-2 prompt and
 # the DexpiBuilder dispatch table. The "valve" router key is surfaced here
 # because legend entries are allowed to name it as an equipment_class
@@ -91,7 +91,7 @@ class LegendEntry(BaseModel):
     standard: SymbolStandard | None = None  # "isa-5.1" etc.; None for customer-extracted
     image_b64: str | None = None  # optional PNG bytes, base64; None means text-only
     attributes: dict[str, str] = Field(default_factory=dict)
-    source: Literal["built_in", "legend_extracted", "customer_override"] = "built_in"
+    source: Literal["built_in", "legend_extracted", "customer_override", "reference_database", "document_reference"] = "built_in"
     # Audit data for project-extracted thumbnails.  These fields intentionally
     # survive cache serialization so a human can trace an image back to the
     # page coordinates that produced it and future code can recrop it.

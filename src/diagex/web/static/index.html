@@ -10,9 +10,10 @@
   <header class="app-header">
     <div>
       <div class="brand"><span class="brand-mark">D</span><strong>DiagEx</strong></div>
-      <p data-i18n="subtitle">P&amp;ID extraction and human review workbench</p>
+      <p data-i18n="subtitle">P&amp;ID symbol detection workbench</p>
     </div>
     <div class="header-actions">
+      <a href="/symbols" data-i18n="symbolLibrary">Symbol library</a>
       <span id="serverStatus" class="status-dot"><i></i><span data-i18n="connecting">Connecting</span></span>
       <select id="languageSwitch" aria-label="Language">
         <option value="en">English</option>
@@ -25,8 +26,8 @@
     <section class="intro">
       <div>
         <span class="eyebrow" data-i18n="localWorkbench">LOCAL WORKBENCH</span>
-        <h1 data-i18n="title">Turn a P&amp;ID into an editable engineering graph</h1>
-        <p data-i18n="intro">Configure the models, upload a drawing, run extraction, then open the result directly in human review.</p>
+        <h1 data-i18n="title">Find symbols in your P&amp;ID</h1>
+        <p data-i18n="intro">Configure models, upload a drawing, and inspect source-aligned symbol results.</p>
       </div>
       <div class="privacy-note">
         <strong data-i18n="credentialsStayLocal">Credentials are not saved</strong>
@@ -41,6 +42,30 @@
           <div><h2 data-i18n="configure">Configure extraction</h2><p data-i18n="configureHint">Choose the provider and models used for this run.</p></div>
         </div>
         <div class="form-grid">
+          <label class="wide">
+            <span data-i18n="referenceStandard">Symbol reference standard</span>
+            <select id="symbolStandard">
+              <option value="isa-5.1">ISA-5.1</option>
+              <option value="iso-10628">ISO 10628</option>
+              <option value="sama">SAMA</option>
+              <option value="none" data-i18n="projectOnly">Project legend only</option>
+            </select>
+            <small data-i18n="referenceHint">Adds starter definitions and imported reference guides. Your drawing's legend takes priority. IEC catalog entries have no graphics and are not used for detection.</small>
+          </label>
+        <label class="wide">
+          <span data-i18n="modelPreset">Model preset</span>
+          <select id="modelPolicy">
+            <option value="glm">GLM-5.3-Flash</option>
+            <option value="mimo">MiMo-V2.6-Pro</option>
+            <option value="kimi">Kimi K3</option>
+            <option value="qwen_vl">Qwen3-VL-235B</option>
+            <option value="deepseek-flash">DeepSeek V4.1 Flash</option>
+            <option value="production-open-weight" data-i18n="openWeightPreset">Open-weight models</option>
+            <option value="evaluation" data-i18n="customModels">Custom models</option>
+          </select>
+          <small id="modelPolicyHint" data-i18n="modelPresetHint">Presets fill in the fields below. You can change either model at any time.</small>
+        </label>
+
           <label>
             <span data-i18n="provider">Provider</span>
             <select id="provider">
@@ -64,13 +89,42 @@
           </label>
           <label class="wide">
             <span data-i18n="visionModel">Vision model</span>
-            <input id="visionModel" list="modelSuggestions" spellcheck="false" autocomplete="off" placeholder="provider/model-slug">
+            <input id="visionModel" list="modelSuggestions" spellcheck="false" autocomplete="off" data-i18n-placeholder="modelPlaceholder" placeholder="Search models or enter provider/model-id">
             <small data-i18n="visionHint">Used for raw symbol detection. Enable reasoning below for difficult symbols.</small>
+            <small id="modelConstraintHint" role="status"></small>
           </label>
+          <div id="openrouterModels" class="wide model-catalog">
+            <div class="catalog-actions">
+              <button id="refreshModels" class="quiet" type="button" data-i18n="refreshModels">Refresh OpenRouter models</button>
+              <a href="https://openrouter.ai/models" target="_blank" rel="noopener noreferrer" data-i18n="browseModels">Browse models ↗</a>
+            </div>
+            <small id="modelCatalogStatus" role="status"></small>
+          </div>
+          <details id="openrouterRouting" class="wide">
+            <summary data-i18n="providerRouting">OpenRouter provider routing</summary>
+            <div class="form-grid">
+              <label class="wide">
+                <span data-i18n="providerOrder">Preferred providers, in order</span>
+                <input id="providerOrder" placeholder="xiaomi" spellcheck="false" autocomplete="off">
+              </label>
+              <label class="wide">
+                <span data-i18n="providerIgnore">Excluded providers</span>
+                <input id="providerIgnore" placeholder="deepinfra" spellcheck="false" autocomplete="off">
+              </label>
+              <label class="wide">
+                <span data-i18n="providerFallbacks">Allow other providers as fallbacks</span>
+                <select id="providerFallbacks">
+                  <option value="true" data-i18n="enabled">Enabled</option>
+                  <option value="false" data-i18n="disabled">Disabled</option>
+                </select>
+              </label>
+              <small class="wide" data-i18n="routingHint">Optional comma-separated OpenRouter provider slugs. Providers must serve the selected model. Leave blank for automatic routing.</small>
+            </div>
+          </details>
           <label class="wide">
             <span data-i18n="reasoningModel">Reasoning model</span>
-            <input id="reasoningModel" list="modelSuggestions" spellcheck="false" autocomplete="off" placeholder="Same as vision model when blank">
-            <small data-i18n="reasoningModelHint">Used for page-level relationship and cross-sheet reasoning.</small>
+            <input id="reasoningModel" list="modelSuggestions" spellcheck="false" autocomplete="off" data-i18n-placeholder="sameVisionModel" placeholder="Same as vision model when blank">
+            <small data-i18n="reasoningModelHint">Used for bounded reinspection of difficult symbols.</small>
           </label>
           <label>
             <span data-i18n="reasoning">Reasoning</span>
@@ -90,35 +144,12 @@
               <option value="xhigh" data-i18n="xhigh">Extra high</option>
             </select>
           </label>
-          <label>
-            <span data-i18n="engine">Extraction engine</span>
-            <select id="engine">
-              <option value="evidence-v2">Evidence v2</option>
-              <option value="legacy">Legacy</option>
-            </select>
-          </label>
+
         </div>
-        <datalist id="modelSuggestions">
-          <option value="qwen/qwen3.5-35b-a3b"></option>
-          <option value="qwen/qwen3.5-122b-a10b"></option>
-          <option value="deepseek/deepseek-v4-flash-vision-exp"></option>
-          <option value="deepseek/deepseek-v4-flash-latest"></option>
-          <option value="qwen/qwen3.7-flash"></option>
-        </datalist>
+        <datalist id="modelSuggestions"></datalist>
       </article>
 
       <article class="card source-card">
-        <label class="wide">
-          <span>Model profile / 模型方案</span>
-          <select id="modelPolicy">
-            <option value="deepseek-flash">DeepSeek V4.1 Flash (default / 默认)</option>
-            <option value="production-open-weight">Open-weight production profile / 开放权重方案</option>
-            <option value="evaluation">Custom evaluation models / 自定义评测模型</option>
-          </select>
-          <small id="modelPolicyHint">DeepSeek V4.1 Flash handles vision, reasoning, and bounded source reinspection.</small>
-        </label>
-        <label class="wide"><span>Process overview / 工艺说明（可选）</span><textarea id="processOverview" rows="3" maxlength="40000" placeholder="Source and process description"></textarea></label>
-        <label class="wide"><span>Engineering rules / 工程规则（可选）</span><textarea id="engineeringRules" rows="3" maxlength="40000" placeholder="Used to propose connections for source inspection"></textarea></label>
         <div class="card-heading">
           <span class="step">2</span>
           <div><h2 data-i18n="chooseDrawing">Choose the drawing</h2><p data-i18n="chooseDrawingHint">PDF is recommended; vector PDFs give the strongest line evidence.</p></div>
@@ -130,7 +161,6 @@
           <span data-i18n="orBrowse">or click to choose a file</span>
           <small>PDF · PNG · JPEG · TIFF</small>
         </label>
-        <div id="reviewedBuild" class="hidden"><strong data-i18n="reviewedBuildTitle">Build graph from reviewed symbols</strong><p data-i18n="reviewedBuildHint">Uses the saved legend and symbol decisions. Check the model settings, then start the graph build.</p><button id="buildReviewedButton" class="primary" type="button" data-i18n="buildReviewed">Build reviewed graph</button></div>
         <div id="uploadProgress" class="upload-progress hidden"><div></div></div>
         <div id="fileSummary" class="file-summary hidden">
           <div class="file-icon">PDF</div>
@@ -146,12 +176,11 @@
           </label>
           <label class="choice-card">
             <input type="radio" name="runMode" value="fresh">
-            <span><strong data-i18n="startFresh">Start a brand-new run</strong><small data-i18n="freshHint">Bypass machine legend and symbol caches; preserve reviewed artifacts.</small></span>
+            <span><strong data-i18n="startFresh">Start a brand-new run</strong><small data-i18n="freshHint">Bypass machine legend and symbol caches; preserve previous results.</small></span>
           </label>
         </fieldset>
-        <button id="detectButton" class="primary" type="button" data-i18n="detectSymbols">Detect legends &amp; symbols</button>
-        <p data-i18n="detectHint">Stop before graph construction. Review the legend and symbols first.</p>
-        <button id="startButton" class="primary large" type="button" disabled><span data-i18n="startExtraction">Start extraction</span><b>→</b></button>
+        <p class="detection-note" data-i18n="detectHint">Detect legends and symbols, then inspect the machine results.</p>
+        <button id="startButton" class="primary large" type="button" disabled><span data-i18n="detectSymbols">Detect symbols</span><b>→</b></button>
         <div id="formError" class="message error hidden"></div>
       </article>
     </section>
@@ -183,21 +212,21 @@
       <div id="metricGrid" class="metric-grid"></div>
       <div class="run-path"><span data-i18n="runDirectory">Run directory</span><code id="runPath"></code></div>
       <div class="review-row">
-        <label><span data-i18n="reviewerName">Reviewer name</span><input id="raterName" autocomplete="name" placeholder="Engineer"></label>
-        <button id="detectionReviewButton" class="primary" type="button" data-i18n="reviewSymbols">Review legends &amp; symbols</button><button id="reviewButton" class="primary large" type="button"><span data-i18n="openReview">Open human review</span><b>↗</b></button>
+
+        <button id="viewResultsButton" class="primary" type="button" data-i18n="viewResults">View results</button>
       </div>
-      <div id="reviewError" class="message error hidden"></div>
+      <div id="resultError" class="message error hidden"></div>
     </section>
 
     <section id="recentSection" class="card recent-card hidden">
-      <div class="card-heading compact"><div><h2 data-i18n="recentRuns">Open an existing run</h2><p data-i18n="recentRunsHint">Review any extraction in the configured runs directory without rerunning it.</p></div></div>
+      <div class="card-heading compact"><div><h2 data-i18n="recentRuns">Open an existing run</h2><p data-i18n="recentRunsHint">View any detection in the configured runs directory without rerunning it.</p></div></div>
       <div class="existing-run-toolbar">
         <label><span data-i18n="filterRuns">Find a run</span><input id="runFilter" type="search" data-i18n-placeholder="filterRunsPlaceholder" placeholder="Drawing, run ID, or model"></label>
-        <label><span data-i18n="reviewerName">Reviewer name</span><input id="existingRaterName" autocomplete="name" placeholder="Engineer"></label>
+
         <button id="refreshRuns" class="quiet" type="button" data-i18n="refreshRuns">Refresh runs</button>
       </div>
       <input id="existingSourceInput" class="hidden" type="file" accept="application/pdf,image/png,image/jpeg,image/tiff">
-      <div id="existingReviewError" class="message error hidden"></div>
+      <div id="existingResultError" class="message error hidden"></div>
       <div id="recentRuns" class="recent-runs"></div>
     </section>
   </main>

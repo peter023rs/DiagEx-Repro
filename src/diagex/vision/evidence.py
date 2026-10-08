@@ -169,11 +169,11 @@ def classify_page(
     if (hit := term(_NOTES_TERMS)) and tag_count < 4 and line_count < 80:
         return "notes", "medium", f"notes marker {hit!r} with low diagram density", False
 
-    if page_index == 0 and len(text_spans) < 25 and line_count < 30:
-        return "cover", "medium", "sparse first page", False
-
     if not text_spans and not paths:
         return "pid", "low", "no native evidence; raster perception required", True
+
+    if page_index == 0 and len(text_spans) < 25 and line_count < 30:
+        return "cover", "medium", "sparse first page", False
 
     return "pid", "low", "uncertain page; fail-open P&ID routing", True
 

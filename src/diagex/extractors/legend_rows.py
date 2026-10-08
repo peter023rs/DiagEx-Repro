@@ -11,13 +11,13 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, ValidationError, model_validator
 
-from diagex.llm.client import is_non_retryable_api_error
+from diagex.llm.client import is_non_retryable_api_error, provider_image_limit
 from diagex.vision.encode import encode_image_block
 from diagex.vision.legend_models import LegendEntry, LegendRegionCoverage
 from diagex.vision.legend_rows import native_legend_rows, union_boxes
 from diagex.vision.models import BBox
 
-BATCH_SIZE = 12
+BATCH_SIZE = 4
 
 
 def suspicious_legend_label(label):
@@ -32,6 +32,7 @@ class LegendRunState:
     consecutive_failures: int = 0
     total_failures: int = 0
     stop_reason: str | None = None
+    image_limit: int = BATCH_SIZE
 
     def observe(self, failed, policy):
         self.consecutive_failures = self.consecutive_failures + 1 if failed else 0
@@ -172,6 +173,12 @@ def classify_native_legend(
     )
     while batches:
         batch, verifying_rejection = batches.popleft()
+        if len(batch) > run_state.image_limit:
+            batches.extendleft(reversed([
+                (batch[start:start + run_state.image_limit], verifying_rejection)
+                for start in range(0, len(batch), run_state.image_limit)
+            ]))
+            continue
         verify_next = []
         content = []
         for row in batch:
@@ -247,6 +254,11 @@ def classify_native_legend(
                     except ValidationError:
                         continue
         except Exception as exc:
+            limit = provider_image_limit(exc)
+            if limit is not None and limit < len(batch):
+                run_state.image_limit = limit
+                batches.appendleft((batch, verifying_rejection))
+                continue
             if is_non_retryable_api_error(exc):
                 raise
             error = str(exc)

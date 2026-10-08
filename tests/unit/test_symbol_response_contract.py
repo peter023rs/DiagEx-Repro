@@ -12,7 +12,7 @@ from PIL import Image
 
 from diagex.config import Config, LLMConfig, SymbolPerceptionConfig
 from diagex.extractors.evidence_checkpoint import CheckpointStore
-from diagex.extractors.pid_evidence import _run_perception
+from diagex.extractors.symbol_detection import _run_perception
 from diagex.llm.client import LLMClient
 from diagex.llm.cost import CostTracker
 from diagex.ui.progress import NullReporter
@@ -24,7 +24,7 @@ from diagex.vision.perception import (
     perceive_tile,
 )
 from diagex.vision.symbol_candidates import symbol_candidates
-from tests.unit.test_port_topology import page
+from tests.unit.detection_fixtures import page
 from tests.unit.test_symbol_perception import circle, unified_batch, view
 
 
@@ -40,7 +40,7 @@ def reply(rows):
 def test_failed_source_legend_blocks_calls_but_semantic_ambiguity_is_separate(
     tmp_path, monkeypatch
 ):
-    from diagex.extractors.pid_evidence import _legend_prerequisite_error
+    from diagex.extractors.symbol_detection import _legend_prerequisite_error
     from diagex.vision.legend_models import LegendPack, LegendRegionCoverage
 
     box = BBox(x=0, y=0, w=500, h=500)
@@ -102,6 +102,83 @@ def test_flat_wire_schema_keeps_candidate_identity_outside_provider_conditionals
     assert {"candidate_id", "decision", "kind", "equipment_class"} <= row["properties"].keys()
     assert "bbox" not in row["properties"] and "symbol" not in row["properties"]
     assert "non_symbol_basis" not in row["properties"]
+
+
+@pytest.mark.parametrize("subtype,value", [("compressor_type", "screw"), ("filter_type", "strainer")])
+def test_equipment_subtype_survives_candidate_response_and_keeps_native_box(subtype, value):
+    from diagex.vision.symbol_candidates import SymbolCandidate
+
+    candidate = SymbolCandidate(
+        id="body", page_index=0, shape="capsule_body",
+        bbox=BBox(x=100, y=100, w=270, h=67), source_path_ids=["body-ink"],
+    )
+    box = BBox(x=0, y=0, w=500, h=500)
+    rows = [{"candidate_id": "body", "decision": "symbol", "kind": "equipment",
+             "equipment_class": subtype.removesuffix("_type"), subtype: value}]
+
+    class Client:
+        def messages_create(self, **kwargs):
+            return reply(rows)
+
+    outcome = perceive_tile(
+        client=Client(), cost_tracker=CostTracker(), reporter=NullReporter(),
+        page=page([]), tile=Tile(id="t", page_index=0, bbox=box),
+        view_image=Image.new("RGB", (500, 500), "white"), view_info=view(box),
+        ownership_bbox=box, legend_summary=[], step=1, candidates=[candidate],
+        reasoning_mode="disabled",
+    )
+    assert len(outcome.detections) == 1
+    assert outcome.detections[0].bbox == candidate.bbox
+    assert outcome.detections[0].attributes[subtype] == value
+    assert not outcome.batch.rejected_objects
+    schema = _SUBMIT_TOOL["input_schema"]["properties"]["candidate_results"]["items"]
+    assert schema["properties"][subtype]["type"] == "string"
+
+
+@pytest.mark.parametrize("cached_version,invalid,expected_calls", [(None, True, 1), (1, True, 0), (None, False, 0)])
+def test_resume_retries_only_older_contract_failures(tmp_path, monkeypatch, cached_version, invalid, expected_calls):
+    p = page([circle("c", 150, 150)])
+    p.role = "pid"
+    candidate = symbol_candidates(p)[0]
+    rendered = DiagramPage(
+        page_index=0, source_ref=p.source_ref, width=p.width, height=p.height,
+        dpi=p.dpi, effective_dpi=p.effective_dpi, is_scanned=False,
+        image=Image.new("RGB", (p.width, p.height), "white"),
+    )
+    current_tile = Tile(id="t", page_index=0, bbox=BBox(x=0, y=0, w=p.width, h=p.height))
+    monkeypatch.setattr("diagex.vision.loader.iter_pages", lambda _: iter([rendered]))
+    monkeypatch.setattr("diagex.extractors.symbol_detection.tile", lambda *_: [current_tile])
+    store = CheckpointStore.create(run_dir=tmp_path, source_sha256="s", config_sha256="c", run_id="test")
+    review = {"candidate_id": candidate.id, "status": "uncertain", "bbox": candidate.bbox.model_dump(),
+              "reason": "Invalid candidate result: compressor_type is extra" if invalid else "Ambiguous source ink"}
+    store.write_json_artifact("perception", "p0001__t", {
+        "detections": [], "native_candidates": [candidate.model_dump(mode="json")],
+        "candidate_reviews": [review], "contract_failed": invalid,
+        "response_contract_version": cached_version,
+    })
+    store = CheckpointStore.load(tmp_path)
+
+    class Client:
+        calls = 0
+
+        def messages_create(self, **kwargs):
+            self.calls += 1
+            return reply([{"candidate_id": candidate.id, "decision": "symbol", "kind": "instrument"}])
+
+    client = Client()
+    detections, _, _, _ = _run_perception(
+        source=None, pages=[p], cfg=Config(llm=LLMConfig(reasoning_mode="disabled")),
+        client=client, cost=CostTracker(), reporter=NullReporter(), store=store,
+        legend_summary=[], run_dir=tmp_path, prior_cost={},
+    )
+    assert client.calls == expected_calls
+    assert len(detections) == expected_calls
+    summary = store.reuse_summary()
+    assert summary["computed_by_stage"].get("perception", 0) == expected_calls
+    assert summary["reused_by_stage"].get("perception", 0) == 1 - expected_calls
+    if expected_calls:
+        saved = json.loads(store.artifact_path("perception", "p0001__t").read_text())
+        assert saved["response_contract_version"] == 1
 
 
 @pytest.mark.parametrize(
@@ -454,7 +531,7 @@ def test_stage_stops_and_saves_completed_work_and_pending_candidates(
         for i in range(5)
     ]
     monkeypatch.setattr("diagex.vision.loader.iter_pages", lambda _: iter([rendered]))
-    monkeypatch.setattr("diagex.extractors.pid_evidence.tile", lambda *_: tiles)
+    monkeypatch.setattr("diagex.extractors.symbol_detection.tile", lambda *_: tiles)
 
     class Client:
         calls = 0

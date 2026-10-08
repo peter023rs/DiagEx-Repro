@@ -2,42 +2,20 @@
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const runDir = params.get("run_dir") || "";
-const CLASS_FIELDS = ["equipment_class", "valve_type", "instrument_class", "instrument_function", "connector_type"];
 const BOX_FIELDS = ["x", "y", "w", "h"];
 const MAX_ZOOM = 32;
 const SELECTED_COLOR = "#c026d3";
-let state, tab = "legends", selected = null, zoom = 1, drawingBox = false;
-let drag = null, busy = false, draft = null;
+let state, tab = "symbols", selected = null, zoom = 1;
 function setting(key) { try { return localStorage.getItem(key); } catch { return null; } }
 function saveSetting(key, value) { try { localStorage.setItem(key, value); } catch { /* Optional preference storage. */ } }
 let language = setting("diagex.web.language") === "zh-CN" ? "zh-CN" : "en";
-$("rater").value = params.get("rater") || "";
 $("autoFocus").checked = setting("diagex.detection.autoFocus") !== "false";
 const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function t(key, values = {}) {
-  return (DETECTION_I18N[language][key] ?? DETECTION_I18N.en[key] ?? key)
+  return (DETECTION_I18N[language][key] ?? DETECTION_I18N.en[key] ?? String(key ?? ""))
     .replace(/\{(\w+)\}/g, (_, name) => String(values[name] ?? ""));
 }
-const reasonKeys = {
-  "Raw model detection": "rawDetection",
-  "Native candidate without a confirmed detection": "nativeWithoutDetection",
-  "Legend changed; recheck classification": "legendChanged",
-  "Enter the reviewer name": "reviewerRequired",
-  "Review the legend before confirming symbols": "reviewLegendFirst",
-  "Another edit was saved. Reload before making this change.": "staleEdit",
-  "Review changed. Reload before building the graph.": "staleBuild",
-  "Symbol box must be non-empty and inside its source page": "insidePage",
-  "No edit to undo": "emptyUndo",
-  "Model did not select or assess this native candidate": "modelUnreviewed",
-  "Model classified native glyph": "modelSelected",
-  "conflicting or duplicate candidate decisions": "conflictingDecision",
-  "Conflicting or duplicate candidate decisions": "conflictingDecision",
-  "classification contradicts native glyph geometry": "shapeConflict",
-  "Model proposal has no selected native glyph": "proposalUnanchored",
-};
-function translatedReason(value) {
-  return value?.split("; ").map(part => reasonKeys[part] ? t(reasonKeys[part]) : part).join("; ");
-}
+function translatedReason(value) { return value || ""; }
 function applyLanguage() {
   document.documentElement.lang = language;
   document.title = `${t("title")} · DiagEx`;
@@ -60,19 +38,6 @@ function error(e) {
   $("error").textContent = translatedReason(e.message);
   $("error").classList.remove("hidden");
 }
-async function act(body) {
-  if (busy) return;
-  busy = true;
-  $("error").classList.add("hidden");
-  try {
-    state = await api("/api/detection-review/actions", {
-      run_dir: runDir, revision: state.revision, rater: $("rater").value, ...body,
-    });
-    draft = null;
-    render();
-  } catch (e) { error(e); }
-  finally { busy = false; }
-}
 function page() { return state?.pages.find(p => p.page_index === Number($("page").value)); }
 function current() { return state?.[tab].find(row => row.id === selected); }
 function legendType(entry) {
@@ -92,29 +57,18 @@ function rowLocation(row) {
 function rows() {
   const query = $("search").value.trim().toLowerCase();
   return state[tab].filter(row => {
-    if (tab === "symbols" && row.detection.page_index !== page().page_index) return false;
+    if (tab !== "legends" && row.detection.page_index != null && row.detection.page_index !== page().page_index) return false;
     if (tab === "legends" && $("legendType").value !== "all" && legendType(row.entry) !== $("legendType").value) return false;
-    if ($("filter").value !== "all" && row.status !== $("filter").value) return false;
+    if ($("filter").value !== "all" && ($("filter").value === "uncertain" ? !["uncertain", "unreviewed", "reject", "rejected", "low"].includes(row.status) : row.status !== $("filter").value)) return false;
     const obj = row.entry || row.detection;
+    if ($("kindFilter").value !== "all" && obj.kind !== $("kindFilter").value) return false;
     // Search meaningful text, never embedded thumbnail data.
     const text = [row.id, rowName(row), obj.kind, t(obj.kind), obj.symbol_class, JSON.stringify(obj.attributes || {}), row.reason, translatedReason(row.reason), t(row.origin || obj.kind)].join(" ");
     return text.toLowerCase().includes(query);
   });
 }
-function blockers() {
-  const result = [];
-  for (const [key, label] of [["legends","remainingLegends"],["symbols","remainingSymbols"]]) {
-    const count = state[key].filter(row => row.status === "pending").length;
-    if (count) result.push(t(label, {count}));
-  }
-  const count = Object.values(state.coverage).filter(checked => !checked).length;
-  if (count) result.push(t("remainingPages", {count}));
-  return result;
-}
 function select(id) {
   selected = id;
-  draft = null;
-  cancelDrawing();
   const location = rowLocation(current());
   if (location) $("page").value = String(location.pageIndex);
   render();
@@ -129,29 +83,12 @@ function renderPages() {
   if (state.pages.some(p => String(p.page_index) === prior)) $("page").value = prior;
 }
 function render() {
-  if (!state || !page()) return;
+  if (!state) return;
+  if (!page()) { $("items").textContent = t("noItems"); $("summary").textContent = t("noPages"); return; }
   $("runName").textContent = runDir.split("/").pop();
-  const remaining = blockers();
-  $("summary").textContent = `${t("summary", {
-    legends: state.legends.filter(row => row.status === "confirmed").length,
-    total: state.legends.length,
-    symbols: state.symbols.filter(row => row.status === "confirmed").length,
-    pending: state.symbols.filter(row => row.status === "pending").length,
-    revision: state.revision,
-  })}. ${remaining.join("; ") || t("ready")}`;
-  $("build").disabled = !state.can_build;
-  $("build").title = remaining.join("; ");
-  $("buildDraft").disabled = !state.symbols.some(row => row.status === "confirmed");
-  $("undo").disabled = !state.can_undo;
-  $("legendTab").classList.toggle("active", tab === "legends");
-  $("symbolTab").classList.toggle("active", tab === "symbols");
+  $("summary").textContent = `${t(state.status)} · ${t("summary", {symbols:state.observation_count, candidates:state.candidate_count, legends:state.legends.length})}${state.stop_reason ? ` · ${state.stop_reason}` : ""}`;
+  for (const [id, name] of [["legendTab","legends"],["symbolTab","symbols"],["candidateTab","candidates"],["textTab","texts"]]) $(id).classList.toggle("active", tab === name);
   $("legendTypeField").hidden = tab !== "legends";
-  $("bulk").textContent = t(tab === "legends" ? "confirmLegends" : "confirmDetected");
-  $("rejectCandidates").hidden = tab !== "symbols";
-  $("add").textContent = t(tab === "legends" ? "addLegend" : "addSymbol");
-  $("add").disabled = tab === "symbols" && page().role !== "pid";
-  $("coverageLabel").hidden = tab !== "symbols" || page().role !== "pid";
-  $("coverage").checked = !!state.coverage[String(page().page_index)];
   const location = rowLocation(current());
   $("focus").disabled = !location;
   $("selectionLabel").textContent = current()
@@ -166,8 +103,7 @@ function render() {
     button.dataset.itemId = row.id;
     button.setAttribute("aria-pressed", String(row.id === selected));
     const origin = row.entry ? legendTypeText(row.entry) : t(row.origin);
-    const reviewedBy = row.review_provenance ? ` · ${row.review_provenance.actor_type === "agent" ? "Agent reviewed" : "Human reviewed"}: ${row.review_provenance.rater}` : "";
-    button.innerHTML = `${esc(rowName(row))}<small>${esc(t(row.status))} · ${esc(origin)}${esc(reviewedBy)}${row.stale ? ` · ${esc(t("legendChanged"))}` : ""}</small>`;
+    button.innerHTML = `${esc(rowName(row))}<small>${esc(t(row.status))} · ${esc(origin)}</small>`;
     button.onclick = () => select(row.id);
     $("items").append(button);
   }
@@ -217,36 +153,41 @@ function focusSelected() {
 }
 function setZoom(value) {
   const center = viewportCenter();
-  zoom = Math.max(1, Math.min(MAX_ZOOM, value));
+  zoom = Math.max(.25, Math.min(MAX_ZOOM, value));
   renderDrawing();
   if (center) centerOn(center);
 }
 function renderDrawing() {
   const p = page(), svg = $("drawing");
   svg.replaceChildren();
+  $("comparison").className = $("layout").value;
   svg.setAttribute("viewBox", `0 0 ${p.width} ${p.height}`);
   const scale = baseScale() * zoom;
   svg.style.width = `${p.width * scale}px`;
   svg.style.height = `${p.height * scale}px`;
   $("zoomLabel").textContent = `${Math.round(zoom * 100)}%`;
-  svg.append(svgElement("image", {href:`/api/detection-page?${new URLSearchParams({run_dir:runDir, page:p.page_index})}`, width:p.width, height:p.height}));
+  const sourceLayer = svgElement("g", {class:"source-layer"});
+  svg.append(sourceLayer);
+  sourceLayer.append(svgElement("image", {href:`/api/detection-page?${new URLSearchParams({run_dir:runDir, page:p.page_index})}`, width:p.width, height:p.height}));
   const location = rowLocation(current());
   const active = location && location.pageIndex === p.page_index ? location.bounds : null;
   if (active) {
     const context = contextBounds(active, p, 1.5);
     // Re-render the local PDF region so automatic zoom does not magnify a blurry preview.
-    svg.append(svgElement("image", {href:cropUrl(p.page_index, context), x:context.x, y:context.y, width:context.w, height:context.h, class:"focused-source"}));
+    sourceLayer.append(svgElement("image", {href:cropUrl(p.page_index, context), x:context.x, y:context.y, width:context.w, height:context.h, class:"focused-source"}));
   }
-  const boxes = tab === "symbols" ? state.symbols.filter(row => row.detection.page_index === p.page_index)
-    : state.legends.filter(row => rowLocation(row)?.pageIndex === p.page_index);
+  const boxes = rows().filter(row => rowLocation(row)?.pageIndex === p.page_index);
   for (const row of boxes) {
     if (row.id === selected) continue;
     const b = rowLocation(row).bounds;
-    const color = row.status === "confirmed" ? "#12804d" : row.status === "rejected" ? "#7e8792" : "#d47d00";
+    const color = row.origin === "detected" ? "#12804d" : row.status === "non_symbol" ? "#7e8792" : "#d47d00";
     const rect = svgElement("rect", {x:b.x, y:b.y, width:b.w, height:b.h, stroke:color, fill:color,
       class:active ? "other-item muted" : "other-item", "data-item-id":row.id});
-    if (row.status === "rejected") rect.setAttribute("stroke-dasharray", "4 4");
-    rect.onclick = () => { if (!drawingBox) select(row.id); };
+    if (row.status === "non_symbol") rect.setAttribute("stroke-dasharray", "4 4");
+    rect.onclick = () => { select(row.id); };
+    rect.setAttribute("tabindex", "0"); rect.setAttribute("role", "button");
+    rect.setAttribute("aria-label", rowName(row));
+    rect.onkeydown = event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); select(row.id); } };
     const title = svgElement("title", {});
     title.textContent = `${rowName(row)} · ${t(row.status)}`;
     rect.append(title);
@@ -259,133 +200,95 @@ function renderDrawing() {
         stroke, fill:SELECTED_COLOR, class:className, "data-item-id":selected}));
     }
   }
-}
-function field(id, label, value, type = "text") {
-  return `<label>${esc(t(label))}<input id="${id}" type="${type}" value="${esc(value)}"></label>`;
-}
-function options(id, label, values, value) {
-  return `<label>${esc(t(label))}<select id="${id}">${values.map(v => `<option value="${v}" ${v === value ? "selected" : ""}>${esc(t(v))}</option>`).join("")}</select></label>`;
+  const original = $("sourceDrawing");
+  original.replaceChildren(...[...svg.querySelectorAll("image")].map(image => image.cloneNode(true)));
+  original.setAttribute("viewBox", svg.getAttribute("viewBox"));
+  original.style.width = svg.style.width; original.style.height = svg.style.height;
+  const opacity = {full:1, dim:.25, hidden:0}[$("background").value];
+  sourceLayer.setAttribute("opacity", opacity);
+
 }
 function renderInspector() {
-  const row = draft || current();
-  if (!row) { $("inspector").innerHTML = `<p>${t(drawingBox ? "drawHint" : "selectHint")}</p>`; return; }
-  const legend = tab === "legends", obj = legend ? row.entry : row.detection;
-  let html = `<h3>${t(legend ? "entry" : "symbol")}</h3>`;
-  if (row.reason && !reasonKeys[row.reason] && language === "zh-CN") html += `<small>${t("sourceEvidence")}</small>`;
-  html += `<p>${esc(translatedReason(row.reason) || t(row.status || "newEntry"))}</p>`;
-  if (legend) {
-    const type = legendType(obj);
-    html += `<span class="origin-badge">${esc(legendTypeText(obj))}</span>`;
-    if (type !== "drawing") html += `<p>${t(type === "text" ? "sourceDefinition" : "libraryDefinition")}</p>`;
-    if (obj.image_b64) html += `<img alt="${t("sourceCrop")}" src="data:image/png;base64,${esc(obj.image_b64)}">`;
-  }
-  html += field("editLabel", legend ? "name" : "tag", obj.label);
-  const symbolKinds = obj.kind === "raster_symbol" ? ["raster_symbol","equipment","instrument","opc"] : ["equipment","instrument","opc"];
-  html += options("editKind", "kind", legend ? ["equipment","instrument","line","valve","connector","other"] : symbolKinds, obj.kind);
-  if (!legend && row.source_observation) html += `<p>${esc(t("rasterReviewHint"))}</p>`;
-  const interpretation = row.source_observation?.legend_interpretation;
-  if (!legend && interpretation) html += `<p><strong>${esc(t("legendSuggestion"))}</strong> ${esc(interpretation.reason)}</p>`;
-  if (legend) html += field("editClass", "symbolClass", obj.symbol_class) + `<label>${t("description")}<textarea id="editDescription">${esc(obj.description)}</textarea></label>`;
-  else for (const key of CLASS_FIELDS) html += field(key, key, obj.attributes?.[key] || "");
-  const b = legend ? obj.source_bbox : obj.bbox;
+  const row = current();
+  if (!row) { $("inspector").innerHTML = `<p>${esc(t("selectHint"))}</p>`; return; }
+  const obj = row.entry || row.detection;
+  let html = `<h3>${esc(rowName(row))}</h3><span class="origin-badge">${esc(row.entry ? legendTypeText(obj) : t(row.origin))}</span><p>${esc(translatedReason(row.reason))}</p>`;
+  if (row.entry?.image_b64) html += `<img alt="${esc(t("sourceCrop"))}" src="data:image/png;base64,${esc(obj.image_b64)}">`;
   const location = rowLocation(row);
-  if (b && location) {
-    const p = state.pages.find(p => p.page_index === location.pageIndex);
+  if (location) {
+    const b = location.bounds, p = state.pages.find(p => p.page_index === location.pageIndex);
     const context = contextBounds(b, p), url = cropUrl(location.pageIndex, context);
-    // Matching highlight in the enlarged detail keeps the selected footprint unambiguous.
-    html += `<a target="_blank" rel="noopener" href="${url}" class="detail-link"><svg class="source-detail" viewBox="0 0 ${context.w} ${context.h}" role="img" aria-label="${t("sourceDetail")}"><image href="${url}" width="${context.w}" height="${context.h}"/><rect x="${b.x-context.x}" y="${b.y-context.y}" width="${b.w}" height="${b.h}"/></svg></a><small>${t("sourceDetail")}</small>`;
+    html += `<a target="_blank" rel="noopener" href="${url}" class="detail-link"><svg class="source-detail" viewBox="0 0 ${context.w} ${context.h}" role="img" aria-label="${esc(t("sourceDetail"))}"><image href="${url}" width="${context.w}" height="${context.h}"/><rect x="${b.x-context.x}" y="${b.y-context.y}" width="${b.w}" height="${b.h}"/></svg></a><small>${esc(t("sourceDetail"))}</small>`;
   }
-  if (b) html += `<div class="box-fields">${BOX_FIELDS.map(key => field(`box_${key}`, key, b[key], "number")).join("")}</div><small>${t("coordinates")}</small>`;
-  html += `<div><button id="save" class="primary">${t("save")}</button><button id="reject">${t("reject")}</button><button id="pending">${t("keepPending")}</button></div>`;
+  html += "<dl>";
+  for (const key of ["id","label","kind","symbol_class","description","confidence","page_index","tile_id","bbox","source_page_index","source_bbox","source","raw_text","source_text_ids","source_path_ids","attributes"]) {
+    if (obj[key] == null) continue;
+    html += `<dt>${esc(t(key))}</dt><dd>${esc(typeof obj[key] === "object" ? JSON.stringify(obj[key], null, 2) : ["kind", "confidence"].includes(key) ? t(obj[key]) : obj[key])}</dd>`;
+  }
+  html += "</dl>";
+  if (row.diagnostics) html += `<details><summary>${esc(t("diagnostics"))}</summary><pre>${esc(JSON.stringify(row.diagnostics, null, 2))}</pre></details>`;
   $("inspector").innerHTML = html;
-  function save(status) {
-    const updated = structuredClone(obj);
-    updated.label = $("editLabel").value.trim(); updated.kind = $("editKind").value;
-    if (legend) { updated.symbol_class = $("editClass").value.trim(); updated.description = $("editDescription").value; }
-    else {
-      updated.attributes ||= {};
-      for (const key of CLASS_FIELDS) {
-        delete updated.attributes[key];
-        if ($(key).value.trim()) updated.attributes[key] = $(key).value.trim();
-      }
-    }
-    if (b) updated[legend ? "source_bbox" : "bbox"] = Object.fromEntries(BOX_FIELDS.map(key => [key, Number($("box_" + key).value)]));
-    act({action:legend ? "save_legend" : "save_symbol", id:row.id, status, [legend ? "entry" : "detection"]:updated});
-  }
-  $("save").onclick = () => save("confirmed");
-  $("reject").onclick = () => save("rejected");
-  $("pending").onclick = () => save("pending");
 }
-function point(event) {
-  const p = new DOMPoint(event.clientX, event.clientY).matrixTransform($("drawing").getScreenCTM().inverse());
-  return {x:Math.round(Math.max(0, Math.min(page().width, p.x))), y:Math.round(Math.max(0, Math.min(page().height, p.y)))};
-}
-function cancelDrawing() { drag = null; drawingBox = false; $("drawing").style.cursor = ""; $("draftBox")?.remove(); }
-$("drawing").onpointerdown = event => {
-  if (!drawingBox) return;
-  event.preventDefault(); drag = point(event); $("drawing").setPointerCapture(event.pointerId);
+for (const [id, name] of [["legendTab","legends"],["symbolTab","symbols"],["candidateTab","candidates"],["textTab","texts"]]) $(id).onclick = () => {
+  tab = name; selected = null; render();
 };
-$("drawing").onpointermove = event => {
-  if (!drag) return;
-  const p = point(event); $("draftBox")?.remove();
-  $("drawing").append(svgElement("rect", {id:"draftBox", x:Math.min(drag.x,p.x), y:Math.min(drag.y,p.y), width:Math.abs(drag.x-p.x), height:Math.abs(drag.y-p.y), fill:SELECTED_COLOR, stroke:SELECTED_COLOR}));
-};
-$("drawing").onpointerup = event => {
-  if (!drag) return;
-  const p = point(event), bbox = {x:Math.min(drag.x,p.x), y:Math.min(drag.y,p.y), w:Math.abs(drag.x-p.x), h:Math.abs(drag.y-p.y)};
-  cancelDrawing();
-  if (!bbox.w || !bbox.h) return;
-  draft = {detection:{id:"new", page_index:page().page_index, tile_id:"manual-review", kind:"equipment", label:"", bbox, confidence:"high", attributes:{}, source_text_ids:[]}};
-  renderInspector();
-};
-$("drawing").onpointercancel = cancelDrawing;
-$("add").onclick = () => {
-  selected = null; draft = null; cancelDrawing();
-  if (tab === "legends") draft = {entry:{label:"", kind:"other", symbol_class:"", source:"customer_override"}};
-  else { if (page().role !== "pid") return; drawingBox = true; $("drawing").style.cursor = "crosshair"; }
+$("page").onchange = () => { selected = null; zoom = 1; render(); };
+for (const id of ["filter","search","legendType","kindFilter"]) $(id).addEventListener(id === "search" ? "input" : "change", () => {
+  if (!rows().some(row => row.id === selected)) selected = null;
   render();
+});
+for (const id of ["layout","background"]) $(id).onchange = () => { renderDrawing(); if (current() && $("autoFocus").checked) focusSelected(); };
+for (const [id, panel] of [["toggleList","list"],["toggleInspector","inspector"]]) $(id).onclick = () => {
+  const hidden = document.querySelector(".review-layout").classList.toggle(`hide-${panel}`);
+  $(id).setAttribute("aria-pressed", String(!hidden)); renderDrawing();
 };
-$("bulk").onclick = () => {
-  const ids = rows().filter(row => row.status === "pending" && !row.stale && (tab === "legends" || row.origin === "detected")).map(row => row.id);
-  if (ids.length && confirm(t(tab === "legends" ? "confirmLegendQuestion" : "confirmDetectedQuestion", {count:ids.length}))) act({action:tab === "legends" ? "confirm_legends" : "confirm_detected", ids});
-};
-$("rejectCandidates").onclick = () => {
-  const ids = rows().filter(row => row.status === "pending" && ["native_candidate","proposal"].includes(row.origin)).map(row => row.id);
-  if (ids.length && confirm(t("rejectQuestion", {count:ids.length}))) act({action:"reject_candidates", ids});
-};
-$("coverage").onchange = () => act({action:"coverage", page_index:page().page_index, checked:$("coverage").checked});
-$("undo").onclick = () => act({action:"undo"});
-$("build").onclick = () => { location.href = "/?" + new URLSearchParams({reviewed_run:runDir, reviewed_revision:state.revision}); };
-$("buildDraft").onclick = () => { location.href = "/?" + new URLSearchParams({reviewed_run:runDir, reviewed_revision:state.revision, draft:"true"}); };
-for (const [id, name] of [["legendTab","legends"],["symbolTab","symbols"]]) $(id).onclick = () => {
-  tab = name; selected = null; draft = null; cancelDrawing(); render();
-};
-$("page").onchange = () => { selected = null; draft = null; zoom = 1; cancelDrawing(); render(); };
-for (const id of ["filter","search","legendType"]) $(id).addEventListener(id === "search" ? "input" : "change", render);
+for (const id of ["viewport", "sourceViewport"]) {
+  const viewport = $(id); let pan = null;
+  viewport.onpointerdown = event => {
+    if (event.button !== 0 || event.target.closest("rect")) return;
+    pan = {x:event.clientX, y:event.clientY, left:viewport.scrollLeft, top:viewport.scrollTop};
+    viewport.setPointerCapture(event.pointerId);
+  };
+  viewport.onpointermove = event => { if (pan) { viewport.scrollLeft = pan.left + pan.x - event.clientX; viewport.scrollTop = pan.top + pan.y - event.clientY; } };
+  viewport.onpointerup = viewport.onpointercancel = () => { pan = null; };
+  viewport.onscroll = () => {
+    const other = $(id === "viewport" ? "sourceViewport" : "viewport");
+    if (other.scrollLeft !== viewport.scrollLeft) other.scrollLeft = viewport.scrollLeft;
+    if (other.scrollTop !== viewport.scrollTop) other.scrollTop = viewport.scrollTop;
+  };
+}
 $("zoomIn").onclick = () => setZoom(zoom * 1.4);
 $("zoomOut").onclick = () => setZoom(zoom / 1.4);
 $("fit").onclick = () => { zoom = 1; renderDrawing(); $("viewport").scrollTo(0,0); };
 $("focus").onclick = focusSelected;
 $("autoFocus").onchange = () => { saveSetting("diagex.detection.autoFocus", String($("autoFocus").checked)); if ($("autoFocus").checked) focusSelected(); };
 $("languageSwitch").onchange = () => {
-  // Preserve unsaved fields and current selection when changing UI language.
-  const values = [...$("inspector").querySelectorAll("input,select,textarea")].map(input => [input.id,input.value]);
   language = $("languageSwitch").value;
-  saveSetting("diagex.web.language", language); saveSetting("diagex.review.language", language);
+  saveSetting("diagex.web.language", language);
   applyLanguage();
-  if (state) { renderPages(); render(); for (const [id,value] of values) if ($(id)) $(id).value = value; }
+  if (state) { renderPages(); render(); }
+
 };
 async function load() {
   try {
-    state = await api(`/api/detection-review?${new URLSearchParams({run_dir:runDir})}`);
-    $("error").classList.add("hidden"); renderPages(); render();
+    const initial = !state;
+    state = await api(`/api/detections?${new URLSearchParams({run_dir:runDir})}`);
+    $("error").classList.add("hidden"); renderPages();
+    if (initial && state.symbols.length) $("page").value = String(state.symbols[0].detection.page_index);
+    render();
+    if (!state.source_available) error(new Error(t("missingSource")));
   } catch (e) { error(e); }
 }
-$("reload").onclick = () => { draft = null; load(); };
+$("reload").onclick = load;
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => { if (state) { if (current() && $("autoFocus").checked) focusSelected(); else renderDrawing(); } }, 100);
 });
+for (const kind of ["detection", "legend"]) {
+  const link = $(kind === "detection" ? "downloadDetection" : "downloadLegend");
+  link.href = `/api/detection-download?${new URLSearchParams({run_dir:runDir, kind})}`;
+  link.download = `${kind}.json`;
+}
 applyLanguage();
 load();
